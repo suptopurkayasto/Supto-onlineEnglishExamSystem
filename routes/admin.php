@@ -2,6 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return 'ok';
-});
+Route::get('/', 'Admin\AdminController@index')->name('admin.dashboard');
