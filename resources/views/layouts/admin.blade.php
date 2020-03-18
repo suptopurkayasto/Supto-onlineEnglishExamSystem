@@ -22,6 +22,7 @@
 <div class="wrapper">
 
     @yield('navigation')
+
     @yield('sidebar')
 
     <!-- Content Wrapper. Contains page content -->

@@ -6,3 +6,4 @@
 @section('sidebar')
     <x-sidebar :admin="$admin"></x-sidebar>
 @endsection
+

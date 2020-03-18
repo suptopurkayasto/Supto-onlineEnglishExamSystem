@@ -10,9 +10,11 @@ return [
     |
     */
 
-    'creator' => [
+    'developer' => [
         'name' => 'Supto Purkayasto',
-        'email' => 'suptopurkayasto@gmail.com'
+        'email' => 'suptopurkayasto@gmail.com',
+        'web_url' => 'https://www.suptopurkayasto.com',
+        'app_version' => 'v1.0 alpha'
     ],
 
     /*

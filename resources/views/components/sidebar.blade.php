@@ -1,12 +1,12 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
+    <a target="_blank" href="{{ config('app.developer.web_url') }}" class="brand-link">
         <img src="http://placehold.it/140x140"
              alt="AdminLTE Logo"
              class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light">{{ config('app.creator.name') }}</span>
+        <span class="brand-text font-weight-light">{{ config('app.developer.name') }}</span>
     </a>
 
     <!-- Sidebar -->
