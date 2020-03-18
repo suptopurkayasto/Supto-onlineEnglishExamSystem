@@ -17,7 +17,7 @@
                 <img src="http://placehold.it/500x500" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="{{ route('admin.dashboard') }}" class="d-block">@if(isset($admin)) {{ $admin->name }} @endif</a>
+                <a href="@auth('admin') {{ route('admin.dashboard') }} @elseauth('teacher') {{ 'teacher' }} @endauth" class="d-block">@if(isset($admin)) {{ $admin->name }} @endif</a>
             </div>
         </div>
 
