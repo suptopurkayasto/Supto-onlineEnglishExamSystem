@@ -25,7 +25,7 @@
                         <td>{{ $student->id_number }}</td>
                         <td>{{ $student->email }}</td>
                         <td>
-                            <button class="btn btn-primary btn-block btn-hover-effect">View</button>
+                            <a href="{{ route('admin.students.show', $student->id_number) }}" class="btn btn-primary btn-block btn-hover-effect">View</a>
                         </td>
                     </tr>
                 @endforeach

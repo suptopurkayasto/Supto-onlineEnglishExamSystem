@@ -42,4 +42,9 @@ class Student extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($password);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'id_number';
+    }
 }

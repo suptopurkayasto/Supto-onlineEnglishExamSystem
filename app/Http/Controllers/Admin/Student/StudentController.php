@@ -50,7 +50,8 @@ class StudentController extends Controller
         $student = new Student();
 
         $data = $request->only('name', 'email', 'password');
-        $data['id_number'] = rand(100000, 999999);
+        $data['id_number'] = now('asia/dhaka')->format('msms');
+
         $student->create($data);
         toast('Student was added successfully!','success');
         session()->flash('success_audio');
@@ -60,12 +61,12 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Student $student
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(Student $student)
     {
-        //
+        return view('admin.student.show', compact('student'));
     }
 
     /**
