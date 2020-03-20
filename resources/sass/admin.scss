@@ -1,6 +1,9 @@
 
 @import "~animate.css";
 
+[class*=sidebar-dark-] {
+    background-color: #001f3f;
+}
 
 .btn-hover-effect {
     &:hover {

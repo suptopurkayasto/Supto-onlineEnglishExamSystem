@@ -13,7 +13,7 @@
         <li class="nav-item dropdown">
             <a class="navbar-brand" data-toggle="dropdown" href="#">
                 @auth('admin') {{ auth()->guard('admin')->user()->name }} @endauth
-                <img src="http://placehold.it/140x140"
+                <img src="{{ Gravatar::get(auth()->guard('admin')->user()->email) }}"
                      alt="AdminLTE Logo"
                      height="30"
                      width="30"

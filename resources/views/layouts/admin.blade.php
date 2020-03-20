@@ -11,7 +11,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Data table -->
-    <link rel="stylesheet" href="{{ asset('css/admin/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/dataTables.bootstrap4.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('css/admin/OverlayScrollbars.min.css') }}">
     <!-- Theme style -->

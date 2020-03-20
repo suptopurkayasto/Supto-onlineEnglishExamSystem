@@ -8,10 +8,10 @@ use Illuminate\Support\Str;
 
 $factory->define(Admin::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => 'suptopurkayasto@gmail.com',
+        'name' => 'Supto Purkayasto',
+        'email' => 'developersuptop@gmail.com',
         'email_verified_at' => now(),
-        'password' => '$2y$10$F7vBAxMetBW0oYHdNTFhl.jBWrNXT31akI5m4T9MVbq9I8d5xI5ce', // suptopurkayasto@gmail.com
+        'password' => '$2y$10$HqBxYbJc/fkW/3GzuSurvenpOhmVXmN.cBhOEOrbDodc7M0KwOv9i', // developersuptop@gmail.com
         'remember_token' => Str::random(10),
     ];
 });
