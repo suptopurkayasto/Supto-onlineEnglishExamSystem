@@ -52,6 +52,31 @@
                         </li>
                     </ul>
                 </li>
+
+
+                <li class="nav-item has-treeview {{ request()->segment(2) === 'teachers' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->segment(2) === 'teachers' ? 'active' : '' }}">
+                        <i class="fas fa-user-graduate nav-icon"></i>
+                        <p>
+                            Teachers
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.teachers.index') }}" class="nav-link {{ request()->url() === route('admin.teachers.index') ? 'active' : '' }}">
+                                <i class="fas fa-users nav-icon"></i>
+                                <p>All teacher</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.teachers.create') }}" class="nav-link {{ request()->url() === route('admin.teachers.create') ? 'active' : '' }}">
+                                <i class="fas fa-user-plus nav-icon"></i>
+                                <p>Add teacher</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -11,7 +11,15 @@ function showPassword() {
     })
 }
 
+function updatePassword() {
+    var target = $("#updatePassword");
+    target.click(function() {
+        $('#updatePasswordSec').toggleClass('d-none');
+    })
+}
+
 $(document).ready(function () {
     "use strict";
     showPassword();
+    updatePassword();
 });
