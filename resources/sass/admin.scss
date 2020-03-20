@@ -1,0 +1,9 @@
+
+@import "~animate.css";
+
+
+.btn-hover-effect {
+    &:hover {
+        animation: pulse 1s;
+    }
+}

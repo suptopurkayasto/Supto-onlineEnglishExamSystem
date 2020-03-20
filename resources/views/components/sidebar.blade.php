@@ -17,7 +17,10 @@
                 <img src="http://placehold.it/500x500" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="@auth('admin') {{ route('admin.dashboard') }} @elseauth('teacher') {{ 'teacher' }} @endauth" class="d-block">@if(isset($admin)) {{ $admin->name }} @endif</a>
+                <a href="@auth('admin') {{ route('admin.dashboard') }} @elseauth('teacher') {{ 'teacher' }} @endauth"
+                   class="d-block">
+                    @auth('admin') {{ auth()->guard('admin')->user()->name }} @endauth
+                </a>
             </div>
         </div>
 
@@ -26,31 +29,25 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                <li class="nav-item has-treeview {{ request()->segment(2) === 'students' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->segment(2) === 'students' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user-tie"></i>
                         <p>
-                            Dashboard
+                            Students
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../../index.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v1</p>
+                            <a href="{{ route('admin.students.index') }}" class="nav-link {{ request()->url() === route('admin.students.index') ? 'active' : '' }}">
+                                <i class="fas fa-users nav-icon"></i>
+                                <p>All Students</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../../index2.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v2</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../../index3.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v3</p>
+                            <a href="{{ route('admin.students.create') }}" class="nav-link {{ request()->url() === route('admin.students.create') ? 'active' : '' }}">
+                                <i class="fas fa-user-plus nav-icon"></i>
+                                <p>Add Student</p>
                             </a>
                         </li>
                     </ul>

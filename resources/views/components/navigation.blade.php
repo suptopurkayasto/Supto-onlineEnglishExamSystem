@@ -12,7 +12,7 @@
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="navbar-brand" data-toggle="dropdown" href="#">
-                @if(isset($admin)) {{ $admin->name }} @endif
+                @auth('admin') {{ auth()->guard('admin')->user()->name }} @endauth
                 <img src="http://placehold.it/140x140"
                      alt="AdminLTE Logo"
                      height="30"
@@ -20,9 +20,12 @@
                      class="d-inline-block align-top">
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <a href="#" class="dropdown-item">
+                <button onclick="document.getElementById('admin-logout-form').submit()" class="dropdown-item">
                     Log out
-                </a>
+                </button>
+                <form id="admin-logout-form" action="{{ route('logout') }}" method="post">
+                    @csrf
+                </form>
             </div>
         </li>
     </ul>
