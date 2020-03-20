@@ -95,11 +95,16 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Student $student
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        toast('Student was added successfully!','success');
+        session()->flash('success_audio');
+        return redirect()->route('admin.students.index');
+
     }
 }

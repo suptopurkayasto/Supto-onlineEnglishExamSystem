@@ -46,8 +46,8 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.students.create') }}" class="nav-link {{ request()->url() === route('admin.students.create') ? 'active' : '' }}">
-                                <i class="fas fa-users nav-icon"></i>
-                                <p>Create Student</p>
+                                <i class="fas fa-user-plus nav-icon"></i>
+                                <p>Add Student</p>
                             </a>
                         </li>
                     </ul>

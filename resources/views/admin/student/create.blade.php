@@ -32,7 +32,7 @@
                         <label for="email">Student email</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <input type="text" name="email" id="email"
+                        <input type="email" name="email" id="email"
                                class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
                                required>
                         @error('email')
@@ -48,7 +48,7 @@
                         <label for="password">Student password</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <input type="text" name="password" id="password"
+                        <input type="password" name="password" id="password"
                                class="form-control @error('password') is-invalid @enderror"
                                required>
                         @error('password')
@@ -66,7 +66,7 @@
                         <label for="password_confirmation">Student password retype</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <input type="text" name="password_confirmation" id="password_confirmation"
+                        <input type="password" name="password_confirmation" id="password_confirmation"
                                class="form-control @error('password_confirmation') is-invalid @enderror"
                                required>
                         @error('password_confirmation')
