@@ -115,5 +115,7 @@
 
 @include('sweetalert::alert')
 
+<script src="{{ asset('js/admin/password.js') }}"></script>
+
 </body>
 </html>

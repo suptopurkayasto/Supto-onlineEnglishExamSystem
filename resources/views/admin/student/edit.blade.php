@@ -1,15 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Student add')
+@section('title', 'Student Edit - ' . $student->name)
 
-@section('content-title', 'Student Add')
+@section('content-title', 'Edit - ' . $student->name)
 
 @section('content')
 
     <div class="card">
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('admin.students.store') }}" method="post">
+            <form action="{{ route('admin.students.update', $student->id_number) }}" method="post">
+                @method('PATCH')
                 @csrf
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
@@ -17,8 +18,8 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <input type="text" name="name" id="name"
-                               class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
-                               required>
+                               class="form-control @error('name') is-invalid @enderror" value="{{ $student->name }}"
+                               >
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -33,8 +34,8 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <input type="email" name="email" id="email"
-                               class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
-                               required>
+                               class="form-control @error('email') is-invalid @enderror" value="{{ $student->email }}"
+                               >
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -50,7 +51,7 @@
                     <div class="col-12 col-md-8">
                         <input type="password" name="password" id="password"
                                class="form-control @error('password') is-invalid @enderror"
-                               required>
+                               >
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -68,13 +69,15 @@
                     <div class="col-12 col-md-8">
                         <input type="password" name="password_confirmation" id="password_confirmation"
                                class="form-control @error('password_confirmation') is-invalid @enderror"
-                               required>
+                               >
                         @error('password_confirmation')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div><!-- /.col-12 col-md-8 -->
+
+
                 </div><!-- /.form-group -->
 
                 <div class="form-group row">
@@ -93,7 +96,7 @@
                     <div class="col-12 col-md-4">
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <button type="submit" class="btn bg-gradient-primary">Add Student</button>
+                        <button type="submit" class="btn bg-gradient-primary">Update Student</button>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
             </form>
