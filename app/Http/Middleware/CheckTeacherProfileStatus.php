@@ -16,7 +16,7 @@ class CheckTeacherProfileStatus
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::guard('teacher')->check() && Auth::guard('teacher')->user()->proflie_status) {
+        if (Auth::guard('teacher')->user()->profile_status) {
             return $next($request);
         }
         return redirect()->route('teacher.dashboard');

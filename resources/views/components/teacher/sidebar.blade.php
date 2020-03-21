@@ -44,15 +44,15 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.students.index') }}"
-                                       class="nav-link {{ request()->url() === route('admin.students.index') ? 'active' : '' }}">
+                                    <a href="{{ route('teacher.students.index') }}"
+                                       class="nav-link {{ request()->url() === route('teacher.students.index') ? 'active' : '' }}">
                                         <i class="fas fa-users nav-icon"></i>
                                         <p>All Students</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.students.create') }}"
-                                       class="nav-link {{ request()->url() === route('admin.students.create') ? 'active' : '' }}">
+                                    <a href="{{ route('teacher.students.create') }}"
+                                       class="nav-link {{ request()->url() === route('teacher.students.create') ? 'active' : '' }}">
                                         <i class="fas fa-user-plus nav-icon"></i>
                                         <p>Add Student</p>
                                     </a>
