@@ -11,7 +11,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Data table -->
-    <link rel="stylesheet" href="{{ asset('css/admin/dataTables.bootstrap4.css') }}">
+    @yield('data-table-js')
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('css/admin/OverlayScrollbars.min.css') }}">
     <!-- Theme style -->
@@ -38,13 +38,13 @@
                     <div class="col-sm-6">
                         <h1>@yield('content-title')</h1>
                     </div>
-{{--                    <div class="col-sm-6">--}}
-{{--                        <ol class="breadcrumb float-sm-right">--}}
-{{--                            <li class="breadcrumb-item"><a href="#">Home</a></li>--}}
-{{--                            <li class="breadcrumb-item"><a href="#">Layout</a></li>--}}
-{{--                            <li class="breadcrumb-item active">Fixed Layout</li>--}}
-{{--                        </ol>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="col-sm-6">--}}
+                    {{--                        <ol class="breadcrumb float-sm-right">--}}
+                    {{--                            <li class="breadcrumb-item"><a href="#">Home</a></li>--}}
+                    {{--                            <li class="breadcrumb-item"><a href="#">Layout</a></li>--}}
+                    {{--                            <li class="breadcrumb-item active">Fixed Layout</li>--}}
+                    {{--                        </ol>--}}
+                    {{--                    </div>--}}
                 </div>
             </div><!-- /.container-fluid -->
         </section>
@@ -78,19 +78,13 @@
 <x-teacher.success-audio></x-teacher.success-audio>
 
 
-
-
-
-
-
 <!-- jQuery -->
 <script src="{{ asset('js/admin/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('js/admin/bootstrap.bundle.min.js') }}"></script>
 
 <!-- Data table -->
-<script src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('css/admin/dataTables.bootstrap4.min.css') }}"></script>
+@yield('data-table-js')
 
 <!-- overlayScrollbars -->
 <script src="{{ asset('js/admin/jquery.overlayScrollbars.min.js') }}"></script>
@@ -98,20 +92,6 @@
 <script src="{{ asset('js/admin/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('js/admin/demo.js') }}"></script>
-
-<script>
-    $(document).ready(function() {
-        $("#example1").DataTable();
-        // $('#example2').DataTable({
-        //     "paging": true,
-        //     "lengthChange": false,
-        //     "searching": false,
-        //     "ordering": true,
-        //     "info": true,
-        //     "autoWidth": false,
-        // });
-    });
-</script>
 
 @include('sweetalert::alert')
 

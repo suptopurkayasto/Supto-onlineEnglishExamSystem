@@ -9,7 +9,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <table id="example1" class="table border-0 table-striped table-hover custom-table-style">
+            <table id="example" class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style" style="width: 100%">
                 <thead>
                 <tr>
                     <th>#</th>
@@ -31,7 +31,8 @@
                         <td title="{{ 'ID Number: ' . $student->id_number }}">{{ $student->id_number }}</td>
                         <td title="{{ $student->email }}">{{ Str::limit($student->email, 30) }}</td>
                         <td class="text-center">
-                            <a href="{{ route('admin.students.show', $student->id_number) }}" class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
+                            <a href="{{ route('admin.students.show', $student->id_number) }}"
+                               class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
                         </td>
                     </tr>
                 @endforeach
@@ -41,3 +42,10 @@
         <!-- /.card-body -->
     </div>
 @endsection
+
+@section('data-table-css')
+    @include('partials.data-table-css')
+@stop
+@section('data-table-js')
+    @include('partials.data-table-js')
+@stop

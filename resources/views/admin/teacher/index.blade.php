@@ -9,7 +9,9 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped table-hover">
+            <table id="example"
+                   class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
+                   style="width: 100%">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -23,7 +25,8 @@
                         <td>{{ $teacher->name }}</td>
                         <td>{{ $teacher->email }}</td>
                         <td>
-                            <a href="{{ route('admin.teachers.show', $teacher->id) }}" class="btn btn-primary btn-block btn-hover-effect">View</a>
+                            <a href="{{ route('admin.teachers.show', $teacher->id) }}"
+                               class="btn btn-primary btn-block btn-hover-effect">View</a>
                         </td>
                     </tr>
                 @endforeach
@@ -40,3 +43,11 @@
         <!-- /.card-body -->
     </div>
 @endsection
+
+@section('data-table-css')
+    @include('partials.data-table-css')
+@stop
+
+@section('data-table-js')
+    @include('partials.data-table-js')
+@stop

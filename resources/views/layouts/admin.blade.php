@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="{{ asset('css/admin/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Data table -->
-    <link rel="stylesheet" href="{{ asset('css/admin/dataTables.bootstrap4.css') }}">
+
+    @yield('data-table-css')
+
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('css/admin/OverlayScrollbars.min.css') }}">
     <!-- Theme style -->
@@ -88,9 +89,7 @@
 <!-- Bootstrap 4 -->
 <script src="{{ asset('js/admin/bootstrap.bundle.min.js') }}"></script>
 
-<!-- Data table -->
-<script src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('css/admin/dataTables.bootstrap4.min.css') }}"></script>
+@yield('data-table-js')
 
 <!-- overlayScrollbars -->
 <script src="{{ asset('js/admin/jquery.overlayScrollbars.min.js') }}"></script>
@@ -99,19 +98,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('js/admin/demo.js') }}"></script>
 
-<script>
-    $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-        });
-    });
-</script>
 
 @include('sweetalert::alert')
 

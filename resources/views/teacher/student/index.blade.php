@@ -41,3 +41,11 @@
         <!-- /.card-body -->
     </div>
 @endsection
+
+@section('data-table-css')
+    @include('partials.data-table-css')
+@stop
+@section('data-table-js')
+    @include('partials.data-table-js')
+@stop
+
