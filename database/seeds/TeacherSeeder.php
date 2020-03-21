@@ -14,9 +14,10 @@ class TeacherSeeder extends Seeder
     public function run()
     {
         factory(\App\Teacher::class, 3)->create()->each(function ($teacher) {
-            for ($students = 0; $students < 50; $students++) {
-                $teacher->students()->save(factory(\App\Student::class)->make());
-            }
+                $teacher->students()->save(factory(\App\Student::class)->make(['section_id' => '1', 'group_id' => 1]));
+                $teacher->students()->save(factory(\App\Student::class)->make(['section_id' => '2', 'group_id' => 2]));
+                $teacher->students()->save(factory(\App\Student::class)->make(['section_id' => '3', 'group_id' => 1]));
+                $teacher->students()->save(factory(\App\Student::class)->make(['section_id' => '4', 'group_id' => 2]));
         });
     }
 }

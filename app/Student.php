@@ -52,4 +52,12 @@ class Student extends Authenticatable
     {
         return $this->belongsTo(Teacher::class);
     }
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
+    }
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
 }
