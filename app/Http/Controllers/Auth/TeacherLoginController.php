@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,25 +36,21 @@ class TeacherLoginController extends Controller
 
         // Validate from data
         $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:6'
+            'email' => 'required',
+            'password' => 'required'
         ]);
-//
-//        // Attempt to log user in
+        // Attempt to log user in
         $credentials = [
             'email' => $request->email,
             'password' => $request->password
         ];
-
 
         if (Auth::guard('teacher')->attempt($credentials, $request->remember)) {
 
             // If successful, then redirect their intended location
             return redirect()->intended(route('teacher.dashboard'));
 
-        }
-
-        else {
+        } else {
 
             // If unsuccessful, then redirect to login from with from data
             return redirect()->back()->withInput($request->only('email', 'remember'));

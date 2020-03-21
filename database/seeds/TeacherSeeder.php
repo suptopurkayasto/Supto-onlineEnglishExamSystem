@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class TeacherSeeder extends Seeder
@@ -16,7 +17,7 @@ class TeacherSeeder extends Seeder
             'name' => 'Teacher Supto Purkayasto',
             'email' => 'password@gmail.com',
             'email_verified_at' => now(),
-            'password' => '$2y$10$YOJLRKdEMDxCxu6UnNgiWOEb5aIfeE3CarRvpLd6za07d6sYT9gGG', // password
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ]);
         factory(\App\Teacher::class, 2)->create();
