@@ -46,51 +46,66 @@
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
-                        <label for="password">Student password</label>
-                    </div><!-- /.col-12 col-md-4 -->
-                    <div class="col-12 col-md-8">
-                        <input type="password" name="password" id="password"
-                               class="form-control @error('password') is-invalid @enderror"
-                               >
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div><!-- /.col-12 col-md-8 -->
-
-
-                </div><!-- /.form-group -->
-
-                <div class="form-group row">
-                    <div class="col-12 col-md-4">
-                        <label for="password_confirmation">Student password confirm</label>
-                    </div><!-- /.col-12 col-md-4 -->
-                    <div class="col-12 col-md-8">
-                        <input type="password" name="password_confirmation" id="password_confirmation"
-                               class="form-control @error('password_confirmation') is-invalid @enderror"
-                               >
-                        @error('password_confirmation')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div><!-- /.col-12 col-md-8 -->
-
-
-                </div><!-- /.form-group -->
-
-                <div class="form-group row">
-                    <div class="col-12 col-md-4">
 
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" id="showHide">
-                            <label class="custom-control-label" for="showHide">Show Password</label>
+                            <input type="checkbox" class="custom-control-input" id="updatePassword">
+                            <label class="custom-control-label" for="updatePassword">Update password</label>
                         </div>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
+
+                <div id="updatePasswordSec" class="d-none">
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label for="password">Student password</label>
+                        </div><!-- /.col-12 col-md-4 -->
+                        <div class="col-12 col-md-8">
+                            <input type="password" name="password" id="password"
+                                   class="form-control @error('password') is-invalid @enderror"
+                            >
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                            @enderror
+                        </div><!-- /.col-12 col-md-8 -->
+
+
+                    </div><!-- /.form-group -->
+
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label for="password_confirmation">Student password confirm</label>
+                        </div><!-- /.col-12 col-md-4 -->
+                        <div class="col-12 col-md-8">
+                            <input type="password" name="password_confirmation" id="password_confirmation"
+                                   class="form-control @error('password_confirmation') is-invalid @enderror"
+                            >
+                            @error('password_confirmation')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                            @enderror
+                        </div><!-- /.col-12 col-md-8 -->
+
+
+                    </div><!-- /.form-group -->
+                    
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+
+                        </div><!-- /.col-12 col-md-4 -->
+                        <div class="col-12 col-md-8">
+                            <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                                <input type="checkbox" class="custom-control-input" id="showHide">
+                                <label class="custom-control-label" for="showHide">Show Password</label>
+                            </div>
+                        </div><!-- /.col-12 col-md-8 -->
+                    </div><!-- /.form-group -->
+                </div>
+
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">

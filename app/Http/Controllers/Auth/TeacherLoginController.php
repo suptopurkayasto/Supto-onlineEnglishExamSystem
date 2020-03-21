@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Teacher;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class AdminLoginController extends Controller
+class TeacherLoginController extends Controller
 {
 
     /**
@@ -15,7 +15,7 @@ class AdminLoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:teacher')->except('teacherLogout');
     }
 
     /**
@@ -23,7 +23,7 @@ class AdminLoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('auth.admin-login');
+        return view('auth.teacher-login');
     }
 
     /**
@@ -36,25 +36,21 @@ class AdminLoginController extends Controller
 
         // Validate from data
         $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:6'
+            'email' => 'required',
+            'password' => 'required'
         ]);
-//
-//        // Attempt to log user in
+        // Attempt to log user in
         $credentials = [
             'email' => $request->email,
             'password' => $request->password
         ];
 
-
-        if (Auth::guard('admin')->attempt($credentials, $request->remember)) {
+        if (Auth::guard('teacher')->attempt($credentials, $request->remember)) {
 
             // If successful, then redirect their intended location
-            return redirect()->intended(route('admin.dashboard'));
+            return redirect()->intended(route('teacher.dashboard'));
 
-        }
-
-        else {
+        } else {
 
             // If unsuccessful, then redirect to login from with from data
             return redirect()->back()->withInput($request->only('email', 'remember'));
@@ -62,12 +58,10 @@ class AdminLoginController extends Controller
         }
     }
 
-    public function logout()
+    public function teacherLogout()
     {
-        Auth::guard('admin')->logout();
+        Auth::guard('teacher')->logout();
 
-        return redirect()->route('admin.login');
+        return redirect()->route('teacher.login');
     }
-
-
 }

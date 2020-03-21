@@ -3151,6 +3151,10 @@
     animation-iteration-count: 1 !important;
   }
 }
+[class*=sidebar-dark-] {
+  background-color: #001f3f;
+}
+
 .btn-hover-effect:hover {
   -webkit-animation: pulse 1s;
           animation: pulse 1s;

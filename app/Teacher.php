@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 
 class Teacher extends Authenticatable
 {
+
+    protected $guard = 'teacher';
+
     use Notifiable;
 
     /**
@@ -38,8 +41,8 @@ class Teacher extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = Hash::make($password);
-    }
+//    public function setPasswordAttribute($password)
+//    {
+//        $this->attributes['password'] = Hash::make($password);
+//    }
 }
