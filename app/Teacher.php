@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 
 class Teacher extends Authenticatable
 {
+
+    protected $guard = 'teacher';
+
     use Notifiable;
 
     /**
