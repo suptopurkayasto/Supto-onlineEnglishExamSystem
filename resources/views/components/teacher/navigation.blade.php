@@ -12,7 +12,7 @@
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="navbar-brand" data-toggle="dropdown" href="#">
-                @auth('admin') {{ auth()->guard('teacher')->user()->name }} @endauth
+                @auth('teacher') {{ auth()->guard('teacher')->user()->name }} @endauth
                 <img src="{{ Gravatar::get(auth()->guard('teacher')->user()->email) }}"
                      height="30"
                      width="30"

@@ -18,9 +18,9 @@
                      alt="">
             </div>
             <div class="info">
-                <a href="@auth('admin') {{ route('admin.dashboard') }} @elseauth('teacher') {{ 'teacher' }} @endauth"
+                <a href="@auth('teacher') {{ route('teacher.dashboard') }} @elseauth('teacher') {{ 'teacher' }} @endauth"
                    class="d-block">
-                    @auth('admin') {{ auth()->guard('admin')->user()->name }} @endauth
+                    @auth('teacher') {{ auth()->guard('teacher')->user()->name }} @endauth
                 </a>
             </div>
         </div>
