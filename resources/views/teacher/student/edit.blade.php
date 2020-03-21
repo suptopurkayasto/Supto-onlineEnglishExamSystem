@@ -30,6 +30,53 @@
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
+                        <label for="group">Student group</label>
+                    </div><!-- /.col-12 col-md-4 -->
+                    <div class="col-12 col-md-8">
+                        <select name="group" id="group" class="form-control @error('group') is-invalid @enderror">
+                            <option disabled>Select group</option>
+                            @foreach($groups as $group)
+                                <option
+                                    @if($group->id === $student->group->id)
+                                    selected
+                                    @endif
+                                    value="{{ $group->id }}">{{ $group->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('group')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div><!-- /.col-12 col-md-8 -->
+                </div><!-- /.form-group row -->
+
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                        <label for="section">Student section</label>
+                    </div><!-- /.col-12 col-md-4 -->
+                    <div class="col-12 col-md-8">
+                        <select name="section" id="section"
+                                class="form-control  @error('section') is-invalid @enderror">
+                            <option disabled>Select section</option>
+                            @foreach($sections as $section)
+                                <option
+                                    @if($section->id === $student->section->id)
+                                    selected
+                                    @endif
+                                    value="{{ $section->id }}">{{ $section->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('section')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div><!-- /.col-12 col-md-8 -->
+                </div><!-- /.form-group row -->
+
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
                         <label for="email">Student email</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">

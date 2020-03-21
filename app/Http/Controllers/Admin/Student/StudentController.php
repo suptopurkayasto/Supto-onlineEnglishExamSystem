@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin\Student;
 
+use App\Admin;
+use App\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Student\StudentCreateRequest;
 use App\Http\Requests\Admin\Student\UpdateStudentRequest;
+use App\Section;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class StudentController extends Controller
@@ -33,7 +37,9 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.student.create');
+        return view('admin.student.create')
+            ->with('groups', Group::all())
+            ->with('sections', Section::all());
     }
 
     /**
@@ -46,12 +52,14 @@ class StudentController extends Controller
      */
     public function store(StudentCreateRequest $request)
     {
-        $student = new Student();
-
         $data = $request->only('name', 'email', 'password');
+
+        $data['group_id'] = $request->group;
+        $data['section_id'] = $request->section;
+
         $data['id_number'] = Str::upper(Str::random(1)) . now('asia/dhaka')->format('sms') . Str::upper(Str::random(1));
 
-        $student->create($data);
+        Auth::guard('admin')->user()->students()->create($data);
         toast('Student was added successfully!','success');
         session()->flash('success_audio');
         return redirect()->back();
@@ -76,7 +84,10 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('admin.student.edit', compact('student'));
+        return view('admin.student.edit')
+            ->with('student', $student)
+            ->with('groups', Group::all())
+            ->with('sections', Section::all());
     }
 
     /**
@@ -113,17 +124,26 @@ class StudentController extends Controller
     protected function validateUpdateStudentRequest($request) {
         $validateData = $this->validate($request, [
             'name' => 'required|max:255|string',
+            'group' => 'required',
+            'section' => 'required',
             'email' => 'required|max:255|email',
         ]);
+
+        $finalData =  [
+            'name' => $validateData['name'],
+            'group_id' => $validateData['group'],
+            'section_id' => $validateData['section'],
+            'email' => $validateData['email']
+        ];
 
         if ($request->password != null) {
             $validatePassword = $this->validate($request, [
                 'password' => 'required|max:255|min:6|confirmed',
             ]);
 
-            $validateData = array_merge($validateData, $validatePassword);
+            $finalData['password'] = $validatePassword['password'];
         }
 
-        return $validateData;
+        return $finalData;
     }
 }

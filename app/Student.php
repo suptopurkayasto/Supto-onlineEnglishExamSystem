@@ -17,7 +17,7 @@ class Student extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'id_number', 'teacher_id'
+        'name', 'email', 'password', 'id_number', 'teacher_id', 'group_id', 'section_id'
     ];
 
     /**
@@ -48,6 +48,10 @@ class Student extends Authenticatable
         return 'id_number';
     }
 
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);

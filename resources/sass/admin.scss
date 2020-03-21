@@ -1,6 +1,6 @@
 
 @import "~animate.css";
-
+@import "custom_variables";
 [class*=sidebar-dark-] {
     background-color: #001f3f;
 }
@@ -8,5 +8,31 @@
 .btn-hover-effect {
     &:hover {
         animation: pulse 1s;
+    }
+}
+table.custom-table-style {
+    thead {
+        tr {
+            th {
+                border-top: 0;
+                border-bottom-color: $primary-admin;
+            }
+        }
+    }
+    tbody {
+        tr {
+            background-color: white;
+            &:nth-of-type(odd) {
+                background-color: transparentize($primary-admin, .9) !important;
+            }
+            &:hover {
+                background-color: transparentize($primary-admin, .6) !important;
+            }
+            td {
+                border: 0;
+                padding: .25rem !important;
+                vertical-align: middle !important;
+            }
+        }
     }
 }
