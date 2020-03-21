@@ -9,35 +9,33 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped table-hover">
+            <table id="example1" class="table border-0 table-striped table-hover custom-table-style">
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th>Name</th>
+                    <th>Group</th>
+                    <th>Section</th>
                     <th>ID Number</th>
                     <th>Email</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($students as $student)
+                @foreach($students as $index => $student)
                     <tr>
-                        <td>{{ $student->name }}</td>
-                        <td>{{ $student->id_number }}</td>
-                        <td>{{ $student->email }}</td>
-                        <td>
-                            <a href="{{ route('admin.students.show', $student->id_number) }}" class="btn btn-primary btn-block btn-hover-effect">View</a>
+                        <td>{{ $index + 1 }}</td>
+                        <td title="{{ $student->name }}">{{ Str::limit($student->name, 20) }}</td>
+                        <td title="{{ 'Group: ' . $student->group->name }}">{{ $student->group->name }}</td>
+                        <td title="{{ 'Section: ' . $student->section->name }}">{{ $student->section->name }}</td>
+                        <td title="{{ 'ID Number: ' . $student->id_number }}">{{ $student->id_number }}</td>
+                        <td title="{{ $student->email }}">{{ Str::limit($student->email, 30) }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('admin.students.show', $student->id_number) }}" class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>ID Number</th>
-                    <th>Email</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
             </table>
         </div>
         <!-- /.card-body -->
