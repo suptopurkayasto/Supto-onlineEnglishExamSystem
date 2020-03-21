@@ -14,7 +14,6 @@
             <a class="navbar-brand" data-toggle="dropdown" href="#">
                 @auth('admin') {{ auth()->guard('teacher')->user()->name }} @endauth
                 <img src="{{ Gravatar::get(auth()->guard('teacher')->user()->email) }}"
-                     alt="AdminLTE Logo"
                      height="30"
                      width="30"
                      class="d-inline-block align-top">
@@ -23,7 +22,7 @@
                 <button onclick="document.getElementById('admin-logout-form').submit()" class="dropdown-item">
                     Log out
                 </button>
-                <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="post">
+                <form id="admin-logout-form" action="{{ route('teacher.logout') }}" method="post">
                     @csrf
                 </form>
             </div>

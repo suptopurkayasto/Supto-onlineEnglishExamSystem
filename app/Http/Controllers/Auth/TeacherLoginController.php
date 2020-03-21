@@ -15,7 +15,7 @@ class TeacherLoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:teacher')->except('logout');
+        $this->middleware('guest:teacher')->except('teacherLogout');
     }
 
     /**
@@ -62,6 +62,6 @@ class TeacherLoginController extends Controller
     {
         Auth::guard('teacher')->logout();
 
-        return redirect()->route('admin.login');
+        return redirect()->route('teacher.login');
     }
 }
