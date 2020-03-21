@@ -14,7 +14,7 @@ class TeacherLoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:teacher');
+        $this->middleware('guest:teacher')->except('logout');
     }
 
     /**
@@ -46,7 +46,7 @@ class TeacherLoginController extends Controller
         ];
 
 
-        if (Auth::guard('admin')->attempt($credentials, $request->remember)) {
+        if (Auth::guard('teacher')->attempt($credentials, $request->remember)) {
 
             // If successful, then redirect their intended location
             return redirect()->intended(route('teacher.dashboard'));
@@ -59,7 +59,12 @@ class TeacherLoginController extends Controller
             return redirect()->back()->withInput($request->only('email', 'remember'));
 
         }
+    }
 
+    public function teacherLogout()
+    {
+        Auth::guard('teacher')->logout();
 
+        return redirect()->route('admin.login');
     }
 }

@@ -23,7 +23,7 @@
                 <button onclick="document.getElementById('admin-logout-form').submit()" class="dropdown-item">
                     Log out
                 </button>
-                <form id="admin-logout-form" action="{{ route('logout') }}" method="post">
+                <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="post">
                     @csrf
                 </form>
             </div>

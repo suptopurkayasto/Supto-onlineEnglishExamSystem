@@ -5,7 +5,7 @@
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                    <div class="card-header">{{ __('Teacher Login') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('teacher.login.submit') }}">
@@ -15,7 +15,7 @@
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autofocus>
 
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">

@@ -44,6 +44,7 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+
         'teacher' => [
             'driver' => 'session',
             'provider' => 'teachers',
@@ -124,7 +125,7 @@ return [
             'throttle' => 60,
         ],
         'teachers' => [
-            'provider' => 'users',
+            'provider' => 'teacher',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
