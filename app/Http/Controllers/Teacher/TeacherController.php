@@ -11,6 +11,7 @@ class TeacherController extends Controller
     public function __construct()
     {
         $this->middleware('auth:teacher');
+        $this->middleware('teacher.profile')->except('index');
     }
     public function index()
     {
