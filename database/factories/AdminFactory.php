@@ -9,9 +9,9 @@ use Illuminate\Support\Str;
 $factory->define(Admin::class, function (Faker $faker) {
     return [
         'name' => 'Supto Purkayasto',
-        'email' => 'developersuptop@gmail.com',
+        'email' => 'suptopurkayasto@gmail.com',
         'email_verified_at' => now(),
-        'password' => '$2y$10$HqBxYbJc/fkW/3GzuSurvenpOhmVXmN.cBhOEOrbDodc7M0KwOv9i', // developersuptop@gmail.com
+        'password' => '$2y$10$WKcMLlxMX7EP7RmU97UVQ.WhoOwJzB7.UNbw.RSSHAcJ2gSlX4QXS', // developersupto@gmail.com
         'remember_token' => Str::random(10),
     ];
 });
