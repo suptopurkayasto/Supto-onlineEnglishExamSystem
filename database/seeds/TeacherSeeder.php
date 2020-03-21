@@ -13,13 +13,10 @@ class TeacherSeeder extends Seeder
      */
     public function run()
     {
-        \App\Teacher::create([
-            'name' => 'Teacher Supto Purkayasto',
-            'email' => 'password@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
-        ]);
-        factory(\App\Teacher::class, 2)->create();
+        factory(\App\Teacher::class, 3)->create()->each(function ($teacher) {
+            for ($students = 0; $students < 50; $students++) {
+                $teacher->students()->save(factory(\App\Student::class)->make());
+            }
+        });
     }
 }

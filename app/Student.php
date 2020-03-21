@@ -17,7 +17,7 @@ class Student extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'id_number'
+        'name', 'email', 'password', 'id_number', 'teacher_id'
     ];
 
     /**
@@ -46,5 +46,10 @@ class Student extends Authenticatable
     public function getRouteKeyName()
     {
         return 'id_number';
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
     }
 }

@@ -1,20 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Student;
+namespace App\Http\Controllers\Teacher\Student;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Student\StudentCreateRequest;
-use App\Http\Requests\Admin\Student\UpdateStudentRequest;
+use App\Http\Requests\Teacher\Student\StudentCreateRequest;
 use App\Student;
+use App\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class StudentController extends Controller
 {
+
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        $this->middleware('auth:teacher');
+        $this->middleware('teacher.profile');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +26,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('admin.student.index')
-            ->with('students', Student::all());
+        return view('teacher.student.index')
+            ->with('students', Student::where('teacher_id', Auth::guard('teacher')->id())->get());
     }
 
     /**
@@ -33,25 +37,21 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.student.create');
+        return view('teacher.student.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StudentCreateRequest $request
-     * @param Student $student
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
      */
     public function store(StudentCreateRequest $request)
     {
-        $student = new Student();
-
         $data = $request->only('name', 'email', 'password');
         $data['id_number'] = Str::upper(Str::random(1)) . now('asia/dhaka')->format('sms') . Str::upper(Str::random(1));
 
-        $student->create($data);
+        Auth::guard('teacher')->user()->students()->create($data);
         toast('Student was added successfully!','success');
         session()->flash('success_audio');
         return redirect()->back();
@@ -65,7 +65,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        return view('admin.student.show', compact('student'));
+        return view('teacher.student.show', compact('student'));
     }
 
     /**
@@ -76,22 +76,27 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('admin.student.edit', compact('student'));
+        return view('teacher.student.edit', compact('student'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param Student $student
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Student $student)
     {
+        $data = $request->only('name', 'email');
+        if ($request->password != null ) {
+            $data['password'] = $request->password;
+        }
+
         $student->update($this->validateUpdateStudentRequest($request));
         toast('Student was updated successfully!','success');
         session()->flash('success_audio');
-        return redirect()->route('admin.students.index');
+        return redirect()->route('teacher.students.index');
     }
 
     /**
@@ -106,8 +111,7 @@ class StudentController extends Controller
         $student->delete();
         toast('Student was deleted successfully!','success');
         session()->flash('success_audio');
-        return redirect()->route('admin.students.index');
-
+        return redirect()->route('teacher.students.index');
     }
 
     protected function validateUpdateStudentRequest($request) {
