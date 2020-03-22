@@ -106,7 +106,7 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        $teacher->delete();
+        $teacher->forceDelete();
         toast('Student was deleted successfully!','success');
         session()->flash('success_audio');
         return redirect()->route('admin.teachers.index');
