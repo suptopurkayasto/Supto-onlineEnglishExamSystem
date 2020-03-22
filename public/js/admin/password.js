@@ -14,7 +14,7 @@ function showPassword() {
 function updatePassword() {
     var target = $("#updatePassword");
     target.click(function() {
-        $('#updatePasswordSec').toggleClass('d-none');
+        $('#updatePasswordSec').toggle().hide();
     })
 }
 

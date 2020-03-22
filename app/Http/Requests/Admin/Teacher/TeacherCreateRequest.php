@@ -24,6 +24,7 @@ class TeacherCreateRequest extends FormRequest
     public function rules()
     {
         return [
+            'location' => 'required|max:255',
             'name' => 'required|max:255|string',
             'email' => 'required|max:255|email|unique:students',
             'password' => 'required|max:255|min:6|confirmed',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Teacher\TeacherCreateRequest;
+use App\Location;
 use App\Teacher;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,7 @@ class TeacherController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware('location.test')->except('index');
     }
 
 /**
@@ -32,7 +34,8 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('admin.teacher.create');
+        return view('admin.teacher.create')
+            ->with('locations', Location::all());
     }
 
     /**
@@ -44,7 +47,10 @@ class TeacherController extends Controller
     public function store(TeacherCreateRequest $request)
     {
         $teacher = new Teacher();
-        $teacher->create($request->only('name', 'email', 'password'));
+        $data = $request->only('name', 'email', 'password');
+        $data['location_id'] = $request->location;
+
+        $teacher->create($data);
         toast('Teacher was added successfully!','success');
         session()->flash('success_audio');
         return redirect()->back();
@@ -58,7 +64,9 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        return view('admin.teacher.show', compact('teacher'));
+        return view('admin.teacher.show')
+            ->with('teacher', $teacher)
+            ->with('locations', Location::all());
     }
 
     /**
@@ -69,7 +77,9 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
-        return view('admin.teacher.edit', compact('teacher'));
+        return view('admin.teacher.edit')
+            ->with('teacher', $teacher)
+            ->with('locations', Location::all());
     }
 
     /**
@@ -81,11 +91,6 @@ class TeacherController extends Controller
      */
     public function update(Request $request, Teacher $teacher)
     {
-        $data = $request->only('name', 'email');
-        if ($request->password != null ) {
-            $data['password'] = $request->password;
-        }
-
         $teacher->update($this->validateUpdateTeacherRequest($request));
         toast('Teacher was updated successfully!','success');
         session()->flash('success_audio');
@@ -109,18 +114,25 @@ class TeacherController extends Controller
 
     protected function validateUpdateTeacherRequest($request) {
         $validateData = $this->validate($request, [
+            'location' => 'required',
             'name' => 'required|max:255|string',
             'email' => 'required|max:255|email',
         ]);
+
+        $finalData = [
+          'location_id' => $validateData['location'],
+          'name' => $validateData['name'],
+          'email' => $validateData['email']
+        ];
 
         if ($request->password != null) {
             $validatePassword = $this->validate($request, [
                 'password' => 'required|max:255|min:6|confirmed',
             ]);
 
-            $validateData = array_merge($validateData, $validatePassword);
+            $finalData['password'] = $validatePassword['password'];
         }
 
-        return $validateData;
+        return $finalData;
     }
 }

@@ -20,7 +20,7 @@ class Teacher extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'location_id'
     ];
 
     /**
@@ -44,5 +44,10 @@ class Teacher extends Authenticatable
     public function students()
     {
         return $this->hasMany(Student::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
     }
 }

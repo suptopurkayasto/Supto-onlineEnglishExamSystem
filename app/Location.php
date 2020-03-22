@@ -11,6 +11,10 @@ class Location extends Model
     use SoftDeletes;
     protected $guarded = [];
 
+    public function teachers()
+    {
+        return $this->hasMany(Student::class);
+    }
 
     public function students()
     {

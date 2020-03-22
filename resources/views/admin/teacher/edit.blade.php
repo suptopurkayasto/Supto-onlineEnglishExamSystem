@@ -12,6 +12,31 @@
             <form action="{{ route('admin.teachers.update', $teacher->id) }}" method="post">
                 @method('PATCH')
                 @csrf
+
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                        <label for="location">Teacher location</label>
+                    </div><!-- /.col-12 col-md-4 -->
+                    <div class="col-12 col-md-8">
+                        <select name="location" id="location" class="form-control @error('location') is-invalid @enderror">
+                            <option disabled>Select group</option>
+                            @foreach($locations as $location)
+                                <option
+                                    @if($location->id === $teacher->location->id)
+                                    selected
+                                    @endif
+                                    value="{{ $location->id }}">{{ $location->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('teacher')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div><!-- /.col-12 col-md-8 -->
+                </div><!-- /.form-group row -->
+
+
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
                         <label for="name">Teacher name</label>
@@ -35,7 +60,7 @@
                     <div class="col-12 col-md-8">
                         <input type="email" name="email" id="email"
                                class="form-control @error('email') is-invalid @enderror" value="{{ $teacher->email }}"
-                               >
+                               autocomplete="false">
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -43,7 +68,6 @@
                         @enderror
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
-
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
@@ -56,7 +80,6 @@
                         </div>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
-
 
                 <div id="updatePasswordSec" class="d-none">
                     <div class="form-group row">
