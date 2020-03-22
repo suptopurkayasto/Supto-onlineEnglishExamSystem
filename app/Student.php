@@ -64,4 +64,9 @@ class Student extends Authenticatable
     {
         return $this->belongsTo(Group::class);
     }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 }

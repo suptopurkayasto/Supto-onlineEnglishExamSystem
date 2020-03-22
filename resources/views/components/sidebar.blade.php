@@ -29,6 +29,33 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
+
+
+                <li class="nav-item has-treeview {{ request()->segment(2) === 'locations' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->segment(2) === 'locations' ? 'active' : '' }}">
+                        <i class="fas fa-map-marker-alt nav-icon"></i>
+                        <p>
+                            Location
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.locations.index') }}" class="nav-link {{ request()->url() === route('admin.locations.index') ? 'active' : '' }}">
+                                <i class="fas fa-map-marker-alt nav-icon"></i>
+                                <p>All Location</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.locations.create') }}" class="nav-link {{ request()->url() === route('admin.locations.create') ? 'active' : '' }}">
+                                <i class="fas fa-plus nav-icon"></i>
+                                <p>Add Location</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
                 <li class="nav-item has-treeview {{ request()->segment(2) === 'students' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->segment(2) === 'students' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-tie"></i>

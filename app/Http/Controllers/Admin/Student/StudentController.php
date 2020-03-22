@@ -6,7 +6,6 @@ use App\Admin;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Student\StudentCreateRequest;
-use App\Http\Requests\Admin\Student\UpdateStudentRequest;
 use App\Section;
 use App\Student;
 use Illuminate\Http\Request;
@@ -18,6 +17,7 @@ class StudentController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware('location.test');
     }
     /**
      * Display a listing of the resource.

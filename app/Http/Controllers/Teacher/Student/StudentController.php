@@ -19,6 +19,7 @@ class StudentController extends Controller
     {
         $this->middleware('auth:teacher');
         $this->middleware('teacher.profile');
+
     }
 
     /**

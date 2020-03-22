@@ -15,6 +15,7 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('location_id');
             $table->foreignId('admin_id')->default(0);
             $table->foreignId('teacher_id')->default(0);
             $table->foreignId('section_id');
