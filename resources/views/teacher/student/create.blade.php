@@ -11,6 +11,23 @@
         <div class="card-body">
             <form action="{{ route('teacher.students.store') }}" method="post">
                 @csrf
+
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                        <label for="location">Student location</label>
+                    </div><!-- /.col-12 col-md-4 -->
+                    <div class="col-12 col-md-8">
+                        <select name="location" id="location" class="form-control @error('location') is-invalid @enderror">
+                            <option selected value="{{ auth()->guard('teacher')->user()->location->id }}">{{ auth()->guard('teacher')->user()->location->name }}</option>
+                        </select>
+                        @error('location')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div><!-- /.col-12 col-md-8 -->
+                </div><!-- /.form-group row -->
+
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
                         <label for="name">Student name</label>

@@ -9,6 +9,23 @@
     <div class="card">
         <!-- /.card-header -->
         <div class="card-body">
+
+            <div class="form-group row">
+                <div class="col-12 col-md-4">
+                    <label for="location">Student location</label>
+                </div><!-- /.col-12 col-md-4 -->
+                <div class="col-12 col-md-8">
+                    <select name="location" id="location" class="form-control @error('location') is-invalid @enderror" readonly>
+                        <option selected value="{{ auth()->guard('teacher')->user()->location->id }}">{{ auth()->guard('teacher')->user()->location->name }}</option>
+                    </select>
+                    @error('location')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div><!-- /.col-12 col-md-8 -->
+            </div><!-- /.form-group row -->
+
             <div class="form-group row">
                 <div class="col-12 col-md-4">
                     <label for="name">Student name</label>
@@ -24,7 +41,6 @@
                     @enderror
                 </div><!-- /.col-12 col-md-8 -->
             </div><!-- /.form-group -->
-
 
             <div class="form-group row">
                 <div class="col-12 col-md-4">

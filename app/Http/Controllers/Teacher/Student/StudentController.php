@@ -54,6 +54,8 @@ class StudentController extends Controller
     public function store(StudentCreateRequest $request)
     {
         $data = $request->only('name', 'email', 'password');
+
+        $data['location_id'] = Auth::guard('teacher')->user()->location->id;
         $data['group_id'] = $request->group;
         $data['section_id'] = $request->section;
         $data['id_number'] = Str::upper(Str::random(1)) . now('asia/dhaka')->format('sms') . Str::upper(Str::random(1));
@@ -128,6 +130,7 @@ class StudentController extends Controller
         ]);
 
         $finalData =  [
+            'location_id' => Auth::guard('teacher')->user()->location->id,
             'name' => $validateData['name'],
             'group_id' => $validateData['group'],
             'section_id' => $validateData['section'],

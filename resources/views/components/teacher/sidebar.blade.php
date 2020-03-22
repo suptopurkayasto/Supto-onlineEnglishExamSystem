@@ -34,7 +34,7 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
-                        <li class="nav-item has-treeview {{ request()->segment(2) === 'students' ? 'menu-open' : '' }}">
+                        <li class="nav-item sidebar-item has-treeview {{ request()->segment(2) === 'students' ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->segment(2) === 'students' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-tie"></i>
                                 <p>
