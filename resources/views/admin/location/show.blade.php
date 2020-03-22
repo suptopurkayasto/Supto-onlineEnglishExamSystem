@@ -37,7 +37,7 @@
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn bg-gradient-danger"
-                                onclick="return confirm('Are you sure delete {{ $location->name }} all data') ">
+                                onclick="return confirm('Are you sure delete location')">
                             Delete
                         </button>
                     </form>

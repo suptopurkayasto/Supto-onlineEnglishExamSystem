@@ -32,7 +32,7 @@
                      with font-awesome or any other icon font library -->
 
 
-                <li class="nav-item user-panel has-treeview {{ request()->segment(2) === 'locations' ? 'menu-open' : '' }}">
+                <li class="sidebar-item nav-item user-panel has-treeview {{ request()->segment(2) === 'locations' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->segment(2) === 'locations' ? 'active' : '' }}">
                         <i class="fas fa-map-marker-alt nav-icon"></i>
                         <p>
@@ -65,7 +65,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item user-panel has-treeview {{ request()->segment(2) === 'teachers' ? 'menu-open' : '' }}">
+                <li class="sidebar-item nav-item user-panel has-treeview {{ request()->segment(2) === 'teachers' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->segment(2) === 'teachers' ? 'active' : '' }}">
                         <i class="fas fa-user-graduate nav-icon"></i>
                         <p>
@@ -91,7 +91,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item user-panel has-treeview {{ request()->segment(2) === 'students' ? 'menu-open' : '' }}">
+                <li class="sidebar-item nav-item user-panel has-treeview {{ request()->segment(2) === 'students' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->segment(2) === 'students' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-tie"></i>
                         <p>

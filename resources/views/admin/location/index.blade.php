@@ -16,7 +16,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th style="text-align: left">Name</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -24,11 +24,10 @@
                     @foreach($locations as $index => $location)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td title="{{ $location->name }}"> Sheikh Kamal IT Training and Incubation Center
-                                in <strong>{{ $location->name }}</strong></td>
-                            <td class="text-center">
+                            <td style="text-align: left" title="{{ $location->name }}">{{ $location->name }}</td>
+                            <td>
                                 <a href="{{ route('admin.locations.show', $location->slug) }}"
-                                   class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
+                                   class="btn btn-primary btn-hover-effect">View</a>
                             </td>
                         </tr>
                     @endforeach

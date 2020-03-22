@@ -12,6 +12,17 @@
 
             <div class="form-group row">
                 <div class="col-12 col-md-4">
+                    <label for="location">Student location</label>
+                </div><!-- /.col-12 col-md-4 -->
+                <div class="col-12 col-md-8">
+                    <select name="location" id="location" class="form-control" readonly>
+                        <option>{{ $student->location->name }}</option>
+                    </select>
+                </div><!-- /.col-12 col-md-8 -->
+            </div><!-- /.form-group row -->
+
+            <div class="form-group row">
+                <div class="col-12 col-md-4">
                     <label for="name">Student name</label>
                 </div><!-- /.col-12 col-md-4 -->
                 <div class="col-12 col-md-8">

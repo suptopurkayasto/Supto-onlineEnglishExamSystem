@@ -14,7 +14,7 @@
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
-                        <label for="group">Teacher location</label>
+                        <label for="location">Teacher location</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <select name="location" id="location" class="form-control @error('location') is-invalid @enderror">

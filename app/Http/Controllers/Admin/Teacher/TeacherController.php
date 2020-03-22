@@ -94,7 +94,7 @@ class TeacherController extends Controller
         $teacher->update($this->validateUpdateTeacherRequest($request));
         toast('Teacher was updated successfully!','success');
         session()->flash('success_audio');
-        return redirect()->route('admin.teachers.index');
+        return redirect()->route('admin.teachers.show', $teacher->id);
     }
 
     /**

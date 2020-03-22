@@ -11,8 +11,11 @@ class LocationSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Location::class, 2)->create()->each(function ($location) {
-            $location->students()->save(factory(\App\Student::class)->make(['section_id' => 1, 'group_id' => 1]));
+        factory(\App\Location::class)->create()->each(function ($location) {
+            for ($students = 0; $students < 20; $students++) {
+                $location->teachers()->save(factory(\App\Teacher::class)->make());
+                $location->students()->save(factory(\App\Student::class)->make(['group_id' => 1, 'section_id' => 1]));
+            }
         });
     }
 }
