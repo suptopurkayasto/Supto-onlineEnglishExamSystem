@@ -12,6 +12,31 @@
             <form action="{{ route('admin.students.update', $student->id_number) }}" method="post">
                 @method('PATCH')
                 @csrf
+
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                        <label for="location">Teacher location</label>
+                    </div><!-- /.col-12 col-md-4 -->
+                    <div class="col-12 col-md-8">
+                        <select name="location" id="location"
+                                class="form-control @error('location') is-invalid @enderror">
+                            <option disabled>Select location</option>
+                            @foreach($locations as $location)
+                                <option
+                                    @if($student->location->id == $location->id)
+                                        selected
+                                    @endif
+                                    value="{{ $location->id }}">{{ $location->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('location')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div><!-- /.col-12 col-md-8 -->
+                </div><!-- /.form-group row -->
+
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
                         <label for="name">Student name</label>
@@ -38,7 +63,7 @@
                             @foreach($groups as $group)
                                 <option
                                     @if($group->id === $student->group->id)
-                                        selected
+                                    selected
                                     @endif
                                     value="{{ $group->id }}">{{ $group->name }}</option>
                             @endforeach

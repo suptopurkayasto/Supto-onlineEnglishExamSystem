@@ -11,6 +11,13 @@
     }
 }
 table.custom-table-style {
+    tr {
+        td, th {
+            &:first-of-type, &:last-of-type {
+                text-align: center;
+            }
+        }
+    }
     thead {
         tr {
             th {
@@ -33,6 +40,19 @@ table.custom-table-style {
                 padding: .25rem !important;
                 vertical-align: middle !important;
             }
+        }
+    }
+}
+
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active {
+    color: white;
+    background-color: rgba(255,255,255,.1);
+}
+
+li.sidebar-item {
+    ul {
+        li {
+            font-size: 80%;
         }
     }
 }

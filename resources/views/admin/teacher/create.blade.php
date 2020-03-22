@@ -11,6 +11,26 @@
         <div class="card-body">
             <form action="{{ route('admin.teachers.store') }}" method="post">
                 @csrf
+
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                        <label for="location">Teacher location</label>
+                    </div><!-- /.col-12 col-md-4 -->
+                    <div class="col-12 col-md-8">
+                        <select name="location" id="location" class="form-control @error('location') is-invalid @enderror">
+                            <option disabled selected>Select location</option>
+                            @foreach($locations as $location)
+                                <option value="{{ $location->id }}">{{ $location->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('location')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div><!-- /.col-12 col-md-8 -->
+                </div><!-- /.form-group row -->
+
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
                         <label for="name">Teacher name</label>

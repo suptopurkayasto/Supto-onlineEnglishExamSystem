@@ -6,7 +6,7 @@ use App\Admin;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Student\StudentCreateRequest;
-use App\Http\Requests\Admin\Student\UpdateStudentRequest;
+use App\Location;
 use App\Section;
 use App\Student;
 use Illuminate\Http\Request;
@@ -18,6 +18,7 @@ class StudentController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware('location.test')->except('index');
     }
     /**
      * Display a listing of the resource.
@@ -39,7 +40,8 @@ class StudentController extends Controller
     {
         return view('admin.student.create')
             ->with('groups', Group::all())
-            ->with('sections', Section::all());
+            ->with('sections', Section::all())
+            ->with('locations', Location::all());
     }
 
     /**
@@ -54,6 +56,7 @@ class StudentController extends Controller
     {
         $data = $request->only('name', 'email', 'password');
 
+        $data['location_id'] = $request->location;
         $data['group_id'] = $request->group;
         $data['section_id'] = $request->section;
 
@@ -73,7 +76,8 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        return view('admin.student.show', compact('student'));
+        return view('admin.student.show')
+            ->with('student', $student);
     }
 
     /**
@@ -87,7 +91,8 @@ class StudentController extends Controller
         return view('admin.student.edit')
             ->with('student', $student)
             ->with('groups', Group::all())
-            ->with('sections', Section::all());
+            ->with('sections', Section::all())
+            ->with('locations', Location::all());
     }
 
     /**
@@ -99,6 +104,8 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+//        dd($this->validateUpdateStudentRequest($request));
+
         $student->update($this->validateUpdateStudentRequest($request));
         toast('Student was updated successfully!','success');
         session()->flash('success_audio');
@@ -123,6 +130,7 @@ class StudentController extends Controller
 
     protected function validateUpdateStudentRequest($request) {
         $validateData = $this->validate($request, [
+            'location' => 'required',
             'name' => 'required|max:255|string',
             'group' => 'required',
             'section' => 'required',
@@ -130,6 +138,7 @@ class StudentController extends Controller
         ]);
 
         $finalData =  [
+            'location_id' => $validateData['location'],
             'name' => $validateData['name'],
             'group_id' => $validateData['group'],
             'section_id' => $validateData['section'],

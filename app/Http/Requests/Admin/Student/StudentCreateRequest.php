@@ -24,6 +24,7 @@ class StudentCreateRequest extends FormRequest
     public function rules()
     {
         return [
+            'location' => 'required',
             'name' => 'required|max:255|string',
             'group' => 'required',
             'section' => 'required',

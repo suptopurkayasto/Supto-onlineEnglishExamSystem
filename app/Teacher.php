@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -12,6 +13,7 @@ class Teacher extends Authenticatable
 
     protected $guard = 'teacher';
 
+    use SoftDeletes;
     use Notifiable;
 
     /**
@@ -20,7 +22,7 @@ class Teacher extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'location_id'
     ];
 
     /**
@@ -44,5 +46,10 @@ class Teacher extends Authenticatable
     public function students()
     {
         return $this->hasMany(Student::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
     }
 }

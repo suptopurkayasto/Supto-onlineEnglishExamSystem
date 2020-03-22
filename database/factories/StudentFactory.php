@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 $factory->define(Student::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
+        'location_id' => 1,
         'id_number' => Str::upper(Str::random(1)) . now('asia/dhaka')->format('sms') . Str::upper(Str::random(1)),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),

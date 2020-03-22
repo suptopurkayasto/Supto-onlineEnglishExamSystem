@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', 'All Teachers')
+@section('title', 'All Locations')
 
 @section('content')
-    @if($teachers->count() > 0)
+    @if($locations->count() > 0)
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Show All Teachers</h3>
+                <h3 class="card-title">Show All Locations</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -15,21 +15,19 @@
                        style="width: 100%">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Location</th>
+                        <th>#</th>
+                        <th style="text-align: left">Name</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($teachers as $teacher)
+                    @foreach($locations as $index => $location)
                         <tr>
-                            <td>{{ $teacher->name }}</td>
-                            <td>{{ $teacher->email }}</td>
-                            <td>{{ $teacher->location->name }}</td>
+                            <td>{{ $index + 1 }}</td>
+                            <td style="text-align: left" title="{{ $location->name }}">{{ $location->name }}</td>
                             <td>
-                                <a href="{{ route('admin.teachers.show', $teacher->id) }}"
-                                   class="btn btn-primary btn-block btn-hover-effect">View</a>
+                                <a href="{{ route('admin.locations.show', $location->slug) }}"
+                                   class="btn btn-primary btn-hover-effect">View</a>
                             </td>
                         </tr>
                     @endforeach
@@ -43,12 +41,12 @@
             <h2 class="text-center text-warning mt-5 display-1 font-weight">Empty.</h2>
         </div><!-- /.empty-data-section -->
     @endif
+
 @endsection
 
 @section('data-table-css')
     @include('partials.data-table-css')
 @stop
-
 @section('data-table-js')
     @include('partials.data-table-js')
 @stop

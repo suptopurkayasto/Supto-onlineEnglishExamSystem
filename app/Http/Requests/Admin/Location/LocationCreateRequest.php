@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Teacher;
+namespace App\Http\Requests\Admin\Location;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TeacherCreateRequest extends FormRequest
+class LocationCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,7 @@ class TeacherCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'location' => 'required|max:255',
-            'name' => 'required|max:255|string',
-            'email' => 'required|max:255|email|unique:students',
-            'password' => 'required|max:255|min:6|confirmed',
+            'name' => 'required|string|max:255|unique:locations'
         ];
     }
 }

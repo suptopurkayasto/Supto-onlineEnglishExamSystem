@@ -15,6 +15,7 @@ class CreateTeachersTable extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('location_id');
             $table->boolean('profile_status')->default(false);
             $table->string('name');
             $table->string('email')->unique();
@@ -22,6 +23,7 @@ class CreateTeachersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

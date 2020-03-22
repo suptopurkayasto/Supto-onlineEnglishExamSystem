@@ -15,10 +15,11 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('admin_id')->default(0);
-            $table->foreignId('teacher_id')->default(0);
-            $table->foreignId('section_id');
-            $table->foreignId('group_id');
+            $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('admin_id')->default(0);
+            $table->unsignedBigInteger('teacher_id')->default(0);
+            $table->unsignedBigInteger('section_id');
+            $table->unsignedBigInteger('group_id');
             $table->string('name');
             $table->string('id_number');
             $table->string('email')->unique();
@@ -26,7 +27,12 @@ class CreateStudentsTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
+
+//        Schema::table('students', function(Blueprint $table) {
+//            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
+//        });
     }
 
     /**
