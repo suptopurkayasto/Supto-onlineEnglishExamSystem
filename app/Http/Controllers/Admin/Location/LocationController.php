@@ -109,6 +109,29 @@ class LocationController extends Controller
         return redirect()->route('admin.locations.index');
     }
 
+    public function trash()
+    {
+        return view('admin.location.trash')
+            ->with('locations', Location::onlyTrashed()->get());
+    }
+    public function restore($slug)
+    {
+        $location = Location::where('slug', $slug);
+        $location->restore();
+        toast('Location was restored successfully!','success');
+        session()->flash('success_audio');
+        return redirect()->route('admin.locations.index');
+    }
+    public function trashDelete($slug)
+    {
+        $location = Location::where('slug', $slug);
+        $location->forceDelete();
+        toast('Location was deleted successfully!','success');
+        session()->flash('success_audio');
+        return redirect()->route('admin.locations.index');
+    }
+
+
     protected function validateUpdateLocationRequest($request) {
         $validateData =  $this->validate($request, [
             'name' => 'required|max:255|string|unique:locations',

@@ -3183,3 +3183,7 @@ table.custom-table-style tbody tr td {
   vertical-align: middle !important;
 }
 
+[class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active {
+  color: #007bff;
+}
+

@@ -36,3 +36,7 @@ table.custom-table-style {
         }
     }
 }
+
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active {
+    color: $primary-admin
+}

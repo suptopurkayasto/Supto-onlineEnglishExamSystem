@@ -31,12 +31,13 @@
                 </div><!-- /.col-12 col-md-4 -->
                 <div class="col-12 col-md-8 d-flex justify-content-between">
                     <a href="{{ route('admin.locations.edit', $location->slug) }}" class="btn bg-gradient-warning">Edit</a>
+
                     <form action="{{ route('admin.locations.destroy', $location->slug) }}" method="post"
                           class="ml-3">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn bg-gradient-danger"
-                                onclick="return confirm('Are you sure delete {{ $location->name }} all information !')">
+                                onclick="return confirm('Are you sure delete {{ $location->name }} all data') ">
                             Delete
                         </button>
                     </form>

@@ -18,6 +18,7 @@ class CreateLocationsTable extends Migration
             $table->string('name')->unique();
             $table->string('slug');
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 
