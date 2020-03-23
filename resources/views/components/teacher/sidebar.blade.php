@@ -59,6 +59,33 @@
                                 </li>
                             </ul>
                         </li>
+
+
+                        <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'exams' ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ request()->segment(2) === 'exams' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Exams
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('teacher.exams.index') }}"
+                                       class="nav-link {{ request()->url() === route('teacher.exams.index') ? 'active' : '' }}">
+                                        <i class="fas fa-users nav-icon"></i>
+                                        <p>All Exams</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('teacher.exams.create') }}"
+                                       class="nav-link {{ request()->url() === route('teacher.exams.create') ? 'active' : '' }}">
+                                        <i class="fas fa-user-plus nav-icon"></i>
+                                        <p>Add Exam</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
