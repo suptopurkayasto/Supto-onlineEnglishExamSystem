@@ -65,6 +65,22 @@
                 </div><!-- /.col-12 col-md-4 -->
                 <div class="col-12 col-md-8 d-flex">
                     <a href="{{ route('admin.teachers.edit', $teacher->id) }}" class="btn bg-gradient-warning">Edit</a>
+                    <form action="{{ route('admin.teachers.status', $teacher->id) }}" method="post"
+                          class="ml-3">
+                        @method('PATCH')
+                        @csrf
+                        @if($teacher->profile_status)
+                            <button type="submit" class="btn bg-gradient-danger"
+                                    onclick="return confirm('Are you sure pending this teacher profile')">
+                                Do pending
+                            </button>
+                        @else
+                            <button type="submit" class="btn bg-gradient-info"
+                                    onclick="return confirm('Are you sure approve this teacher profile')">
+                                Do approve
+                            </button>
+                        @endif
+                    </form>
                     <form action="{{ route('admin.teachers.destroy', $teacher->id) }}" method="post"
                           class="ml-3">
                         @method('DELETE')

@@ -69,6 +69,21 @@ class TeacherController extends Controller
             ->with('locations', Location::all());
     }
 
+    public function status(Teacher $teacher)
+    {
+        if ($teacher->profile_status) {
+            $teacher->update(['profile_status' => 0]);
+            toast('Teacher was pending successfully!','success');
+            session()->flash('success_audio');
+            return redirect()->back();
+        } else {
+            $teacher->update(['profile_status' => 1]);
+            toast('Teacher was approved successfully!','success');
+            session()->flash('success_audio');
+            return redirect()->back();
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

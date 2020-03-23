@@ -9,6 +9,7 @@ Route::patch('locations/trash/restore{slug}', 'Admin\Location\LocationController
 Route::get('locations/trash', 'Admin\Location\LocationController@trash')->name('admin.location.trash');
 Route::resource('locations', 'Admin\Location\LocationController',[ 'as' => 'admin']);
 
+Route::patch('teachers/{teacher}/status', 'Admin\Teacher\TeacherController@status')->name('admin.teachers.status');
 Route::resource('teachers', 'Admin\Teacher\TeacherController',[ 'as' => 'admin']);
 
 Route::resource('students', 'Admin\Student\StudentController',[ 'as' => 'admin']);
