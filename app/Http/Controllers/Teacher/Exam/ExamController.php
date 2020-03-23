@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class ExamController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:teacher');
+        $this->middleware('teacher.profile');
+    }
     /**
      * Display a listing of the resource.
      *
