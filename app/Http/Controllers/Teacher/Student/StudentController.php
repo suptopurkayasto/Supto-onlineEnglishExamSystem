@@ -61,7 +61,7 @@ class StudentController extends Controller
         $data['id_number'] = Str::upper(Str::random(1)) . now('asia/dhaka')->format('sms') . Str::upper(Str::random(1));
 
         Auth::guard('teacher')->user()->students()->create($data);
-        toast('Student was added successfully!','success');
+        toast('Student has been successfully added','success');
         session()->flash('success_audio');
         return redirect()->back();
     }
@@ -101,7 +101,7 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $student->update($this->validateUpdateStudentRequest($request));
-        toast('Student was updated successfully!','success');
+        toast('Student has been successfully updated','success');
         session()->flash('success_audio');
         return redirect()->route('teacher.students.index');
     }
@@ -116,7 +116,7 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $student->forceDelete();
-        toast('Student was deleted successfully!','success');
+        toast('Student has been successfully deleted','success');
         session()->flash('success_audio');
         return redirect()->route('teacher.students.index');
     }

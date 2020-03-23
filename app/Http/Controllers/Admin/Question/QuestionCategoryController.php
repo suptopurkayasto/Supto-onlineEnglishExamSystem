@@ -50,7 +50,7 @@ class QuestionCategoryController extends Controller
 
         $question_categories->create($data);
 
-        toast('Question Category was created successfully!','success');
+        toast('Question category has been successfully created','success');
         session()->flash('success_audio');
         return redirect()->route('admin.question-categories.index');
     }
@@ -87,7 +87,7 @@ class QuestionCategoryController extends Controller
     public function update(Request $request, QuestionCategory $questionCategory)
     {
         $questionCategory->update($this->validateUpdateQuestionCategoryRequest($request));
-        toast('Question Category was updated successfully!','success');
+        toast('Question category successfully updated','success');
         session()->flash('success_audio');
         return redirect()->route('admin.question-categories.show', $questionCategory->slug);
 
@@ -102,7 +102,7 @@ class QuestionCategoryController extends Controller
     public function destroy(QuestionCategory $questionCategory)
     {
         $questionCategory->forceDelete();
-        toast('Question category was deleted successfully!','success');
+        toast('Question category has been successfully deleted','success');
         session()->flash('success_audio');
         return redirect()->route('admin.question-categories.index');
     }

@@ -53,7 +53,7 @@ class TeacherController extends Controller
         $data['location_id'] = $request->location;
 
         $teacher->create($data);
-        toast('Teacher was added successfully!','success');
+        toast('Teacher has been successfully added','success');
         session()->flash('success_audio');
         return redirect()->back();
     }
@@ -75,12 +75,12 @@ class TeacherController extends Controller
     {
         if ($teacher->profile_status) {
             $teacher->update(['profile_status' => 0]);
-            toast('Teacher was pending successfully!','success');
+            toast('Teacher has been successfully pending','success');
             session()->flash('success_audio');
             return redirect()->back();
         } else {
             $teacher->update(['profile_status' => 1]);
-            toast('Teacher was approved successfully!','success');
+            toast('Teacher has been successfully approved','success');
             session()->flash('success_audio');
             return redirect()->back();
         }
@@ -109,7 +109,7 @@ class TeacherController extends Controller
     public function update(Request $request, Teacher $teacher)
     {
         $teacher->update($this->validateUpdateTeacherRequest($request));
-        toast('Teacher was updated successfully!','success');
+        toast('Teacher has been successfully updated','success');
         session()->flash('success_audio');
         return redirect()->route('admin.teachers.show', $teacher->id);
     }
@@ -124,7 +124,7 @@ class TeacherController extends Controller
     public function destroy(Teacher $teacher)
     {
         $teacher->forceDelete();
-        toast('Student was deleted successfully!','success');
+        toast('Student has been successfully deleted','success');
         session()->flash('success_audio');
         return redirect()->route('admin.teachers.index');
     }

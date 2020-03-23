@@ -41,10 +41,10 @@ class ExamController extends Controller
     public function store(ExamCreateRequest $request)
     {
         $data = $request->only('name');
-        $data['slug'] = $request->name;
+        $data['slug'] = Str::slug($request->name);
         Auth::guard('teacher')->user()->exams()->create($data);
 
-        toast('Exam was added successfully!','success');
+        toast('Exam has been successfully added','success');
         session()->flash('success_audio');
         return redirect()->route('teacher.exams.index');
 
@@ -82,7 +82,7 @@ class ExamController extends Controller
     public function update(Request $request, Exam $exam)
     {
         $exam->update($this->validateUpdateExamRequest($request));
-        toast('Exam was updated successfully!','success');
+        toast('Exam has been successfully updated','success');
         session()->flash('success_audio');
         return redirect()->route('teacher.exams.index');
     }
@@ -96,7 +96,7 @@ class ExamController extends Controller
     public function destroy(Exam $exam)
     {
         $exam->forceDelete();
-        toast('Exam was updated successfully!','success');
+        toast('Exam has been successfully deleted','success');
         session()->flash('success_audio');
         return redirect()->route('teacher.exams.index');
     }

@@ -53,7 +53,7 @@ class LocationController extends Controller
         $data['slug'] = Str::slug($data['name']);
         $location->create($data);
 
-        toast('Location was added successfully!','success');
+        toast('Location has been successfully created','success');
         session()->flash('success_audio');
         return redirect()->route('admin.locations.index');
     }
@@ -92,7 +92,7 @@ class LocationController extends Controller
     {
 
         $location->update($this->validateUpdateLocationRequest($request));
-        toast('Location was updated successfully!','success');
+        toast('Location has been successfully updated','success');
         session()->flash('success_audio');
         return redirect()->route('admin.locations.index');
     }
@@ -120,7 +120,7 @@ class LocationController extends Controller
         }
 
         $location->delete();
-        toast('Location was trashed successfully!','success');
+        toast('Location has been successfully trashed','success');
         session()->flash('success_audio');
         return redirect()->route('admin.locations.index');
     }
@@ -152,7 +152,7 @@ class LocationController extends Controller
         }
 
         $location->restore();
-        toast('Location was restored successfully!','success');
+        toast('Location has been successfully restored','success');
         session()->flash('success_audio');
         return redirect()->route('admin.location.trash');
     }
@@ -180,7 +180,7 @@ class LocationController extends Controller
 
 
         $location->forceDelete();
-        toast('Location was deleted successfully!','success');
+        toast('Location has been successfully deleted','success');
         session()->flash('success_audio');
         return redirect()->route('admin.location.trash');
     }

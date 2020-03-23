@@ -53,7 +53,18 @@ table.custom-table-style {
 li.sidebar-item {
     ul {
         li {
-            font-size: 80%;
+            i, p {
+                font-size: 80% !important;
+            }
+        }
+    }
+}
+
+.card {
+    .card-header {
+        .card-title {
+            font-size: 30px;
+            text-transform: capitalize;
         }
     }
 }

@@ -3196,7 +3196,13 @@ table.custom-table-style tbody tr td {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-li.sidebar-item ul li {
-  font-size: 80%;
+li.sidebar-item ul li i,
+li.sidebar-item ul li p {
+  font-size: 80% !important;
+}
+
+.card .card-header .card-title {
+  font-size: 30px;
+  text-transform: capitalize;
 }
 
