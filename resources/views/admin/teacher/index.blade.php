@@ -15,6 +15,7 @@
                        style="width: 100%">
                     <thead>
                     <tr>
+                        <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Location</th>
@@ -22,8 +23,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($teachers as $teacher)
+                    @foreach($teachers as $index => $teacher)
                         <tr>
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ $teacher->name }}</td>
                             <td>{{ $teacher->email }}</td>
                             <td>{{ $teacher->location->name }}</td>
