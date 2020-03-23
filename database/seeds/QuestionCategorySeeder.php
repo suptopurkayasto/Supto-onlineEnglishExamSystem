@@ -11,6 +11,6 @@ class QuestionCategorySeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(\App\QuestionCategory::class, 50)->create();
     }
 }
