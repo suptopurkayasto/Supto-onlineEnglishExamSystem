@@ -39,6 +39,7 @@
     @else
         <div class="empty-data-section">
             <h2 class="text-center text-warning mt-5 display-1 font-weight">Empty.</h2>
+            <a href="{{ route('admin.question-categories.create') }}" class="btn btn-lg mt-4 bg-gradient-primary">Add Question Category</a>
         </div><!-- /.empty-data-section -->
     @endif
 @endsection

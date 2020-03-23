@@ -27,7 +27,7 @@ class LocationController extends Controller
     public function index()
     {
         return view('admin.location.index')
-            ->with('locations', Location::all());
+            ->with('locations', Location::withoutTrashed()->latest()->get());
     }
 
     /**

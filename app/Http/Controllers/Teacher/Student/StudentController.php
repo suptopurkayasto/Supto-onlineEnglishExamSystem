@@ -30,7 +30,7 @@ class StudentController extends Controller
     public function index()
     {
         return view('teacher.student.index')
-            ->with('students', Student::where('teacher_id', Auth::guard('teacher')->id())->get());
+            ->with('students', Student::where('teacher_id', Auth::guard('teacher')->id())->latest()->get());
     }
 
     /**

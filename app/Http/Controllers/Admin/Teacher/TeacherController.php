@@ -25,7 +25,7 @@ class TeacherController extends Controller
     public function index()
     {
         return view('admin.teacher.index')
-            ->with('teachers', Teacher::all());
+            ->with('teachers', Teacher::withoutTrashed()->latest()->get());
     }
 
     /**

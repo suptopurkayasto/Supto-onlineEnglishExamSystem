@@ -28,7 +28,7 @@ class StudentController extends Controller
     public function index()
     {
         return view('admin.student.index')
-            ->with('students', Student::all());
+            ->with('students', Student::withoutTrashed()->latest()->get());
     }
 
     /**

@@ -6,7 +6,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Create question category</h3>
+            <h3 class="card-title">Add question category</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">

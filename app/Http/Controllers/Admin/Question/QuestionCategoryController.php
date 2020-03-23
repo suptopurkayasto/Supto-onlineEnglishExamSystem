@@ -23,7 +23,7 @@ class QuestionCategoryController extends Controller
     public function index()
     {
         return view('admin.question_categories.index')
-            ->with('questionCategories', QuestionCategory::all());
+            ->with('questionCategories', QuestionCategory::latest()->get());
     }
 
     /**

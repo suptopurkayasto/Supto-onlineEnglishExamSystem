@@ -3155,9 +3155,13 @@
   background-color: #001f3f;
 }
 
+.btn-hover-effect {
+  display: block;
+}
+
 .btn-hover-effect:hover {
-  -webkit-animation: pulse 1s;
-          animation: pulse 1s;
+  -webkit-animation: pulse 300ms;
+          animation: pulse 300ms;
 }
 
 table.custom-table-style tr td:first-of-type,
@@ -3204,5 +3208,9 @@ li.sidebar-item ul li p {
 .card .card-header .card-title {
   font-size: 30px;
   text-transform: capitalize;
+}
+
+.empty-data-section {
+  text-align: center;
 }
 
