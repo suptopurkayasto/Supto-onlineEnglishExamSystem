@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
-@section('title', 'Teacher show - ' . $teacher->name)
-
-@section('content-title', 'Teacher - ' . $teacher->name)
+@section('title', 'Show Teacher - ' . $teacher->name)
 
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Show teacher</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
-
             <div class="form-group row">
                 <div class="col-12 col-md-4">
                     <label for="group">Teacher location</label>
@@ -64,20 +64,20 @@
                 <div class="col-12 col-md-4">
                 </div><!-- /.col-12 col-md-4 -->
                 <div class="col-12 col-md-8 d-flex">
-                    <a href="{{ route('admin.teachers.edit', $teacher->id) }}" class="btn bg-gradient-warning">Edit</a>
+                    <a href="{{ route('admin.teachers.edit', $teacher->id) }}" class="btn bg-gradient-info">Edit Teacher</a>
                     <form action="{{ route('admin.teachers.status', $teacher->id) }}" method="post"
                           class="ml-3">
                         @method('PATCH')
                         @csrf
                         @if($teacher->profile_status)
-                            <button type="submit" class="btn bg-gradient-danger"
-                                    onclick="return confirm('Are you sure pending this teacher profile')">
-                                Do pending
+                            <button type="submit" class="btn bg-gradient-warning"
+                                    onclick="return confirm('Are you sure you want pending this teacher profile')">
+                                Pending Teacher
                             </button>
                         @else
                             <button type="submit" class="btn bg-gradient-info"
-                                    onclick="return confirm('Are you sure approve this teacher profile')">
-                                Do approve
+                                    onclick="return confirm('Are you sure you want to approve this teacher profile')">
+                                Approve Teacher
                             </button>
                         @endif
                     </form>
@@ -86,8 +86,8 @@
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn bg-gradient-danger"
-                                onclick="return confirm('Are you sure delete {{ $teacher->name }} all information !')">
-                            Delete
+                                onclick="return confirm('Are you sure you want to delete?')">
+                            Delete Teacher
                         </button>
                     </form>
                 </div><!-- /.col-12 col-md-8 -->

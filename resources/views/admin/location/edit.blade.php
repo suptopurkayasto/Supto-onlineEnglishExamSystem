@@ -1,12 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Location Edit - ' . $location->name)
-
-@section('content-title', 'Edit - ' . $location->name)
+@section('title', 'Edit location - ' . $location->name)
 
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Edit location</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
             <form action="{{ route('admin.locations.update', $location->slug) }}" method="post">

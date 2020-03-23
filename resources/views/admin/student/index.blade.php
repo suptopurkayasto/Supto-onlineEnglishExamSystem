@@ -6,7 +6,7 @@
     @if($students->count() > 0)
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Show All Students</h3>
+                <h3 class="card-title">All Students</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

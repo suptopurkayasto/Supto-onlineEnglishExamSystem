@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Teacher\TeacherCreateRequest;
 use App\Location;
 use App\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
@@ -47,7 +48,8 @@ class TeacherController extends Controller
     public function store(TeacherCreateRequest $request)
     {
         $teacher = new Teacher();
-        $data = $request->only('name', 'email', 'password');
+        $data = $request->only('name', 'email');
+        $data['password'] = Hash::make($request->password);
         $data['location_id'] = $request->location;
 
         $teacher->create($data);

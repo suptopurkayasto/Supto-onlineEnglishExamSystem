@@ -1,12 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Teacher Edit - ' . $questionCategory->name)
-
-@section('content-title', $questionCategory->name)
+@section('title', 'Edit teacher - ' . $questionCategory->name)
 
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Edit question category</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
             <form action="{{ route('admin.question-categories.update', $questionCategory->slug) }}" method="post">

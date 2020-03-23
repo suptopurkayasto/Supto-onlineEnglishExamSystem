@@ -19,7 +19,7 @@ class LocationCheckMiddleware
         if (Location::all()->count() > 0) {
             return $next($request);
         } else {
-            alert('Sorry!','First you need add location', 'Info');
+            alert()->info('Sorry!','You need to add a location first', 'Info');
             return redirect()->route('admin.locations.create');
         }
     }

@@ -1,12 +1,13 @@
 @extends('layouts.teacher')
 
-@section('title', 'Exam show - ' . $exam->name)
-
-@section('content-title', $exam->name)
+@section('title', 'Show exam - ' . $exam->name)
 
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Show Exams</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
 
@@ -30,14 +31,14 @@
                 <div class="col-12 col-md-4">
                 </div><!-- /.col-12 col-md-4 -->
                 <div class="col-12 col-md-8 d-flex">
-                    <a href="{{ route('teacher.exams.edit', $exam->slug) }}" class="btn bg-gradient-warning">Edit</a>
+                    <a href="{{ route('teacher.exams.edit', $exam->slug) }}" class="btn bg-gradient-warning">Edit Exam</a>
                     <form action="{{ route('teacher.exams.destroy', $exam->slug) }}" method="post"
                           class="ml-3">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn bg-gradient-danger"
-                                onclick="return confirm('Are you sure delete {{ $exam->name }} data!')">
-                            Delete
+                                onclick="return confirm('Are you sure you want to delete {{ $exam->name }} exam!')">
+                            Delete Exam
                         </button>
                     </form>
                 </div><!-- /.col-12 col-md-8 -->

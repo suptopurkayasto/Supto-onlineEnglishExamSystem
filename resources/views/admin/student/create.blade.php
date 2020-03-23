@@ -1,12 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Student add')
-
-@section('content-title', 'Student Add')
+@section('title', 'Add student')
 
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Add students</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
             <form action="{{ route('admin.students.store') }}" method="post">

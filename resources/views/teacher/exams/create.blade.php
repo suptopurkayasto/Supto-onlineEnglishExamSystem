@@ -2,11 +2,12 @@
 
 @section('title', 'Add Exam')
 
-@section('content-title', 'Add Exam')
-
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Add Exam</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
             <form action="{{ route('teacher.exams.store') }}" method="post">

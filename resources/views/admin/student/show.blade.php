@@ -1,12 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Student show - ' . $student->name)
-
-@section('content-title', $student->name)
+@section('title', 'Show Student - ' . $student->name)
 
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Show Students</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
 
@@ -89,14 +90,14 @@
                 <div class="col-12 col-md-4">
                 </div><!-- /.col-12 col-md-4 -->
                 <div class="col-12 col-md-8 d-flex">
-                    <a href="{{ route('admin.students.edit', $student->id_number) }}" class="btn bg-gradient-warning">Edit</a>
+                    <a href="{{ route('admin.students.edit', $student->id_number) }}" class="btn bg-gradient-warning">Edit Student</a>
                     <form action="{{ route('admin.students.destroy', $student->id_number) }}" method="post"
                           class="ml-3">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn bg-gradient-danger"
-                                onclick="return confirm('Are you sure delete {{ $student->name }} all information !')">
-                            Delete
+                                onclick="return confirm('Are you sure you want to delete {{ $student->name }}')">
+                            Delete Student
                         </button>
                     </form>
                 </div><!-- /.col-12 col-md-8 -->

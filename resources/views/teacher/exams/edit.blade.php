@@ -1,12 +1,13 @@
 @extends('layouts.teacher')
 
-@section('title', 'Exam Edit - ' . $exam->name)
-
-@section('content-title', $exam->name)
+@section('title', 'Edit exam - ' . $exam->name)
 
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Edit Exam</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
             <form action="{{ route('teacher.exams.update', $exam->slug) }}" method="post">

@@ -6,7 +6,7 @@
     @if($locations->count() > 0)
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Show All Trash Locations</h3>
+                <h3 class="card-title">All Trash Locations</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -41,7 +41,7 @@
                                     @csrf
                                     <button type="submit" class="btn bg-gradient-danger"
                                             onclick="return confirm('Are you sure permanently delete location')">
-                                        Delete
+                                        Permanently Delete
                                     </button>
                                 </form>
                             </td>

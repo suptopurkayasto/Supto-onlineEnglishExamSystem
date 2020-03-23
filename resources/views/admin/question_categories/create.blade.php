@@ -2,11 +2,12 @@
 
 @section('title', 'Add Question Category')
 
-@section('content-title', 'Add Question Category')
-
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Create question category</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
             <form action="{{ route('admin.question-categories.store') }}" method="post">

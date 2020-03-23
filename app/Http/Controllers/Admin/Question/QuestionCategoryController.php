@@ -108,9 +108,14 @@ class QuestionCategoryController extends Controller
     }
 
     protected function validateUpdateQuestionCategoryRequest($request) {
-        return $this->validate($request, [
+        $validateData = $this->validate($request, [
             'name' => 'required|max:255|string|unique:question_categories',
         ]);
+
+        return [
+          'name' => $validateData['name'],
+          'slug' => Str::slug($validateData['name'])
+        ];
     }
 
 }

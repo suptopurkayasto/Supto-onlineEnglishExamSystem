@@ -1,12 +1,13 @@
 @extends('layouts.teacher')
 
-@section('title', 'Student Edit - ' . $student->name)
-
-@section('content-title', 'Edit - ' . $student->name)
+@section('title', 'Edit student - ' . $student->name)
 
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Edit Student</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
             <form action="{{ route('teacher.students.update', $student->id_number) }}" method="post">
@@ -114,13 +115,13 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" id="updatePassword">
+                            <input type="checkbox" checked class="custom-control-input" id="updatePassword">
                             <label class="custom-control-label" for="updatePassword">Update password</label>
                         </div>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
 
-                <div id="updatePasswordSec" class="d-none">
+                <div id="updatePasswordSec" class="">
                     <div class="form-group row">
                         <div class="col-12 col-md-4">
                             <label for="password">Student password</label>

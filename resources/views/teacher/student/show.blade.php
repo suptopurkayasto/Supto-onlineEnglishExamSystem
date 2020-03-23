@@ -1,15 +1,15 @@
 @extends('layouts.teacher')
 
-@section('title', 'Student show - ' . $student->name)
-
-@section('content-title', $student->name)
+@section('title', 'Show student - ' . $student->name)
 
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Show Student</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
-
             <div class="form-group row">
                 <div class="col-12 col-md-4">
                     <label for="location">Student location</label>
@@ -95,14 +95,14 @@
                 <div class="col-12 col-md-4">
                 </div><!-- /.col-12 col-md-4 -->
                 <div class="col-12 col-md-8 d-flex">
-                    <a href="{{ route('teacher.students.edit', $student->id_number) }}" class="btn bg-gradient-warning">Edit</a>
+                    <a href="{{ route('teacher.students.edit', $student->id_number) }}" class="btn bg-gradient-warning">Edit Student</a>
                     <form action="{{ route('teacher.students.destroy', $student->id_number) }}" method="post"
                           class="ml-3">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn bg-gradient-danger"
-                                onclick="return confirm('Are you sure delete {{ $student->name }} all data!')">
-                            Delete
+                                onclick="return confirm('Are you sure you want to delete {{ $student->name }}')">
+                            Delete Student
                         </button>
                     </form>
                 </div><!-- /.col-12 col-md-8 -->

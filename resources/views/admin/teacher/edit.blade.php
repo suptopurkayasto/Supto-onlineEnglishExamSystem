@@ -1,12 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Teacher Edit - ' . $teacher->name)
-
-@section('content-title', 'Edit teacher - ' . $teacher->name)
+@section('title', 'Edit Teacher - ' . $teacher->name)
 
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Edit teacher</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
             <form action="{{ route('admin.teachers.update', $teacher->id) }}" method="post">
@@ -75,13 +76,13 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" id="updatePassword">
+                            <input type="checkbox" checked class="custom-control-input" id="updatePassword">
                             <label class="custom-control-label" for="updatePassword">Update password</label>
                         </div>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
 
-                <div id="updatePasswordSec" class="d-none">
+                <div id="updatePasswordSec" class="">
                     <div class="form-group row">
                         <div class="col-12 col-md-4">
                             <label for="password"> password</label>
@@ -89,6 +90,7 @@
                         <div class="col-12 col-md-8">
                             <input type="password" name="password" id="password"
                                    class="form-control @error('password') is-invalid @enderror"
+                                   autocomplete="nope"
                             >
                             @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -135,7 +137,7 @@
                     <div class="col-12 col-md-4">
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <button type="submit" class="btn bg-gradient-primary">Update </button>
+                        <button type="submit" class="btn bg-gradient-primary">Update Teacher</button>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
             </form>
