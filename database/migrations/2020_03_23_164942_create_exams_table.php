@@ -15,6 +15,7 @@ class CreateExamsTable extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
+            $table->string('status')->default('pending');
             $table->unsignedBigInteger('teacher_id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
