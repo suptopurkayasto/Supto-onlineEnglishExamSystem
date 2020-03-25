@@ -17,10 +17,8 @@
                         <th>#</th>
                         <th>Set</th>
                         <th>Question</th>
-                        <th>Option 1</th>
-                        <th>Option 2</th>
-                        <th>Option 3</th>
                         <th>Answer</th>
+                        <th>Exam Name</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -30,10 +28,8 @@
                             <td>{{ $index + 1 }}</td>
                             <td title="{{ $grammarQuestion->set->name }}" class="text-bold">{{ $grammarQuestion->set->name }}</td>
                             <td title="{{ $grammarQuestion->question }}">{{ Str::limit($grammarQuestion->question, 50) }}</td>
-                            <td title="{{ $grammarQuestion->option_1 }}">{{ $grammarQuestion->option_1 }}</td>
-                            <td title="{{ $grammarQuestion->option_2 }}">{{ $grammarQuestion->option_2 }}</td>
-                            <td title="{{ $grammarQuestion->option_3 }}">{{ $grammarQuestion->option_3 }}</td>
                             <td title="{{ $grammarQuestion->answer }}">{{ $grammarQuestion->answer }}</td>
+                            <td title="{{ $grammarQuestion->exam->name }}">{{ $grammarQuestion->exam->name }}</td>
                             <td class="text-center">
                                 <a href="{{ route('teachers.grammar-questions.show', $grammarQuestion->id) }}"
                                    class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>

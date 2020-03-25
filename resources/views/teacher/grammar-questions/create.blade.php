@@ -1,80 +1,52 @@
 @extends('layouts.teacher')
 
-@section('title', 'Student add')
-
-@section('content-title', 'Student Add')
+@section('title', 'Add Question')
 
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Add Grammar question
+            </h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('teacher.students.store') }}" method="post">
+            <form action="{{ route('teachers.grammar-questions.store') }}" method="post">
                 @csrf
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
-                        <label for="location">Student location</label>
+                        <label for="exam_name">Exam name</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <select name="location" id="location" class="form-control @error('location') is-invalid @enderror">
-                            <option selected value="{{ auth()->guard('teacher')->user()->location->id }}">{{ auth()->guard('teacher')->user()->location->name }}</option>
-                        </select>
-                        @error('location')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div><!-- /.col-12 col-md-8 -->
-                </div><!-- /.form-group row -->
-
-                <div class="form-group row">
-                    <div class="col-12 col-md-4">
-                        <label for="name">Student name</label>
-                    </div><!-- /.col-12 col-md-4 -->
-                    <div class="col-12 col-md-8">
-                        <input type="text" name="name" id="name"
-                               class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
-                               required>
-                        @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div><!-- /.col-12 col-md-8 -->
-                </div><!-- /.form-group -->
-
-                <div class="form-group row">
-                    <div class="col-12 col-md-4">
-                        <label for="group">Student group</label>
-                    </div><!-- /.col-12 col-md-4 -->
-                    <div class="col-12 col-md-8">
-                        <select name="group" id="group" class="form-control @error('group') is-invalid @enderror">
-                            <option disabled selected>Select group</option>
-                            @foreach($groups as $group)
-                                <option value="{{ $group->id }}">{{ $group->name }}</option>
+                        <select name="exam_name" id="exam_name"
+                                class="form-control @error('exam_name') is-invalid @enderror">
+                            <option selected disabled>Select exam</option>
+                            @foreach($exams as $exam)
+                                <option {{ old('exam_name') == $exam->id ? 'selected' : ''  }} value="{{ $exam->id }}">{{ $exam->name }}</option>
                             @endforeach
                         </select>
-                        @error('group')
+                        @error('exam_name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group row -->
-
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
-                        <label for="section">Student section</label>
+                        <label for="question_set">Question set</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <select name="section" id="section" class="form-control  @error('section') is-invalid @enderror">
-                            <option disabled selected>Select section</option>
-                            @foreach($sections as $section)
-                                <option value="{{ $section->id }}">{{ $section->name }}</option>
+                        <select name="question_set" id="question_set"
+                                class="form-control @error('question_set') is-invalid @enderror">
+                            <option selected disabled>Select question set</option>
+                            @foreach($questionSets as $questionSet)
+                                <option {{ old('question_set') == $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
                             @endforeach
                         </select>
-                        @error('section')
+                        @error('question_set')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -84,13 +56,13 @@
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
-                        <label for="email">Student email</label>
+                        <label for="question">Question</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <input type="email" name="email" id="email"
-                               class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
+                        <input type="text" name="question" id="question"
+                               class="form-control @error('question') is-invalid @enderror" value="{{ old('question') }}"
                                required>
-                        @error('email')
+                        @error('question')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -100,31 +72,13 @@
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
-                        <label for="password">Student password</label>
+                        <label for="option_1">Option 1</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <input type="password" name="password" id="password"
-                               class="form-control @error('password') is-invalid @enderror"
+                        <input type="text" name="option_1" id="option_1"
+                               class="form-control @error('option_1') is-invalid @enderror" value="{{ old('option_1') }}"
                                required>
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div><!-- /.col-12 col-md-8 -->
-
-
-                </div><!-- /.form-group -->
-
-                <div class="form-group row">
-                    <div class="col-12 col-md-4">
-                        <label for="password_confirmation">Student password confirm</label>
-                    </div><!-- /.col-12 col-md-4 -->
-                    <div class="col-12 col-md-8">
-                        <input type="password" name="password_confirmation" id="password_confirmation"
-                               class="form-control @error('password_confirmation') is-invalid @enderror"
-                               required>
-                        @error('password_confirmation')
+                        @error('option_1')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -134,13 +88,49 @@
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
-
+                        <label for="option_2">Option 2</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" id="showHide">
-                            <label class="custom-control-label" for="showHide">Show Password</label>
-                        </div>
+                        <input type="text" name="option_2" id="option_2"
+                               class="form-control @error('option_2') is-invalid @enderror" value="{{ old('option_2') }}"
+                               required>
+                        @error('option_2')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div><!-- /.col-12 col-md-8 -->
+                </div><!-- /.form-group -->
+
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                        <label for="option_3">Option 3</label>
+                    </div><!-- /.col-12 col-md-4 -->
+                    <div class="col-12 col-md-8">
+                        <input type="text" name="option_3" id="option_3"
+                               class="form-control @error('option_3') is-invalid @enderror" value="{{ old('option_3') }}"
+                               required>
+                        @error('option_3')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div><!-- /.col-12 col-md-8 -->
+                </div><!-- /.form-group -->
+
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                        <label for="answer">Answer</label>
+                    </div><!-- /.col-12 col-md-4 -->
+                    <div class="col-12 col-md-8">
+                        <input type="text" name="answer" id="answer"
+                               class="form-control @error('answer') is-invalid @enderror" value="{{ old('answer') }}"
+                               required>
+                        @error('answer')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
 
@@ -148,7 +138,7 @@
                     <div class="col-12 col-md-4">
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <button type="submit" class="btn bg-gradient-primary">Add Student</button>
+                        <button type="submit" class="btn bg-gradient-primary">Add Question</button>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
             </form>

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Teacher\Question;
 
+use App\Exam;
 use App\GrammarQuestion;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Teacher\Question\GrammarQuestion\GrammarQuestionUpdateRequest;
+use App\Http\Requests\Teacher\Question\GrammarQuestionCreateRequest;
+use App\QuestionSet;
 use Illuminate\Http\Request;
 
 class GrammarQuestionController extends Controller
@@ -22,44 +26,67 @@ class GrammarQuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('teacher.grammar-questions.create')
+            ->with('exams', Exam::latest()->get())
+            ->with('questionSets', QuestionSet::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(GrammarQuestionCreateRequest $request)
     {
-        //
+
+        $grammarQuestionCount = GrammarQuestion::all()->count();
+
+        if ($grammarQuestionCount <= 100) {
+            $data = $request->except('exam_name', 'question_set');
+            $data['exam_id'] = $request->exam_name;
+            $data['question_set_id'] = $request->question_set;
+
+            GrammarQuestion::create($data);
+            toast('Grammar question has been successfully added','success');
+            session()->flash('success_audio');
+            return redirect()->back();
+        }
+        toast('You can no longer add questions to this Grammar category','warning');
+        session()->flash('success_audio');
+        return redirect()->route('teachers.grammar-questions.index');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\GrammarQuestion  $grammarQuestion
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(GrammarQuestion $grammarQuestion)
     {
-        //
+        return view('teacher.grammar-questions.show')
+            ->with('grammarQuestion', $grammarQuestion)
+            ->with('exams', Exam::latest()->get())
+            ->with('questionSets', QuestionSet::all());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\GrammarQuestion  $grammarQuestion
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(GrammarQuestion $grammarQuestion)
     {
-        //
+        return view('teacher.grammar-questions.edit')
+            ->with('grammarQuestion', $grammarQuestion)
+            ->with('exams', Exam::latest()->get())
+            ->with('questionSets', QuestionSet::all());
     }
 
     /**
@@ -67,21 +94,32 @@ class GrammarQuestionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\GrammarQuestion  $grammarQuestion
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, GrammarQuestion $grammarQuestion)
+    public function update(GrammarQuestionUpdateRequest $request, GrammarQuestion $grammarQuestion)
     {
-        //
+        $data = $request->except('exam_name', 'question_set');
+        $data['exam_id'] = $request->exam_name;
+        $data['question_set_id'] = $request->question_set;
+
+        $grammarQuestion->update($data);
+        toast('Grammar question has been successfully updated','success');
+        session()->flash('success_audio');
+        return redirect()->route('teachers.grammar-questions.show', $grammarQuestion->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\GrammarQuestion  $grammarQuestion
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(GrammarQuestion $grammarQuestion)
     {
-        //
+        $grammarQuestion->forceDelete();
+
+        toast('Grammar question has been successfully deleted','success');
+        session()->flash('success_audio');
+        return redirect()->route('teachers.grammar-questions.index');
     }
 }
