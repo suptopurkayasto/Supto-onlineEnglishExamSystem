@@ -5,8 +5,9 @@
 @section('content')
     @if($grammarQuestions->count() > 0)
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">All Grammar Questions</h3>
+            <div class="card-header ">
+                <h3 class="card-title float-left">All Grammar Questions</h3>
+                <a href="{{ route('teachers.grammar-questions.create') }}" class="btn bg-gradient-indigo float-right">Add Grammar Questions</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -27,8 +28,8 @@
                     @foreach($grammarQuestions as $index => $grammarQuestion)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td title="{{ $grammarQuestion->set->name }}">{{ $grammarQuestion->set->name }}</td>
-                            <td title="{{ $grammarQuestion->question }}">{{ Str::limit($grammarQuestion->question, 20) }}</td>
+                            <td title="{{ $grammarQuestion->set->name }}" class="text-bold">{{ $grammarQuestion->set->name }}</td>
+                            <td title="{{ $grammarQuestion->question }}">{{ Str::limit($grammarQuestion->question, 50) }}</td>
                             <td title="{{ $grammarQuestion->option_1 }}">{{ $grammarQuestion->option_1 }}</td>
                             <td title="{{ $grammarQuestion->option_2 }}">{{ $grammarQuestion->option_2 }}</td>
                             <td title="{{ $grammarQuestion->option_3 }}">{{ $grammarQuestion->option_3 }}</td>
