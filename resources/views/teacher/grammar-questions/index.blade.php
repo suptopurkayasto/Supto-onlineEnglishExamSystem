@@ -1,12 +1,12 @@
 @extends('layouts.teacher')
 
-@section('title', 'All Exams')
+@section('title', 'All Grammar Questions')
 
 @section('content')
-    @if($exams->count() > 0)
+    @if($grammarQuestions->count() > 0)
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">All Exams</h3>
+                <h3 class="card-title">All Grammar Questions</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -14,23 +14,27 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Question Count</th>
+                        <th>Set</th>
+                        <th>Question</th>
+                        <th>Option 1</th>
+                        <th>Option 2</th>
+                        <th>Option 3</th>
+                        <th>Answer</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($exams as $index => $exam)
+                    @foreach($grammarQuestions as $index => $grammarQuestion)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td title="{{ $exam->name }}">{{ $exam->name }}</td>
-                            <td>
-                                <a href="{{ route('teachers.grammar-questions.index') }}">
-                                    Grammar: {{ $exam->grammarQuestions()->count() }}
-                                </a>
-                            </td>
+                            <td title="{{ $grammarQuestion->set->name }}">{{ $grammarQuestion->set->name }}</td>
+                            <td title="{{ $grammarQuestion->question }}">{{ Str::limit($grammarQuestion->question, 20) }}</td>
+                            <td title="{{ $grammarQuestion->option_1 }}">{{ $grammarQuestion->option_1 }}</td>
+                            <td title="{{ $grammarQuestion->option_2 }}">{{ $grammarQuestion->option_2 }}</td>
+                            <td title="{{ $grammarQuestion->option_3 }}">{{ $grammarQuestion->option_3 }}</td>
+                            <td title="{{ $grammarQuestion->answer }}">{{ $grammarQuestion->answer }}</td>
                             <td class="text-center">
-                                <a href="{{ route('teacher.exams.show', $exam->slug) }}"
+                                <a href="{{ route('teachers.grammar-questions.show', $grammarQuestion->id) }}"
                                    class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
                             </td>
                         </tr>
@@ -43,7 +47,7 @@
     @else
         <div class="empty-data-section">
             <h2 class="text-center text-warning mt-5 display-1 font-weight">Empty.</h2>
-            <a href="{{ route('teacher.exams.create') }}" class="btn btn-lg mt-4 bg-gradient-primary">Add Exam</a>
+            <a href="{{ route('teacher.exams.index') }}" class="btn btn-lg mt-4 bg-gradient-primary">View Exam</a>
         </div><!-- /.empty-data-section -->
     @endif
 @endsection

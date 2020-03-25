@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
@@ -100,7 +101,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapQuestionRoutes()
     {
-        Route::prefix('teachers/{teacher}/')
+        Route::prefix('teachers/')
             ->as('teachers.')
             ->namespace($this->namespace)
             ->middleware(['web', 'auth:teacher', 'teacher.profile'])
