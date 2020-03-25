@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Grammars\Grammar;
 
 class Exam extends Model
 {
@@ -17,5 +18,10 @@ class Exam extends Model
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function grammarQuestions()
+    {
+        return $this->hasMany(GrammarQuestion::class);
     }
 }
