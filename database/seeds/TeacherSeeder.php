@@ -13,6 +13,6 @@ class TeacherSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Teacher::class)->create(['location_id' => 1]);
+        factory(\App\Teacher::class)->create(['location_id' => 1, 'profile_status' => 1]);
     }
 }
