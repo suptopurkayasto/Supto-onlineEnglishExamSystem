@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::resource('question-categories', 'Admin\Question\QuestionCategoryController', ['as' => 'admin']);
-
 Route::delete('locations/trash/delete/{slug}', 'Admin\Location\LocationController@trashDelete')->name('admin.location.trash.delete');
 Route::patch('locations/trash/restore{slug}', 'Admin\Location\LocationController@restore')->name('admin.location.trash.restore');
 Route::get('locations/trash', 'Admin\Location\LocationController@trash')->name('admin.location.trash');
