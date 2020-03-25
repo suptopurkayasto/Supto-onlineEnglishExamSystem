@@ -15,6 +15,8 @@ class CreateExamQuestionSetTable extends Migration
     {
         Schema::create('exam_question_set', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('exam_id');
+            $table->foreignId('question_set_id');
             $table->timestamps();
         });
     }

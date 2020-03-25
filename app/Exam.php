@@ -24,4 +24,9 @@ class Exam extends Model
     {
         return $this->hasMany(GrammarQuestion::class);
     }
+
+    public function sets()
+    {
+        return $this->belongsToMany(QuestionSet::class);
+    }
 }

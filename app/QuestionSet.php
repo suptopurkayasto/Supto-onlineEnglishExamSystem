@@ -18,4 +18,9 @@ class QuestionSet extends Model
     {
         return $this->hasMany(GrammarQuestion::class);
     }
+
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class);
+    }
 }

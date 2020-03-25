@@ -19,5 +19,9 @@ class DatabaseSeeder extends Seeder
 //        $this->call(StudentSeeder::class);
         $this->call(QuestionSetSeeder::class);
 //        $this->call(ExamSeeder::class);
+
+        $exam = \App\Exam::find(1);
+        $questionSets = \App\QuestionSet::all();
+        $exam->sets()->attach($questionSets);
     }
 }
