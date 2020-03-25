@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
@@ -49,6 +50,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapAdminRoutes();
 
         $this->mapTeacherRoutes();
+
+        $this->mapQuestionRoutes();
     }
 
     /**
@@ -94,5 +97,14 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->middleware('web')
             ->group(base_path('routes/teacher.php'));
+    }
+
+    protected function mapQuestionRoutes()
+    {
+        Route::prefix('teachers/questions/')
+            ->as('teachers.')
+            ->namespace($this->namespace)
+            ->middleware(['web', 'auth:teacher', 'teacher.profile'])
+            ->group(base_path('routes/question.php'));
     }
 }

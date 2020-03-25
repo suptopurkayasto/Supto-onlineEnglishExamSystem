@@ -60,7 +60,6 @@
                             </ul>
                         </li>
 
-
                         <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'exams' ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->segment(2) === 'exams' ? 'active' : '' }}">
                                 <i class="fas fa-desktop nav-icon"></i>
@@ -84,6 +83,34 @@
                                         <p>Add Exam</p>
                                     </a>
                                 </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'questions' ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ request()->segment(2) === 'questions' ? 'active' : '' }}">
+                                <i class="fas fa-lightbulb nav-icon"></i>
+                                <p>
+                                    Questions
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('teachers.grammar-questions.index') }}"
+                                       class="nav-link {{ request()->url() === route('teachers.grammar-questions.index') ? 'active' : '' }}">
+                                        <i class="fas fa-lightbulb nav-icon"></i>
+                                        <p>All grammar questions</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('teachers.grammar-questions.create') }}"
+                                       class="nav-link {{ request()->url() === route('teachers.grammar-questions.create') ? 'active' : '' }}">
+                                        <i class="fas fa-lightbulb nav-icon"></i>
+                                        <p>Add grammar question</p>
+                                    </a>
+                                </li>
+                                <hr class="border-bottom border-dark">
                             </ul>
                         </li>
                     </ul>

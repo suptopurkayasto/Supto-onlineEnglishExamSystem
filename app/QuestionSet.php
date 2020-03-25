@@ -13,4 +13,9 @@ class QuestionSet extends Model
     {
         return $this->attributes['name'] = Str::upper($name);
     }
+
+    public function grammarQuestions()
+    {
+        return $this->hasMany(GrammarQuestion::class);
+    }
 }

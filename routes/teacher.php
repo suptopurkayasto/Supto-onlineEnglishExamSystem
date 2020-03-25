@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-
+Route::put('exams/{exam}/status', 'Teacher\Exam\ExamController@status')->name('teacher.exams.status');
 Route::resource('exams', 'Teacher\Exam\ExamController', ['as' => 'teacher']);
 Route::resource('students', 'Teacher\Student\StudentController', ['as' => 'teacher']);
 

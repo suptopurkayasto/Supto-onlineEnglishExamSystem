@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class QuestionCategorySeeder extends Seeder
+class GrammarQuestionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class QuestionCategorySeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\QuestionCategory::class, 3)->create();
+        //
     }
 }

@@ -92,6 +92,28 @@ class ExamController extends Controller
         return redirect()->route('teacher.exams.index');
     }
 
+    public function status(Request $request, Exam $exam)
+    {
+        if ($request->status === 'running') {
+            $exam->update(['status' => 'running']);
+            toast('Exam has been successfully running','success');
+            session()->flash('success_audio');
+        } elseif ($request->status === 'complete') {
+            $exam->update(['status' => 'complete']);
+            toast('Exam has been successfully completed','success');
+            session()->flash('success_audio');
+        } elseif ($request->status === 'cancel') {
+            $exam->update(['status' => 'cancel']);
+            toast('Exam has been successfully canceled','success');
+            session()->flash('success_audio');
+        } elseif ($request->status === 'complete') {
+            $exam->update(['status' => 'complete']);
+            toast('Exam has been successfully completed','success');
+            session()->flash('success_audio');
+        }
+        return redirect()->back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *
