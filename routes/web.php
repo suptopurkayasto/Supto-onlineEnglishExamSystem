@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomePageController@index');
 //
-//Auth::routes();
+Auth::routes();
+Route::get('login', function () {
+    return redirect()->route('student.login');
+});
+Route::get('register', function () {
+    return redirect()->route('student.login');
+});
 //
 //Route::get('/home', 'HomeController@index')->name('home');

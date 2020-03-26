@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <script>
         var h = window.innerHeight
             || document.documentElement.clientHeight
@@ -77,7 +78,7 @@
 {{--            </div>--}}
 {{--        </nav>--}}
 
-        <main class="py-4 h-100">
+        <main class=" h-100">
             @yield('content')
         </main>
     </div>
