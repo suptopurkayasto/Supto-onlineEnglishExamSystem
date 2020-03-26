@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow sticky-top">
     <div class="container">
         <a class="navbar-brand" href="/">{{ $student->name }}</a>
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
