@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 {{--    <title>{{ config('app.name', 'Laravel') }}</title>--}}
-    <title>Student | @auth('student') {{ $student->name }}@endauth - @yield('title')</title>
+    <title>Student | @auth('student') {{ auth()->guard('student')->user()->name }}@endauth - @yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

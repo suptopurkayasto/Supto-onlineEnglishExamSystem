@@ -10,11 +10,16 @@
             <div class="shadow rounded p-4">
                 <div class="row">
                     <div class="col-12 col-md-5 mb-5 mb-md-0">
-                        <img class="shadow rounded" style="width: 100%" src="{{ Gravatar::get(auth()->guard('student')->user()->email) }}" alt="">
+                        <img class="shadow rounded" style="width: 100%"
+                             src="{{ Gravatar::get(auth()->guard('student')->user()->email) }}" alt="">
                     </div><!-- /.col-12 col-md-5 mb-5 mb-md-0 -->
                     <div class="col-12 col-md-7">
-                        <h1 class="h1 float-left">{{ $student->name }}</h1>
-                        <a href="" class="btn btn-primary float-right">Start Exam</a>
+                        <h1 class="h1 float-left">{{ auth()->guard('student')->user()->name }}</h1>
+                        @foreach($exams as $exam)
+                            @if($exam->status === 'running')
+                                <a href="{{ route('student.exam.subject', $exam->slug) }}" class="btn btn-primary float-right">Start Exam {{ $exam->name }}</a>
+                            @endif
+                        @endforeach
                         <span class="d-block w-100 bg-primary" style="height: 2px; clear: both"></span>
                     </div><!-- /.col-12 col-md-7 -->
                 </div><!-- /.row -->

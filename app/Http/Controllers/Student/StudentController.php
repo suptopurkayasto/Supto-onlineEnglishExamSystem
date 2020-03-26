@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Exam;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,7 @@ class StudentController extends Controller
     }
     public function index()
     {
-        return view('student.dashboard');
+        return view('student.dashboard')
+            ->with('exams', Exam::all());
     }
 }
