@@ -7,6 +7,7 @@ use App\GrammarQuestion;
 use App\Http\Controllers\Controller;
 use App\QuestionSet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ExamController extends Controller
@@ -23,25 +24,23 @@ class ExamController extends Controller
     }
 
 
-    public function showGrammarQuiz()
+    public function showGrammarQuiz(Exam $exam)
     {
-        $questionSet = QuestionSet::all()->random();
+        $authStudentQuestionSet = Auth::guard('student')->user()->set;
         $grammarQuestions =  GrammarQuestion::all();
-        return view('student.exams.questions.grammar-question', compact('questionSet', 'grammarQuestions'));
+        return view('student.exams.questions.grammar-question', compact('authStudentQuestionSet', 'grammarQuestions', 'exam'));
     }
 
-    public function showQuiz(Request $request, Exam $exam)
+    public function GrammarQuizSubmit(Request $request, Exam $exam, $grammar)
     {
-        $data = $this->validate($request, ['exam_subject' => 'required|string|max:255']);
-
-        $questionSet = QuestionSet::all()->random();
-
-        if (Str::lower($data['exam_subject']) === 'grammar') {
-            $grammarQuestions =  GrammarQuestion::all();
-            return view('student.exams.questions.grammar-question', compact('questionSet', 'grammarQuestions'));
-        } else {
-            return true;
+        $authStudentQuestionSet = Auth::guard('student')->user()->set;
+        $array = [];
+        foreach ($request->question as $item) {
+            $array += [
+              $item => $request->only('answer_'.$item)
+            ];
         }
 
+        return $array;
     }
 }

@@ -68,6 +68,6 @@ class Student extends Authenticatable
     }
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class);
+        return $this->belongsTo(QuestionSet::class, 'question_set_id');
     }
 }
