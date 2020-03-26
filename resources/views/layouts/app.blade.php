@@ -10,8 +10,6 @@
 {{--    <title>{{ config('app.name', 'Laravel') }}</title>--}}
     <title>Student | @auth('student') {{ auth()->guard('student')->user()->name }}@endauth - @yield('title')</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -33,6 +31,9 @@
         </main>
     </div>
 
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
     @yield('extra-scripts')
+
 </body>
 </html>

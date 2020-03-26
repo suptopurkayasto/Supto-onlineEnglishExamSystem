@@ -22,6 +22,14 @@ class ExamController extends Controller
             ->with('exam', $exam);
     }
 
+
+    public function showGrammarQuiz()
+    {
+        $questionSet = QuestionSet::all()->random();
+        $grammarQuestions =  GrammarQuestion::all();
+        return view('student.exams.questions.grammar-question', compact('questionSet', 'grammarQuestions'));
+    }
+
     public function showQuiz(Request $request, Exam $exam)
     {
         $data = $this->validate($request, ['exam_subject' => 'required|string|max:255']);
@@ -34,9 +42,6 @@ class ExamController extends Controller
         } else {
             return true;
         }
-
-
-
 
     }
 }

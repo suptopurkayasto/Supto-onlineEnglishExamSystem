@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::post('exams/{exam}', 'Student\ExamController@showQuiz')->name('student.show.quiz');
+Route::get('exams/{exam}/{grammar}', 'Student\ExamController@showGrammarQuiz')->name('student.show.grammar.quiz');
+
+
 Route::get('exams/{exam}', 'Student\ExamController@choseExamSubject')->name('student.exam.subject');
 
 
