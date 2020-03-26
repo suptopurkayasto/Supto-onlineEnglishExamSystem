@@ -15,7 +15,6 @@ class QuestionSetSeeder extends Seeder
         \App\QuestionSet::create(['name' => 'B']);
         \App\QuestionSet::create(['name' => 'C']);
         \App\QuestionSet::create(['name' => 'D']);
-        \App\QuestionSet::create(['name' => 'E']);
 //        factory(\App\QuestionSet::class, 5)->create();
     }
 }

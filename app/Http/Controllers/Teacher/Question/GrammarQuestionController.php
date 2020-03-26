@@ -43,10 +43,16 @@ class GrammarQuestionController extends Controller
      */
     public function store(GrammarQuestionCreateRequest $request)
     {
+        $questionCount = 1;
+        $questionSets = Exam::find($request->exam_name)->sets;
 
-        $grammarQuestionCount = GrammarQuestion::all()->count();
+        foreach ($questionSets as $questionSet) {
+            if ($questionSet->id == $request->question_set) {
+                 $questionCount += QuestionSet::find($request->question_set)->grammarQuestions()->count();
+            }
+        }
 
-        if ($grammarQuestionCount <= 100) {
+        if ($questionCount <= 25) {
             $data = $request->except('exam_name', 'question_set');
             $data['exam_id'] = $request->exam_name;
             $data['question_set_id'] = $request->question_set;
@@ -56,9 +62,9 @@ class GrammarQuestionController extends Controller
             session()->flash('success_audio');
             return redirect()->back();
         }
-        toast('You can no longer add questions to this Grammar category','warning');
+        toast('You can no longer add questions to this grammar category','warning');
         session()->flash('success_audio');
-        return redirect()->route('teachers.grammar-questions.index');
+        return redirect()->back();
     }
 
     /**

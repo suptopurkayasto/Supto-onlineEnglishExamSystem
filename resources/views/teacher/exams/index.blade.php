@@ -65,7 +65,7 @@
                                             Complete Exam
                                         </button>
                                     </form>
-                                    @elseif($exam->status === 'complete')
+                                @elseif($exam->status === 'complete')
                                     <strong class="text-success"><i class="fas fa-check"></i> Completed</strong>
                                 @endif
                             </td>
