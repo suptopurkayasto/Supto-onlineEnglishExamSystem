@@ -14,7 +14,6 @@ class StudentController extends Controller
     }
     public function index()
     {
-        return view('student.dashboard')
-            ->with('student', Auth::guard('student')->user());
+        return view('student.dashboard');
     }
 }

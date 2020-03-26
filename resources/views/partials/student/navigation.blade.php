@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="/">{{ $student->name }}</a>
+        <a class="navbar-brand" href="/">{{ auth()->guard('student')->user()->name }}</a>
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
                 aria-controls="collapsibleNavId"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -14,8 +14,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        {{ $student->name }}
-                        <img width="20" class="rounded ml-2" src="{{ Gravatar::get($student->email) }}" alt="">
+                        {{ auth()->guard('student')->user()->name }}
+                        <img width="20" class="rounded ml-2" src="{{ Gravatar::get(auth()->guard('student')->user()->email) }}" alt="">
                     </a>
                     <div class="dropdown-menu shadow" aria-labelledby="dropdownId">
                         <form action="{{ route('student.logout') }}" method="post" class="" id="studentLogOutForm">

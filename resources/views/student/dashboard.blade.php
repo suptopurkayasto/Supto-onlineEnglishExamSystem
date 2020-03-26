@@ -10,7 +10,7 @@
             <div class="shadow rounded p-4">
                 <div class="row">
                     <div class="col-12 col-md-5 mb-5 mb-md-0">
-                        <img class="shadow rounded" style="width: 100%" src="{{ Gravatar::get($student->email) }}" alt="">
+                        <img class="shadow rounded" style="width: 100%" src="{{ Gravatar::get(auth()->guard('student')->user()->email) }}" alt="">
                     </div><!-- /.col-12 col-md-5 mb-5 mb-md-0 -->
                     <div class="col-12 col-md-7">
                         <h1 class="h1 float-left">{{ $student->name }}</h1>
