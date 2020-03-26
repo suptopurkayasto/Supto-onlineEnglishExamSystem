@@ -19,7 +19,7 @@ class Student extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'id_number', 'teacher_id', 'group_id', 'section_id', 'location_id'
+        'name', 'email', 'password', 'id_number', 'teacher_id', 'group_id', 'section_id', 'location_id', 'question_set_id'
     ];
 
     /**
@@ -65,5 +65,9 @@ class Student extends Authenticatable
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+    public function set()
+    {
+        return $this->belongsTo(QuestionSet::class);
     }
 }

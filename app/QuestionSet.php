@@ -23,4 +23,8 @@ class QuestionSet extends Model
     {
         return $this->belongsToMany(Exam::class);
     }
+    public function students()
+    {
+        return $this->belongsToMany(Student::class);
+    }
 }

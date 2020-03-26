@@ -116,32 +116,6 @@
                         </li>
                     </ul>
                 </li>
-
-                <li class="sidebar-item nav-item user-panel has-treeview {{ request()->segment(2) === 'question-categories' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->segment(2) === 'question-categories' ? 'active' : '' }}">
-                        <i class="fas fa-th-large nav-icon"></i>
-                        <p>
-                            Question category
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.question-categories.index') }}"
-                               class="nav-link {{ request()->url() === route('admin.question-categories.index') ? 'active' : '' }}">
-                                <i class="fas fa-th-large nav-icon"></i>
-                                <p>All Category</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.question-categories.create') }}"
-                               class="nav-link {{ request()->url() === route('admin.question-categories.create') ? 'active' : '' }}">
-                                <i class="fas fa-th-large nav-icon"></i>
-                                <p>Add Category</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -19,7 +19,7 @@ class LocationSeeder extends Seeder
                     }
                 });
                 for ($students = 0; $students < 2; $students++) {
-                    $teacher->students()->save(factory(\App\Student::class)->make(['group_id' => 1, 'section_id' => 1, 'teacher_id' => 1]));
+                    $teacher->students()->save(factory(\App\Student::class)->make(['group_id' => 1, 'section_id' => 1, 'teacher_id' => 1, 'question_set_id' => random_int(1, 4)]));
                 }
             });
         });

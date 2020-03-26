@@ -21,7 +21,7 @@
                         <select name="location" id="location" class="form-control @error('location') is-invalid @enderror">
                             <option disabled selected>Select location</option>
                             @foreach($locations as $location)
-                                <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                <option {{ old('location') == $location->id ? 'selected' : ''  }} value="{{ $location->id }}">{{ $location->name }}</option>
                             @endforeach
                         </select>
                         @error('location')
@@ -56,7 +56,7 @@
                         <select name="group" id="group" class="form-control @error('group') is-invalid @enderror">
                             <option disabled selected>Select group</option>
                             @foreach($groups as $group)
-                                <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                <option {{ old('group') == $group->id ? 'selected' : ''  }} value="{{ $group->id }}">{{ $group->name }}</option>
                             @endforeach
                         </select>
                         @error('group')
@@ -75,7 +75,7 @@
                         <select name="section" id="section" class="form-control  @error('section') is-invalid @enderror">
                             <option disabled selected>Select section</option>
                             @foreach($sections as $section)
-                                <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                <option {{ old('section') == $section->id ? 'selected' : ''  }} value="{{ $section->id }}">{{ $section->name }}</option>
                             @endforeach
                         </select>
                         @error('section')
