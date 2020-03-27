@@ -73,3 +73,11 @@ li.sidebar-item {
 .empty-data-section {
     text-align: center;
 }
+
+.count-section {
+    .progress {
+        .progress-bar {
+            height: 10px !important;
+        }
+    }
+}

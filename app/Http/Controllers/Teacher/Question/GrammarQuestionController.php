@@ -9,6 +9,7 @@ use App\Http\Requests\Teacher\Question\GrammarQuestion\GrammarQuestionUpdateRequ
 use App\Http\Requests\Teacher\Question\GrammarQuestionCreateRequest;
 use App\QuestionSet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GrammarQuestionController extends Controller
 {
@@ -20,7 +21,8 @@ class GrammarQuestionController extends Controller
     public function index()
     {
         return view('teacher.grammar-questions.index')
-            ->with('grammarQuestions', GrammarQuestion::latest()->get());
+            ->with('grammarQuestions', GrammarQuestion::latest()->get())
+            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
     }
 
     /**
@@ -43,7 +45,20 @@ class GrammarQuestionController extends Controller
      */
     public function store(GrammarQuestionCreateRequest $request)
     {
-        $questionCount = 1;
+//
+//        dd($request->question_set);
+//        foreach (Exam::find($request->exam_name)->sets as $set) {
+//            if ($set->id === $request->question_set) {
+//
+//            }
+//        }
+//
+////        dd(Exam::find(1)->sets);
+//        die();
+
+
+
+        $questionCount = 0;
         $questionSets = Exam::find($request->exam_name)->sets;
 
         foreach ($questionSets as $questionSet) {
@@ -52,7 +67,7 @@ class GrammarQuestionController extends Controller
             }
         }
 
-        if ($questionCount <= 25) {
+        if ($questionCount <= 30) {
             $data = $request->except('exam_name', 'question_set');
             $data['exam_id'] = $request->exam_name;
             $data['question_set_id'] = $request->question_set;
