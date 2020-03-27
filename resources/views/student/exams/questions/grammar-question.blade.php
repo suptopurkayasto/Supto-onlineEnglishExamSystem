@@ -57,19 +57,19 @@
     <script src="{{ asset('js/extra/jquery.simple.timer.js') }}"></script>
     <script>
 
-        $(document).on("keydown", function (e) {
-            if (e.key == "F5" || e.key == "F11" ||
-                (e.ctrlKey == true && (e.key == 'r' || e.key == 'R')) ||
-                e.keyCode == 116 || e.keyCode == 82) {
-                e.preventDefault();
-            }
-        });
-
-        window.onbeforeunload = function() {
-            return "Leave this page ?";
-            $('#grammarFromSubmit').submit();
-        };
-
+        // $(document).on("keydown", function (e) {
+        //     if (e.key == "F5" || e.key == "F11" ||
+        //         (e.ctrlKey == true && (e.key == 'r' || e.key == 'R')) ||
+        //         e.keyCode == 116 || e.keyCode == 82) {
+        //         e.preventDefault();
+        //     }
+        // });
+        //
+        // window.onbeforeunload = function() {
+        //     return "Leave this page ?";
+        //     $('#grammarFromSubmit').submit();
+        // };
+        //
 
 
 
