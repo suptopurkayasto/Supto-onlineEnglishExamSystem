@@ -25,7 +25,7 @@
             || document.body.clientHeight;
     </script>
 </head>
-<body style="height: 100vh">
+<body>
     @include('components.success-audio')
     <div id="app" class="h-100">
         <main class=" h-100">
@@ -37,6 +37,13 @@
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('extra-scripts')
     @include('sweetalert::alert')
+
+    <script>
+        $(document).ready(function () {
+            var height = $(window).innerHeight();
+            $('body').css({'height': height});
+        });
+    </script>
 
 </body>
 </html>
