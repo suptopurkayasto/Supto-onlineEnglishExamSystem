@@ -3165,6 +3165,23 @@
   font-size: 40px;
 }
 
+.middle-section ul li {
+  padding: 0;
+}
+
+.middle-section ul li a {
+  transition: all 0.4ms ease-in-out;
+  text-align: center;
+  padding: 0.75rem 1.25rem;
+  display: block;
+  font-size: 30px;
+}
+
+.middle-section ul li a:hover {
+  color: white;
+  background-color: #007bff;
+}
+
 body {
   font-family: "Roboto", sans-serif;
 }

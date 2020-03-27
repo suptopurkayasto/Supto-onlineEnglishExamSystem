@@ -22,7 +22,8 @@ class GrammarQuestionController extends Controller
     {
         return view('teacher.grammar-questions.index')
             ->with('grammarQuestions', GrammarQuestion::latest()->get())
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
+            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get())
+            ->with('grammarQuestionExamStudentResults', GrammarQuestion\StudentGrammarQuestionExamGotMarks::all());
     }
 
     /**
@@ -45,18 +46,6 @@ class GrammarQuestionController extends Controller
      */
     public function store(GrammarQuestionCreateRequest $request)
     {
-//
-//        dd($request->question_set);
-//        foreach (Exam::find($request->exam_name)->sets as $set) {
-//            if ($set->id === $request->question_set) {
-//
-//            }
-//        }
-//
-////        dd(Exam::find(1)->sets);
-//        die();
-
-
 
         $questionCount = 0;
         $questionSets = Exam::find($request->exam_name)->sets;

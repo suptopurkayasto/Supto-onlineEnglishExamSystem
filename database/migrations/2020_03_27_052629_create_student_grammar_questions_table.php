@@ -16,6 +16,7 @@ class CreateStudentGrammarQuestionsTable extends Migration
         Schema::create('student_grammar_questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id');
+            $table->foreignId('exam_id');
             $table->foreignId('question_set_id');
             $table->foreignId('grammar_question_id');
             $table->string('student_answer')->nullable();
