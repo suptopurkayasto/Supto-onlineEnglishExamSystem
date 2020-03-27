@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GrammarQuestion;
+namespace App\Model\Grammar;
 
 use App\Exam;
 use App\QuestionSet;

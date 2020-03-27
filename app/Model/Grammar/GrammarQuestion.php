@@ -1,12 +1,12 @@
 <?php
 
-namespace App\GrammarQuestion;
+namespace App\Model\Grammar;
 
 use App\Exam;
-use App\Student;
+use App\QuestionSet;
 use Illuminate\Database\Eloquent\Model;
 
-class StudentGrammarQuestionExamGotMarks extends Model
+class GrammarQuestion extends Model
 {
     protected $guarded = [];
 
@@ -14,8 +14,8 @@ class StudentGrammarQuestionExamGotMarks extends Model
     {
         return $this->belongsTo(Exam::class);
     }
-    public function student()
+    public function set()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(QuestionSet::class, 'question_set_id');
     }
 }

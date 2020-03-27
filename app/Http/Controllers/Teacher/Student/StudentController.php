@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Teacher\Student;
 
+use App\Exam;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Student\StudentCreateRequest;
@@ -32,6 +33,7 @@ class StudentController extends Controller
         return view('teacher.student.index')
             ->with('students', Student::where('teacher_id', Auth::guard('teacher')->id())->latest()->get());
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -119,6 +121,14 @@ class StudentController extends Controller
         toast('Student has been successfully deleted','success');
         session()->flash('success_audio');
         return redirect()->route('teacher.students.index');
+    }
+
+
+    public function result()
+    {
+        return view('teacher.exams.exam-result')
+            ->with('exams', Exam::latest()->get())
+            ->with('students', Student::all());
     }
 
     protected function validateUpdateStudentRequest($request) {

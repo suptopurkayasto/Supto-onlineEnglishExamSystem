@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Teacher\Question;
 
 use App\Exam;
-use App\GrammarQuestion;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Question\GrammarQuestion\GrammarQuestionUpdateRequest;
 use App\Http\Requests\Teacher\Question\GrammarQuestionCreateRequest;
+use App\Model\Grammar\GrammarQuestion;
 use App\QuestionSet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +22,7 @@ class GrammarQuestionController extends Controller
     {
         return view('teacher.grammar-questions.index')
             ->with('grammarQuestions', GrammarQuestion::latest()->get())
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get())
-            ->with('grammarQuestionExamStudentResults', GrammarQuestion\StudentGrammarQuestionExamGotMarks::all());
+            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
     }
 
     /**
@@ -74,7 +73,7 @@ class GrammarQuestionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\GrammarQuestion  $grammarQuestion
+     * @param GrammarQuestion $grammarQuestion
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(GrammarQuestion $grammarQuestion)
@@ -88,7 +87,7 @@ class GrammarQuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\GrammarQuestion  $grammarQuestion
+     * @param GrammarQuestion $grammarQuestion
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(GrammarQuestion $grammarQuestion)
@@ -102,8 +101,8 @@ class GrammarQuestionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\GrammarQuestion  $grammarQuestion
+     * @param GrammarQuestionUpdateRequest $request
+     * @param GrammarQuestion $grammarQuestion
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(GrammarQuestionUpdateRequest $request, GrammarQuestion $grammarQuestion)
@@ -121,7 +120,7 @@ class GrammarQuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\GrammarQuestion  $grammarQuestion
+     * @param GrammarQuestion $grammarQuestion
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(GrammarQuestion $grammarQuestion)

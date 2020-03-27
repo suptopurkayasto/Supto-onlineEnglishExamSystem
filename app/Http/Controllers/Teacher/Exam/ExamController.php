@@ -23,11 +23,6 @@ class ExamController extends Controller
      */
     public function index()
     {
-
-//        foreach (Exam::find(1)->sets as $set) {
-//            echo $set->name . ' ' . $set->grammarQuestions()->count() . ', ';
-//        };
-
         return view('teacher.exams.index')
             ->with('exams', Exam::latest()->get());
     }

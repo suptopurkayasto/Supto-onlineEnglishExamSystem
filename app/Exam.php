@@ -2,7 +2,8 @@
 
 namespace App;
 
-use App\GrammarQuestion\StudentGrammarQuestion;
+use App\Model\Grammar\GrammarQuestion;
+use App\Model\Grammar\StudentGrammarQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Grammars\Grammar;
 

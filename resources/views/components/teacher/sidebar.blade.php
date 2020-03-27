@@ -57,6 +57,13 @@
                                         <p>Add Student</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('teacher.students.exams.result') }}"
+                                       class="nav-link {{ request()->url() === route('teacher.students.exams.result') ? 'active' : '' }}">
+                                        <i class="fas fa-user-plus nav-icon"></i>
+                                        <p>Student Exam Result</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Student;
 
 use App\Exam;
-use App\GrammarQuestion;
 use App\Http\Controllers\Controller;
+use App\Model\Grammar\GrammarQuestion;
+use App\Model\Grammar\StudentGrammarQuestion;
+use App\Model\Grammar\StudentGrammarQuestionExamGotMarks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +19,7 @@ class ExamController extends Controller
 
     public function choseExamSubject(Exam $exam)
     {
-        $authStudentExamGrammarAbility = GrammarQuestion\StudentGrammarQuestionExamGotMarks::find(Auth::guard('student')->id());
+        $authStudentExamGrammarAbility = StudentGrammarQuestionExamGotMarks::find(Auth::guard('student')->id());
 
         if ($authStudentExamGrammarAbility === '') {
             $authStudentExamGrammarAbility = false;
@@ -49,7 +51,7 @@ class ExamController extends Controller
             }
             $correct_answer = GrammarQuestion::find($item)->answer;
 
-            GrammarQuestion\StudentGrammarQuestion::create([
+            StudentGrammarQuestion::create([
                 'student_id' => Auth::guard('student')->user()->id,
                 'exam_id' => $exam->id,
                 'question_set_id' => $authStudentQuestionSet->id,
@@ -60,12 +62,12 @@ class ExamController extends Controller
         }
 
         $got_marks = 0;
-        foreach (GrammarQuestion\StudentGrammarQuestion::all() as $item) {
+        foreach (StudentGrammarQuestion::all() as $item) {
             if ($item->correct_answer === $item->student_answer) {
                 $got_marks += 1;
             }
         };
-        GrammarQuestion\StudentGrammarQuestionExamGotMarks::create([
+        StudentGrammarQuestionExamGotMarks::create([
             'student_id' => Auth::guard('student')->id(),
             'exam_id' => $exam->id,
             'got_marks' => $got_marks,
