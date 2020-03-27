@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('exams/{exam}/{grammar}', 'Student\ExamController@GrammarQuizSubmit')->name('student.grammar.quiz.submit');
 Route::get('exams/{exam}/{grammar}', 'Student\ExamController@showGrammarQuiz')->name('student.show.grammar.quiz');
-
 Route::get('exams/{exam}', 'Student\ExamController@choseExamSubject')->name('student.exam.subject');
 
 

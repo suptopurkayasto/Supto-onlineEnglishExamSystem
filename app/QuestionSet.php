@@ -22,7 +22,7 @@ class QuestionSet extends Model
 
     public function exams()
     {
-        return $this->belongsToMany(Exam::class);
+        return $this->belongsToMany(Exam::class, 'exam_question_set', 'question_set_id');
     }
     public function students()
     {

@@ -74,6 +74,6 @@ class Student extends Authenticatable
 
     public function grammarMarks()
     {
-        return $this->hasOne(StudentGrammarQuestionExamGotMarks::class);
+        return $this->hasMany(StudentGrammarQuestionExamGotMarks::class);
     }
 }

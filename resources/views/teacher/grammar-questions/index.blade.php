@@ -6,22 +6,22 @@
     @if($grammarQuestions->count() > 0)
 
         @foreach($authTeacherExams as $authTeacherExam)
-            <div class="p-4 shadow mb-5 count-section">
-                <h3 class="h3"><span class="text-uppercase">{{ $authTeacherExam->name }}</span> (All Grammar Question)</h3>
+            <div class="p-3 shadow-sm mb-5 count-section bg-white rounded border-top border-primary">
+                <h3 class="h3 mb-3"><span class="text-uppercase font-weight-bolder">{{ $authTeacherExam->name }}</span> (All Grammar Question)</h3>
                 <div class="row">
                     <div class="col-12">
-                        <div class="info-box bg-gradient-indigo">
-                            <span class="info-box-icon"><i class="fas fa-question"></i></span>
+                        <div class="info-box bg-white info-box-main border-primary border">
+                            <span class="info-box-icon text-primary"><i class="fa-2x fas fa-question"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Grammar Questions</span>
-                                <span class="info-box-number"></span>
+                                <span class="info-box-number"><strong>{{ $authTeacherExam->grammarQuestions()->count() }}</strong> questions</span>
 
                                 <div class="progress">
                                     <div class="progress-bar"
-                                         style="width: {{ ($authTeacherExam->grammarQuestions()->count()*100)/120 }}%"></div>
+                                         style="width: {{ ($authTeacherExam->grammarQuestions()->count()*100)/100 }}%"></div>
                                 </div>
                                 <span class="progress-description">
-                            {{ $authTeacherExam->grammarQuestions()->count() }} questions of 120 questions
+                            {{ $authTeacherExam->grammarQuestions()->count() }} questions of 100 questions
                             </span>
                             </div>
                             <!-- /.info-box-content -->
@@ -45,86 +45,81 @@
                         @endif
                     @endforeach
 
-                    <div class="col-12 col-md-3">
-                        <div class="info-box bg-gradient-primary">
-                            <span class="info-box-icon" style="font-weight: 900">A</span>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="info-box bg-white border-primary border">
+                            <span class="info-box-icon text-primary" style="font-weight: 900">A</span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Set: <strong>A</strong></span>
                                 <span class="info-box-number">{{ $countGrammarQuestionSetA }} questions</span>
 
                                 <div class="progress">
                                     <div class="progress-bar"
-                                         style="width: {{ ($countGrammarQuestionSetA*100)/30 }}%"></div>
+                                         style="width: {{ ($countGrammarQuestionSetA*100)/25 }}%"></div>
                                 </div>
                                 <span class="progress-description">
-                            {{ $countGrammarQuestionSetA }} questions of 30 questions
+                            {{ $countGrammarQuestionSetA }} questions of 25 questions
                             </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
                     </div><!-- /.col -->
 
-                    <div class="col-12 col-md-3">
-                        <div class="info-box bg-gradient-primary">
-                            <span class="info-box-icon" style="font-weight: 900">B</span>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="info-box bg-white border-primary border">
+                            <span class="info-box-icon text-primary" style="font-weight: 900">B</span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Set: <strong>B</strong></span>
                                 <span class="info-box-number">{{ $countGrammarQuestionSetB }} questions</span>
 
                                 <div class="progress">
                                     <div class="progress-bar"
-                                         style="width: {{ ($countGrammarQuestionSetB*100)/30 }}%"></div>
+                                         style="width: {{ ($countGrammarQuestionSetB*100)/25 }}%"></div>
                                 </div>
                                 <span class="progress-description">
-                            {{ $countGrammarQuestionSetB }} questions of 30 questions
+                            {{ $countGrammarQuestionSetB }} questions of 25 questions
                             </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
                     </div><!-- /.col -->
 
-                    <div class="col-12 col-md-3">
-                        <div class="info-box bg-gradient-primary">
-                            <span class="info-box-icon" style="font-weight: 900">C</span>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="info-box bg-white border-primary border">
+                            <span class="info-box-icon text-primary" style="font-weight: 900">C</span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Set: <strong>C</strong></span>
                                 <span class="info-box-number">{{ $countGrammarQuestionSetC }} questions</span>
 
                                 <div class="progress">
                                     <div class="progress-bar"
-                                         style="width: {{ ($countGrammarQuestionSetC*100)/30 }}%"></div>
+                                         style="width: {{ ($countGrammarQuestionSetC*100)/25 }}%"></div>
                                 </div>
                                 <span class="progress-description">
-                            {{ $countGrammarQuestionSetC }} questions of 30 questions
+                            {{ $countGrammarQuestionSetC }} questions of 25 questions
                             </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
                     </div><!-- /.col -->
 
-                    <div class="col-12 col-md-3">
-                        <div class="info-box bg-gradient-primary">
-                            <span class="info-box-icon" style="font-weight: 900">D</span>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="info-box bg-white border-primary border">
+                            <span class="info-box-icon text-primary" style="font-weight: 900">D</span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Set: <strong>D</strong></span>
                                 <span class="info-box-number">{{ $countGrammarQuestionSetD }} questions</span>
 
                                 <div class="progress">
                                     <div class="progress-bar"
-                                         style="width: {{ ($countGrammarQuestionSetD*100)/30 }}%"></div>
+                                         style="width: {{ ($countGrammarQuestionSetD*100)/25 }}%"></div>
                                 </div>
                                 <span class="progress-description">
-                            {{ $countGrammarQuestionSetD }} questions of 30 questions
+                            {{ $countGrammarQuestionSetD }} questions of 25 questions
                             </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
                     </div><!-- /.col -->
-
-
-
-                    {{--                {{ $countGrammarQuestionSetB }}, {{ $countGrammarQuestionSetC }}, {{ $countGrammarQuestionSetD }},--}}
-                    {{--                    {{ ($countGrammarQuestionSetA*100)/30 }}--}}
                 </div><!-- /.row -->
             </div><!-- /.p-4 shadow -->
         @endforeach
@@ -132,7 +127,7 @@
         <div class="card">
             <div class="card-header ">
                 <h3 class="card-title float-left">All Grammar Questions</h3>
-                <a href="{{ route('teachers.grammar-questions.create') }}" class="btn bg-gradient-indigo float-right">Add
+                <a href="{{ route('teachers.grammar-questions.create') }}" class="btn bg-gradient-primary float-right">Add
                     Grammar Questions</a>
             </div>
             <!-- /.card-header -->

@@ -3214,7 +3214,15 @@ li.sidebar-item ul li p {
   text-align: center;
 }
 
+.count-section .progress {
+  height: 5px;
+}
+
 .count-section .progress .progress-bar {
-  height: 10px !important;
+  background-color: #007bff;
+}
+
+.count-section .info-box-main .progress {
+  height: 10px;
 }
 

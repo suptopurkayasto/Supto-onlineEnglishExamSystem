@@ -77,8 +77,17 @@ li.sidebar-item {
 
 .count-section {
     .progress {
+        height: 5px;
         .progress-bar {
-            height: 10px !important;
+            background-color: $primary-admin;
+        }
+    }
+    .info-box-main {
+        .progress {
+            height: 10px;
+            .progress-bar {
+
+            }
         }
     }
 }

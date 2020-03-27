@@ -20,6 +20,10 @@ class ExamController extends Controller
 
     public function choseExamSubject(Exam $exam)
     {
+        if ($exam->status != 'running') {
+            return redirect()->route('student.dashboard');
+        }
+
         $authStudentExamGrammarAbility = Collection::make(StudentGrammarQuestionExamGotMarks::where(['exam_id' => $exam->id, 'student_id' => Auth::guard('student')->id()])->get());
 
         $showGrammarQuestionLink = null;
@@ -36,6 +40,9 @@ class ExamController extends Controller
 
     public function showGrammarQuiz(Exam $exam)
     {
+        if ($exam->status != 'running') {
+            return redirect()->route('student.dashboard');
+        }
         $authStudentQuestionSet = Auth::guard('student')->user()->set;
         $grammarQuestions = GrammarQuestion::all();
         return view('student.exams.questions.grammar-question', compact('authStudentQuestionSet', 'grammarQuestions', 'exam'));
@@ -48,7 +55,7 @@ class ExamController extends Controller
 
 
         if (Collection::make($submitAbility)->count() < 1) {
-            
+
             $authStudentQuestionSet = Auth::guard('student')->user()->set;
 
             foreach ($request->question as $item) {
