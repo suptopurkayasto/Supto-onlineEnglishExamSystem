@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\GrammarQuestion;
+use App\Model\Grammar\GrammarQuestion;
 use Faker\Generator as Faker;
 
 $factory->define(GrammarQuestion::class, function (Faker $faker) {

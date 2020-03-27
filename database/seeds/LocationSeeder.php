@@ -15,7 +15,7 @@ class LocationSeeder extends Seeder
             $location->teachers()->save(factory(\App\Teacher::class)->make(['profile_status' => true]))->each(function ($teacher) {
                 $teacher->exams()->save(factory(\App\Exam::class)->make(['name' => 'APTIS model test', 'slug' => 'aptis-model-test']))->each(function ($exam) {
                     for ($grammarQuestion = 0; $grammarQuestion < 1; $grammarQuestion++) {
-                        $exam->grammarQuestions()->save(factory(\App\GrammarQuestion::class)->make());
+                        $exam->grammarQuestions()->save(factory(\App\Model\Grammar\GrammarQuestion::class)->make());
                     }
                 });
                 for ($students = 0; $students < 2; $students++) {

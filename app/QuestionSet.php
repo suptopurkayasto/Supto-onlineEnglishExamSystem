@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Model\Grammar\GrammarQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 

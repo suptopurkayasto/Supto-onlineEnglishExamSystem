@@ -25,6 +25,7 @@
     </script>
 </head>
 <body style="height: 100vh">
+    @include('components.success-audio')
     <div id="app" class="h-100">
         <main class=" h-100">
             @yield('content')
@@ -34,6 +35,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('extra-scripts')
+    @include('sweetalert::alert')
 
 </body>
 </html>
