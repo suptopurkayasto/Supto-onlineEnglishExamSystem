@@ -29,6 +29,11 @@ class RedirectIfAuthenticated
                     return redirect()->route('teacher.dashboard');
                 }
                 break;
+            case 'student':
+                if (Auth::guard('student')->check()) {
+                    return redirect()->route('student.dashboard');
+                }
+                break;
 
             default:
                 if (Auth::guard($guard)->check()) {

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Model\Grammar\StudentGrammarQuestionExamGotMarks;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,7 +20,7 @@ class Student extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'id_number', 'teacher_id', 'group_id', 'section_id', 'location_id'
+        'name', 'email', 'password', 'id_number', 'teacher_id', 'group_id', 'section_id', 'location_id', 'question_set_id'
     ];
 
     /**
@@ -39,11 +40,6 @@ class Student extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = Hash::make($password);
-    }
 
     public function getRouteKeyName()
     {
@@ -70,5 +66,14 @@ class Student extends Authenticatable
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+    public function set()
+    {
+        return $this->belongsTo(QuestionSet::class, 'question_set_id');
+    }
+
+    public function grammarMarks()
+    {
+        return $this->hasMany(StudentGrammarQuestionExamGotMarks::class);
     }
 }

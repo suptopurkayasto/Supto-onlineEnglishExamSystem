@@ -1,7 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Model\Grammar;
 
+use App\Exam;
+use App\QuestionSet;
 use Illuminate\Database\Eloquent\Model;
 
 class GrammarQuestion extends Model

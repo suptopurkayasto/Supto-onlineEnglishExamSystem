@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Model\Grammar\GrammarQuestion;
+use App\Model\Grammar\StudentGrammarQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Grammars\Grammar;
 
@@ -27,6 +29,10 @@ class Exam extends Model
 
     public function sets()
     {
-        return $this->belongsToMany(QuestionSet::class);
+        return $this->belongsToMany(QuestionSet::class, 'exam_question_set', 'exam_id');
+    }
+    public function students()
+    {
+        return $this->hasMany(StudentGrammarQuestion::class);
     }
 }

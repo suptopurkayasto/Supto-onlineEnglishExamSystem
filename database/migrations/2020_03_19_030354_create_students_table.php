@@ -18,6 +18,7 @@ class CreateStudentsTable extends Migration
             $table->unsignedBigInteger('location_id');
             $table->unsignedBigInteger('admin_id')->default(0);
             $table->unsignedBigInteger('teacher_id')->default(0);
+            $table->unsignedBigInteger('question_set_id');
             $table->unsignedBigInteger('section_id');
             $table->unsignedBigInteger('group_id');
             $table->string('name');

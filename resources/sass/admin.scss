@@ -1,5 +1,6 @@
 
 @import "~animate.css";
+@import "variables";
 @import "custom_variables";
 [class*=sidebar-dark-] {
     background-color: #001f3f;
@@ -72,4 +73,21 @@ li.sidebar-item {
 
 .empty-data-section {
     text-align: center;
+}
+
+.count-section {
+    .progress {
+        height: 5px;
+        .progress-bar {
+            background-color: $primary-admin;
+        }
+    }
+    .info-box-main {
+        .progress {
+            height: 10px;
+            .progress-bar {
+
+            }
+        }
+    }
 }

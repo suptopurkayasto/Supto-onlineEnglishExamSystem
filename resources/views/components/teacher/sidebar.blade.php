@@ -57,6 +57,13 @@
                                         <p>Add Student</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('teacher.students.exams.result') }}"
+                                       class="nav-link {{ request()->url() === route('teacher.students.exams.result') ? 'active' : '' }}">
+                                        <i class="fas fa-check-circle nav-icon"></i>
+                                        <p>Student Exam Result</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -85,7 +92,6 @@
                                 </li>
                             </ul>
                         </li>
-
 
                         <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'questions' ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->segment(2) === 'questions' ? 'active' : '' }}">

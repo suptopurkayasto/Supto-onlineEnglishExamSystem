@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Teacher\Question;
 
 use App\Exam;
-use App\GrammarQuestion;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Question\GrammarQuestion\GrammarQuestionUpdateRequest;
 use App\Http\Requests\Teacher\Question\GrammarQuestionCreateRequest;
+use App\Model\Grammar\GrammarQuestion;
 use App\QuestionSet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GrammarQuestionController extends Controller
 {
@@ -20,7 +21,8 @@ class GrammarQuestionController extends Controller
     public function index()
     {
         return view('teacher.grammar-questions.index')
-            ->with('grammarQuestions', GrammarQuestion::latest()->get());
+            ->with('grammarQuestions', GrammarQuestion::latest()->get())
+            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
     }
 
     /**
@@ -43,16 +45,11 @@ class GrammarQuestionController extends Controller
      */
     public function store(GrammarQuestionCreateRequest $request)
     {
-        $questionCount = 1;
-        $questionSets = Exam::find($request->exam_name)->sets;
 
-        foreach ($questionSets as $questionSet) {
-            if ($questionSet->id == $request->question_set) {
-                 $questionCount += QuestionSet::find($request->question_set)->grammarQuestions()->count();
-            }
-        }
+        $questionCount = Exam::find($request->exam_name)->sets()->find($request->question_set)->grammarQuestions()->count();
 
-        if ($questionCount <= 25) {
+        if ($questionCount < 25) {
+//            dd('ok');
             $data = $request->except('exam_name', 'question_set');
             $data['exam_id'] = $request->exam_name;
             $data['question_set_id'] = $request->question_set;
@@ -61,16 +58,18 @@ class GrammarQuestionController extends Controller
             toast('Grammar question has been successfully added','success');
             session()->flash('success_audio');
             return redirect()->back();
+        } else {
+            toast('You can no longer add questions to this grammar category','warning');
+            session()->flash('success_audio');
+            return redirect()->back();
         }
-        toast('You can no longer add questions to this grammar category','warning');
-        session()->flash('success_audio');
-        return redirect()->back();
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\GrammarQuestion  $grammarQuestion
+     * @param GrammarQuestion $grammarQuestion
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(GrammarQuestion $grammarQuestion)
@@ -84,7 +83,7 @@ class GrammarQuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\GrammarQuestion  $grammarQuestion
+     * @param GrammarQuestion $grammarQuestion
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(GrammarQuestion $grammarQuestion)
@@ -98,8 +97,8 @@ class GrammarQuestionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\GrammarQuestion  $grammarQuestion
+     * @param GrammarQuestionUpdateRequest $request
+     * @param GrammarQuestion $grammarQuestion
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(GrammarQuestionUpdateRequest $request, GrammarQuestion $grammarQuestion)
@@ -117,7 +116,7 @@ class GrammarQuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\GrammarQuestion  $grammarQuestion
+     * @param GrammarQuestion $grammarQuestion
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(GrammarQuestion $grammarQuestion)

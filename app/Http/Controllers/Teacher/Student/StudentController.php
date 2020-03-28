@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Teacher\Student;
 
+use App\Exam;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Student\StudentCreateRequest;
+use App\QuestionSet;
 use App\Section;
 use App\Student;
 use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class StudentController extends Controller
@@ -33,6 +36,7 @@ class StudentController extends Controller
             ->with('students', Student::where('teacher_id', Auth::guard('teacher')->id())->latest()->get());
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -53,11 +57,12 @@ class StudentController extends Controller
      */
     public function store(StudentCreateRequest $request)
     {
-        $data = $request->only('name', 'email', 'password');
-
+        $data = $request->only('name', 'email');
+        $data['question_set_id'] = QuestionSet::all()->random()->id;
         $data['location_id'] = Auth::guard('teacher')->user()->location->id;
         $data['group_id'] = $request->group;
         $data['section_id'] = $request->section;
+        $data['password'] = Hash::make($request->password);
         $data['id_number'] = Str::upper(Str::random(1)) . now('asia/dhaka')->format('sms') . Str::upper(Str::random(1));
 
         Auth::guard('teacher')->user()->students()->create($data);
@@ -121,6 +126,14 @@ class StudentController extends Controller
         return redirect()->route('teacher.students.index');
     }
 
+
+    public function result()
+    {
+        return view('teacher.exams.exam-result')
+            ->with('exams', Exam::latest()->get())
+            ->with('students', Student::all());
+    }
+
     protected function validateUpdateStudentRequest($request) {
         $validateData = $this->validate($request, [
             'name' => 'required|max:255|string',
@@ -142,7 +155,7 @@ class StudentController extends Controller
                 'password' => 'required|max:255|min:6|confirmed',
             ]);
 
-            $finalData['password'] = $validatePassword['password'];
+            $finalData['password'] = Hash::make($validatePassword['password']);
         }
 
         return $finalData;

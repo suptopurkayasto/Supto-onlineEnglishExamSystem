@@ -19,7 +19,6 @@
                         <th>Group</th>
                         <th>Section</th>
                         <th>Email</th>
-                        <th>Location</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -32,7 +31,6 @@
                             <td title="{{ 'Group: ' . $student->group->name }}">{{ $student->group->name }}</td>
                             <td title="{{ 'Section: ' . $student->section->name }}">{{ $student->section->name }}</td>
                             <td title="{{ $student->email }}">{{ Str::limit($student->email, 30) }}</td>
-                            <td title="{{ $student->location->name }}">{{ Str::limit($student->location->name, 40) }}</td>
                             <td class="text-center">
                                 <a href="{{ route('teacher.students.show', $student->id_number) }}"
                                    class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
