@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Model\Grammar\StudentGrammarQuestionExamGotMarks;
+use App\Model\Writing\Dialog;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -75,5 +76,12 @@ class Student extends Authenticatable
     public function grammarMarks()
     {
         return $this->hasMany(StudentGrammarQuestionExamGotMarks::class);
+    }
+
+
+    // Dialog
+    public function dialogs()
+    {
+        return $this->hasMany(Dialog::class);
     }
 }

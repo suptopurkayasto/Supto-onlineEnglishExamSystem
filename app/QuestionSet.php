@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Model\Grammar\GrammarQuestion;
+use App\Model\Writing\Dialog;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -27,5 +28,12 @@ class QuestionSet extends Model
     public function students()
     {
         return $this->belongsToMany(Student::class);
+    }
+
+
+    // Dialog
+    public function dialogs()
+    {
+        return $this->hasMany(Dialog::class);
     }
 }
