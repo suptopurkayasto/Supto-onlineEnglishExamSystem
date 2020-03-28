@@ -106,14 +106,7 @@
                                     <a href="{{ route('teachers.grammar-questions.index') }}"
                                        class="nav-link {{ request()->url() === route('teachers.grammar-questions.index') ? 'active' : '' }}">
                                         <i class="fas fa-lightbulb nav-icon"></i>
-                                        <p>All grammar questions</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('teachers.grammar-questions.create') }}"
-                                       class="nav-link {{ request()->url() === route('teachers.grammar-questions.create') ? 'active' : '' }}">
-                                        <i class="fas fa-lightbulb nav-icon"></i>
-                                        <p>Add grammar question</p>
+                                        <p>Grammar</p>
                                     </a>
                                 </li>
                                 <span style="width: 100%; height: 1px; background: rgba(255, 255, 255, .1); display: block"></span>
