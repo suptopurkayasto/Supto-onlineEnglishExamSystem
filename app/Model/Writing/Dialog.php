@@ -11,10 +11,6 @@ class Dialog extends Model
 {
     protected $guarded = [];
 
-    public function student()
-    {
-        return $this->belongsTo(Student::class);
-    }
     public function exam()
     {
         return $this->belongsTo(Exam::class);
@@ -22,5 +18,10 @@ class Dialog extends Model
     public function questionSet()
     {
         return $this->belongsTo(QuestionSet::class);
+    }
+
+    public function writingPart()
+    {
+        return $this->belongsTo(WritingPart::class);
     }
 }

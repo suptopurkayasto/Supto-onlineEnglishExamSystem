@@ -96,6 +96,7 @@
 @include('sweetalert::alert')
 
 <script src="{{ asset('js/admin/password.js') }}"></script>
+@yield('extra-scripts')
 
 </body>
 </html>

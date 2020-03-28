@@ -15,11 +15,10 @@ class CreateDialogsTable extends Migration
     {
         Schema::create('dialogs', function (Blueprint $table) {
             $table->id();
-            $table->string('part')->default('writing');
-            $table->foreignId('student_id');
+            $table->foreignId('writing_part_id');
             $table->foreignId('exam_id')->nullable();
             $table->foreignId('question_set_id');
-            $table->text('topic');
+            $table->string('topic');
             $table->text('question_1');
             $table->text('question_2');
             $table->text('question_3');

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Teacher\Question\Writing;
 
+use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Writing\Dialog;
+use App\Model\Writing\WritingPart;
+use App\QuestionSet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class WritingPartController extends Controller
+class WritingController extends Controller
 {
     public function __construct()
     {
@@ -22,6 +26,9 @@ class WritingPartController extends Controller
 
     public function create()
     {
-        return view('teacher.questions.writing.create');
+        return view('teacher.questions.writing.create')
+            ->with('questionSets', QuestionSet::all())
+            ->with('writingParts', WritingPart::orderBy('name')->get())
+            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
     }
 }

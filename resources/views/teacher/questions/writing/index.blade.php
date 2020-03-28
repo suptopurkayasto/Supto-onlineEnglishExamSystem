@@ -45,7 +45,7 @@
     @else
         <div class="empty-data-section">
             <h2 class="text-center text-warning mt-5 display-1 font-weight">Empty.</h2>
-            <a href="{{ route('teachers.writing.part.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i class="fas fa-pen-alt"></i> Add Writing Question</a>
+            <a href="{{ route('teachers.writing.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i class="fas fa-pen-alt"></i> Add Writing Question</a>
         </div><!-- /.empty-data-section -->
     @endif
 @endsection

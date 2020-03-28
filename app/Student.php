@@ -80,8 +80,4 @@ class Student extends Authenticatable
 
 
     // Dialog
-    public function dialogs()
-    {
-        return $this->hasMany(Dialog::class);
-    }
 }
