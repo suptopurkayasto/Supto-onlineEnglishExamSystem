@@ -116,7 +116,16 @@
                                         <p>Add grammar question</p>
                                     </a>
                                 </li>
-                                <hr class="border-bottom border-dark">
+                                <span style="width: 100%; height: 1px; background: rgba(255, 255, 255, .1); display: block"></span>
+                                <!-- Start::Writing part markup -->
+                                <li class="nav-item">
+                                    <a href="{{ route('teachers.writing.part.form') }}"
+                                       class="nav-link {{ request()->url() === route('teachers.writing.part.form') ? 'active' : '' }}">
+                                        <i class="fas fa-marker nav-icon"></i>
+                                        <p>Writing</p>
+                                    </a>
+                                </li>
+                                <!-- End::writing part markup -->
                             </ul>
                         </li>
                     </ul>
