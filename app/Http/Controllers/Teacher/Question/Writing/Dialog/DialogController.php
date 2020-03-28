@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Teacher\Question\Writing\Dialog;
 
+use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Writing\Dialog;
 use Illuminate\Http\Request;
@@ -42,11 +43,19 @@ class DialogController extends Controller
      */
     public function store(Request $request)
     {
+        $exam = $request->exam;
+        $set = $request->questionSet;
 
-        Dialog::create($this->validateDialogCreateRequest($request));
+        $countDialogs = Dialog::where(['exam_id' => $exam, 'question_set_id' => $set])->get()->count();
 
-        toast('Dialog has been successfully added','success');
-        session()->flash('success_audio');
+        if ($countDialogs < 1) {
+            Dialog::create($this->validateDialogCreateRequest($request));
+            session()->flash('success_audio');
+            toast('Dialog has been successfully added','success');
+        } else {
+            session()->flash('field_audio');
+            alert()->info('Fail!', 'You can no longer add dialog to this set.');
+        }
         return redirect()->back();
     }
 

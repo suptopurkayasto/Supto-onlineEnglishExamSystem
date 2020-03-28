@@ -24,7 +24,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
-
+    @include('components.audio-alert')
     <x-teacher.navigation></x-teacher.navigation>
     <x-teacher.sidebar></x-teacher.sidebar>
 

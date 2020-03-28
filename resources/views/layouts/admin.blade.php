@@ -26,6 +26,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
+    @include('components.audio-alert')
     <x-navigation></x-navigation>
     <x-sidebar></x-sidebar>
 

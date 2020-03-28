@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teacher\Exam;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Exam\ExamCreateRequest;
+use App\QuestionSet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -47,7 +48,8 @@ class ExamController extends Controller
     {
         $data = $request->only('name');
         $data['slug'] = Str::slug($request->name);
-        Auth::guard('teacher')->user()->exams()->create($data);
+        $createdExam = Auth::guard('teacher')->user()->exams()->create($data);
+        $createdExam->sets()->attach(QuestionSet::all());
 
         toast('Exam has been successfully added','success');
         session()->flash('success_audio');

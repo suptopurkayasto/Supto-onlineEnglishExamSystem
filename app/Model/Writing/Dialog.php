@@ -15,9 +15,9 @@ class Dialog extends Model
     {
         return $this->belongsTo(Exam::class);
     }
-    public function questionSet()
+    public function set()
     {
-        return $this->belongsTo(QuestionSet::class);
+        return $this->belongsTo(QuestionSet::class, 'question_set_id');
     }
 
     public function writingPart()
