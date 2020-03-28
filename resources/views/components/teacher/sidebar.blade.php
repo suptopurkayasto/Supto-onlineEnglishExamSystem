@@ -112,8 +112,8 @@
                                 <span style="width: 100%; height: 1px; background: rgba(255, 255, 255, .1); display: block"></span>
                                 <!-- Start::Writing part markup -->
                                 <li class="nav-item">
-                                    <a href="{{ route('teachers.writing.index') }}"
-                                       class="nav-link {{ request()->url() === route('teachers.writing.index') ? 'active' : '' }}">
+                                    <a href="{{ route('teachers.questions.writing.index') }}"
+                                       class="nav-link {{ request()->url() === route('teachers.questions.writing.index') ? 'active' : '' }}">
                                         <i class="fas fa-marker nav-icon"></i>
                                         <p>Writing</p>
                                     </a>

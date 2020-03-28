@@ -14,11 +14,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>ID Number</th>
                         <th>Name</th>
-                        <th>Group</th>
-                        <th>Section</th>
-                        <th>Email</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -26,13 +22,9 @@
                     @foreach($dialogQuestions as $index => $dialogQuestion)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td title="{{ 'ID Number: ' . $dialogQuestion->id_number }}">{{ $dialogQuestion->id_number }}</td>
-                            <td title="{{ $dialogQuestion->name }}">{{ Str::limit($dialogQuestion->name, 20) }}</td>
-                            <td title="{{ 'Group: ' . $dialogQuestion->group->name }}">{{ $dialogQuestion->group->name }}</td>
-                            <td title="{{ 'Section: ' . $dialogQuestion->section->name }}">{{ $dialogQuestion->section->name }}</td>
-                            <td title="{{ $dialogQuestion->email }}">{{ Str::limit($dialogQuestion->email, 30) }}</td>
+                            <td title="{{ $dialogQuestion->topic }}">{{ Str::limit($dialogQuestion->topic, 20) }}</td>
                             <td class="text-center">
-                                <a href="{{ route('teacher.students.show', $dialogQuestion->id_number) }}"
+                                <a href="{{ route('teacher.students.show', $dialogQuestion->id) }}"
                                    class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
                             </td>
                         </tr>
