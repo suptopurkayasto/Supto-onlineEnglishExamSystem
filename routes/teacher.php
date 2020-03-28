@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 /**
  * All Writing part routes
  */
-Route::get('questions/writing/create', 'Teacher\Question\Writing\WritingPartController@create')->name('teachers.writing.part.form');
+Route::get('questions/writing/create', 'Teacher\Question\Writing\WritingPartController@create')->name('teachers.writing.part.create');
+Route::get('questions/writing', 'Teacher\Question\Writing\WritingPartController@index')->name('teachers.writing.part.index');
 
 
 
