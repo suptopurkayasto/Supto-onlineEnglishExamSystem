@@ -3160,8 +3160,8 @@
 }
 
 .btn-hover-effect:hover {
-  -webkit-animation: pulse 300ms;
-          animation: pulse 300ms;
+  -webkit-animation: pulse 150ms;
+          animation: pulse 150ms;
 }
 
 table.custom-table-style tr td:first-of-type,

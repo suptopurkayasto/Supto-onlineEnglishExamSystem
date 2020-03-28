@@ -95,7 +95,7 @@
 
                         <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'questions' ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->segment(2) === 'questions' ? 'active' : '' }}">
-                                <i class="fas fa-lightbulb nav-icon"></i>
+                                <i class="fas fa-question nav-icon"></i>
                                 <p>
                                     Questions
                                     <i class="right fas fa-angle-left"></i>

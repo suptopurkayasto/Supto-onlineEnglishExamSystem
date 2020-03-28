@@ -3,7 +3,7 @@
 @section('title', 'All Writing Questions')
 
 @section('content')
-    @if($authTeacherExams->count() > 0)
+    @if($dialogQuestions->count() > 0)
 
         @foreach($authTeacherExams as $authTeacherExam)
             <div class="card">
@@ -82,8 +82,8 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title float-left">All Students</h3>
-                <a href="{{ route('teachers.questions.writing.create') }}" class="btn btn-primary float-right">Add
+                <h3 class="card-title float-left">All Dialogs</h3>
+                <a href="{{ route('teachers.questions.writing.create') }}" class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
                     Dialog</a>
             </div>
             <!-- /.card-header -->
@@ -94,7 +94,9 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>Topic</th>
+                        <th>Set</th>
+                        <th>Exam</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -102,10 +104,12 @@
                     @foreach($dialogQuestions as $index => $dialogQuestion)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td title="{{ $dialogQuestion->topic }}">{{ Str::limit($dialogQuestion->topic, 20) }}</td>
+                            <td title="{{ $dialogQuestion->topic }}">{{ Str::limit($dialogQuestion->topic, 70) }}</td>
+                            <td>{{ $dialogQuestion->set->name }}</td>
+                            <td>{{ $dialogQuestion->exam->name }}</td>
                             <td class="text-center">
-                                <a href="{{ route('teacher.students.show', $dialogQuestion->id) }}"
-                                   class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
+                                <a href="{{ route('teachers.questions.dialogs.show', $dialogQuestion->id) }}"
+                                   class="btn btn-primary btn-sm btn-block btn-hover-effect"><i class="fas fa-eye mr-1"></i> View</a>
                             </td>
                         </tr>
                     @endforeach
