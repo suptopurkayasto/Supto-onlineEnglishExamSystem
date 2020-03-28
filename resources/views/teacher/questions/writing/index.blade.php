@@ -6,63 +6,85 @@
     @if($authTeacherExams->count() > 0)
 
         @foreach($authTeacherExams as $authTeacherExam)
-            <div class="p-3 shadow-sm mb-5 count-section bg-white rounded border-top border-primary">
-                <h3 class="h3 mb-3"><span class="text-uppercase font-weight-bolder">{{ $authTeacherExam->name }}</span>
-                    (All Writing Question)</h3>
-                <div class="row">
-                {{--                    <div class="col-12">--}}
-                {{--                        <div class="info-box bg-white info-box-main border-primary border">--}}
-                {{--                            <span class="info-box-icon text-primary"><i class="fa-2x fas fa-question"></i></span>--}}
-                {{--                            <div class="info-box-content">--}}
-                {{--                                <span class="info-box-text">Total Grammar Questions</span>--}}
-                {{--                                <span class="info-box-number"><strong>{{ $authTeacherExam->grammarQuestions()->count() }}</strong> questions</span>--}}
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><span class="text-uppercase">{{ $authTeacherExam->name }}</span>
+                        ( <strong
+                            class="{{ $authTeacherExam->dialogs()->count() === 4 ? 'text-success' : 'text-danger' }}">
+                            Writing
+                            @if($authTeacherExam->dialogs()->count() === 4)
+                                <i class="fas fa-check"></i>
+                            @endif
+                        </strong>
+                        )
+                    </h3>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                    <div class="p-3 pt-0 shadow-sm mb-5 count-section bg-white rounded border-top border-primary">
+                        <div class="row">
+                        {{--                    <div class="col-12">--}}
+                        {{--                        <div class="info-box bg-white info-box-main border-primary border">--}}
+                        {{--                            <span class="info-box-icon text-primary"><i class="fa-2x fas fa-question"></i></span>--}}
+                        {{--                            <div class="info-box-content">--}}
+                        {{--                                <span class="info-box-text">Total Grammar Questions</span>--}}
+                        {{--                                <span class="info-box-number"><strong>{{ $authTeacherExam->grammarQuestions()->count() }}</strong> questions</span>--}}
 
-                {{--                                <div class="progress">--}}
-                {{--                                    <div class="progress-bar"--}}
-                {{--                                         style="width: {{ ($authTeacherExam->grammarQuestions()->count()*100)/100 }}%"></div>--}}
-                {{--                                </div>--}}
-                {{--                                <span class="progress-description">--}}
-                {{--                            {{ $authTeacherExam->grammarQuestions()->count() }} questions of 100 questions--}}
-                {{--                            </span>--}}
-                {{--                            </div>--}}
-                {{--                            <!-- /.info-box-content -->--}}
-                {{--                        </div>--}}
-                {{--                    </div><!-- /.col -->--}}
+                        {{--                                <div class="progress">--}}
+                        {{--                                    <div class="progress-bar"--}}
+                        {{--                                         style="width: {{ ($authTeacherExam->grammarQuestions()->count()*100)/100 }}%"></div>--}}
+                        {{--                                </div>--}}
+                        {{--                                <span class="progress-description">--}}
+                        {{--                            {{ $authTeacherExam->grammarQuestions()->count() }} questions of 100 questions--}}
+                        {{--                            </span>--}}
+                        {{--                            </div>--}}
+                        {{--                            <!-- /.info-box-content -->--}}
+                        {{--                        </div>--}}
+                        {{--                    </div><!-- /.col -->--}}
 
-                <!-- Dialog -->
-                    <div class="col-12 mb-3">
-                        <h4 class="h4 card-header border-bottom">Dialog</h4>
-                    </div><!-- /.col-12 -->
+                        <!-- Dialog -->
+                            <div class="col-12">
+                                <h4 class="h4 font-weight-bold {{ $authTeacherExam->dialogs()->count() === 4 ? 'text-success' : 'text-warning' }}">
+                                    Dialog
+                                    @if($authTeacherExam->dialogs()->count() === 4)
+                                        <i class="fas fa-check"></i>
+                                    @endif
+                                </h4>
+                            </div><!-- /.col-12 -->
 
-                    @foreach($authTeacherExam->sets as $set)
-                        @php $dialogCountBySet = $authTeacherExam->dialogs()->where('question_set_id', $set->id)->get()->count() @endphp
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="info-box bg-white border-primary border">
+                            @foreach($authTeacherExam->sets as $set)
+                                @php $dialogCountBySet = $authTeacherExam->dialogs()->where('question_set_id', $set->id)->get()->count() @endphp
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"
                                           style="font-weight: 900">{{ $set->name }}</span>
-                                <div class="info-box-content">
-                                        <span class="info-box-number">{{ $dialogCountBySet }} Dialog</span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-number">{{ $dialogCountBySet }} Dialog</span>
 
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: {{ ($dialogCountBySet*100)/1 }}%"></div>
-                                    </div>
-                                    <span class="progress-description">
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: {{ ($dialogCountBySet*100)/1 }}%"></div>
+                                            </div>
+                                            <span class="progress-description">
                                         {{ $dialogCountBySet }} / 1 dialog
                                     </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                        </div><!-- /.col -->
-                    @endforeach
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                    </div>
+                                </div><!-- /.col -->
+                            @endforeach
 
-                </div><!-- /.row -->
-            </div><!-- /.p-4 shadow -->
+                        </div><!-- /.row -->
+                    </div><!-- /.p-4 shadow -->
+                </div><!-- /.card-body -->
+            </div><!-- /.card -->
         @endforeach
+
+
 
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title float-left">All Students</h3>
-                <a href="{{ route('teachers.questions.writing.create') }}" class="btn btn-primary float-right">Add Dialog</a>
+                <a href="{{ route('teachers.questions.writing.create') }}" class="btn btn-primary float-right">Add
+                    Dialog</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
