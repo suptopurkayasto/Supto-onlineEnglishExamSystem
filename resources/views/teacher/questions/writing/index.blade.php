@@ -152,7 +152,7 @@
                 <h3 class="card-title float-left">All Informal Eamil</h3>
                 <a href="{{ route('teachers.questions.informal-email.create') }}"
                    class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
-                    Informal Emalil</a>
+                    Informal Email</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -176,7 +176,7 @@
                             <td>{{ $informalEmailQuestion->set->name }}</td>
                             <td>{{ $informalEmailQuestion->exam->name }}</td>
                             <td class="text-center">
-                                <a href="{{ route('teachers.questions.dialogs.show', $informalEmailQuestion->id) }}"
+                                <a href="{{ route('teachers.questions.informal-email.show', $informalEmailQuestion->id) }}"
                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
                                         class="fas fa-eye mr-1"></i> View</a>
                             </td>

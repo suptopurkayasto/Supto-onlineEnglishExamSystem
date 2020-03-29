@@ -70,22 +70,26 @@ class InformalEmailController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Model\Writing\InformalEmail  $informalEmail
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(InformalEmail $informalEmail)
     {
-        //
+        return view('teacher.questions.writing.emails.informal.show', compact('informalEmail'))
+            ->with('questionSets', QuestionSet::all())
+            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Model\Writing\InformalEmail  $informalEmail
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(InformalEmail $informalEmail)
     {
-        //
+        return view('teacher.questions.writing.emails.informal.edit', compact('informalEmail'))
+            ->with('questionSets', QuestionSet::all())
+            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
     }
 
     /**
@@ -93,26 +97,47 @@ class InformalEmailController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Model\Writing\InformalEmail  $informalEmail
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, InformalEmail $informalEmail)
     {
-        //
+        $informalEmail->update($this->validateInformalEmailUpdateRequest($request));
+        session()->flash('success_audio');
+        toast('Informal email has been successfully updated','success');
+        return redirect()->route('teachers.questions.informal-email.show', $informalEmail->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Model\Writing\InformalEmail  $informalEmail
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(InformalEmail $informalEmail)
     {
-        //
+        $informalEmail->forceDelete();
+        session()->flash('success_audio');
+        toast('Informal email has been successfully deleted','success');
+        return redirect()->route('teachers.questions.writing.index');
     }
 
 
     private function validateInformalEmailCreateRequest($request)
+    {
+        $validateData = $this->validate($request, [
+            'exam' => 'required|integer',
+            'questionSet' => 'required|integer',
+            'topic' => 'required|string|max:255'
+        ]);
+
+        return [
+            'exam_id' => $validateData['exam'],
+            'question_set_id' => $validateData['questionSet'],
+            'topic' => $validateData['topic']
+        ];
+
+    }
+    private function validateInformalEmailUpdateRequest($request)
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
