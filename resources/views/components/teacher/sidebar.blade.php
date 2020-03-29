@@ -143,8 +143,8 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('teachers.questions.formal-email.index') }}"
-                                               class="nav-link {{ request()->url() === route('teachers.questions.formal-email.index') ? 'active' : '' }}">
+                                            <a href="{{ route('teachers.questions.sort-questions.index') }}"
+                                               class="nav-link {{ request()->url() === route('teachers.questions.sort-questions.index') ? 'active' : '' }}">
                                                 <i class="fas fa-question nav-icon"></i>
                                                 <p>Sort Question</p>
                                             </a>

@@ -18,6 +18,10 @@ Route::resource('questions/writing/informal-email', 'Teacher\Question\Writing\Em
 Route::resource('questions/writing/formal-email', 'Teacher\Question\Writing\Email\FormalEmailController', ['as' => 'teachers.questions']);
 
 
+// Sort Question route
+Route::resource('questions/writing/sort-questions', 'Teacher\Question\Writing\SortQuestion\SortQuestionController', ['as' => 'teachers.questions']);
+
+
 
 
 
