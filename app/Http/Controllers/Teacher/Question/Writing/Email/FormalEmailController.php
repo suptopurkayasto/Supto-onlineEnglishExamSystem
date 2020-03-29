@@ -27,8 +27,7 @@ class FormalEmailController extends Controller
     public function index()
     {
         return view('teacher.questions.writing.emails.formal.index')
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get())
-            ->with('formalEmailQuestions', FormalEmail::all());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
@@ -40,7 +39,7 @@ class FormalEmailController extends Controller
     {
         return view('teacher.questions.writing.emails.formal.create')
             ->with('questionSets', QuestionSet::all())
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
@@ -77,7 +76,7 @@ class FormalEmailController extends Controller
     {
         return view('teacher.questions.writing.emails.formal.show', compact('formalEmail'))
             ->with('questionSets', QuestionSet::all())
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
@@ -90,7 +89,7 @@ class FormalEmailController extends Controller
     {
         return view('teacher.questions.writing.emails.formal.edit', compact('formalEmail'))
             ->with('questionSets', QuestionSet::all())
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Writing\SortQuestion;
 use App\QuestionSet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class SortQuestionController extends Controller
@@ -26,8 +27,7 @@ class SortQuestionController extends Controller
     public function index()
     {
         return view('teacher.questions.writing.sort-questions.index')
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get())
-            ->with('sortQuestions', SortQuestion::all());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
@@ -39,7 +39,7 @@ class SortQuestionController extends Controller
     {
         return view('teacher.questions.writing.sort-questions.create')
             ->with('questionSets', QuestionSet::all())
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
@@ -76,7 +76,7 @@ class SortQuestionController extends Controller
     {
         return view('teacher.questions.writing.sort-questions.show', compact('sortQuestion'))
             ->with('questionSets', QuestionSet::all())
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
@@ -89,7 +89,7 @@ class SortQuestionController extends Controller
     {
         return view('teacher.questions.writing.sort-questions.edit', compact('sortQuestion'))
             ->with('questionSets', QuestionSet::all())
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**

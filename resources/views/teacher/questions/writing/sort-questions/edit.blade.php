@@ -20,9 +20,9 @@
                     <div class="col-12 col-md-8">
                         <select name="exam" id="exam" class="form-control @error('exam') is-invalid @enderror" required>
                             <option disabled selected>Select exam</option>
-                            @foreach($authTeacherExams as $authTeacherExam)
+                            @foreach($authTeacher->exams as $exam)
                                 <option
-                                    {{ $sortQuestion->exam->id == $authTeacherExam->id ? 'selected' : '' }} value="{{ $authTeacherExam->id }}">{{ $authTeacherExam->name }}</option>
+                                    {{ $sortQuestion->exam->id == $exam->id ? 'selected' : '' }} value="{{ $exam->id }}">{{ $exam->name }}</option>
                             @endforeach
                         </select>
                         @error('exam')

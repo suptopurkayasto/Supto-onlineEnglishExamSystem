@@ -25,7 +25,7 @@ class ExamController extends Controller
     public function index()
     {
         return view('teacher.exams.index')
-            ->with('exams', Exam::latest()->get());
+            ->with('exams', Auth::guard('teacher')->user()->exams);
     }
 
     /**

@@ -26,8 +26,7 @@ class DialogController extends Controller
     public function index()
     {
         return view('teacher.questions.writing.dialogs.index')
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get())
-            ->with('dialogQuestions', Dialog::all());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
     /**
      * Show the form for creating a new resource.
@@ -38,7 +37,7 @@ class DialogController extends Controller
     {
         return view('teacher.questions.writing.dialogs.create')
             ->with('questionSets', QuestionSet::all())
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**

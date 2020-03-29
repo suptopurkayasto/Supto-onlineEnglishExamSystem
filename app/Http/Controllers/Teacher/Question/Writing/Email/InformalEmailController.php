@@ -28,8 +28,7 @@ class InformalEmailController extends Controller
     public function index()
     {
         return view('teacher.questions.writing.emails.informal.index')
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get())
-            ->with('informalEmailQuestions', InformalEmail::all());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**

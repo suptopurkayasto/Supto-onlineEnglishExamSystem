@@ -51,13 +51,6 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('teacher.students.create') }}"
-                                       class="nav-link {{ request()->url() === route('teacher.students.create') ? 'active' : '' }}">
-                                        <i class="fas fa-user-plus nav-icon"></i>
-                                        <p>Add Student</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{ route('teacher.students.exams.result') }}"
                                        class="nav-link {{ request()->url() === route('teacher.students.exams.result') ? 'active' : '' }}">
                                         <i class="fas fa-check-circle nav-icon"></i>

@@ -95,14 +95,14 @@
                 <div class="col-12 col-md-4">
                 </div><!-- /.col-12 col-md-4 -->
                 <div class="col-12 col-md-8 d-flex">
-                    <a href="{{ route('teacher.students.edit', $student->id_number) }}" class="btn bg-gradient-warning">Edit Student</a>
+                    <a href="{{ route('teacher.students.edit', $student->id_number) }}" class="btn bg-gradient-warning"><i class="fas fa-edit mr-1"></i> Edit Student</a>
                     <form action="{{ route('teacher.students.destroy', $student->id_number) }}" method="post"
                           class="ml-3">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn bg-gradient-danger"
-                                onclick="return confirm('Are you sure you want to delete {{ $student->name }}')">
-                            Delete Student
+                                onclick="return confirm('Are you sure you want to delete: {{ $student->name }}')">
+                            <i class="fas fa-trash-alt mr-1"></i> Delete Student
                         </button>
                     </form>
                 </div><!-- /.col-12 col-md-8 -->

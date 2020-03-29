@@ -52,7 +52,7 @@
                         <select name="group" id="group" class="form-control @error('group') is-invalid @enderror">
                             <option disabled selected>Select group</option>
                             @foreach($groups as $group)
-                                <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                <option {{ old('group') == $group->id ? 'selected' : '' }} value="{{ $group->id }}">{{ $group->name }}</option>
                             @endforeach
                         </select>
                         @error('group')
@@ -71,7 +71,7 @@
                         <select name="section" id="section" class="form-control  @error('section') is-invalid @enderror">
                             <option disabled selected>Select section</option>
                             @foreach($sections as $section)
-                                <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                <option {{ old('section') == $section->id ? 'selected' : '' }} value="{{ $section->id }}">{{ $section->name }}</option>
                             @endforeach
                         </select>
                         @error('section')
@@ -148,7 +148,7 @@
                     <div class="col-12 col-md-4">
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <button type="submit" class="btn bg-gradient-primary">Add Student</button>
+                        <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check mr-1"></i> Add Student</button>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
             </form>

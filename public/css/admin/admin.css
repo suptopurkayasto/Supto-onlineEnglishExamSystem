@@ -3227,3 +3227,11 @@ li.sidebar-item ul li p {
   height: 10px;
 }
 
+.add-exam-mini-section {
+  margin-top: 100px;
+}
+
+.add-exam-mini-section h1 {
+  color: red;
+}
+
