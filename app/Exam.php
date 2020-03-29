@@ -5,6 +5,7 @@ namespace App;
 use App\Model\Grammar\GrammarQuestion;
 use App\Model\Grammar\StudentGrammarQuestion;
 use App\Model\Writing\Dialog;
+use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Grammars\Grammar;
@@ -47,5 +48,10 @@ class Exam extends Model
     public function informalEmails()
     {
         return $this->hasMany(InformalEmail::class);
+    }
+    // formal Email
+    public function formalEmails()
+    {
+        return $this->hasMany(FormalEmail::class);
     }
 }

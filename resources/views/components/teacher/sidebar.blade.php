@@ -135,6 +135,13 @@
                                                 <p>Informal Email</p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.formal-email.index') }}"
+                                               class="nav-link {{ request()->url() === route('teachers.questions.formal-email.index') ? 'active' : '' }}">
+                                                <i class="fas fa-marker nav-icon"></i>
+                                                <p>Formal Email</p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>

@@ -14,6 +14,10 @@ Route::resource('questions/writing/dialogs', 'Teacher\Question\Writing\Dialog\Di
 Route::resource('questions/writing/informal-email', 'Teacher\Question\Writing\Email\InformalEmailController', ['as' => 'teachers.questions']);
 
 
+// Formal Email route
+Route::resource('questions/writing/formal-email', 'Teacher\Question\Writing\Email\FormalEmailController', ['as' => 'teachers.questions']);
+
+
 
 
 
