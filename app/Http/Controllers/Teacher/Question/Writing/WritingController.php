@@ -24,12 +24,4 @@ class WritingController extends Controller
             ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get())
             ->with('dialogQuestions', Dialog::all());
     }
-
-    public function create()
-    {
-        return view('teacher.questions.writing.create')
-            ->with('questionSets', QuestionSet::all())
-            ->with('writingParts', WritingPart::orderBy('name')->get())
-            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
-    }
 }

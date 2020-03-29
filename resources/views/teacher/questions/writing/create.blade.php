@@ -11,7 +11,6 @@
         <!-- /.card-header -->
         <div class="card-body">
             <form action="" method="post" id="writingPartForm">
-                @csrf
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
@@ -77,6 +76,7 @@
 
                 <!-- Start::Dialog Section -->
                 <div id="dialogSection" class="">
+                    @csrf
                     <div class="form-group row">
                         <div class="col-12 col-md-4">
                             <label for="topic">Topic</label>
@@ -158,6 +158,7 @@
 
                 <!-- Start::InformalEmail Section -->
                 <div id="informalEmail" class="">
+                    @csrf
                     <div class="form-group row">
                         <div class="col-12 col-md-4">
                             <label for="topic">Topic</label>
@@ -202,11 +203,22 @@
 
                 var action = '';
                 $('#dialogSection').hide();
+                $('#informalEmail').hide();
+
+
 
                 if ($('#writing_part').val() === '2') {
                     action = "{{ route('teachers.questions.dialogs.store') }}";
                     $('#writingPartForm').attr('action', action);
                     $('#dialogSection').show();
+                    $('#informalEmail').hide();
+
+                }
+                else if ($('#writing_part').val() === '4') {
+                    action = "{{ route('teachers.questions.informal-email.store') }}";
+                    $('#writingPartForm').attr('action', action);
+                    $('#informalEmail').show();
+                    $('#dialogSection').hide();
                 } else {
                     $('#dialogSection').hide();
                     $('#writingPartForm').attr('action', '');
@@ -218,13 +230,18 @@
                         action = "{{ route('teachers.questions.dialogs.store') }}";
                         $('#writingPartForm').attr('action', action);
                         $('#dialogSection').show();
+                        $('#informalEmail').hide();
                     }
                     else if (selectedItem === '4') {
-                        action = "{{ route('teachers.questions.dialogs.store') }}";
+                        action = "{{ route('teachers.questions.informal-email.store') }}";
                         $('#writingPartForm').attr('action', action);
                         $('#informalEmail').show();
+                        $('#dialogSection').hide();
                     } else {
                         $('#dialogSection').hide();
+                        $('#writingPartForm').attr('action', '');
+
+                        $('#informalEmail').hide();
                         $('#writingPartForm').attr('action', '');
                     }
                 });

@@ -6,13 +6,12 @@ use Illuminate\Support\Facades\Route;
 /**
  * All Writing part routes
  */
-Route::get('questions/writing/create', 'Teacher\Question\Writing\WritingController@create')->name('teachers.questions.writing.create');
 Route::get('questions/writing', 'Teacher\Question\Writing\WritingController@index')->name('teachers.questions.writing.index');
 // Dialog route
-Route::resource('questions/writing/dialogs', 'Teacher\Question\Writing\Dialog\DialogController', ['as' => 'teachers.questions'])->except('create');
+Route::resource('questions/writing/dialogs', 'Teacher\Question\Writing\Dialog\DialogController', ['as' => 'teachers.questions']);
 
-
-
+// Informal Email route
+Route::resource('questions/writing/informal-email', 'Teacher\Question\Writing\Email\InformalEmailController', ['as' => 'teachers.questions']);
 
 
 

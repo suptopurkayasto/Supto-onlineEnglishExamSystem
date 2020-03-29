@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teacher\Question\Writing\Dialog;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Writing\Dialog;
+use App\Model\Writing\WritingPart;
 use App\QuestionSet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,12 +31,14 @@ class DialogController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-//    public function create()
-//    {
-//        //
-//    }
+    public function create()
+    {
+        return view('teacher.questions.writing.dialogs.create')
+            ->with('questionSets', QuestionSet::all())
+            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -122,7 +125,6 @@ class DialogController extends Controller
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
             'questionSet' => 'required|integer',
-            'writing_part' => 'required|integer',
             'topic' => 'required|string|max:255',
             'question_1' => 'required|string|max:255',
             'question_2' => 'required|string|max:255',
@@ -132,7 +134,7 @@ class DialogController extends Controller
         return [
             'exam_id' => $validateData['exam'],
             'question_set_id' => $validateData['questionSet'],
-            'writing_part_id' => $validateData['writing_part'],
+            'writing_part_id' => WritingPart::where('slug', 'dialog')->get()->first()->id,
             'topic' => $validateData['topic'],
             'question_1' => $validateData['question_1'],
             'question_2' => $validateData['question_2'],

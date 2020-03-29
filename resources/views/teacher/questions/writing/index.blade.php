@@ -83,7 +83,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title float-left">All Dialogs</h3>
-                <a href="{{ route('teachers.questions.writing.create') }}" class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
+                <a href="{{ route('teachers.questions.dialogs.create') }}" class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
                     Dialog</a>
             </div>
             <!-- /.card-header -->
@@ -121,8 +121,10 @@
     @else
         <div class="empty-data-section">
             <h2 class="text-center text-warning mt-5 display-1 font-weight">Empty.</h2>
-            <a href="{{ route('teachers.questions.writing.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
-                    class="fas fa-pen-alt"></i> Add Writing Question</a>
+            <a href="{{ route('teachers.questions.dialogs.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
+                    class="fas fa-pen-alt"></i> Add Dialog</a>
+            <a href="{{ route('teachers.questions.informal-email.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
+                    class="fas fa-pen-alt"></i> Add Informal Email</a>
         </div><!-- /.empty-data-section -->
     @endif
 @endsection
