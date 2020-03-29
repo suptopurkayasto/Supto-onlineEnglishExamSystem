@@ -15,6 +15,9 @@ class CreateSortQuestionsTable extends Migration
     {
         Schema::create('sort_questions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('exam_id');
+            $table->foreignId('question_set_id');
+            $table->string('question');
             $table->timestamps();
         });
     }

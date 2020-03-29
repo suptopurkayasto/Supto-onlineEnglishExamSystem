@@ -6,6 +6,7 @@ use App\Model\Grammar\GrammarQuestion;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
+use App\Model\Writing\SortQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -48,5 +49,10 @@ class QuestionSet extends Model
     public function formalEmails()
     {
         return $this->hasMany(FormalEmail::class);
+    }
+    // Sort Questions
+    public function sortQuestions()
+    {
+        return $this->hasMany(SortQuestion::class);
     }
 }

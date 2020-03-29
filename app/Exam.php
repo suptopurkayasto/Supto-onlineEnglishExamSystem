@@ -7,6 +7,7 @@ use App\Model\Grammar\StudentGrammarQuestion;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
+use App\Model\Writing\SortQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Grammars\Grammar;
 
@@ -49,9 +50,14 @@ class Exam extends Model
     {
         return $this->hasMany(InformalEmail::class);
     }
-    // formal Email
+    // Formal Email
     public function formalEmails()
     {
         return $this->hasMany(FormalEmail::class);
+    }
+    // Sort Questions
+    public function sortQuestions()
+    {
+        return $this->hasMany(SortQuestion::class);
     }
 }
