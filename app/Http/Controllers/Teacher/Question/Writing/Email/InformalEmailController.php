@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teacher\Question\Writing\Email;
 
 use App\Exam;
 use App\Http\Controllers\Controller;
+use App\Model\Writing\Dialog;
 use App\Model\Writing\InformalEmail;
 use App\Model\Writing\WritingPart;
 use App\QuestionSet;
@@ -45,11 +46,24 @@ class InformalEmailController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        InformalEmail::create($this->validateInformalEmailCreateRequest($request));
+        $exam = $request->exam;
+        $set = $request->questionSet;
+
+        $countDialogs = InformalEmail::where(['exam_id' => $exam, 'question_set_id' => $set])->get()->count();
+
+        if ($countDialogs < 1) {
+            InformalEmail::create($this->validateInformalEmailCreateRequest($request));
+            session()->flash('success_audio');
+            toast('Informal email has been successfully added','success');
+        } else {
+            session()->flash('field_audio');
+            alert()->info('Fail!', 'You can no longer add informal email to this '. QuestionSet::find($set)->name .' set.');
+        }
+        return redirect()->back();
     }
 
     /**

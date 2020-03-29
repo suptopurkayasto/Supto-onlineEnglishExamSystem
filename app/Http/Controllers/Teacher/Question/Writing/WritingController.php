@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teacher\Question\Writing;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Writing\Dialog;
+use App\Model\Writing\InformalEmail;
 use App\Model\Writing\WritingPart;
 use App\QuestionSet;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class WritingController extends Controller
     {
         return view('teacher.questions.writing.index')
             ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get())
-            ->with('dialogQuestions', Dialog::all());
+            ->with('dialogQuestions', Dialog::all())
+            ->with('informalEmailQuestions', InformalEmail::all());
     }
 }

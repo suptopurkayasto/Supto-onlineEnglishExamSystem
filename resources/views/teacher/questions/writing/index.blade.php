@@ -6,50 +6,21 @@
     @if($dialogQuestions->count() > 0)
 
         @foreach($authTeacherExams as $authTeacherExam)
-            <div class="card">
+            <div class="card mb-0">
                 <div class="card-header">
-                    <h3 class="card-title"><span class="text-uppercase">{{ $authTeacherExam->name }}</span>
-                        ( <strong
-                            class="{{ $authTeacherExam->dialogs()->count() === 4 ? 'text-success' : 'text-danger' }}">
-                            Writing
-                            @if($authTeacherExam->dialogs()->count() === 4)
-                                <i class="fas fa-check"></i>
-                            @endif
-                        </strong>
-                        )
+                    <h3 class="card-title"><span class="font-weight-bolder">({{ $authTeacherExam->name }})</span>
+                        Dialog
+                        @if($authTeacherExam->dialogs()->count() === 4)
+                            <i class="fas fa-check text-success"></i>
+                        @else
+                            <i class="fas fa-spinner fa-pulse text-warning"></i>
+
+                        @endif
                     </h3>
                 </div><!-- /.card-header -->
                 <div class="card-body">
                     <div class="p-3 pt-0 shadow-sm mb-5 count-section bg-white rounded border-top border-primary">
                         <div class="row">
-                        {{--                    <div class="col-12">--}}
-                        {{--                        <div class="info-box bg-white info-box-main border-primary border">--}}
-                        {{--                            <span class="info-box-icon text-primary"><i class="fa-2x fas fa-question"></i></span>--}}
-                        {{--                            <div class="info-box-content">--}}
-                        {{--                                <span class="info-box-text">Total Grammar Questions</span>--}}
-                        {{--                                <span class="info-box-number"><strong>{{ $authTeacherExam->grammarQuestions()->count() }}</strong> questions</span>--}}
-
-                        {{--                                <div class="progress">--}}
-                        {{--                                    <div class="progress-bar"--}}
-                        {{--                                         style="width: {{ ($authTeacherExam->grammarQuestions()->count()*100)/100 }}%"></div>--}}
-                        {{--                                </div>--}}
-                        {{--                                <span class="progress-description">--}}
-                        {{--                            {{ $authTeacherExam->grammarQuestions()->count() }} questions of 100 questions--}}
-                        {{--                            </span>--}}
-                        {{--                            </div>--}}
-                        {{--                            <!-- /.info-box-content -->--}}
-                        {{--                        </div>--}}
-                        {{--                    </div><!-- /.col -->--}}
-
-                        <!-- Dialog -->
-                            <div class="col-12">
-                                <h4 class="h4 font-weight-bold {{ $authTeacherExam->dialogs()->count() === 4 ? 'text-success' : 'text-warning' }}">
-                                    Dialog
-                                    @if($authTeacherExam->dialogs()->count() === 4)
-                                        <i class="fas fa-check"></i>
-                                    @endif
-                                </h4>
-                            </div><!-- /.col-12 -->
 
                             @foreach($authTeacherExam->sets as $set)
                                 @php $dialogCountBySet = $authTeacherExam->dialogs()->where('question_set_id', $set->id)->get()->count() @endphp
@@ -61,7 +32,8 @@
                                             <span class="info-box-number">{{ $dialogCountBySet }} Dialog</span>
 
                                             <div class="progress">
-                                                <div class="progress-bar" style="width: {{ ($dialogCountBySet*100)/1 }}%"></div>
+                                                <div class="progress-bar"
+                                                     style="width: {{ ($dialogCountBySet*100)/1 }}%"></div>
                                             </div>
                                             <span class="progress-description">
                                         {{ $dialogCountBySet }} / 1 dialog
@@ -78,12 +50,11 @@
             </div><!-- /.card -->
         @endforeach
 
-
-
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title float-left">All Dialogs</h3>
-                <a href="{{ route('teachers.questions.dialogs.create') }}" class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
+                <a href="{{ route('teachers.questions.dialogs.create') }}"
+                   class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
                     Dialog</a>
             </div>
             <!-- /.card-header -->
@@ -109,7 +80,105 @@
                             <td>{{ $dialogQuestion->exam->name }}</td>
                             <td class="text-center">
                                 <a href="{{ route('teachers.questions.dialogs.show', $dialogQuestion->id) }}"
-                                   class="btn btn-primary btn-sm btn-block btn-hover-effect"><i class="fas fa-eye mr-1"></i> View</a>
+                                   class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
+                                        class="fas fa-eye mr-1"></i> View</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    @else
+        <div class="empty-data-section mb-5">
+            <h4 class="text-center">Dialogs</h4>
+            <h2 class="text-center text-warning font-weight-bolder">Empty.</h2>
+            <a href="{{ route('teachers.questions.dialogs.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
+                    class="fas fa-pen-alt"></i> Add Dialog</a>
+        </div><!-- /.empty-data-section -->
+    @endif
+
+
+    @if($informalEmailQuestions->count() > 0)
+
+        @foreach($authTeacherExams as $authTeacherExam)
+            <div class="card mt-5 mb-0">
+                <div class="card-header">
+                    <h3 class="card-title"><span class="font-weight-bolder">({{ $authTeacherExam->name }})</span>
+                        Informal Email
+                    @if($authTeacherExam->informalEmails()->count() === 4)
+                        <i class="fas fa-check text-success"></i>
+                    @else
+                        <i class="fas fa-spinner fa-pulse text-warning"></i>
+
+                        @endif
+                    </h3>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                    <div class="p-3 pt-0 shadow-sm mb-5 count-section bg-white rounded border-top border-primary">
+                        <div class="row">
+                            @foreach($authTeacherExam->sets as $set)
+                                @php $informalEmailCountBySet = $authTeacherExam->informalEmails()->where('question_set_id', $set->id)->get()->count() @endphp
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="info-box bg-white border-primary border">
+                                    <span class="info-box-icon text-primary"
+                                          style="font-weight: 900">{{ $set->name }}</span>
+                                        <div class="info-box-content">
+                                            <span
+                                                class="info-box-number">{{ $informalEmailCountBySet }} informal email</span>
+
+                                            <div class="progress">
+                                                <div class="progress-bar"
+                                                     style="width: {{ ($informalEmailCountBySet*100)/1 }}%"></div>
+                                            </div>
+                                            <span class="progress-description">
+                                        {{ $informalEmailCountBySet }} / 1 informal email
+                                    </span>
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                    </div>
+                                </div><!-- /.col -->
+                            @endforeach
+
+                        </div><!-- /.row -->
+                    </div><!-- /.p-4 shadow -->
+                </div><!-- /.card-body -->
+            </div><!-- /.card -->
+        @endforeach
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title float-left">All Informal Eamil</h3>
+                <a href="{{ route('teachers.questions.informal-email.create') }}"
+                   class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
+                    Informal Emalil</a>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example"
+                       class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
+                       style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Topic</th>
+                        <th>Set</th>
+                        <th>Exam</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($informalEmailQuestions as $index => $informalEmailQuestion)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td title="{{ $informalEmailQuestion->topic }}">{{ Str::limit($informalEmailQuestion->topic, 70) }}</td>
+                            <td>{{ $informalEmailQuestion->set->name }}</td>
+                            <td>{{ $informalEmailQuestion->exam->name }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('teachers.questions.dialogs.show', $informalEmailQuestion->id) }}"
+                                   class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
+                                        class="fas fa-eye mr-1"></i> View</a>
                             </td>
                         </tr>
                     @endforeach
@@ -120,10 +189,10 @@
         </div>
     @else
         <div class="empty-data-section">
-            <h2 class="text-center text-warning mt-5 display-1 font-weight">Empty.</h2>
-            <a href="{{ route('teachers.questions.dialogs.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
-                    class="fas fa-pen-alt"></i> Add Dialog</a>
-            <a href="{{ route('teachers.questions.informal-email.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
+            <h4 class="text-center">Informal Email</h4>
+            <h2 class="text-center text-warning font-weight-bolder">Empty.</h2>
+            <a href="{{ route('teachers.questions.informal-email.create') }}"
+               class="btn btn-lg mt-4 bg-gradient-primary"><i
                     class="fas fa-pen-alt"></i> Add Informal Email</a>
         </div><!-- /.empty-data-section -->
     @endif
