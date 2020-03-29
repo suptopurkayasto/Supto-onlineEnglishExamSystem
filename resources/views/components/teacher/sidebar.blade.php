@@ -69,7 +69,7 @@
 
                         <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'exams' ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->segment(2) === 'exams' ? 'active' : '' }}">
-                                <i class="fas fa-desktop nav-icon"></i>
+                                <i class="fas fa-diagnoses nav-icon"></i>
                                 <p>
                                     Exams
                                     <i class="right fas fa-angle-left"></i>
@@ -95,7 +95,7 @@
 
                         <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'questions' ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->segment(2) === 'questions' ? 'active' : '' }}">
-                                <i class="fas fa-question nav-icon"></i>
+                                <i class="fas fa-question-circle nav-icon"></i>
                                 <p>
                                     Questions
                                     <i class="right fas fa-angle-left"></i>
@@ -105,7 +105,7 @@
                                 <li class="nav-item">
                                     <a href="{{ route('teachers.grammar-questions.index') }}"
                                        class="nav-link {{ request()->url() === route('teachers.grammar-questions.index') ? 'active' : '' }}">
-                                        <i class="fas fa-lightbulb nav-icon"></i>
+                                        <i class="fas fa-spell-check nav-icon"></i>
                                         <p>Grammar</p>
                                     </a>
                                 </li>
@@ -124,22 +124,29 @@
                                         <li class="nav-item">
                                             <a href="{{ route('teachers.questions.dialogs.index') }}"
                                                class="nav-link {{ request()->url() === route('teachers.questions.dialogs.index') ? 'active' : '' }}">
-                                                <i class="fas fa-marker nav-icon"></i>
+                                                <i class="fas fa-reply-all nav-icon"></i>
                                                 <p>Dialog</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('teachers.questions.informal-email.index') }}"
                                                class="nav-link {{ request()->url() === route('teachers.questions.informal-email.index') ? 'active' : '' }}">
-                                                <i class="fas fa-marker nav-icon"></i>
+                                                <i class="far fa-envelope nav-icon"></i>
                                                 <p>Informal Email</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('teachers.questions.formal-email.index') }}"
                                                class="nav-link {{ request()->url() === route('teachers.questions.formal-email.index') ? 'active' : '' }}">
-                                                <i class="fas fa-marker nav-icon"></i>
+                                                <i class="fas fa-envelope nav-icon"></i>
                                                 <p>Formal Email</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.formal-email.index') }}"
+                                               class="nav-link {{ request()->url() === route('teachers.questions.formal-email.index') ? 'active' : '' }}">
+                                                <i class="fas fa-question nav-icon"></i>
+                                                <p>Sort Question</p>
                                             </a>
                                         </li>
                                     </ul>
