@@ -120,7 +120,7 @@ class InformalEmailController extends Controller
         $informalEmail->forceDelete();
         session()->flash('success_audio');
         toast('Informal email has been successfully deleted','success');
-        return redirect()->route('teachers.questions.writing.index');
+        return redirect()->route('teachers.questions.informal-email.index');
     }
 
 
