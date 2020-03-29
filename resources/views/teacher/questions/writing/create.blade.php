@@ -156,6 +156,36 @@
                 </div><!-- /.dialogSection -->
                 <!-- End::Dialog Section -->
 
+                <!-- Start::InformalEmail Section -->
+                <div id="informalEmail" class="">
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label for="topic">Topic</label>
+                        </div><!-- /.col-12 col-md-4 -->
+                        <div class="col-12 col-md-8">
+                            <input type="text" name="topic" id="topic"
+                                   class="form-control @error('topic') is-invalid @enderror" value="{{ old('topic') }}"
+                                   required>
+                            @error('topic')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                            @enderror
+                        </div><!-- /.col-12 col-md-8 -->
+                    </div><!-- /.form-group -->
+
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                        </div><!-- /.col-12 col-md-4 -->
+                        <div class="col-12 col-md-8">
+                            <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check"></i> Add
+                                Informal Email
+                            </button>
+                        </div><!-- /.col-12 col-md-8 -->
+                    </div><!-- /.form-group -->
+                </div><!-- /.informalEmail -->
+                <!-- End::InformalEmail Section -->
+
             </form>
         </div>
         <!-- /.card-body -->
@@ -188,6 +218,11 @@
                         action = "{{ route('teachers.questions.dialogs.store') }}";
                         $('#writingPartForm').attr('action', action);
                         $('#dialogSection').show();
+                    }
+                    else if (selectedItem === '4') {
+                        action = "{{ route('teachers.questions.dialogs.store') }}";
+                        $('#writingPartForm').attr('action', action);
+                        $('#informalEmail').show();
                     } else {
                         $('#dialogSection').hide();
                         $('#writingPartForm').attr('action', '');
