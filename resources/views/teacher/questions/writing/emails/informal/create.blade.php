@@ -21,7 +21,7 @@
                             <option disabled selected>Select exam</option>
                             @foreach($authTeacherExams as $authTeacherExam)
                                 <option
-                                    {{ old('exam') == $authTeacherExam->id ? 'selected' : '' }} value="{{ $authTeacherExam->id }}">{{ $authTeacherExam->name }}</option>
+                                    {{ old('exam') == $authTeacherExam->id || request()->get('exam') === $authTeacherExam->slug ? 'selected' : '' }} value="{{ $authTeacherExam->id }}">{{ $authTeacherExam->name }}</option>
                             @endforeach
                         </select>
                         @error('exam')
