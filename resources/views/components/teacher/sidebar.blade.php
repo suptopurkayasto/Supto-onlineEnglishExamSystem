@@ -110,15 +110,33 @@
                                     </a>
                                 </li>
                                 <span style="width: 100%; height: 1px; background: rgba(255, 255, 255, .1); display: block"></span>
-                                <!-- Start::Writing part markup -->
-                                <li class="nav-item">
-                                    <a href="{{ route('teachers.questions.writing.index') }}"
-                                       class="nav-link {{ request()->url() === route('teachers.questions.writing.index') ? 'active' : '' }}">
+
+                                <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(3) === 'writing' ? 'menu-open' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->segment(3) === 'writing' ? 'bg-white' : '' }}">
                                         <i class="fas fa-marker nav-icon"></i>
-                                        <p>Writing</p>
+                                        <p>
+                                            Writing
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.dialogs.index') }}"
+                                               class="nav-link {{ request()->url() === route('teachers.questions.dialogs.index') ? 'active' : '' }}">
+                                                <i class="fas fa-marker nav-icon"></i>
+                                                <p>Dialog</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.informal-email.index') }}"
+                                               class="nav-link {{ request()->url() === route('teachers.questions.informal-email.index') ? 'active' : '' }}">
+                                                <i class="fas fa-marker nav-icon"></i>
+                                                <p>Informal Email</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <!-- End::writing part markup -->
                             </ul>
                         </li>
                     </ul>

@@ -23,11 +23,13 @@ class InformalEmailController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('teacher.questions.writing.emails.informal.index')
+            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get())
+            ->with('informalEmailQuestions', InformalEmail::all());
     }
 
     /**

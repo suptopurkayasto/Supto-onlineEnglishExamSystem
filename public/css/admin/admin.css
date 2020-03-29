@@ -3155,10 +3155,6 @@
   background-color: #001f3f;
 }
 
-.btn-hover-effect {
-  display: block;
-}
-
 .btn-hover-effect:hover {
   -webkit-animation: pulse 150ms;
           animation: pulse 150ms;
@@ -3170,6 +3166,11 @@ table.custom-table-style tr th:first-of-type,
 table.custom-table-style tr th:last-of-type {
   text-align: center;
   width: 50px;
+}
+
+table.custom-table-style tr td:last-of-type,
+table.custom-table-style tr th:last-of-type {
+  width: 100px;
 }
 
 table.custom-table-style thead tr th {

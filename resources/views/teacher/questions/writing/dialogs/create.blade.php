@@ -4,6 +4,7 @@
 
 
 @section('content')
+
     <div class="card">
         <div class="card-header">
             <h3 class="h3 card-title">Add Dialog</h3>
@@ -21,7 +22,10 @@
                             <option disabled selected>Select exam</option>
                             @foreach($authTeacherExams as $authTeacherExam)
                                 <option
-                                    {{ old('exam') == $authTeacherExam->id ? 'selected' : '' }} value="{{ $authTeacherExam->id }}">{{ $authTeacherExam->name }}</option>
+                                    {{ old('exam') == $authTeacherExam->id || request()->get('exam') === $authTeacherExam->slug ? 'selected' : '' }}
+                                    value="{{ $authTeacherExam->id }}">
+                                    {{ $authTeacherExam->name }}
+                                </option>
                             @endforeach
                         </select>
                         @error('exam')

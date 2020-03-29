@@ -7,7 +7,6 @@
 }
 
 .btn-hover-effect {
-    display: block;
     &:hover {
         animation: pulse 150ms;
     }
@@ -18,6 +17,9 @@ table.custom-table-style {
             &:first-of-type, &:last-of-type {
                 text-align: center;
                 width: 50px;
+            }
+            &:last-of-type {
+                width: 100px;
             }
         }
     }

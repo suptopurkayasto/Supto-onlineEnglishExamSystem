@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * All Writing part routes
  */
-Route::get('questions/writing', 'Teacher\Question\Writing\WritingController@index')->name('teachers.questions.writing.index');
+
 // Dialog route
 Route::resource('questions/writing/dialogs', 'Teacher\Question\Writing\Dialog\DialogController', ['as' => 'teachers.questions']);
 

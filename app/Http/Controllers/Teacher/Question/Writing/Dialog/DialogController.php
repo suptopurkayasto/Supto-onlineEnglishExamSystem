@@ -21,13 +21,14 @@ class DialogController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('teacher.questions.writing.dialogs.index')
+            ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get())
+            ->with('dialogQuestions', Dialog::all());
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -117,7 +118,7 @@ class DialogController extends Controller
 
         session()->flash('success_audio');
         toast('Dialog has been successfully deleted','success');
-        return redirect()->route('teachers.questions.writing.index');
+        return redirect()->route('teachers.questions.dialogs.index');
     }
 
     private function validateDialogCreateRequest($request)
