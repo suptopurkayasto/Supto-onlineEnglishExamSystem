@@ -4,7 +4,7 @@ namespace App;
 
 use App\Model\Grammar\Grammar;
 use App\Model\Grammar\StudentGrammarQuestion;
-use App\Model\Vocabulary\Synonym;
+use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;

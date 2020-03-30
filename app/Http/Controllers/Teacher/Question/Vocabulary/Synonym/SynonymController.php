@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Teacher\Question\Vocabulary\Synonym;
 
 use App\Http\Controllers\Controller;
-use App\Model\Vocabulary\Synonym;
+use App\Model\Vocabulary\Synonym\Synonym;
 use App\QuestionSet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +60,7 @@ class SynonymController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Model\Vocabulary\Synonym  $synonym
+     * @param Synonym $synonym
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Synonym $synonym)
@@ -73,7 +73,7 @@ class SynonymController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Model\Vocabulary\Synonym  $synonym
+     * @param Synonym $synonym
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Synonym $synonym)
@@ -86,8 +86,8 @@ class SynonymController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Vocabulary\Synonym  $synonym
+     * @param \Illuminate\Http\Request $request
+     * @param Synonym $synonym
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Synonym $synonym)
@@ -112,7 +112,7 @@ class SynonymController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Model\Vocabulary\Synonym  $synonym
+     * @param Synonym $synonym
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Synonym $synonym)

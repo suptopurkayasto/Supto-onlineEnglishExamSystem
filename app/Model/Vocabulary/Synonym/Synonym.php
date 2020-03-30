@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Vocabulary;
+namespace App\Model\Vocabulary\Synonym;
 
 use App\Exam;
 use App\QuestionSet;
