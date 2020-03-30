@@ -5,13 +5,13 @@
 @section('content')
     @if($authTeacher->exams()->count() > 0)
         @foreach($authTeacher->exams as $exam)
-            @if($exam->sortQuestions()->count() > 0)
+            @if($exam->synonyms()->count() > 0)
                 <div class="card mb-5">
                     <div class="card-header">
                         <h3 class="card-title float-left"><span
                                 class="font-weight-bolder">({{ $exam->name }})</span>
                             Sort Questions
-                            @if($exam->sortQuestions()->count() === 28)
+                            @if($exam->synonyms()->count() === 28)
                                 <i class="fas fa-check text-success"></i>
                             @else
                                 <i class="fas fa-spinner fa-pulse text-warning"></i>
@@ -44,44 +44,35 @@
                             @endforeach
 
                             <div class="col-12">
-                                @if($exam->sortQuestions()->count() > 0)
-                                    <table
-                                        id="example"
-                                        class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
-                                        style="width: 100%">
-                                        <thead>
+                                <table
+                                    id="example"
+                                    class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
+                                    style="width: 100%">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Topic</th>
+                                        <th>Set</th>
+                                        <th>Exam</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($exam->sortQuestions as $index => $sortQuestion)
                                         <tr>
-                                            <th>#</th>
-                                            <th>Topic</th>
-                                            <th>Set</th>
-                                            <th>Exam</th>
-                                            <th>Action</th>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td title="{{ $sortQuestion->question }}">{{ Str::limit($sortQuestion->question, 70) }}</td>
+                                            <td>{{ $sortQuestion->set->name }}</td>
+                                            <td>{{ $sortQuestion->exam->name }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('teachers.questions.sort-questions.show', $sortQuestion->id) }}"
+                                                   class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
+                                                        class="fas fa-eye mr-1"></i> View</a>
+                                            </td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($exam->sortQuestions as $index => $sortQuestion)
-                                            <tr>
-                                                <td>{{ $index + 1 }}</td>
-                                                <td title="{{ $sortQuestion->question }}">{{ Str::limit($sortQuestion->question, 70) }}</td>
-                                                <td>{{ $sortQuestion->set->name }}</td>
-                                                <td>{{ $sortQuestion->exam->name }}</td>
-                                                <td class="text-center">
-                                                    <a href="{{ route('teachers.questions.sort-questions.show', $sortQuestion->id) }}"
-                                                       class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
-                                                            class="fas fa-eye mr-1"></i> View</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                @else
-                                    <div class="text-center">
-                                        <h2 class="text-center text-warning display-4">Empty.</h2>
-                                        <a href="{{ route('teachers.questions.dialogs.create') }}?exam={{ $exam->slug }}"
-                                           class="btn btn-hover-effect mb-4 bg-gradient-primary"><i
-                                                class="fas fa-pen-alt"></i> Add Dialog</a>
-                                    </div><!-- /.text-center -->
-                                @endif
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div><!-- /.col-12 -->
                         </div><!-- /.row -->
                     </div><!-- /.card-body -->
@@ -90,9 +81,9 @@
                 <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded">
                     <h1 class="h1">{{ $exam->name }}</h1>
                     <h2 class="text-center text-warning display-4">Empty.</h2>
-                    <a href="{{ route('teachers.questions.sort-questions.create') }}?exam={{ $exam->slug }}"
+                    <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ $exam->slug }}"
                        class="btn btn-lg mt-4 bg-gradient-primary"><i
-                            class="fas fa-pen-alt"></i> Add Sort Question</a>
+                            class="fas fa-pen-alt"></i> Add Synonym</a>
                 </div><!-- /.empty-data-section -->
             @endif
         @endforeach

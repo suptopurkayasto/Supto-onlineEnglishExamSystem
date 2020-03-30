@@ -15,6 +15,9 @@ class CreateSynonymsTable extends Migration
     {
         Schema::create('synonyms', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('exam_id');
+            $table->foreignId('question_set_id');
+            $table->string('word');
             $table->timestamps();
         });
     }
