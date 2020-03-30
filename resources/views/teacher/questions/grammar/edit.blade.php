@@ -1,25 +1,28 @@
 @extends('layouts.teacher')
 
-@section('title', 'Show grammar question - ' . $grammarQuestion->question)
+@section('title', 'Edit Grammar Question - ' . $grammar->name)
 
 @section('content')
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Show Grammar Question</h3>
+            <h3 class="card-title">Edit Grammar Question</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
+            <form action="{{ route('teachers.questions.grammars.update', $grammar->id) }}" method="post">
+                @csrf
+                @method('PATCH')
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
                         <label for="exam_name">Exam name</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <select name="exam_name" id="exam_name"
-                                class="form-control @error('exam_name') is-invalid @enderror" disabled>
+                                class="form-control @error('exam_name') is-invalid @enderror">
                             <option selected>Select exam</option>
-                            @foreach($exams as $exam)
-                                <option {{ $exam->id == $grammarQuestion->exam->id ? 'selected' : ''  }} value="{{ $exam->id }}">{{ $exam->name }}</option>
+                            @foreach($authTeacher->exams as $exam)
+                                <option {{ $exam->id == $grammar->exam->id ? 'selected' : ''  }} value="{{ $exam->id }}">{{ $exam->name }}</option>
                             @endforeach
                         </select>
                         @error('exam_name')
@@ -29,16 +32,17 @@
                         @enderror
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group row -->
+
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
                         <label for="question_set">Question set</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <select name="question_set" id="question_set"
-                                class="form-control @error('question_set') is-invalid @enderror" disabled>
+                                class="form-control @error('question_set') is-invalid @enderror" >
                             <option disabled>Select question set</option>
-                            @foreach($questionSets as $questionSet)
-                                <option {{ $questionSet->id == $grammarQuestion->exam->id ? 'selected' : ''  }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
+                            @foreach($questionSets as $set)
+                                <option {{ $set->id == $grammar->set->id ? 'selected' : ''  }} value="{{ $set->id }}">{{ $set->name }}</option>
                             @endforeach
                         </select>
                         @error('question_set')
@@ -55,8 +59,8 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <input type="text" name="question" id="question"
-                               class="form-control @error('question') is-invalid @enderror" value="{{ $grammarQuestion->question }}"
-                               disabled>
+                               class="form-control @error('question') is-invalid @enderror" value="{{ $grammar->question }}"
+                               >
                         @error('question')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -71,8 +75,8 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <input type="text" name="option_1" id="option_1"
-                               class="form-control @error('option_1') is-invalid @enderror" value="{{ $grammarQuestion->option_1 }}"
-                               disabled>
+                               class="form-control @error('option_1') is-invalid @enderror" value="{{ $grammar->option_1 }}"
+                               >
                         @error('option_1')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -87,8 +91,8 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <input type="text" name="option_2" id="option_2"
-                               class="form-control @error('option_2') is-invalid @enderror" value="{{ $grammarQuestion->option_2 }}"
-                               disabled>
+                               class="form-control @error('option_2') is-invalid @enderror" value="{{ $grammar->option_2 }}"
+                               >
                         @error('option_2')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -103,8 +107,8 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <input type="text" name="option_3" id="option_3"
-                               class="form-control @error('option_3') is-invalid @enderror" value="{{ $grammarQuestion->option_3 }}"
-                               disabled>
+                               class="form-control @error('option_3') is-invalid @enderror" value="{{ $grammar->option_3 }}"
+                               >
                         @error('option_3')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -119,8 +123,8 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <input type="text" name="answer" id="answer"
-                               class="form-control @error('answer') is-invalid @enderror" value="{{ $grammarQuestion->answer }}"
-                               disabled>
+                               class="form-control @error('answer') is-invalid @enderror" value="{{ $grammar->answer }}"
+                               >
                         @error('answer')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -129,22 +133,14 @@
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
 
-            <div class="form-group row">
-                <div class="col-12 col-md-4">
-                </div><!-- /.col-12 col-md-4 -->
-                <div class="col-12 col-md-8 d-flex">
-                    <a href="{{ route('teachers.grammar-questions.edit', $grammarQuestion->id) }}" class="btn bg-gradient-warning">Edit Question</a>
-                    <form action="{{ route('teachers.grammar-questions.destroy', $grammarQuestion->id) }}" method="post"
-                          class="ml-3">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn bg-gradient-danger"
-                                onclick="return confirm('Are you sure you want to delete - {{ $grammarQuestion->question }}')">
-                            Delete Question
-                        </button>
-                    </form>
-                </div><!-- /.col-12 col-md-8 -->
-            </div><!-- /.form-group -->
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                    </div><!-- /.col-12 col-md-4 -->
+                    <div class="col-12 col-md-8">
+                        <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check mr-1"></i> Update Question</button>
+                    </div><!-- /.col-12 col-md-8 -->
+                </div><!-- /.form-group -->
+            </form>
         </div>
         <!-- /.card-body -->
     </div>

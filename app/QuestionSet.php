@@ -2,7 +2,11 @@
 
 namespace App;
 
-use App\Model\Grammar\GrammarQuestion;
+use App\Model\Grammar\Grammar;
+use App\Model\Writing\Dialog;
+use App\Model\Writing\FormalEmail;
+use App\Model\Writing\InformalEmail;
+use App\Model\Writing\SortQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -17,7 +21,7 @@ class QuestionSet extends Model
 
     public function grammarQuestions()
     {
-        return $this->hasMany(GrammarQuestion::class);
+        return $this->hasMany(Grammar::class);
     }
 
     public function exams()
@@ -27,5 +31,28 @@ class QuestionSet extends Model
     public function students()
     {
         return $this->belongsToMany(Student::class);
+    }
+
+
+    // Dialog
+    public function dialogs()
+    {
+        return $this->hasMany(Dialog::class);
+    }
+
+    // Informal Email
+    public function informalEmails()
+    {
+        return $this->hasMany(InformalEmail::class);
+    }
+    // Formal Email
+    public function formalEmails()
+    {
+        return $this->hasMany(FormalEmail::class);
+    }
+    // Sort Questions
+    public function sortQuestions()
+    {
+        return $this->hasMany(SortQuestion::class);
     }
 }

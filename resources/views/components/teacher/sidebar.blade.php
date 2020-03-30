@@ -51,13 +51,6 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('teacher.students.create') }}"
-                                       class="nav-link {{ request()->url() === route('teacher.students.create') ? 'active' : '' }}">
-                                        <i class="fas fa-user-plus nav-icon"></i>
-                                        <p>Add Student</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{ route('teacher.students.exams.result') }}"
                                        class="nav-link {{ request()->url() === route('teacher.students.exams.result') ? 'active' : '' }}">
                                         <i class="fas fa-check-circle nav-icon"></i>
@@ -69,7 +62,7 @@
 
                         <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'exams' ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->segment(2) === 'exams' ? 'active' : '' }}">
-                                <i class="fas fa-desktop nav-icon"></i>
+                                <i class="fas fa-diagnoses nav-icon"></i>
                                 <p>
                                     Exams
                                     <i class="right fas fa-angle-left"></i>
@@ -83,19 +76,12 @@
                                         <p>All Exams</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('teacher.exams.create') }}"
-                                       class="nav-link {{ request()->url() === route('teacher.exams.create') ? 'active' : '' }}">
-                                        <i class="fas fa-desktop nav-icon"></i>
-                                        <p>Add Exam</p>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
 
                         <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'questions' ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->segment(2) === 'questions' ? 'active' : '' }}">
-                                <i class="fas fa-lightbulb nav-icon"></i>
+                                <i class="fas fa-question-circle nav-icon"></i>
                                 <p>
                                     Questions
                                     <i class="right fas fa-angle-left"></i>
@@ -103,20 +89,54 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('teachers.grammar-questions.index') }}"
-                                       class="nav-link {{ request()->url() === route('teachers.grammar-questions.index') ? 'active' : '' }}">
-                                        <i class="fas fa-lightbulb nav-icon"></i>
-                                        <p>All grammar questions</p>
+                                    <a href="{{ route('teachers.questions.grammars.index') }}"
+                                       class="nav-link {{ request()->url() === route('teachers.questions.grammars.index') ? 'active' : '' }}">
+                                        <i class="fas fa-spell-check nav-icon"></i>
+                                        <p>Grammar</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('teachers.grammar-questions.create') }}"
-                                       class="nav-link {{ request()->url() === route('teachers.grammar-questions.create') ? 'active' : '' }}">
-                                        <i class="fas fa-lightbulb nav-icon"></i>
-                                        <p>Add grammar question</p>
+                                <span style="width: 100%; height: 1px; background: rgba(255, 255, 255, .1); display: block"></span>
+
+                                <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(3) === 'writing' ? 'menu-open' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->segment(3) === 'writing' ? 'bg-white' : '' }}">
+                                        <i class="fas fa-marker nav-icon"></i>
+                                        <p>
+                                            Writing
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.dialogs.index') }}"
+                                               class="nav-link {{ request()->url() === route('teachers.questions.dialogs.index') ? 'active' : '' }}">
+                                                <i class="fas fa-reply-all nav-icon"></i>
+                                                <p>Dialog</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.informal-email.index') }}"
+                                               class="nav-link {{ request()->url() === route('teachers.questions.informal-email.index') ? 'active' : '' }}">
+                                                <i class="far fa-envelope nav-icon"></i>
+                                                <p>Informal Email</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.formal-email.index') }}"
+                                               class="nav-link {{ request()->url() === route('teachers.questions.formal-email.index') ? 'active' : '' }}">
+                                                <i class="fas fa-envelope nav-icon"></i>
+                                                <p>Formal Email</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.sort-questions.index') }}"
+                                               class="nav-link {{ request()->url() === route('teachers.questions.sort-questions.index') ? 'active' : '' }}">
+                                                <i class="fas fa-question nav-icon"></i>
+                                                <p>Sort Question</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <hr class="border-bottom border-dark">
                             </ul>
                         </li>
                     </ul>

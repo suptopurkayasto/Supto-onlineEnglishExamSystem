@@ -3,14 +3,19 @@
 @section('title', 'All Students')
 
 @section('content')
-    @if($students->count() > 0)
+    @if($authTeacherStudents->count() > 0)
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">All Students</h3>
+                <h3 class="card-title float-left">All Students</h3>
+
+                <a href="{{ route('teacher.students.create') }}"
+                   class="btn btn-hover-effect bg-gradient-primary float-right"><i class="fas fa-pen-alt mr-1"></i> Add Students</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="example" class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style" style="width: 100%">
+                <table id="example"
+                       class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
+                       style="width: 100%">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -23,7 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($students as $index => $student)
+                    @foreach($authTeacherStudents as $index => $student)
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td title="{{ 'ID Number: ' . $student->id_number }}">{{ $student->id_number }}</td>
@@ -33,7 +38,8 @@
                             <td title="{{ $student->email }}">{{ Str::limit($student->email, 30) }}</td>
                             <td class="text-center">
                                 <a href="{{ route('teacher.students.show', $student->id_number) }}"
-                                   class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
+                                   class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
+                                        class="fas fa-eye mr-1"></i> View</a>
                             </td>
                         </tr>
                     @endforeach
@@ -44,8 +50,9 @@
         </div>
     @else
         <div class="empty-data-section">
-            <h2 class="text-center text-warning mt-5 display-1 font-weight">Empty.</h2>
-            <a href="{{ route('teacher.students.create') }}" class="btn btn-lg mt-4 bg-gradient-primary">Add Student</a>
+            <h2 class="text-center text-warning display-1 font-weight-bolder">Empty.</h2>
+            <a href="{{ route('teacher.students.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
+                    class="fas fa-pen-alt mr-1"></i> Add Students</a>
         </div><!-- /.empty-data-section -->
     @endif
 @endsection

@@ -7,9 +7,8 @@
 }
 
 .btn-hover-effect {
-    display: block;
     &:hover {
-        animation: pulse 300ms;
+        animation: pulse 150ms;
     }
 }
 table.custom-table-style {
@@ -18,6 +17,9 @@ table.custom-table-style {
             &:first-of-type, &:last-of-type {
                 text-align: center;
                 width: 50px;
+            }
+            &:last-of-type {
+                width: 100px;
             }
         }
     }
@@ -89,5 +91,12 @@ li.sidebar-item {
 
             }
         }
+    }
+}
+
+.add-exam-mini-section {
+    margin-top: 100px;
+    h1 {
+        color: red;
     }
 }

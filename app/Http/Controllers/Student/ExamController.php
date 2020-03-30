@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Exam;
 use App\Http\Controllers\Controller;
-use App\Model\Grammar\GrammarQuestion;
+use App\Model\Grammar\Grammar;
 use App\Model\Grammar\StudentGrammarQuestion;
 use App\Model\Grammar\StudentGrammarQuestionExamGotMarks;
 use Illuminate\Http\Request;
@@ -44,7 +44,7 @@ class ExamController extends Controller
             return redirect()->route('student.dashboard');
         }
         $authStudentQuestionSet = Auth::guard('student')->user()->set;
-        $grammarQuestions = GrammarQuestion::all();
+        $grammarQuestions = Grammar::all();
         return view('student.exams.questions.grammar-question', compact('authStudentQuestionSet', 'grammarQuestions', 'exam'));
     }
 
@@ -64,7 +64,7 @@ class ExamController extends Controller
                 foreach ($student_answers as $student_answerOption) {
                     $student_answer = $student_answerOption;
                 }
-                $correct_answer = GrammarQuestion::find($item)->answer;
+                $correct_answer = Grammar::find($item)->answer;
 
                 StudentGrammarQuestion::create([
                     'student_id' => Auth::guard('student')->user()->id,

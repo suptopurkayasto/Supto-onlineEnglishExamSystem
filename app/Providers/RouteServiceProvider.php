@@ -104,7 +104,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapQuestionRoutes()
     {
         Route::prefix('teachers/questions/')
-            ->as('teachers.')
+            ->as('teachers.questions.')
             ->namespace($this->namespace)
             ->middleware(['web', 'auth:teacher', 'teacher.profile'])
             ->group(base_path('routes/question.php'));

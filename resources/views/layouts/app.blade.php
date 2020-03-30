@@ -26,7 +26,7 @@
     </script>
 </head>
 <body>
-    @include('components.success-audio')
+    @include('components.audio-alert')
     <div id="app" class="h-100">
         <main class=" h-100">
             @yield('content')

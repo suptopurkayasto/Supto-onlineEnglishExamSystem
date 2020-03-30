@@ -26,6 +26,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
+    <x-audio-alert></x-audio-alert>
     <x-navigation></x-navigation>
     <x-sidebar></x-sidebar>
 
@@ -74,9 +75,6 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
-
-<x-success-audio></x-success-audio>
 
 
 

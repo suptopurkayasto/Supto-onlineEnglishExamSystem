@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model\Grammar\GrammarQuestion;
+use App\Model\Grammar\Grammar;
 use Faker\Generator as Faker;
 
-$factory->define(GrammarQuestion::class, function (Faker $faker) {
+$factory->define(Grammar::class, function (Faker $faker) {
     return [
         'exam_id' => 1,
         'question_set_id' => $faker->numberBetween(1, 4),

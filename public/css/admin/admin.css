@@ -3155,13 +3155,9 @@
   background-color: #001f3f;
 }
 
-.btn-hover-effect {
-  display: block;
-}
-
 .btn-hover-effect:hover {
-  -webkit-animation: pulse 300ms;
-          animation: pulse 300ms;
+  -webkit-animation: pulse 150ms;
+          animation: pulse 150ms;
 }
 
 table.custom-table-style tr td:first-of-type,
@@ -3170,6 +3166,11 @@ table.custom-table-style tr th:first-of-type,
 table.custom-table-style tr th:last-of-type {
   text-align: center;
   width: 50px;
+}
+
+table.custom-table-style tr td:last-of-type,
+table.custom-table-style tr th:last-of-type {
+  width: 100px;
 }
 
 table.custom-table-style thead tr th {
@@ -3224,5 +3225,13 @@ li.sidebar-item ul li p {
 
 .count-section .info-box-main .progress {
   height: 10px;
+}
+
+.add-exam-mini-section {
+  margin-top: 100px;
+}
+
+.add-exam-mini-section h1 {
+  color: red;
 }
 

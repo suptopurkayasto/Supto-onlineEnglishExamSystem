@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGrammarQuestionsTable extends Migration
+class CreateDialogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateGrammarQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('grammar_questions', function (Blueprint $table) {
+        Schema::create('dialogs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('exam_id');
+            $table->foreignId('writing_part_id');
+            $table->foreignId('exam_id')->nullable();
             $table->foreignId('question_set_id');
-            $table->string('question');
-            $table->string('option_1');
-            $table->string('option_2');
-            $table->string('option_3');
-            $table->string('answer');
+            $table->string('topic');
+            $table->text('question_1');
+            $table->text('question_2');
+            $table->text('question_3');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateGrammarQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grammar_questions');
+        Schema::dropIfExists('dialogs');
     }
 }

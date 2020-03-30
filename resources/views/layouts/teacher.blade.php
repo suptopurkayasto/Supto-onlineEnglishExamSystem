@@ -24,7 +24,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
-
+    @include('components.audio-alert')
     <x-teacher.navigation></x-teacher.navigation>
     <x-teacher.sidebar></x-teacher.sidebar>
 
@@ -96,6 +96,7 @@
 @include('sweetalert::alert')
 
 <script src="{{ asset('js/admin/password.js') }}"></script>
+@yield('extra-scripts')
 
 </body>
 </html>
