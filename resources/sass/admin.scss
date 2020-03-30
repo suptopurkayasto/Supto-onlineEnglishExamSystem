@@ -54,6 +54,10 @@ table.custom-table-style {
     background-color: rgba(255,255,255,.1);
 }
 
+[class*=sidebar-dark] .user-panel:last-child {
+    border-bottom: none;
+}
+
 li.sidebar-item {
     ul {
         li {

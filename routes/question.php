@@ -3,8 +3,15 @@
 use Illuminate\Support\Facades\Route;
 
 /**
+ * All Vocabulary routes
+ */
+Route::resource('vocabulary/synonyms', 'Teacher\Question\Vocabulary\Synonym\SynonymController');
+
+
+/**
  * All Writing part routes
  */
+
 
 // Dialog route
 Route::resource('writing/dialogs', 'Teacher\Question\Writing\Dialog\DialogController');

@@ -95,8 +95,9 @@
                                         <p>Grammar</p>
                                     </a>
                                 </li>
-                                <span style="width: 100%; height: 1px; background: rgba(255, 255, 255, .1); display: block"></span>
 
+
+                                <span style="width: 100%; height: 1px; background: rgba(255, 255, 255, .1); display: block"></span>
                                 <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(3) === 'writing' ? 'menu-open' : '' }}">
                                     <a href="#" class="nav-link {{ request()->segment(3) === 'writing' ? 'bg-white' : '' }}">
                                         <i class="fas fa-marker nav-icon"></i>
@@ -137,6 +138,29 @@
                                         </li>
                                     </ul>
                                 </li>
+
+
+                                <!-- Start::Vocabulary sidebar item markup -->
+                                <span style="width: 100%; height: 1px; background: rgba(255, 255, 255, .1); display: block"></span>
+                                <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(3) === 'vocabulary' ? 'menu-open' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->segment(3) === 'vocabulary' ? 'bg-white' : '' }}">
+                                        <i class="fas fa-drafting-compass nav-icon"></i>
+                                        <p>
+                                            Vocabulary
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.synonyms.index') }}"
+                                               class="nav-link {{ request()->url() === route('teachers.questions.synonyms.index') ? 'active' : '' }}">
+                                                <i class="fas fa-equals nav-icon"></i>
+                                                <p>Synonym</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- Start::Vocabulary sidebar item markup -->
                             </ul>
                         </li>
                     </ul>
