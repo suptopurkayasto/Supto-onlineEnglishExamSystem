@@ -10,32 +10,32 @@
                     <div class="card-header">
                         <h3 class="card-title float-left"><span
                                 class="font-weight-bolder">({{ $exam->name }})</span>
-                            Sort Questions
-                            @if($exam->synonyms()->count() === 28)
+                            Synonym Word
+                            @if($exam->synonyms()->count() === 20)
                                 <i class="fas fa-check text-success"></i>
                             @else
                                 <i class="fas fa-spinner fa-pulse text-warning"></i>
 
                             @endif
                         </h3>
-                        <a href="{{ route('teachers.questions.sort-questions.create') }}?exam={{ $exam->slug }}"
+                        <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ $exam->slug }}"
                            class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
-                            Sort Question</a>
+                            Synonym Word</a>
                     </div><!-- /.card-header -->
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)
-                                @php $sortQuestionCountBySet = $exam->sortQuestions()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $synonymCountBySet = $exam->synonyms()->where('question_set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
-                                            <span class="info-box-number font-weight-normal">{{ $sortQuestionCountBySet }} / 7 Sort questions.</span>
+                                            <span class="info-box-number font-weight-normal">{{ $synonymCountBySet }} / 5 Synonym word.</span>
 
                                             <div class="progress">
                                                 <div class="progress-bar"
-                                                     style="width: {{ ($sortQuestionCountBySet*100)/7 }}%"></div>
+                                                     style="width: {{ ($synonymCountBySet*100)/5 }}%"></div>
                                             </div>
                                         </div>
                                         <!-- /.info-box-content -->
@@ -51,21 +51,21 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Topic</th>
+                                        <th>Word</th>
                                         <th>Set</th>
                                         <th>Exam</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($exam->sortQuestions as $index => $sortQuestion)
+                                    @foreach($exam->synonyms as $index => $synonym)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td title="{{ $sortQuestion->question }}">{{ Str::limit($sortQuestion->question, 70) }}</td>
-                                            <td>{{ $sortQuestion->set->name }}</td>
-                                            <td>{{ $sortQuestion->exam->name }}</td>
+                                            <td title="{{ $synonym->word }}">{{ Str::limit($synonym->word, 70) }}</td>
+                                            <td>{{ $synonym->set->name }}</td>
+                                            <td>{{ $synonym->exam->name }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('teachers.questions.sort-questions.show', $sortQuestion->id) }}"
+                                                <a href="{{ route('teachers.questions.synonyms.show', $synonym->id) }}"
                                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
                                                         class="fas fa-eye mr-1"></i> View</a>
                                             </td>

@@ -1,17 +1,17 @@
 @extends('layouts.teacher')
 
-@section('title', 'Add Sort Question')
+@section('title', 'Add Synonym Word')
 
 
 @section('content')
 
     <div class="card">
         <div class="card-header">
-            <h3 class="h3 card-title">Add Sort Question</h3>
+            <h3 class="h3 card-title">Add Synonym Word</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('teachers.questions.sort-questions.store') }}" method="post">
+            <form action="{{ route('teachers.questions.synonyms.store') }}" method="post">
                 @csrf
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
@@ -59,14 +59,14 @@
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
-                        <label for="question">Question</label>
+                        <label for="word">Word</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <input type="text" name="question" id="question"
-                               class="form-control @error('question') is-invalid @enderror"
-                               value="{{ old('question') }}"
+                        <input type="text" name="word" id="word"
+                               class="form-control @error('word') is-invalid @enderror"
+                               value="{{ old('word') }}"
                                required>
-                        @error('question')
+                        @error('word')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -79,7 +79,7 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check"></i> Add
-                            Sort Question
+                            Synonym Word
                         </button>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->

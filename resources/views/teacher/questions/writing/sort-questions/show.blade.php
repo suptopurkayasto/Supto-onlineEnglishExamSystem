@@ -63,7 +63,7 @@
                                class="form-control @error('question') is-invalid @enderror"
                                value="{{ $sortQuestion->question }}"
                                disabled>
-                        @error('question_1')
+                        @error('question')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

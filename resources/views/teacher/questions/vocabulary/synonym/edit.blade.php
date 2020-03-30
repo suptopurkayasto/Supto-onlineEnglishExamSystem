@@ -1,16 +1,16 @@
 @extends('layouts.teacher')
 
-@section('title', 'Edit Sort Question')
+@section('title', 'Edit Synonym Word')
 
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="h3 card-title">Edit Sort Question</h3>
+            <h3 class="h3 card-title">Edit Synonym Word</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('teachers.questions.sort-questions.update', $sortQuestion->id) }}" method="post">
+            <form action="{{ route('teachers.questions.synonyms.update', $synonym->id) }}" method="post">
                 @csrf
                 @method('PUT')
                 <div class="form-group row">
@@ -22,7 +22,7 @@
                             <option disabled selected>Select exam</option>
                             @foreach($authTeacher->exams as $exam)
                                 <option
-                                    {{ $sortQuestion->exam->id == $exam->id ? 'selected' : '' }} value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                    {{ $synonym->exam->id == $exam->id ? 'selected' : '' }} value="{{ $exam->id }}">{{ $exam->name }}</option>
                             @endforeach
                         </select>
                         @error('exam')
@@ -43,7 +43,7 @@
                             <option disabled selected>Select group</option>
                             @foreach($questionSets as $questionSet)
                                 <option
-                                    {{ $sortQuestion->set->id == $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
+                                    {{ $synonym->set->id == $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
                             @endforeach
                         </select>
                         @error('questionSet')
@@ -56,14 +56,14 @@
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
-                        <label for="question">Question</label>
+                        <label for="word">Word</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <input type="text" name="question" id="question"
-                               class="form-control @error('question') is-invalid @enderror"
-                               value="{{ $sortQuestion->question }}"
+                        <input type="text" name="word" id="word"
+                               class="form-control @error('word') is-invalid @enderror"
+                               value="{{ $synonym->word }}"
                                required>
-                        @error('question')
+                        @error('word')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -76,7 +76,7 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check mr-1"></i> Update
-                            Sort Question
+                            Synonym Word
                         </button>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
