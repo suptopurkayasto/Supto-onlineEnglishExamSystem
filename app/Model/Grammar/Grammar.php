@@ -6,7 +6,7 @@ use App\Exam;
 use App\QuestionSet;
 use Illuminate\Database\Eloquent\Model;
 
-class GrammarQuestion extends Model
+class Grammar extends Model
 {
     protected $guarded = [];
 

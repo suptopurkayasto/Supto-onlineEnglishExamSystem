@@ -6,7 +6,9 @@
     @if($exams->count() > 0)
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">All Exams</h3>
+                <h3 class="card-title float-left">All Exams</h3>
+                <a href="{{ route('teacher.exams.create') }}" class="btn bg-gradient-primary float-right"><i
+                        class="fas fa-pen-alt mr-1"></i> Add Exam</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

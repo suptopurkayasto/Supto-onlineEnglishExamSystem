@@ -76,13 +76,6 @@
                                         <p>All Exams</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('teacher.exams.create') }}"
-                                       class="nav-link {{ request()->url() === route('teacher.exams.create') ? 'active' : '' }}">
-                                        <i class="fas fa-desktop nav-icon"></i>
-                                        <p>Add Exam</p>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
 
@@ -96,8 +89,8 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('teachers.grammar-questions.index') }}"
-                                       class="nav-link {{ request()->url() === route('teachers.grammar-questions.index') ? 'active' : '' }}">
+                                    <a href="{{ route('teachers.questions.grammars.index') }}"
+                                       class="nav-link {{ request()->url() === route('teachers.questions.grammars.index') ? 'active' : '' }}">
                                         <i class="fas fa-spell-check nav-icon"></i>
                                         <p>Grammar</p>
                                     </a>

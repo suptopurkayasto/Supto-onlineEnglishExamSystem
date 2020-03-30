@@ -102,7 +102,6 @@
     @else
         <div class="empty-data-section add-exam-mini-section">
             <h1 class="h1">You need to add Exam first.</h1>
-            <h2 class="text-center text-warning display-1 font-weight-bolder">Empty.</h2>
             <a href="{{ route('teacher.exams.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
                     class="fas fa-pen-alt"></i> Add Exam</a>
         </div><!-- /.empty-data-section -->

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGrammarQuestionsTable extends Migration
+class CreateGrammarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGrammarQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('grammar_questions', function (Blueprint $table) {
+        Schema::create('grammars', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id');
             $table->foreignId('question_set_id');

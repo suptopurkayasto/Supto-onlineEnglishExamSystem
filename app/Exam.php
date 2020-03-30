@@ -2,14 +2,13 @@
 
 namespace App;
 
-use App\Model\Grammar\GrammarQuestion;
+use App\Model\Grammar\Grammar;
 use App\Model\Grammar\StudentGrammarQuestion;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
 use App\Model\Writing\SortQuestion;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Grammars\Grammar;
 
 class Exam extends Model
 {
@@ -28,7 +27,7 @@ class Exam extends Model
 
     public function grammarQuestions()
     {
-        return $this->hasMany(GrammarQuestion::class);
+        return $this->hasMany(Grammar::class);
     }
 
     public function sets()

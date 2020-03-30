@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Model\Grammar\GrammarQuestion;
+use App\Model\Grammar\Grammar;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
@@ -21,7 +21,7 @@ class QuestionSet extends Model
 
     public function grammarQuestions()
     {
-        return $this->hasMany(GrammarQuestion::class);
+        return $this->hasMany(Grammar::class);
     }
 
     public function exams()

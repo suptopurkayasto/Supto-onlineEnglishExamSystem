@@ -3,28 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-/**
- * All Writing part routes
- */
-
-// Dialog route
-Route::resource('questions/writing/dialogs', 'Teacher\Question\Writing\Dialog\DialogController', ['as' => 'teachers.questions']);
-
-// Informal Email route
-Route::resource('questions/writing/informal-email', 'Teacher\Question\Writing\Email\InformalEmailController', ['as' => 'teachers.questions']);
-
-
-// Formal Email route
-Route::resource('questions/writing/formal-email', 'Teacher\Question\Writing\Email\FormalEmailController', ['as' => 'teachers.questions']);
-
-
-// Sort Question route
-Route::resource('questions/writing/sort-questions', 'Teacher\Question\Writing\SortQuestion\SortQuestionController', ['as' => 'teachers.questions']);
-
-
-
-
-
 
 Route::put('exams/{exam}/status', 'Teacher\Exam\ExamController@status')->name('teacher.exams.status');
 Route::resource('exams', 'Teacher\Exam\ExamController', ['as' => 'teacher']);
