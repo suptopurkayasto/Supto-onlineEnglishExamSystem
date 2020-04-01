@@ -5,6 +5,7 @@ namespace App;
 use App\Model\Grammar\Grammar;
 use App\Model\Grammar\StudentGrammarQuestion;
 use App\Model\Vocabulary\Synonym\Synonym;
+use App\Model\Vocabulary\Synonym\SynonymOption;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
@@ -65,6 +66,12 @@ class Exam extends Model
     public function synonyms()
     {
         return $this->hasMany(Synonym::class);
+    }
+
+    // Synonym Options
+    public function synonymOptions()
+    {
+        return $this->hasMany(SynonymOption::class);
     }
 
 

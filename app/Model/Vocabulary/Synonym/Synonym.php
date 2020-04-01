@@ -18,4 +18,8 @@ class Synonym extends Model
     {
         return $this->belongsTo(QuestionSet::class, 'question_set_id');
     }
+    public function answer()
+    {
+        return $this->belongsTo(SynonymOption::class, 'synonym_option_id');
+    }
 }

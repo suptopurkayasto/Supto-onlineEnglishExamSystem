@@ -18,7 +18,7 @@
 
                             @endif
                         </h3>
-                        <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ $exam->slug }}"
+                        <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ Crypt::encryptString($exam->slug) }}"
                            class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
                             Synonym Word</a>
                     </div><!-- /.card-header -->
@@ -36,6 +36,22 @@
                                             <div class="progress">
                                                 <div class="progress-bar"
                                                      style="width: {{ ($synonymCountBySet*100)/5 }}%"></div>
+                                            </div>
+                                            <div class="progress-description">
+                                                @if($synonymCountBySet === 5)
+                                                    @if($exam->synonymOptions()->where('question_set_id', $set->id)->get()->count() === 10)
+                                                        <a href="{{ route('teachers.questions.synonyms.options.index') }}?exam={{ Crypt::encryptString($exam->id) }}&set={{ Crypt::encryptString($set->id) }}" class="btn btn-sm btn-primary btn-block">View
+                                                            Option</a>
+                                                    @else
+                                                        <a href="{{ route('teachers.questions.synonyms.options.create') }}?exam={{ Crypt::encryptString($exam->id) }}&set={{ Crypt::encryptString($set->id) }}"
+                                                           class="btn btn-sm btn-outline-primary btn-block">Add
+                                                            Option</a>
+                                                    @endif
+                                                @else
+                                                    <a href="" class="btn btn-sm btn-outline-primary btn-block disabled"
+                                                       disabled="">Add
+                                                        Option</a>
+                                                @endif
                                             </div>
                                         </div>
                                         <!-- /.info-box-content -->

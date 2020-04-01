@@ -29,3 +29,7 @@ Auth::routes();
 
 //
 //Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('test', function () {
+   return \App\Model\Vocabulary\Synonym\SynonymOption::find(1)->synonym;
+});

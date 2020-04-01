@@ -5,13 +5,15 @@ use Illuminate\Support\Facades\Route;
 /**
  * All Vocabulary routes
  */
+// Synonym option route
+Route::resource('vocabulary/synonyms/options', 'Teacher\Question\Vocabulary\Synonym\SynonymOptionController', ['as' => 'synonyms']);
+// Synonym route
 Route::resource('vocabulary/synonyms', 'Teacher\Question\Vocabulary\Synonym\SynonymController');
 
 
 /**
  * All Writing part routes
  */
-
 
 // Dialog route
 Route::resource('writing/dialogs', 'Teacher\Question\Writing\Dialog\DialogController');

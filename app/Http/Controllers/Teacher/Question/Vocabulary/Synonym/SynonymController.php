@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Teacher\Question\Vocabulary\Synonym;
 
 use App\Http\Controllers\Controller;
 use App\Model\Vocabulary\Synonym\Synonym;
+use App\Model\Vocabulary\Synonym\SynonymOption;
 use App\QuestionSet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SynonymController extends Controller
 {
+    protected $synonymOptions;
+
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +50,12 @@ class SynonymController extends Controller
         $countSynonymWordByExamAndSet = Synonym::where(['exam_id' => $exam, 'question_set_id' => $set])->get()->count();
 
         if ($countSynonymWordByExamAndSet < 5) {
+
+            $synonymOptions = SynonymOption::create($this->validateSynonymOptionsCreateRequest($request));
+            $this->synonymOptions = $synonymOptions;
+
             Synonym::create($this->validateSynonymCreateRequest($request));
+
             session()->flash('success_audio');
             toast('Synonym word has been successfully added','success');
         } else {
@@ -92,19 +100,27 @@ class SynonymController extends Controller
      */
     public function update(Request $request, Synonym $synonym)
     {
-        $exam = $request->exam;
-        $set = $request->questionSet;
+        $authTeacher = Auth::guard('teacher')->user();
+        $exam = $authTeacher->exams()->find($request->exam);
+        $set = $exam->sets()->find($request->questionSet);
 
-        $countSynonymWordByExamAndSet = Synonym::where(['exam_id' => $exam, 'question_set_id' => $set])->get()->count();
+        if ($synonym->exam->id == $exam->id && $synonym->set->id == $set->id) {
+            $synonym->update($this->validateSynonymUpdateRequest($request));
+            session()->flash('success_audio');
+            toast('Synonym Word has been successfully updated','success');
+            return redirect()->route('teachers.questions.synonyms.show', $synonym->id);
+        }
+
+        $countSynonymWordByExamAndSet = Synonym::where(['exam_id' => $exam->id, 'question_set_id' => $set->id])->get()->count();
 
         if ($countSynonymWordByExamAndSet < 5) {
             $synonym->update($this->validateSynonymUpdateRequest($request));
             session()->flash('success_audio');
-            toast('Sort Question has been successfully updated','success');
+            toast('Synonym Word has been successfully updated','success');
             return redirect()->route('teachers.questions.synonyms.show', $synonym->id);
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add synonym word to this '. QuestionSet::find($set)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add synonym word to this '. QuestionSet::find($set->id)->name .' set.');
             return redirect()->back();
         }
     }
@@ -123,17 +139,35 @@ class SynonymController extends Controller
         return redirect()->route('teachers.questions.synonyms.index');
     }
 
+    private function validateSynonymOptionsCreateRequest($request)
+    {
+        $validateData = $this->validate($request, [
+            'exam' => 'required|integer',
+            'questionSet' => 'required|integer',
+            'answer' => 'required|string|max:255',
+        ]);
+
+        return [
+            'exam_id' => $validateData['exam'],
+            'question_set_id' => $validateData['questionSet'],
+            'options' => $validateData['answer']
+        ];
+
+    }
+
     private function validateSynonymCreateRequest($request)
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
             'questionSet' => 'required|integer',
             'word' => 'required|string|max:255',
+            'answer' => 'required|string|max:255',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
             'question_set_id' => $validateData['questionSet'],
+            'synonym_option_id' => $this->synonymOptions['id'],
             'word' => $validateData['word'],
         ];
 
