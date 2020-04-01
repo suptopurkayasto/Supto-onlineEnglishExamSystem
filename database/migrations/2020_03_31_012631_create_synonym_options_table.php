@@ -15,8 +15,6 @@ class CreateSynonymOptionsTable extends Migration
     {
         Schema::create('synonym_options', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('synonym_id');
-            $table->string('word');
             $table->timestamps();
         });
     }
