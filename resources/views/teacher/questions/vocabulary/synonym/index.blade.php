@@ -81,9 +81,9 @@
                 <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded">
                     <h1 class="h1">{{ $exam->name }}</h1>
                     <h2 class="text-center text-warning display-4">Empty.</h2>
-                    <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ $exam->slug }}"
+                    <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ Crypt::encryptString($exam->slug) }}"
                        class="btn btn-lg mt-4 bg-gradient-primary"><i
-                            class="fas fa-pen-alt"></i> Add Synonym</a>
+                            class="fas fa-pen-alt"></i> Add Synonym Word</a>
                 </div><!-- /.empty-data-section -->
             @endif
         @endforeach

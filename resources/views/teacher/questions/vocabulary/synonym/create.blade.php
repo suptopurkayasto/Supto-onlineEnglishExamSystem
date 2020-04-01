@@ -22,7 +22,7 @@
                             <option disabled selected>Select exam</option>
                             @foreach($authTeacher->exams as $exam)
                                 <option
-                                    {{ old('exam') == $exam->id || request()->get('exam') === $exam->slug ? 'selected' : '' }}
+                                    {{ old('exam') == $exam->id || Crypt::decryptString(request()->get('exam')) === $exam->slug ? 'selected' : '' }}
                                     value="{{ $exam->id }}">
                                     {{ $exam->name }}
                                 </option>
