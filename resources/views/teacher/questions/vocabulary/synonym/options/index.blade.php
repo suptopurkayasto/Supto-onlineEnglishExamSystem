@@ -27,7 +27,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($synonymOptions as $index => $option)
+                    @foreach($options as $index => $option)
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td title="{{ $option->options }}">{{ Str::limit($option->options, 70) }}</td>
@@ -35,7 +35,7 @@
                             <td>{{ $option->exam->name }}</td>
                             <td>{{ $option->set->name }}</td>
                             <td class="text-center">
-                                <a href="{{ route('teachers.questions.synonyms.show', $option->id) }}"
+                                <a href="{{ route('teachers.questions.synonyms.options.show', $option->id) }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}"
                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
                                         class="fas fa-eye mr-1"></i> View</a>
                             </td>

@@ -10,7 +10,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('teachers.questions.synonyms.update', $synonym->id) }}" method="post">
+            <form action="{{ route('teachers.questions.synonyms.update', $synonym->id) }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}" method="post">
                 @csrf
                 @method('PUT')
                 <div class="form-group row">

@@ -18,7 +18,7 @@
 
                             @endif
                         </h3>
-                        <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ Crypt::encryptString($exam->slug) }}"
+                        <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ encrypt($exam->id) }}"
                            class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
                             Synonym Word</a>
                     </div><!-- /.card-header -->
@@ -40,17 +40,17 @@
                                             <div class="progress-description">
                                                 @if($synonymCountBySet === 5)
                                                     @if($exam->synonymOptions()->where('question_set_id', $set->id)->get()->count() === 10)
-                                                        <a href="{{ route('teachers.questions.synonyms.options.index') }}?exam={{ Crypt::encryptString($exam->id) }}&set={{ Crypt::encryptString($set->id) }}" class="btn btn-sm btn-primary btn-block">View
+                                                        <a href="{{ route('teachers.questions.synonyms.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
+                                                           class="btn btn-sm btn-primary btn-block">View
                                                             Option</a>
                                                     @else
-                                                        <a href="{{ route('teachers.questions.synonyms.options.create') }}?exam={{ Crypt::encryptString($exam->id) }}&set={{ Crypt::encryptString($set->id) }}"
+                                                        <a href="{{ route('teachers.questions.synonyms.options.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
                                                            class="btn btn-sm btn-outline-primary btn-block">Add
-                                                            Option</a>
+                                                            Options</a>
                                                     @endif
                                                 @else
-                                                    <a href="" class="btn btn-sm btn-outline-primary btn-block disabled"
-                                                       disabled="">Add
-                                                        Option</a>
+                                                    <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
+                                                       class="btn btn-sm btn-outline-primary btn-block">Add Words</a>
                                                 @endif
                                             </div>
                                         </div>
@@ -81,7 +81,7 @@
                                             <td>{{ $synonym->set->name }}</td>
                                             <td>{{ $synonym->exam->name }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('teachers.questions.synonyms.show', $synonym->id) }}"
+                                                <a href="{{ route('teachers.questions.synonyms.show', $synonym->id) }}?exam={{ encrypt($synonym->exam->id) }}&set={{ encrypt($synonym->set->id) }}"
                                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
                                                         class="fas fa-eye mr-1"></i> View</a>
                                             </td>
@@ -97,7 +97,7 @@
                 <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded">
                     <h1 class="h1">{{ $exam->name }}</h1>
                     <h2 class="text-center text-warning display-4">Empty.</h2>
-                    <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ Crypt::encryptString($exam->slug) }}"
+                    <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ encrypt($exam->id) }}"
                        class="btn btn-lg mt-4 bg-gradient-primary"><i
                             class="fas fa-pen-alt"></i> Add Synonym Word</a>
                 </div><!-- /.empty-data-section -->

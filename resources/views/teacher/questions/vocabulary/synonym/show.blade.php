@@ -75,7 +75,7 @@
                     <div class="col-12 col-md-4">
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <a href="{{ route('teachers.questions.synonyms.edit', $synonym->id) }}"
+                        <a href="{{ route('teachers.questions.synonyms.edit', $synonym->id) }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}"
                            class="btn bg-gradient-primary"><i class="far fa-edit mr-1"></i> Edit
                             Synonym Word
                         </a>

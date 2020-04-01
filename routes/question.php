@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
  */
 // Synonym option route
 Route::resource('vocabulary/synonyms/options', 'Teacher\Question\Vocabulary\Synonym\SynonymOptionController', ['as' => 'synonyms']);
+
+
 // Synonym route
 Route::resource('vocabulary/synonyms', 'Teacher\Question\Vocabulary\Synonym\SynonymController');
 
