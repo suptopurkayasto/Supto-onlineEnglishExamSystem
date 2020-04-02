@@ -13,7 +13,7 @@
                         <i class="fas fa-house-user fa-4x text-primary"></i>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('teacher.login.submit') }}" class="">
+                        <form method="post" action="{{ route('admin.login.submit') }}" class="">
                             @csrf
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
