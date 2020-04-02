@@ -10,7 +10,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('teachers.questions.formal-email.update', $formalEmail->id) }}" method="post" id="writingPartForm">
+            <form action="{{ route('teachers.questions.formal-email.update', $formalEmail->id) }}?exam={{ request()->get('exam') }}" method="post" id="writingPartForm">
                 @csrf
                 @method('PUT')
                 <div class="form-group row">

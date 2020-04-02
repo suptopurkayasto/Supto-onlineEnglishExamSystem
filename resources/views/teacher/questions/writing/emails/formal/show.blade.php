@@ -90,10 +90,10 @@
                     <div class="col-12 col-md-4">
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8 d-flex">
-                        <a href="{{ route('teachers.questions.formal-email.edit', $formalEmail->id) }}" type="submit" class="mr-2 btn bg-gradient-primary"><i class="fas fa-edit mr-1"></i> Edit
+                        <a href="{{ route('teachers.questions.formal-email.edit', $formalEmail->id) }}?exam={{ request()->get('exam') }}" type="submit" class="mr-2 btn bg-gradient-primary"><i class="fas fa-edit mr-1"></i> Edit
                             formal Email
                         </a>
-                        <form action="{{ route('teachers.questions.formal-email.destroy', $formalEmail->id) }}"
+                        <form action="{{ route('teachers.questions.formal-email.destroy', $formalEmail->id) }}?exam={{ request()->get('exam') }}"
                               method="post">
                             @csrf
                             @method('DELETE')

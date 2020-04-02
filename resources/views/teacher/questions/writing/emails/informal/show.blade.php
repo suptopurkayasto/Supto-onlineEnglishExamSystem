@@ -72,10 +72,10 @@
                     <div class="col-12 col-md-4">
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8 d-flex">
-                        <a href="{{ route('teachers.questions.informal-email.edit', $informalEmail->id) }}" type="submit" class="mr-2 btn bg-gradient-primary"><i class="fas fa-edit mr-1"></i> Edit
+                        <a href="{{ route('teachers.questions.informal-email.edit', $informalEmail->id) }}?exam={{ request()->get('exam') }}" type="submit" class="mr-2 btn bg-gradient-primary"><i class="fas fa-edit mr-1"></i> Edit
                             Informal Email
                         </a>
-                        <form action="{{ route('teachers.questions.informal-email.destroy', $informalEmail->id) }}"
+                        <form action="{{ route('teachers.questions.informal-email.destroy', $informalEmail->id) }}?exam={{ request()->get('exam') }}"
                               method="post">
                             @csrf
                             @method('DELETE')

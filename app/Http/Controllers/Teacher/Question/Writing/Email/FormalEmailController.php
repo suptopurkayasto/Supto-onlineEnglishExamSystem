@@ -9,6 +9,7 @@ use App\Model\Writing\InformalEmail;
 use App\QuestionSet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class FormalEmailController extends Controller
 {
@@ -53,9 +54,10 @@ class FormalEmailController extends Controller
         $exam = $request->exam;
         $set = $request->questionSet;
 
-        $countDialogs = FormalEmail::where(['exam_id' => $exam, 'question_set_id' => $set])->get()->count();
+        $authTeacher = Auth::guard('teacher')->user();
+        $authTeacherFormalEmailsByExamAndSet = $authTeacher->exams()->find($exam)->formalEmails()->where(['question_set_id'=> $set])->get();
 
-        if ($countDialogs < 1) {
+        if ($authTeacherFormalEmailsByExamAndSet->count() < 1) {
             FormalEmail::create($this->validateFormalEmailCreateRequest($request));
             session()->flash('success_audio');
             toast('Formal email has been successfully added','success');
@@ -70,26 +72,36 @@ class FormalEmailController extends Controller
      * Display the specified resource.
      *
      * @param \App\Model\Writing\FormalEmail $formalEmail
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function show(FormalEmail $formalEmail)
     {
-        return view('teacher.questions.writing.emails.formal.show', compact('formalEmail'))
-            ->with('questionSets', QuestionSet::all())
-            ->with('authTeacher', Auth::guard('teacher')->user());
+        if ($this->validFormalEmailRequest($formalEmail)) {
+            return view('teacher.questions.writing.emails.formal.show', compact('formalEmail'))
+                ->with('questionSets', QuestionSet::all())
+                ->with('authTeacher', Auth::guard('teacher')->user());
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param \App\Model\Writing\FormalEmail $formalEmail
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function edit(FormalEmail $formalEmail)
     {
-        return view('teacher.questions.writing.emails.formal.edit', compact('formalEmail'))
-            ->with('questionSets', QuestionSet::all())
-            ->with('authTeacher', Auth::guard('teacher')->user());
+        if ($this->validFormalEmailRequest($formalEmail)) {
+            return view('teacher.questions.writing.emails.formal.edit', compact('formalEmail'))
+                ->with('questionSets', QuestionSet::all())
+                ->with('authTeacher', Auth::guard('teacher')->user());
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -101,10 +113,15 @@ class FormalEmailController extends Controller
      */
     public function update(Request $request, FormalEmail $formalEmail)
     {
-        $formalEmail->update($this->validateFormalEmailUpdateRequest($request));
-        session()->flash('success_audio');
-        toast('Formal email has been successfully updated','success');
-        return redirect()->route('teachers.questions.formal-email.show', $formalEmail->id);
+        if ($this->validFormalEmailRequest($formalEmail)) {
+            $formalEmail->update($this->validateFormalEmailUpdateRequest($request));
+            session()->flash('success_audio');
+            toast('Formal email has been successfully updated','success');
+            return redirect(route('teachers.questions.formal-email.show', $formalEmail->id).'?exam='.\request()->get('exam'));
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -115,10 +132,35 @@ class FormalEmailController extends Controller
      */
     public function destroy(FormalEmail $formalEmail)
     {
-        $formalEmail->forceDelete();
-        session()->flash('success_audio');
-        toast('Formal email has been successfully deleted','success');
-        return redirect()->route('teachers.questions.formal-email.index');
+        if ($this->validFormalEmailRequest($formalEmail)) {
+            $formalEmail->forceDelete();
+            session()->flash('success_audio');
+            toast('Formal email has been successfully deleted','success');
+            return redirect()->route('teachers.questions.formal-email.index');
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
+    }
+
+    /**
+     * @param $formalEmail
+     * @return bool|null
+     */
+    private function validFormalEmailRequest($formalEmail) {
+
+        $examId = Crypt::decrypt(\request()->get('exam'));
+
+        $authTeacherFormalEmailsByExam = Auth::guard('teacher')->user()->exams()->find($examId)->formalEmails()->get();
+
+        $valid = null;
+        foreach ($authTeacherFormalEmailsByExam as $authTeacherFormalEmailByExam) {
+            if ($authTeacherFormalEmailByExam->id === $formalEmail->id) {
+                $valid = true;
+            }
+        }
+
+        return $valid;
     }
 
     private function validateFormalEmailCreateRequest($request)

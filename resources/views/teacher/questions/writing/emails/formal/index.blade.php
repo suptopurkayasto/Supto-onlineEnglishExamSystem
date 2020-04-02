@@ -9,20 +9,29 @@
             @if($exam->formalEmails()->count() > 0)
                 <div class="card mb-5">
                     <div class="card-header">
-                        <h3 class="card-title float-left"><span
-                                class="font-weight-bolder">({{ $exam->name }})</span>
+                        <h3 class="card-title float-left" title="{{ $exam->name }}"><span
+                                class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
                             Formal Email
-                            @if($exam->formalEmails()->count() === 4)
-                                <i class="fas fa-check text-success"></i>
-                            @else
-                                <i class="fas fa-spinner fa-pulse text-warning"></i>
-
-                            @endif
                         </h3>
-                        <a href="{{ route('teachers.questions.formal-email.create') }}?exam={{ $exam->slug }}"
-                           class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
-                            Formal Email</a>
+                        @if($exam->formalEmails()->count() !== 4)
+                            <a href="{{ route('teachers.questions.formal-email.create') }}?exam={{ encrypt($exam->id) }}"
+                               class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
+                                Formal Email</a>
+                        @endif
                     </div><!-- /.card-header -->
+                    @if($exam->formalEmails()->count() === 4)
+                        <div class="progress" style="height: 7px">
+                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
+                                 role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
+                        </div>
+                    @else
+                        <div class="progress" style="height: 7px">
+                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+                                 role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
+                        </div>
+                    @endif
                     <div class="card-body">
                         <div class="row count-section">
                             @foreach($exam->sets as $set)
@@ -65,11 +74,11 @@
                                         @foreach($exam->formalEmails as $index => $formalEmail)
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
-                                                <td title="{{ $formalEmail->topic }}">{{ Str::limit($formalEmail->topic, 70) }}</td>
+                                                <td title="{{ $formalEmail->topic }}">{{ Str::limit($formalEmail->topic, 90) }}</td>
                                                 <td>{{ $formalEmail->set->name }}</td>
-                                                <td>{{ $formalEmail->exam->name }}</td>
+                                                <td title="{{ $formalEmail->exam->name }}">{{ Str::limit($formalEmail->exam->name, 40) }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('teachers.questions.formal-email.show', $formalEmail->id) }}"
+                                                    <a href="{{ route('teachers.questions.formal-email.show', $formalEmail->id) }}?exam={{ encrypt($formalEmail->exam->id) }}"
                                                        class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
                                                             class="fas fa-eye mr-1"></i> View</a>
                                                 </td>
@@ -91,9 +100,9 @@
                 </div><!-- /.card -->
             @else
                 <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded">
-                    <h1 class="h1">{{ $exam->name }}</h1>
+                    <h1 class="h1" title="{{ $exam->name }}">{{ Str::limit($exam->name, 30) }}</h1>
                     <h2 class="text-center text-warning display-4">Empty.</h2>
-                    <a href="{{ route('teachers.questions.formal-email.create') }}?exam={{ $exam->slug }}"
+                    <a href="{{ route('teachers.questions.formal-email.create') }}?exam={{ encrypt($exam->id) }}"
                        class="btn btn-lg mt-4 bg-gradient-primary"><i
                             class="fas fa-pen-alt"></i> Add Formal Email</a>
                 </div><!-- /.empty-data-section -->
