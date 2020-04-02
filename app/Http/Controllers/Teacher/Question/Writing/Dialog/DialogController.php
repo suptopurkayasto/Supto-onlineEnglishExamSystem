@@ -9,6 +9,7 @@ use App\Model\Writing\WritingPart;
 use App\QuestionSet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class DialogController extends Controller
 {
@@ -72,9 +73,14 @@ class DialogController extends Controller
      */
     public function show(Dialog $dialog)
     {
-        return view('teacher.questions.writing.dialogs.show', compact('dialog'))
-            ->with('authTeacherExams', Auth::guard('teacher')->user()->exams)
-            ->with('questionSets', QuestionSet::all());
+        if ($this->validSynonymRequest($dialog)) {
+            return view('teacher.questions.writing.dialogs.show', compact('dialog'))
+                ->with('authTeacherExams', Auth::guard('teacher')->user()->exams)
+                ->with('questionSets', QuestionSet::all());
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -118,6 +124,19 @@ class DialogController extends Controller
         session()->flash('success_audio');
         toast('Dialog has been successfully deleted','success');
         return redirect()->route('teachers.questions.dialogs.index');
+    }
+
+    private function validDialogRequest($dialog) {
+
+        $authTeacherDialogs = Auth::guard('teacher')->user()->dialogs;
+        $valid = null;
+        foreach ($authTeacherDialogs as $authTeacherDialog) {
+            if ($authTeacherDialog->id === $dialog->id) {
+                $valid = true;
+            }
+        }
+
+        return $valid;
     }
 
     private function validateDialogCreateRequest($request)

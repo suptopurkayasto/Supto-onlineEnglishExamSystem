@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(WritingPartSeeder::class);
 
 
-        $exam = \App\Exam::find(1);
-        $questionSets = \App\QuestionSet::all();
-        $exam->sets()->attach($questionSets);
+//        $exam = \App\Exam::find(1);
+//        $questionSets = \App\QuestionSet::all();
+//        $exam->sets()->attach($questionSets);
     }
 }

@@ -9,20 +9,31 @@
             @if($exam->dialogs()->count() > 0)
                 <div class="card mb-5">
                     <div class="card-header">
-                        <h3 class="card-title float-left"><span
-                                class="font-weight-bolder">({{ $exam->name }})</span>
+                        <h3 class="card-title float-left" title="{{ $exam->name }}"><span
+                                class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
                             Dialog
-                            @if($exam->dialogs()->count() === 4)
-                                <i class="fas fa-check text-success"></i>
-                            @else
-                                <i class="fas fa-spinner fa-pulse text-warning"></i>
 
-                            @endif
                         </h3>
-                        <a href="{{ route('teachers.questions.dialogs.create') }}?exam={{ $exam->slug }}"
-                           class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
-                            Dialog</a>
+                        @if($exam->dialogs()->count() !== 4)
+                            <a href="{{ route('teachers.questions.dialogs.create') }}?exam={{ encrypt($exam->id) }}"
+                               class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add
+                                Dialog</a>
+                        @endif
+
                     </div><!-- /.card-header -->
+                    @if($exam->dialogs()->count() === 4)
+                        <div class="progress" style="height: 7px">
+                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
+                                 role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
+                        </div>
+                    @else
+                        <div class="progress" style="height: 7px">
+                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+                                 role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
+                        </div>
+                    @endif
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)

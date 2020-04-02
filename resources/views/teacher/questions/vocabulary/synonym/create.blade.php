@@ -42,7 +42,7 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <select name="questionSet" id="questionSet"
-                                class="form-control @error('questionSet') is-invalid @enderror">
+                                class="form-control @error('questionSet') is-invalid @enderror" autofocus>
                             <option disabled selected>Select Set</option>
                             @foreach($questionSets as $questionSet)
                                 <option

@@ -9,19 +9,30 @@
             @if($exam->grammarQuestions()->count() > 0)
                 <div class="card mb-5">
                     <div class="card-header">
-                        <h3 class="card-title float-left"><span
-                                class="font-weight-bolder">({{ $exam->name }})</span>
+                        <h3 class="card-title float-left" title="{{ $exam->name }}"><span
+                                class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
                             Grammar Questions
-                            @if($exam->grammarQuestions()->count() == 100)
-                                <i class="fas fa-check text-success"></i>
-                            @else
-                                <i class="fas fa-spinner fa-pulse text-warning"></i>
-
-                            @endif
                         </h3>
-                        <a href="{{ route('teachers.questions.grammars.create') }}?exam={{ $exam->slug }}"
-                           class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i> Add Grammar Question</a>
+                        @if($exam->grammarQuestions()->count() !== 100)
+                            <a href="{{ route('teachers.questions.grammars.create') }}?exam={{ encrypt($exam->id) }}"
+                               class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i>
+                                Add
+                                Grammar Question</a>
+                        @endif
                     </div><!-- /.card-header -->
+                    @if($exam->grammarQuestions()->count() === 100)
+                        <div class="progress" style="height: 7px">
+                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
+                                 role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
+                        </div>
+                    @else
+                        <div class="progress" style="height: 7px">
+                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+                                 role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
+                        </div>
+                    @endif
                     <div class="card-body">
                         <div class="row count-section">
                             @foreach($exam->sets as $set)
@@ -66,7 +77,7 @@
                                             <td>{{ $grammarQuestion->exam->name }}</td>
                                             <td>{{ $grammarQuestion->set->name }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('teachers.questions.grammars.show', $grammarQuestion->id) }}"
+                                                <a href="{{ route('teachers.questions.grammars.show', $grammarQuestion->id) }}?exam={{ encrypt($grammarQuestion->exam->id) }}"
                                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
                                                         class="fas fa-eye mr-1"></i> View</a>
                                             </td>
@@ -80,9 +91,9 @@
                 </div><!-- /.card -->
             @else
                 <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded">
-                    <h1 class="h1">{{ $exam->name }}</h1>
+                    <h1 class="h1" title="{{ $exam->name }}">{{ Str::limit($exam->name, 30) }}</h1>
                     <h2 class="text-center text-warning display-4">Empty.</h2>
-                    <a href="{{ route('teachers.questions.grammars.create') }}?exam={{ $exam->slug }}"
+                    <a href="{{ route('teachers.questions.grammars.create') }}?exam={{ encrypt($exam->id) }}"
                        class="btn btn-lg mt-4 bg-gradient-primary"><i
                             class="fas fa-pen-alt"></i> Add Grammar Question</a>
                 </div><!-- /.empty-data-section -->

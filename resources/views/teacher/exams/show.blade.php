@@ -31,14 +31,14 @@
                 <div class="col-12 col-md-4">
                 </div><!-- /.col-12 col-md-4 -->
                 <div class="col-12 col-md-8 d-flex">
-                    <a href="{{ route('teacher.exams.edit', $exam->slug) }}" class="btn bg-gradient-warning">Edit Exam</a>
-                    <form action="{{ route('teacher.exams.destroy', $exam->slug) }}" method="post"
+                    <a href="{{ route('teacher.exams.edit', $exam->id) }}" class="btn bg-gradient-primary"><i class="fas fa-edit mr-1"></i> Edit Exam</a>
+                    <form action="{{ route('teacher.exams.destroy', $exam->id) }}" method="post"
                           class="ml-3">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn bg-gradient-danger"
-                                onclick="return confirm('Are you sure you want to delete {{ $exam->name }} exam!')">
-                            Delete Exam
+                                onclick="return confirm('Are you sure you want to delete exam!')">
+                            <i class="fas fa-trash-alt mr-1"></i> Delete Exam
                         </button>
                     </form>
                 </div><!-- /.col-12 col-md-8 -->

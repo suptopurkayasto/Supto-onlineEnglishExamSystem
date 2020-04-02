@@ -19,13 +19,13 @@
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
-                        <label for="option">option</label>
+                        <label for="option">Option</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <input type="text" name="option" id="option"
                                class="form-control @error('option') is-invalid @enderror"
                                value="{{ old('option') }}"
-                               required>
+                               required autofocus>
                         @error('option')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

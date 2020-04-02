@@ -11,15 +11,18 @@ use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
 use App\Model\Writing\SortQuestion;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class Exam extends Model
 {
     protected $fillable = [
         'name', 'slug', 'user_id', 'status'
     ];
-    public function getRouteKeyName()
+
+    public function setNameAttribute($name)
     {
-        return 'slug';
+        return $this->attributes['name'] = '('.$name.')-'.Auth::guard('teacher')->user()->location->name;
     }
 
     public function teacher()

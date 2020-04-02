@@ -32,7 +32,7 @@
                     <div class="col-12 col-md-4">
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <button type="submit" class="btn bg-gradient-primary">Add Exam</button>
+                        <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check mr-1"></i> Add Exam</button>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
             </form>

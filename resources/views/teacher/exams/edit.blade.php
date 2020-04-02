@@ -10,7 +10,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('teacher.exams.update', $exam->slug) }}" method="post">
+            <form action="{{ route('teacher.exams.update', $exam->id) }}" method="post">
                 @method('PATCH')
                 @csrf
 
@@ -34,7 +34,7 @@
                     <div class="col-12 col-md-4">
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <button type="submit" class="btn bg-gradient-primary">Update Exam</button>
+                        <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check mr-1"></i> Update Exam</button>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
             </form>

@@ -132,9 +132,9 @@
                 <div class="col-12 col-md-4">
                 </div><!-- /.col-12 col-md-4 -->
                 <div class="col-12 col-md-8 d-flex">
-                    <a href="{{ route('teachers.questions.grammars.edit', $grammar->id) }}"
-                       class="btn bg-gradient-warning"><i class="fas fa-edit mr-1"></i> Edit Question</a>
-                    <form action="{{ route('teachers.questions.grammars.destroy', $grammar->id) }}" method="post"
+                    <a href="{{ route('teachers.questions.grammars.edit', $grammar->id) }}?exam={{ request()->get('exam') }}"
+                       class="btn bg-gradient-primary"><i class="fas fa-edit mr-1"></i> Edit Question</a>
+                    <form action="{{ route('teachers.questions.grammars.destroy', $grammar->id) }}?exam={{ request()->get('exam') }}" method="post"
                           class="ml-3">
                         @method('DELETE')
                         @csrf

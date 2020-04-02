@@ -20,14 +20,14 @@
                         <label for="exam_name">Exam name</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <select name="exam_name" id="exam_name"
-                                class="form-control @error('exam_name') is-invalid @enderror">
+                        <select name="exam" id="exam"
+                                class="form-control @error('exam') is-invalid @enderror">
                             <option selected disabled>Select exam</option>
                             @foreach($authTeacher->exams as $exam)
-                                <option {{ old('exam_name') == $exam->id || request()->get('exam') === $exam->slug ? 'selected' : ''  }} value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                <option {{ old('exam') == $exam->id || decrypt(request()->get('exam')) === $exam->id ? 'selected' : ''  }} value="{{ $exam->id }}">{{ $exam->name }}</option>
                             @endforeach
                         </select>
-                        @error('exam_name')
+                        @error('exam')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

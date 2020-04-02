@@ -17,8 +17,7 @@ class CreateExamsTable extends Migration
             $table->id();
             $table->string('status')->default('pending');
             $table->unsignedBigInteger('teacher_id');
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
+            $table->string('name');
             $table->timestamps();
         });
     }

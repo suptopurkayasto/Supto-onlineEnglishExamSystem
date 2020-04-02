@@ -19,6 +19,10 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
+                        <th>Created Date</th>
+                        <th>Grammar</th>
+                        <th>Writing</th>
+                        <th>Vocabulary</th>
                         <th>Exam Status</th>
                         <th>Action</th>
                     </tr>
@@ -27,11 +31,33 @@
                     @foreach($exams as $index => $exam)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td title="{{ $exam->name }}">{{ $exam->name }}</td>
+                            <td title="{{ $exam->name }}">{{ Str::limit($exam->name, 30) }}</td>
+                            <td title="{{ $exam->created_at->diffForHumans() }}">{{ $exam->created_at->toFormattedDateString() }}</td>
+                            <td>
+                                @if($exam->grammarQuestions()->count() === 100)
+                                    <span class="badge badge-success">Ok</span>
+                                @else
+                                    <span class="badge badge-warning">Pending</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($exam->dialogs()->count() === 1 && $exam->informalEmails()->count() === 1 && $exam->formalEmails()->count() === 1)
+                                    <span class="badge badge-success">Ok</span>
+                                @else
+                                    <span class="badge badge-warning">Pending</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($exam->synonyms()->count() === 20)
+                                    <span class="badge badge-success">Ok</span>
+                                @else
+                                    <span class="badge badge-warning">Pending</span>
+                                @endif
+                            </td>
                             <td style="width: 220px !important;">
                                 @if($exam->grammarQuestions()->count() === 100)
                                     @if($exam->status === 'pending' || $exam->status === 'cancel')
-                                        <form action="{{ route('teacher.exams.status', $exam->slug) }}" method="post"
+                                        <form action="{{ route('teacher.exams.status', $exam->id) }}" method="post"
                                               class="">
                                             @method('PUT')
                                             @csrf
@@ -42,7 +68,7 @@
                                             </button>
                                         </form>
                                     @elseif($exam->status === 'running')
-                                        <form action="{{ route('teacher.exams.status', $exam->slug) }}" method="post"
+                                        <form action="{{ route('teacher.exams.status', $exam->id) }}" method="post"
                                               class="float-right">
                                             @method('PUT')
                                             @csrf
@@ -52,7 +78,7 @@
                                                 Cancel Exam
                                             </button>
                                         </form>
-                                        <form action="{{ route('teacher.exams.status', $exam->slug) }}" method="post"
+                                        <form action="{{ route('teacher.exams.status', $exam->id) }}" method="post"
                                               class="ml-3">
                                             @method('PUT')
                                             @csrf
@@ -70,7 +96,7 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                <a href="{{ route('teacher.exams.show', $exam->slug) }}"
+                                <a href="{{ route('teacher.exams.show', $exam->id) }}"
                                    class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
                             </td>
                         </tr>
@@ -83,7 +109,7 @@
     @else
         <div class="empty-data-section">
             <h2 class="text-center text-warning mt-5 display-1 font-weight">Empty.</h2>
-            <a href="{{ route('teacher.exams.create') }}" class="btn btn-lg mt-4 bg-gradient-primary">Add Exam</a>
+            <a href="{{ route('teacher.exams.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i class="fas fa-pen-alt mr-1"></i> Add Exam</a>
         </div><!-- /.empty-data-section -->
     @endif
 @endsection
