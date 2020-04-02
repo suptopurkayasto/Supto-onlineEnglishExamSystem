@@ -102,7 +102,7 @@
                 </div><!-- /.card -->
             @else
                 <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded">
-                    <h1 class="h1">{{ $exam->name }}</h1>
+                    <h1 class="h1" title="{{ $exam->name }}">{{ Str::limit($exam->name, 30) }}</h1>
                     <h2 class="text-center text-warning display-4">Empty.</h2>
                     <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ encrypt($exam->id) }}"
                        class="btn btn-lg mt-4 bg-gradient-primary"><i

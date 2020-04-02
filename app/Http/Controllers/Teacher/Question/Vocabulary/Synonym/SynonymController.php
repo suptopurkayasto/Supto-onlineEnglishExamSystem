@@ -184,11 +184,10 @@ class SynonymController extends Controller
     private function validSynonymRequest($synonym) {
 
         $examId = Crypt::decrypt(\request()->get('exam'));
-        $setId = Crypt::decrypt(\request()->get('set'));
-        $authTeacherOptionByExamAndSet = Auth::guard('teacher')->user()->exams()->find($examId)->synonyms()->where('question_set_id', $setId)->get();
+        $authTeacherOptionByExam = Auth::guard('teacher')->user()->exams()->find($examId)->synonyms;
 
         $valid = null;
-        foreach ($authTeacherOptionByExamAndSet as $item) {
+        foreach ($authTeacherOptionByExam as $item) {
             if ($item->id === $synonym->id) {
                 $valid = true;
             }
