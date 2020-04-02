@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 {{--    <title>{{ config('app.name', 'Laravel') }}</title>--}}
-    <title>Student | @auth('student') {{ auth()->guard('student')->user()->name }}@endauth - @yield('title')</title>
+    <title>@yield('title')</title>
 
 
     <!-- Fonts -->
