@@ -64,8 +64,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Question</th>
-                                        <th>Exam</th>
                                         <th>Set</th>
+                                        <th>Exam</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -73,9 +73,9 @@
                                     @foreach($exam->grammarQuestions as $index => $grammarQuestion)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td title="{{ $grammarQuestion->question }}">{{ Str::limit($grammarQuestion->question, 70) }}</td>
-                                            <td>{{ $grammarQuestion->exam->name }}</td>
+                                            <td title="{{ $grammarQuestion->question }}">{{ Str::limit($grammarQuestion->question, 90) }}</td>
                                             <td>{{ $grammarQuestion->set->name }}</td>
+                                            <td title="{{ $grammarQuestion->exam->name }}">{{ Str::limit($grammarQuestion->exam->name, 40)  }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('teachers.questions.grammars.show', $grammarQuestion->id) }}?exam={{ encrypt($grammarQuestion->exam->id) }}"
                                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
