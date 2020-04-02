@@ -22,7 +22,7 @@
                             <option disabled selected>Select exam</option>
                             @foreach($authTeacher->exams as $exam)
                                 <option
-                                    {{ old('exam') == $exam->id || request()->get('exam') === $exam->slug ? 'selected' : '' }}
+                                    {{ old('exam') == $exam->id || decrypt(request()->get('exam')) === $exam->id ? 'selected' : '' }}
                                     value="{{ $exam->id }}">
                                     {{ $exam->name }}
                                 </option>
@@ -42,8 +42,8 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <select name="questionSet" id="questionSet"
-                                class="form-control @error('questionSet') is-invalid @enderror">
-                            <option disabled selected>Select group</option>
+                                class="form-control @error('questionSet') is-invalid @enderror" autofocus>
+                            <option disabled selected>Select Set</option>
                             @foreach($questionSets as $questionSet)
                                 <option
                                     {{ old('questionSet') == $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>

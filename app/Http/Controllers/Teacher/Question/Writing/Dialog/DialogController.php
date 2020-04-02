@@ -52,7 +52,8 @@ class DialogController extends Controller
         $exam = $request->exam;
         $set = $request->questionSet;
 
-        $countDialogs = Dialog::where(['exam_id' => $exam, 'question_set_id' => $set])->get()->count();
+        $authTeacher = Auth::guard('teacher')->user();
+        $countDialogs = $authTeacher->exams()->find($exam)->dialogs()->where(['question_set_id' => $set])->get()->count();
 
         if ($countDialogs < 1) {
             Dialog::create($this->validateDialogCreateRequest($request));
@@ -60,7 +61,7 @@ class DialogController extends Controller
             toast('Dialog has been successfully added','success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add dialog to this set.');
+            alert()->info('Fail!', 'You can no longer add dialog to this '. QuestionSet::find($set)->name .' set.');
         }
         return redirect()->back();
     }
@@ -69,11 +70,11 @@ class DialogController extends Controller
      * Display the specified resource.
      *
      * @param \App\Model\Writing\Dialog $dialog
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function show(Dialog $dialog)
     {
-        if ($this->validSynonymRequest($dialog)) {
+        if ($this->validDialogRequest($dialog)) {
             return view('teacher.questions.writing.dialogs.show', compact('dialog'))
                 ->with('authTeacherExams', Auth::guard('teacher')->user()->exams)
                 ->with('questionSets', QuestionSet::all());
@@ -87,13 +88,18 @@ class DialogController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Model\Writing\Dialog $dialog
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function edit(Dialog $dialog)
     {
-        return view('teacher.questions.writing.dialogs.edit', compact('dialog'))
-            ->with('authTeacherExams', Auth::guard('teacher')->user()->exams()->latest()->get())
-            ->with('questionSets', QuestionSet::all());
+        if ($this->validDialogRequest($dialog)) {
+            return view('teacher.questions.writing.dialogs.edit', compact('dialog'))
+                ->with('authTeacherExams', Auth::guard('teacher')->user()->exams()->latest()->get())
+                ->with('questionSets', QuestionSet::all());
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -105,10 +111,15 @@ class DialogController extends Controller
      */
     public function update(Request $request, Dialog $dialog)
     {
-        $dialog->update($this->validateDialogUpdateRequest($request));
-        session()->flash('success_audio');
-        toast('Dialog has been successfully updated','success');
-        return redirect()->route('teachers.questions.dialogs.show', $dialog->id);
+        if ($this->validDialogRequest($dialog)) {
+            $dialog->update($this->validateDialogUpdateRequest($request));
+            session()->flash('success_audio');
+            toast('Dialog has been successfully updated','success');
+            return redirect()->route('teachers.questions.dialogs.show', $dialog->id);
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -119,16 +130,21 @@ class DialogController extends Controller
      */
     public function destroy(Dialog $dialog)
     {
-        $dialog->forceDelete();
-
-        session()->flash('success_audio');
-        toast('Dialog has been successfully deleted','success');
-        return redirect()->route('teachers.questions.dialogs.index');
+        if ($this->validDialogRequest($dialog)) {
+            $dialog->forceDelete();
+            session()->flash('success_audio');
+            toast('Dialog has been successfully deleted','success');
+            return redirect()->route('teachers.questions.dialogs.index');
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     private function validDialogRequest($dialog) {
 
-        $authTeacherDialogs = Auth::guard('teacher')->user()->dialogs;
+        $examId = Crypt::decrypt(\request()->get('exam'));
+        $authTeacherDialogs = Auth::guard('teacher')->user()->exams()->find($examId)->dialogs;
         $valid = null;
         foreach ($authTeacherDialogs as $authTeacherDialog) {
             if ($authTeacherDialog->id === $dialog->id) {
@@ -161,6 +177,7 @@ class DialogController extends Controller
         ];
 
     }
+
     private function validateDialogUpdateRequest($request)
     {
         $validateData = $this->validate($request, [
