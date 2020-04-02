@@ -75,11 +75,11 @@
                     <div class="col-12 col-md-4">
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <a href="{{ route('teachers.questions.sort-questions.edit', $sortQuestion->id) }}"
+                        <a href="{{ route('teachers.questions.sort-questions.edit', $sortQuestion->id) }}?exam={{ request()->get('exam') }}"
                            class="btn bg-gradient-primary"><i class="far fa-edit mr-1"></i> Edit
                             Dialog
                         </a>
-                        <form action="{{ route('teachers.questions.sort-questions.destroy', $sortQuestion->id) }}" method="post">
+                        <form action="{{ route('teachers.questions.sort-questions.destroy', $sortQuestion->id) }}?exam={{ request()->get('exam') }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"
