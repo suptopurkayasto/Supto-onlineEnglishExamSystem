@@ -15,6 +15,10 @@ class CreateFillInTheGapsTable extends Migration
     {
         Schema::create('fill_in_the_gaps', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('exam_id');
+            $table->foreignId('question_set_id');
+            $table->string('sentence');
+            $table->foreignId('fill_in_the_gap_option_id');
             $table->timestamps();
         });
     }
