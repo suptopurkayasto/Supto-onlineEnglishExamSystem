@@ -73,6 +73,23 @@
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
+                        <label for="answer">Answer</label>
+                    </div><!-- /.col-12 col-md-4 -->
+                    <div class="col-12 col-md-8">
+                        <input type="text" name="answer" id="answer"
+                               class="form-control @error('answer') is-invalid @enderror"
+                               value="{{ $definition->answer->options }}"
+                               >
+                        @error('answer')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div><!-- /.col-12 col-md-8 -->
+                </div><!-- /.form-group -->
+
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check mr-1"></i> Update

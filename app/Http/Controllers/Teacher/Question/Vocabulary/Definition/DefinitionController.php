@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\View\View;
@@ -112,7 +113,7 @@ class DefinitionController extends Controller
      *
      * @param Request $request
      * @param Definition $definition
-     * @return RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function update(Request $request, Definition $definition)
     {
@@ -122,13 +123,14 @@ class DefinitionController extends Controller
             $exam = $authTeacher->exams()->find($request->exam);
             $set = $exam->sets()->find($request->questionSet);
 
-            $oldDefinition = Definition::find($definition->id);
-
-
             $countSynonymWordByExamAndSet = $exam->definitions()->where(['question_set_id' => $set->id])->get()->count();
 
-            if ($countSynonymWordByExamAndSet < 5 || $oldDefinition->exam->id == $definition->id || $oldDefinition->set->id == $definition->questionSet) {
+            if ($countSynonymWordByExamAndSet < 5 || $definition->exam->id == $request->exam && $definition->set->id == $request->questionSet) {
+                // Update Definition
                 $definition->update($this->validateDefinitionUpdateRequest($request));
+
+                // Update Definition Option
+                $definition->answer()->update($this->validateDefinitionOptionUpdateRequest($request));
                 session()->flash('success_audio');
                 toast('Definition sentence has been successfully updated','success');
                 return redirect(route('teachers.questions.definitions.show', $definition->id).'?exam='.request()->get('exam').'&set='.request()->get('set'));
@@ -218,6 +220,17 @@ class DefinitionController extends Controller
             'exam_id' => $validateData['exam'],
             'question_set_id' => $validateData['questionSet'],
             'sentence' => $validateData['sentence'],
+        ];
+    }
+
+    private function validateDefinitionOptionUpdateRequest(Request $request)
+    {
+        $validateData = $this->validate($request, [
+            'answer' => 'required|string|max:255',
+        ]);
+
+        return [
+            'options' => $validateData['answer'],
         ];
     }
 }
