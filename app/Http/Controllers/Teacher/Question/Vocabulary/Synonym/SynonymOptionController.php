@@ -27,7 +27,6 @@ class SynonymOptionController extends Controller
         $examId = Crypt::decrypt(\request()->get('exam'));
         $questionSetId = Crypt::decrypt(\request()->get('set'));
 
-
         $options = SynonymOption::where(['exam_id' => $examId, 'question_set_id' => $questionSetId])->get();
 
         return view('teacher.questions.vocabulary.synonym.options.index', compact('options'));
@@ -68,8 +67,6 @@ class SynonymOptionController extends Controller
             alert()->info('Fail!', 'You can no longer add Option to this '. QuestionSet::find($setId)->name .' set.');
             return redirect()->back();
         }
-
-//        return $this->validateSynonymOptionsCreateRequest($request);
     }
 
     /**
@@ -132,10 +129,15 @@ class SynonymOptionController extends Controller
      */
     public function destroy(SynonymOption $option)
     {
+        if ($this->validOptionRequest($option)) {
             $option->forceDelete();
             session()->flash('success_audio');
             toast('Option has been successfully deleted','success');
             return redirect(route('teachers.questions.synonyms.options.index').'?exam='.\request()->get('exam').'&set='. \request()->get('set'));
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     private function validateSynonymOptionsCreateRequest($request)

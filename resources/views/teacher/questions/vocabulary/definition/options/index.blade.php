@@ -1,13 +1,13 @@
 @extends('layouts.teacher')
 
-@section('title', 'All Synonym Word Options')
+@section('title', 'All Definition Sentence Options')
 
 @section('content')
 
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                Synonym Word Options
+                Definition Sentence Options
             </h3>
         </div><!-- /.card-header -->
         <div class="card-body">
@@ -20,7 +20,7 @@
                     <tr>
                         <th>#</th>
                         <th>Option</th>
-                        <th>Synonym Word</th>
+                        <th>Definition Sentence</th>
                         <th>Exam</th>
                         <th>Set</th>
                         <th>Action</th>
@@ -31,11 +31,11 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td title="{{ $option->options }}">{{ Str::limit($option->options, 70) }}</td>
-                            <td>{{ $option->synonym === null ? 'Extra Options' : $option->synonym->word }}</td>
-                            <td>{{ $option->exam->name }}</td>
+                            <td title="{{ $option->definition === null ? 'Extra Options' : $option->definition->sentence, 30 }}">{{ $option->definition === null ? 'Extra Options' : Str::limit($option->definition->sentence, 30) }}</td>
+                            <td>{{ Str::limit($option->exam->name, 30) }}</td>
                             <td>{{ $option->set->name }}</td>
                             <td class="text-center">
-                                <a href="{{ route('teachers.questions.synonyms.options.show', $option->id) }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}"
+                                <a href="{{ route('teachers.questions.definitions.options.show', $option->id) }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}"
                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
                                         class="fas fa-eye mr-1"></i> View</a>
                             </td>

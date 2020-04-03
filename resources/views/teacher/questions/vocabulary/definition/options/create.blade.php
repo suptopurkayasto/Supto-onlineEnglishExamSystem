@@ -1,21 +1,18 @@
 @extends('layouts.teacher')
 
-@section('title', 'Add Synonym Word Options')
+@section('title', 'Add Definition Options')
 
 
 @section('content')
 
     <div class="card">
         <div class="card-header">
-            <h3 class="h3 card-title">Add Synonym Word</h3>
+            <h3 class="h3 card-title">Add Definition Options</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('teachers.questions.synonyms.options.store') }}" method="post">
+            <form action="{{ route('teachers.questions.definitions.options.store') }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}" method="post">
                 @csrf
-
-                <input type="hidden" name="exam_id" value="{{ request()->get('exam') }}">
-                <input type="hidden" name="question_set_id" value="{{ request()->get('set') }}">
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
@@ -39,7 +36,7 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check"></i> Add
-                            Synonym Option
+                            Definition Option
                         </button>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->

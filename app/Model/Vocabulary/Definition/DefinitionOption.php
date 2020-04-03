@@ -14,9 +14,9 @@ class DefinitionOption extends Model
     {
         return $this->belongsTo(Exam::class);
     }
-    public function sets()
+    public function set()
     {
-        return $this->belongsTo(QuestionSet::class, 'Question_set_id');
+        return $this->belongsTo(QuestionSet::class, 'question_set_id');
     }
     public function definition()
     {

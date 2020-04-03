@@ -5,11 +5,11 @@ use Illuminate\Support\Facades\Route;
 /**
  * All Vocabulary routes
  */
-// Definition routes
-Route::resource('vocabulary/definitions', 'Teacher\Question\Vocabulary\Definition\DefinitionController');
+
 // Synonym option route
 Route::resource('vocabulary/definitions/options', 'Teacher\Question\Vocabulary\Definition\DefinitionOptionController', ['as' => 'definitions']);
-
+// Definition routes
+Route::resource('vocabulary/definitions', 'Teacher\Question\Vocabulary\Definition\DefinitionController');
 
 
 // Synonym option route
