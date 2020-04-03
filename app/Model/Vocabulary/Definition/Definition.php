@@ -20,6 +20,6 @@ class Definition extends Model
     }
     public function answer()
     {
-        return $this->belongsTo(QuestionSet::class, 'definition_option_id');
+        return $this->belongsTo(DefinitionOption::class, 'definition_option_id');
     }
 }
