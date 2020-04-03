@@ -36,33 +36,32 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)
-                                @php $definitionCountBySet = $exam->combinations()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $combinationCountBySet = $exam->combinations()->where('question_set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
-                                            <span class="info-box-number font-weight-normal">{{ $definitionCountBySet }} / 5 Combination Word.</span>
+                                            <span class="info-box-number font-weight-normal">{{ $combinationCountBySet }} / 5 Combination Word.</span>
 
                                             <div class="progress">
                                                 <div class="progress-bar"
-                                                     style="width: {{ ($definitionCountBySet*100)/5 }}%"></div>
+                                                     style="width: {{ ($combinationCountBySet*100)/5 }}%"></div>
                                             </div>
                                             <div class="progress-description">
-                                                @if($definitionCountBySet === 5)
+                                                @if($combinationCountBySet === 5)
                                                     @if($exam->combinationOptions()->where('question_set_id', $set->id)->get()->count() === 10)
-                                                        <a href="{{ route('teachers.questions.definitions.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
+                                                        <a href="{{ route('teachers.questions.combinations.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
                                                            class="btn btn-sm btn-primary btn-block">View
                                                             Option</a>
                                                     @else
-                                                        <a href="{{ route('teachers.questions.definitions.options.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
+                                                        <a href="{{ route('teachers.questions.combinations.options.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
                                                            class="btn btn-sm btn-outline-primary btn-block">Add
                                                             Options</a>
                                                     @endif
                                                 @else
                                                     <a href="{{ route('teachers.questions.combinations.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                       class="btn btn-sm btn-outline-primary btn-block">Add Definition
-                                                        Sentence</a>
+                                                       class="btn btn-sm btn-outline-primary btn-block">Add Combination Word</a>
                                                 @endif
                                             </div>
                                         </div>
@@ -86,14 +85,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($exam->definitions as $index => $definition)
+                                    @foreach($exam->combinations as $index => $combination)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td title="{{ $definition->sentence }}">{{ Str::limit($definition->sentence, 70) }}</td>
-                                            <td>{{ $definition->set->name }}</td>
-                                            <td title="{{ $definition->exam->name }}">{{ Str::limit($definition->exam->name, 40) }}</td>
+                                            <td title="{{ $combination->word }}">{{ Str::limit($combination->word, 70) }}</td>
+                                            <td>{{ $combination->set->name }}</td>
+                                            <td title="{{ $combination->exam->name }}">{{ Str::limit($combination->exam->name, 40) }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('teachers.questions.definitions.show', $definition->id) }}?exam={{ encrypt($definition->exam->id) }}&set={{ encrypt($definition->set->id) }}"
+                                                <a href="{{ route('teachers.questions.combinations.show', $combination->id) }}?exam={{ encrypt($combination->exam->id) }}&set={{ encrypt($combination->set->id) }}"
                                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
                                                         class="fas fa-eye mr-1"></i> View</a>
                                             </td>

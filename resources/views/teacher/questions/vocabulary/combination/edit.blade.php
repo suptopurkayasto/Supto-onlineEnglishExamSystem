@@ -1,16 +1,16 @@
 @extends('layouts.teacher')
 
-@section('title', 'Edit Definition Sentence')
+@section('title', 'Edit Combination Word')
 
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="h3 card-title">Edit Definition Sentence</h3>
+            <h3 class="h3 card-title">Edit Combination Word</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('teachers.questions.definitions.update', $definition->id) }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}" method="post">
+            <form action="{{ route('teachers.questions.combinations.update', $combination->id) }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}" method="post">
                 @csrf
                 @method('PUT')
                 <div class="form-group row">
@@ -22,7 +22,7 @@
                             <option disabled selected>Select exam</option>
                             @foreach($authTeacher->exams as $exam)
                                 <option
-                                    {{ $definition->exam->id == $exam->id ? 'selected' : '' }} value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                    {{ $combination->exam->id == $exam->id ? 'selected' : '' }} value="{{ $exam->id }}">{{ $exam->name }}</option>
                             @endforeach
                         </select>
                         @error('exam')
@@ -43,7 +43,7 @@
                             <option disabled selected>Select Set</option>
                             @foreach($questionSets as $questionSet)
                                 <option
-                                    {{ $definition->set->id == $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
+                                    {{ $combination->set->id == $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
                             @endforeach
                         </select>
                         @error('questionSet')
@@ -56,14 +56,14 @@
 
                 <div class="form-group row">
                     <div class="col-12 col-md-4">
-                        <label for="sentence">Sentence</label>
+                        <label for="word">Word</label>
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
-                        <input type="text" name="sentence" id="sentence"
-                               class="form-control @error('sentence') is-invalid @enderror"
-                               value="{{ $definition->sentence }}"
+                        <input type="text" name="word" id="word"
+                               class="form-control @error('word') is-invalid @enderror"
+                               value="{{ $combination->word }}"
                                required>
-                        @error('sentence')
+                        @error('word')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -78,7 +78,7 @@
                     <div class="col-12 col-md-8">
                         <input type="text" name="answer" id="answer"
                                class="form-control @error('answer') is-invalid @enderror"
-                               value="{{ $definition->answer->options }}"
+                               value="{{ $combination->answer->options }}"
                                >
                         @error('answer')
                         <span class="invalid-feedback" role="alert">
@@ -93,7 +93,7 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check mr-1"></i> Update
-                            Definition Sentence
+                            Combination Word
                         </button>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->
