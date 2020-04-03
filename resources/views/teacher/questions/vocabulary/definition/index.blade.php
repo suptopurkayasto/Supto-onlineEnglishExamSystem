@@ -22,11 +22,15 @@
                     </div><!-- /.card-header -->
                     @if($exam->definitions()->count() === 20 && $exam->definitionOptions()->count() === 40)
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
+                                 role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
                         </div>
                     @else
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+                                 role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
                         </div>
                     @endif
                     <div class="card-body">
@@ -57,7 +61,8 @@
                                                     @endif
                                                 @else
                                                     <a href="{{ route('teachers.questions.definitions.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                       class="btn btn-sm btn-outline-primary btn-block">Add Definition Sentence</a>
+                                                       class="btn btn-sm btn-outline-primary btn-block">Add Definition
+                                                        Sentence</a>
                                                 @endif
                                             </div>
                                         </div>

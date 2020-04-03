@@ -61,10 +61,10 @@ class SynonymController extends Controller
             $authTeacher->exams()->find($examId)->synonyms()->create($this->validateSynonymCreateRequest($request));
 
             session()->flash('success_audio');
-            toast('Synonym word has been successfully added','success');
+            toast('Synonym word has been successfully added', 'success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add synonym word to this '. QuestionSet::find($setId)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add synonym word to this ' . QuestionSet::find($setId)->name . ' set.');
         }
         return redirect()->back();
     }
@@ -116,26 +116,23 @@ class SynonymController extends Controller
     {
         if ($this->validSynonymRequest($synonym)) {
             $authTeacher = Auth::guard('teacher')->user();
-            $exam = $authTeacher->exams()->find($request->exam);
-            $set = $exam->sets()->find($request->questionSet);
+            $exam = $authTeacher->exams()->find(decrypt(\request()->get('exam')));
+            $set = $exam->sets()->find(decrypt(\request()->get('set')));
 
-            if ($synonym->exam->id == $exam->id && $synonym->set->id == $set->id) {
+            $countSynonymWordByExamAndSet = $exam->synonyms()->where('question_set_id', $set->id)->count();
+
+
+            if ($countSynonymWordByExamAndSet < 5 || $synonym->exam->id == $request->exam && $synonym->set->id == $request->questionSet) {
+                // Update Synonym
                 $synonym->update($this->validateSynonymUpdateRequest($request));
+                // Update synonym option
+                $synonym->answer()->update($this->validateSynonymOptionUpdateRequest($request));
                 session()->flash('success_audio');
-                toast('Synonym Word has been successfully updated','success');
-                return redirect(route('teachers.questions.synonyms.show', $synonym->id).'?exam='.request()->get('exam').'&set='.request()->get('set'));
-            }
-
-            $countSynonymWordByExamAndSet = Synonym::where(['exam_id' => $exam->id, 'question_set_id' => $set->id])->get()->count();
-
-            if ($countSynonymWordByExamAndSet < 5) {
-                $synonym->update($this->validateSynonymUpdateRequest($request));
-                session()->flash('success_audio');
-                toast('Synonym Word has been successfully updated','success');
-                return redirect(route('teachers.questions.synonyms.show', $synonym->id).'?exam='.request()->get('exam').'&set='.request()->get('set'));
+                toast('Synonym Word has been successfully updated', 'success');
+                return redirect(route('teachers.questions.synonyms.show', $synonym->id) . '?exam=' . request()->get('exam') . '&set=' . request()->get('set'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add synonym word to this '. QuestionSet::find($set->id)->name .' set.');
+                alert()->info('Fail!', 'You can no longer add synonym word to this ' . QuestionSet::find($set->id)->name . ' set.');
                 return redirect()->back();
             }
         } else {
@@ -157,7 +154,7 @@ class SynonymController extends Controller
 
             $synonym->forceDelete();
             session()->flash('success_audio');
-            toast('Synonym word has been successfully deleted','success');
+            toast('Synonym word has been successfully deleted', 'success');
             return redirect()->route('teachers.questions.synonyms.index');
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -181,7 +178,8 @@ class SynonymController extends Controller
 
     }
 
-    private function validSynonymRequest($synonym) {
+    private function validSynonymRequest($synonym)
+    {
 
         $examId = Crypt::decrypt(\request()->get('exam'));
         $authTeacherOptionByExam = Auth::guard('teacher')->user()->exams()->find($examId)->synonyms;
@@ -196,7 +194,7 @@ class SynonymController extends Controller
         return $valid;
     }
 
-    private function validateSynonymCreateRequest($request)
+    private function validateSynonymCreateRequest(Request $request)
     {
         $validateData = $this->validate($request, [
             'questionSet' => 'required|integer',
@@ -212,7 +210,7 @@ class SynonymController extends Controller
 
     }
 
-    private function validateSynonymUpdateRequest($request)
+    private function validateSynonymUpdateRequest(Request $request)
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
@@ -224,6 +222,18 @@ class SynonymController extends Controller
             'exam_id' => $validateData['exam'],
             'question_set_id' => $validateData['questionSet'],
             'word' => $validateData['word'],
+        ];
+
+    }
+
+    private function validateSynonymOptionUpdateRequest(Request $request)
+    {
+        $validateData = $this->validate($request, [
+            'answer' => 'required|string|max:255',
+        ]);
+
+        return [
+            'options' => $validateData['answer'],
         ];
 
     }

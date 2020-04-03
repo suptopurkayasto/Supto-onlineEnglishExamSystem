@@ -40,7 +40,7 @@
                     <div class="col-12 col-md-8">
                         <select name="questionSet" id="questionSet"
                                 class="form-control @error('questionSet') is-invalid @enderror" required>
-                            <option disabled selected>Select group</option>
+                            <option disabled selected>Select Set</option>
                             @foreach($questionSets as $questionSet)
                                 <option
                                     {{ $synonym->set->id == $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
@@ -64,6 +64,22 @@
                                value="{{ $synonym->word }}"
                                required>
                         @error('word')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div><!-- /.col-12 col-md-8 -->
+                </div><!-- /.form-group -->
+
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                        <label for="answer">Answer</label>
+                    </div><!-- /.col-12 col-md-4 -->
+                    <div class="col-12 col-md-8">
+                        <input type="text" name="answer" id="answer"
+                               class="form-control @error('answer') is-invalid @enderror"
+                               value="{{ $synonym->answer->options }}">
+                        @error('answer')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
