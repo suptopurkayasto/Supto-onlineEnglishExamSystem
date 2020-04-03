@@ -165,6 +165,13 @@
                                                 <p>Definition</p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.combinations.index') }}"
+                                               class="nav-link {{ request()->segment(4) === 'combinations' ? 'active' : '' }}">
+                                                <i class="fab fa-mix nav-icon"></i>
+                                                <p>Combination</p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <!-- Start::Vocabulary sidebar item markup -->

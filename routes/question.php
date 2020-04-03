@@ -6,7 +6,13 @@ use Illuminate\Support\Facades\Route;
  * All Vocabulary routes
  */
 
-// Synonym option route
+// Combination option route
+Route::resource('vocabulary/combinations/options', 'Teacher\Question\Vocabulary\Combination\CombinationOptionController', ['as' => 'combinations']);
+// Combination routes
+Route::resource('vocabulary/combinations', 'Teacher\Question\Vocabulary\Combination\CombinationController');
+
+
+// Definition option route
 Route::resource('vocabulary/definitions/options', 'Teacher\Question\Vocabulary\Definition\DefinitionOptionController', ['as' => 'definitions']);
 // Definition routes
 Route::resource('vocabulary/definitions', 'Teacher\Question\Vocabulary\Definition\DefinitionController');
