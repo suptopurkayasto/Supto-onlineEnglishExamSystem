@@ -1,17 +1,17 @@
 @extends('layouts.teacher')
 
-@section('title', 'Add Definition Options')
+@section('title', 'Add Combination Option')
 
 
 @section('content')
 
     <div class="card">
         <div class="card-header">
-            <h3 class="h3 card-title">Add Definition Options</h3>
+            <h3 class="h3 card-title">Add Combination Option</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('teachers.questions.definitions.options.store') }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}" method="post">
+            <form action="{{ route('teachers.questions.combinations.options.store') }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}" method="post">
                 @csrf
 
                 <div class="form-group row">
