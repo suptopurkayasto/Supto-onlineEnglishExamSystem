@@ -4,19 +4,23 @@ namespace App\Http\Controllers\Teacher\Question\Vocabulary\Combination;
 
 use App\Http\Controllers\Controller;
 use App\Model\Vocabulary\Combination\Combination;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class CombinationController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Factory|View
      */
     public function index()
     {
-        //
+        return view('teacher.questions.vocabulary.combination.index')
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
