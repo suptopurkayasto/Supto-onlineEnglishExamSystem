@@ -5,6 +5,7 @@ namespace App;
 use App\Model\Grammar\Grammar;
 use App\Model\Grammar\StudentGrammarQuestion;
 use App\Model\Vocabulary\Definition\Definition;
+use App\Model\Vocabulary\Definition\DefinitionOption;
 use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Vocabulary\Synonym\SynonymOption;
 use App\Model\Writing\Dialog;
@@ -82,6 +83,11 @@ class Exam extends Model
     public function definitions()
     {
         return $this->hasMany(Definition::class);
+    }
+    // DefinitionOptions
+    public function definitionOptions()
+    {
+        return $this->hasMany(DefinitionOption::class);
     }
 
 
