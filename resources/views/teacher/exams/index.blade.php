@@ -48,7 +48,20 @@
                                 @endif
                             </td>
                             <td>
-                                @if($exam->synonyms()->count() === 20)
+                                @php
+                                    $synonyms = $exam->synonyms()->count();
+                                    $synonymOptions = $exam->synonymOptions()->count();
+
+                                    $definitions = $exam->definitions()->count();
+                                    $definitionOptions = $exam->definitionOptions()->count();
+
+                                    $combination = $exam->combinations()->count();
+                                    $combinationOptions = $exam->combinationOptions()->count();
+
+                                    $fillInTheGaps = $exam->fillInTheGaps()->count();
+                                    $fillInTheGapOptions = $exam->fillInTheGapOptions()->count();
+                                @endphp
+                                @if( $synonyms == 20 && $definitions == 20 && $combination == 20 && $fillInTheGaps == 20 && $synonymOptions == 40 && $definitionOptions == 40 && $combinationOptions == 40 && fillInTheGapOptions == 40 )
                                     <span class="badge badge-success">Ok</span>
                                 @else
                                     <span class="badge badge-warning">Pending</span>
