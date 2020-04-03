@@ -17,8 +17,8 @@ class CreateSynonymsTable extends Migration
             $table->id();
             $table->foreignId('exam_id');
             $table->foreignId('question_set_id');
-            $table->foreignId('synonym_option_id');
             $table->string('word');
+            $table->foreignId('synonym_option_id');
             $table->timestamps();
         });
     }

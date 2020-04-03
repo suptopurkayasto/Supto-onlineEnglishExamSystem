@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Model\Grammar\Grammar;
+use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Vocabulary\Synonym\SynonymOption;
 use App\Model\Writing\Dialog;
@@ -67,6 +68,12 @@ class QuestionSet extends Model
     public function synonymOptions()
     {
         return $this->hasMany(SynonymOption::class);
+    }
+
+    // Definition
+    public function definitions()
+    {
+        return $this->hasMany(Definition::class);
     }
 
 }
