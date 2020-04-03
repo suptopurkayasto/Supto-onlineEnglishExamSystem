@@ -8,6 +8,7 @@ use App\Model\Vocabulary\Combination\CombinationOption;
 use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\Definition\DefinitionOption;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGap;
+use App\Model\Vocabulary\FillInTheGap\FillInTheGapOption;
 use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Vocabulary\Synonym\SynonymOption;
 use App\Model\Writing\Dialog;
@@ -100,6 +101,11 @@ class QuestionSet extends Model
     public function fillInTheGaps()
     {
         return $this->hasMany(FillInTheGap::class);
+    }
+    // Fill In The Gap
+    public function fillInTheGapOptions()
+    {
+        return $this->hasMany(FillInTheGapOption::class);
     }
 
 }

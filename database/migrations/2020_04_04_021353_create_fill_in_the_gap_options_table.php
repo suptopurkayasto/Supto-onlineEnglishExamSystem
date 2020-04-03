@@ -15,6 +15,9 @@ class CreateFillInTheGapOptionsTable extends Migration
     {
         Schema::create('fill_in_the_gap_options', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('exam_id');
+            $table->foreignId('question_set_id');
+            $table->string('options');
             $table->timestamps();
         });
     }
