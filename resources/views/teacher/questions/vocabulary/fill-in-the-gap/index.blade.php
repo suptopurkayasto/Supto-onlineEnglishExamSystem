@@ -50,7 +50,7 @@
                                             </div>
                                             <div class="progress-description">
                                                 @if($fillINTheGapsCountBySet === 5)
-                                                    @if($exam->definitionOptions()->where('question_set_id', $set->id)->get()->count() === 10)
+                                                    @if($exam->fillInTheGapOptions()->where('question_set_id', $set->id)->get()->count() === 10)
                                                         <a href="{{ route('teachers.questions.fill-in-the-gaps.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
                                                            class="btn btn-sm btn-primary btn-block">View
                                                             Option</a>

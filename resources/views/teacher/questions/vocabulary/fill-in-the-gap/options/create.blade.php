@@ -1,17 +1,17 @@
 @extends('layouts.teacher')
 
-@section('title', 'Add Definition Options')
+@section('title', 'Add Fill In The Gap Options')
 
 
 @section('content')
 
     <div class="card">
         <div class="card-header">
-            <h3 class="h3 card-title">Add Definition Options</h3>
+            <h3 class="h3 card-title">Add Fill In The Gap Options</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('teachers.questions.definitions.options.store') }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}" method="post">
+            <form action="{{ route('teachers.questions.fill-in-the-gaps.options.store') }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}" method="post">
                 @csrf
 
                 <div class="form-group row">
@@ -36,7 +36,7 @@
                     </div><!-- /.col-12 col-md-4 -->
                     <div class="col-12 col-md-8">
                         <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check"></i> Add
-                            Definition Option
+                            Fill In The Gap Option
                         </button>
                     </div><!-- /.col-12 col-md-8 -->
                 </div><!-- /.form-group -->

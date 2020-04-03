@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 // Combination option route
-Route::resource('vocabulary/fill-in-the-gaps/options', 'Teacher\Question\Vocabulary\Combination\CombinationOptionController', ['as' => 'fill-in-the-gaps']);
+Route::resource('vocabulary/fill-in-the-gaps/options', 'Teacher\Question\Vocabulary\FillInTheGap\FillInTheGapOptionController', ['as' => 'fill-in-the-gaps']);
 // Combination routes
 Route::resource('vocabulary/fill-in-the-gaps', 'Teacher\Question\Vocabulary\FillInTheGap\FillInTheGapController');
 
