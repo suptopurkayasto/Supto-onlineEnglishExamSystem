@@ -154,7 +154,7 @@
                                         <li class="nav-item">
                                             <a href="{{ route('teachers.questions.synonyms.index') }}"
                                                class="nav-link {{ request()->segment(4) === 'synonyms' ? 'active' : '' }}">
-                                                <i class="fas fa-equals nav-icon"></i>
+                                                <i class="fas fa-exchange-alt nav-icon"></i>
                                                 <p>Synonym</p>
                                             </a>
                                         </li>
@@ -170,6 +170,13 @@
                                                class="nav-link {{ request()->segment(4) === 'combinations' ? 'active' : '' }}">
                                                 <i class="fab fa-mix nav-icon"></i>
                                                 <p>Combination</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.fill-in-the-gaps.index') }}"
+                                               class="nav-link {{ request()->segment(4) === 'fill-in-the-gaps' ? 'active' : '' }}">
+                                                <i class="fas fa-glass-martini-alt nav-icon"></i>
+                                                <p>Fill in the gaps</p>
                                             </a>
                                         </li>
                                     </ul>
