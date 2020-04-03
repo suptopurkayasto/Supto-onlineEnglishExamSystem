@@ -5,6 +5,7 @@ namespace App;
 use App\Model\Grammar\Grammar;
 use App\Model\Grammar\StudentGrammarQuestion;
 use App\Model\Vocabulary\Combination\Combination;
+use App\Model\Vocabulary\Combination\CombinationOption;
 use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\Definition\DefinitionOption;
 use App\Model\Vocabulary\Synonym\Synonym;
@@ -94,6 +95,11 @@ class Exam extends Model
     public function combinations()
     {
         return $this->hasMany(Combination::class);
+    }
+    // Combination Options
+    public function combinationOptions()
+    {
+        return $this->hasMany(CombinationOption::class);
     }
 
 

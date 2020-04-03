@@ -18,7 +18,7 @@ class Combination extends Model
     {
         return $this->belongsTo(QuestionSet::class, 'question_set_id');
     }
-    public function combination()
+    public function answer()
     {
         return $this->belongsTo(CombinationOption::class, 'combination_option_id');
     }
