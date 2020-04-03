@@ -158,6 +158,13 @@
                                                 <p>Synonym</p>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.definitions.index') }}"
+                                               class="nav-link {{ request()->url() === route('teachers.questions.definitions.index') ? 'active' : '' }}">
+                                                <i class="fas fa-pen-square nav-icon"></i>
+                                                <p>Definition</p>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <!-- Start::Vocabulary sidebar item markup -->
