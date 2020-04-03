@@ -3215,6 +3215,10 @@ li.sidebar-item ul li p {
   text-transform: capitalize;
 }
 
+.card .card-header .index-card-title {
+  font-size: 30px;
+}
+
 .empty-data-section {
   text-align: center;
 }

@@ -53,12 +53,16 @@ class GrammarController extends Controller
 
         $authTeacher = Auth::guard('teacher')->user();
 
-        $questionCount = $authTeacher->exams()->find($request->exam)->grammarQuestions()->count();
+        $exam = $authTeacher->exams()->find($request->get('exam'));
+        $questionCount = $exam->grammarQuestions()->count();
 
         if ($questionCount < 25) {
             $authTeacher->exams()->find($request->exam)->grammarQuestions()->create($this->validateGrammarCreateRequest($request));
             toast('Grammar question has been successfully added', 'success');
             session()->flash('success_audio');
+            if ($exam->grammarQuestions()->count() >= 100) {
+                return redirect()->route('teachers.questions.grammars.index');
+            }
             return redirect()->back();
         } else {
             session()->flash('field_audio');

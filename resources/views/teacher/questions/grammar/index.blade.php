@@ -7,15 +7,15 @@
     @if($authTeacher->exams()->count() > 0)
         @foreach($authTeacher->exams as $exam)
             @if($exam->grammarQuestions()->count() > 0)
-                <div class="card mb-5">
+                <div class="card mb-5 text-center">
                     <div class="card-header">
-                        <h3 class="card-title float-left" title="{{ $exam->name }}"><span
+                        <h3 class="card-title float-md-left index-card-title" title="{{ $exam->name }}"><span
                                 class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
                             Grammar Questions
                         </h3>
                         @if($exam->grammarQuestions()->count() !== 100)
                             <a href="{{ route('teachers.questions.grammars.create') }}?exam={{ encrypt($exam->id) }}"
-                               class="btn btn-primary float-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i>
+                               class="btn btn-primary float-md-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i>
                                 Add
                                 Grammar Question</a>
                         @endif
