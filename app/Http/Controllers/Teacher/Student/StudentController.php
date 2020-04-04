@@ -10,10 +10,14 @@ use App\QuestionSet;
 use App\Section;
 use App\Student;
 use App\Teacher;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class StudentController extends Controller
 {
@@ -28,32 +32,33 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
         return view('teacher.student.index')
-            ->with('authTeacherStudents', Auth::guard('teacher')->user()->students);
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
         return view('teacher.student.create')
             ->with('groups', Group::all())
-            ->with('sections', Section::all());
+            ->with('sections', Section::all())
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(StudentCreateRequest $request)
     {
@@ -75,33 +80,35 @@ class StudentController extends Controller
      * Display the specified resource.
      *
      * @param Student $student
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(Student $student)
     {
-        return view('teacher.student.show', compact('student'));
+        return view('teacher.student.show', compact('student'))
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param Student $student
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Student $student)
     {
         return view('teacher.student.edit')
             ->with('student', $student)
             ->with('groups', Group::all())
-            ->with('sections', Section::all());
+            ->with('sections', Section::all())
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param Student $student
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, Student $student)
     {
@@ -115,8 +122,8 @@ class StudentController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Student $student
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy(Student $student)
     {
