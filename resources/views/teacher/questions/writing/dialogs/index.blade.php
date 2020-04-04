@@ -9,7 +9,7 @@
             @if($exam->dialogs()->count() > 0)
                 <div class="card mb-5">
                     <div class="card-header">
-                        <h3 class="card-title float-left" title="{{ $exam->name }}"><span
+                        <h3 class="card-title index-card-title float-left" title="{{ $exam->name }}"><span
                                 class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
                             Dialog
 
@@ -77,7 +77,7 @@
                                             <td>{{ $index + 1 }}</td>
                                             <td title="{{ $dialog->topic }}">{{ Str::limit($dialog->topic, 70) }}</td>
                                             <td>{{ $dialog->set->name }}</td>
-                                            <td>{{ $dialog->exam->name }}</td>
+                                            <td title="{{ $dialog->exam->name }}">{{ Str::limit($dialog->exam->name, 40) }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('teachers.questions.dialogs.show', $dialog->id) }}?exam={{ encrypt($exam->id) }}"
                                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
@@ -92,21 +92,29 @@
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
             @else
-                <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded">
-                    <h1 class="h1" title="{{ $exam->name }}">{{ Str::limit($exam->name, 30) }}</h1>
-                    <h2 class="text-center text-warning display-4">Empty.</h2>
-                    <a href="{{ route('teachers.questions.dialogs.create') }}?exam={{ encrypt($exam->id) }}"
-                       class="btn btn-lg mt-4 bg-gradient-primary"><i
-                            class="fas fa-pen-alt"></i> Add Dialog</a>
-                </div><!-- /.empty-data-section -->
+                <div class="row">
+                    <div class="col col-md-8 offset-md-2">
+                        <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded shadow empty-data-section">
+                            <h1 class="h1" title="{{ $exam->name }}">{{ Str::limit($exam->name, 30) }}</h1>
+                            <h2 class="text-center text-warning display-4">Empty.</h2>
+                            <a href="{{ route('teachers.questions.dialogs.create') }}?exam={{ encrypt($exam->id) }}"
+                               class="btn btn-lg mt-4 bg-gradient-primary"><i
+                                    class="fas fa-pen-alt"></i> Add Dialog</a>
+                        </div><!-- /.empty-data-section -->
+                    </div><!-- /.col col-md-8 offset-md-2 -->
+                </div><!-- /.row -->
             @endif
         @endforeach
     @else
-        <div class="empty-data-section add-exam-mini-section">
-            <h1 class="h1">You need to add Exam first.</h1>
-            <a href="{{ route('teacher.exams.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
-                    class="fas fa-pen-alt"></i> Add Exam</a>
-        </div><!-- /.empty-data-section -->
+        <div class="row">
+            <div class="col col-md-8 offset-md-2">
+                <div class="empty-data-section add-exam-mini-section">
+                    <h1 class="h1">You need to add Exam first.</h1>
+                    <a href="{{ route('teacher.exams.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
+                            class="fas fa-pen-alt"></i> Add Exam</a>
+                </div><!-- /.empty-data-section -->
+            </div><!-- /.col col-md-8 offset-md-2 -->
+        </div><!-- /.row -->
     @endif
 @endsection
 

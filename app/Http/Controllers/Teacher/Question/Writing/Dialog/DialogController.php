@@ -7,9 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\WritingPart;
 use App\QuestionSet;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\View\View;
 
 class DialogController extends Controller
 {
@@ -22,7 +25,7 @@ class DialogController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -32,7 +35,7 @@ class DialogController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -44,8 +47,8 @@ class DialogController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -69,8 +72,8 @@ class DialogController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Model\Writing\Dialog $dialog
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @param Dialog $dialog
+     * @return Factory|RedirectResponse|View
      */
     public function show(Dialog $dialog)
     {
@@ -87,8 +90,8 @@ class DialogController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Model\Writing\Dialog $dialog
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @param Dialog $dialog
+     * @return Factory|RedirectResponse|View
      */
     public function edit(Dialog $dialog)
     {
@@ -105,9 +108,9 @@ class DialogController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Model\Writing\Dialog $dialog
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param Dialog $dialog
+     * @return RedirectResponse
      */
     public function update(Request $request, Dialog $dialog)
     {
@@ -115,7 +118,7 @@ class DialogController extends Controller
             $dialog->update($this->validateDialogUpdateRequest($request));
             session()->flash('success_audio');
             toast('Dialog has been successfully updated','success');
-            return redirect()->route('teachers.questions.dialogs.show', $dialog->id);
+            return redirect(route('teachers.questions.dialogs.show', $dialog->id).'?exam='.\request()->get('exam'));
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->back();
@@ -125,8 +128,8 @@ class DialogController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Model\Writing\Dialog $dialog
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Dialog $dialog
+     * @return RedirectResponse
      */
     public function destroy(Dialog $dialog)
     {
@@ -169,7 +172,6 @@ class DialogController extends Controller
         return [
             'exam_id' => $validateData['exam'],
             'question_set_id' => $validateData['questionSet'],
-            'writing_part_id' => WritingPart::where('slug', 'dialog')->get()->first()->id,
             'topic' => $validateData['topic'],
             'question_1' => $validateData['question_1'],
             'question_2' => $validateData['question_2'],

@@ -90,7 +90,7 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('teachers.questions.grammars.index') }}"
-                                       class="nav-link {{ request()->url() === route('teachers.questions.grammars.index') ? 'active' : '' }}">
+                                       class="nav-link {{ request()->segment(3) === 'grammars' ? 'active' : '' }}">
                                         <i class="fas fa-spell-check nav-icon"></i>
                                         <p>Grammar</p>
                                     </a>
@@ -110,14 +110,14 @@
 
                                         <li class="nav-item">
                                             <a href="{{ route('teachers.questions.dialogs.index') }}"
-                                               class="nav-link {{ request()->url() === route('teachers.questions.dialogs.index') ? 'active' : '' }}">
+                                               class="nav-link {{ request()->segment(4) === 'dialogs' ? 'active' : '' }}">
                                                 <i class="fas fa-reply-all nav-icon"></i>
                                                 <p>Dialog</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('teachers.questions.informal-email.index') }}"
-                                               class="nav-link {{ request()->url() === route('teachers.questions.informal-email.index') ? 'active' : '' }}">
+                                               class="nav-link {{ request()->segment(4) === 'informal-email' ? 'active' : '' }}">
                                                 <i class="far fa-envelope nav-icon"></i>
                                                 <p>Informal Email</p>
                                             </a>

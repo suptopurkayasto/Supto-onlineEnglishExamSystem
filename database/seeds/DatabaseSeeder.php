@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(StudentSeeder::class);
         $this->call(ExamSeeder::class);
         $this->call(GrammarQuestionSeeder::class);
-        $this->call(WritingPartSeeder::class);
 
 
 //        $exam = \App\Exam::find(1);

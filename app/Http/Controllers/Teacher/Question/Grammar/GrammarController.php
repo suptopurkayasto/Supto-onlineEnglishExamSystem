@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class GrammarController extends Controller
@@ -46,7 +47,7 @@ class GrammarController extends Controller
      * @param Request $request
      * @param Grammar $grammar
      * @return RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request, Grammar $grammar)
     {
@@ -115,7 +116,7 @@ class GrammarController extends Controller
      * @param GrammarQuestionUpdateRequest $request
      * @param Grammar $grammar
      * @return RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function update(Request $request, Grammar $grammar)
     {
@@ -185,7 +186,7 @@ class GrammarController extends Controller
     /**
      * @param $request
      * @return array
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     private function validateGrammarCreateRequest($request)
     {
@@ -213,7 +214,7 @@ class GrammarController extends Controller
     /**
      * @param $request
      * @return array
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     private function validateGrammarsUpdateRequest($request)
     {

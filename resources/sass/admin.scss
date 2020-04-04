@@ -101,7 +101,9 @@ li.sidebar-item {
         }
     }
 }
-
+.bg-white>a.btn {
+    color: white !important;
+}
 .add-exam-mini-section {
     margin-top: 100px;
     h1 {

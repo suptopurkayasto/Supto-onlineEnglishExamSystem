@@ -3235,6 +3235,10 @@ li.sidebar-item ul li p {
   height: 10px;
 }
 
+.bg-white > a.btn {
+  color: white !important;
+}
+
 .add-exam-mini-section {
   margin-top: 100px;
 }

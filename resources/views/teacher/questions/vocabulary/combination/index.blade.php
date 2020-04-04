@@ -105,21 +105,31 @@
                     </div><!-- /.card-body -->
                 </div><!-- /.card -->
             @else
-                <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded">
-                    <h1 class="h1" title="{{ $exam->name }}">{{ Str::limit($exam->name, 30) }}</h1>
-                    <h2 class="text-center text-warning display-4">Empty.</h2>
-                    <a href="{{ route('teachers.questions.combinations.create') }}?exam={{ encrypt($exam->id) }}"
-                       class="btn btn-lg mt-4 bg-gradient-primary"><i
-                            class="fas fa-pen-alt"></i> Add Combination Word</a>
-                </div><!-- /.empty-data-section -->
+                <div class="row">
+                    <div class="col col-md-8 offset-md-2">
+                        <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded empty-data-section shadow">
+                            <h1 class="h1" title="{{ $exam->name }}">{{ Str::limit($exam->name, 30) }}</h1>
+                            <h2 class="text-center text-warning display-4">Empty.</h2>
+                            <a href="{{ route('teachers.questions.combinations.create') }}?exam={{ encrypt($exam->id) }}"
+                               class="btn btn-lg mt-4 bg-gradient-primary"><i
+                                    class="fas fa-pen-alt"></i> Add Combination Word</a>
+                        </div><!-- /.empty-data-section -->
+                    </div><!-- /.col col-md-8 offset-md-2 -->
+                </div><!-- /.row -->
+
             @endif
         @endforeach
     @else
-        <div class="empty-data-section add-exam-mini-section">
-            <h1 class="h1">You need to add Exam first.</h1>
-            <a href="{{ route('teacher.exams.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
-                    class="fas fa-pen-alt"></i> Add Exam</a>
-        </div><!-- /.empty-data-section -->
+        <div class="row">
+            <div class="col col-md-8 offset-md-2">
+                <div class="empty-data-section add-exam-mini-section">
+                    <h1 class="h1">You need to add Exam first.</h1>
+                    <a href="{{ route('teacher.exams.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
+                            class="fas fa-pen-alt"></i> Add Exam</a>
+                </div><!-- /.empty-data-section -->
+            </div><!-- /.col col-md-8 offset-md-2 -->
+        </div><!-- /.row -->
+
     @endif
 @endsection
 
