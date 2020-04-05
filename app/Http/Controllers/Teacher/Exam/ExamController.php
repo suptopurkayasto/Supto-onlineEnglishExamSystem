@@ -6,9 +6,13 @@ use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Exam\ExamCreateRequest;
 use App\QuestionSet;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class ExamController extends Controller
 {
@@ -20,7 +24,7 @@ class ExamController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -31,7 +35,7 @@ class ExamController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -41,14 +45,12 @@ class ExamController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(ExamCreateRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->only('name');
-        $data['slug'] = Str::slug($request->name);
-        $createdExam = Auth::guard('teacher')->user()->exams()->create($data);
+        $createdExam = Auth::guard('teacher')->user()->exams()->create($this->validateExamCreateRequest($request));
         $createdExam->sets()->attach(QuestionSet::all());
 
         toast('Exam has been successfully added','success');
@@ -60,38 +62,53 @@ class ExamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Exam $exam
+     * @return Factory|RedirectResponse|View
      */
     public function show(Exam $exam)
     {
-        return view('teacher.exams.show', compact('exam'));
+        if ($this->validExamRequest($exam)) {
+            return view('teacher.exams.show', compact('exam'));
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Exam $exam
+     * @return Factory|RedirectResponse|View
      */
     public function edit(Exam $exam)
     {
-        return view('teacher.exams.edit', compact('exam'));
+        if ($this->validExamRequest($exam)) {
+            return view('teacher.exams.edit', compact('exam'));
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param Exam $exam
+     * @return RedirectResponse
      */
     public function update(Request $request, Exam $exam)
     {
-        $exam->update($this->validateUpdateExamRequest($request));
-        toast('Exam has been successfully updated','success');
-        session()->flash('success_audio');
-        return redirect()->route('teacher.exams.index');
+        if ($this->validExamRequest($exam)) {
+            $exam->update($this->validateUpdateExamRequest($request));
+            toast('Exam has been successfully updated','success');
+            session()->flash('success_audio');
+            return redirect()->route('teacher.exams.index');
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     public function status(Request $request, Exam $exam)
@@ -119,8 +136,8 @@ class ExamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Exam $exam
+     * @return RedirectResponse
      */
     public function destroy(Exam $exam)
     {
@@ -130,6 +147,28 @@ class ExamController extends Controller
         return redirect()->route('teacher.exams.index');
     }
 
+    private function validExamRequest($exam) {
+
+        $authTeacherExam = Auth::guard('teacher')->user()->exams;
+        $valid = null;
+        foreach ($authTeacherExam as $item) {
+            if ($item->id === $exam->id) {
+                $valid = true;
+            }
+        }
+
+        return $valid;
+    }
+
+    protected function validateExamCreateRequest($request) {
+        $validateData = $this->validate($request, [
+            'name' => 'required|max:255|string',
+        ]);
+
+        return [
+            'name' => $validateData['name']
+        ];
+    }
     protected function validateUpdateExamRequest($request) {
         $validateData = $this->validate($request, [
             'name' => 'required|max:255|string|unique:exams',
@@ -138,7 +177,6 @@ class ExamController extends Controller
         return [
             'teacher_id' => Auth::guard('teacher')->user()->id,
             'name' => $validateData['name'],
-            'slug' => Str::slug($validateData['name']),
         ];
     }
 

@@ -11,7 +11,7 @@ class ExamSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Exam::class)->create(['name' => 'APTIS model test', 'slug' => 'aptis-model-test']);
+//        factory(\App\Exam::class)->create(['name' => 'APTIS model test', 'slug' => 'aptis-model-test']);
 //        factory(\App\Exam::class)->create();
     }
 }

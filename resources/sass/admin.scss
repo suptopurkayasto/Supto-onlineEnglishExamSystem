@@ -1,7 +1,8 @@
-
+@import "~bourbon/core/bourbon";
 @import "~animate.css";
 @import "variables";
 @import "custom_variables";
+
 [class*=sidebar-dark-] {
     background-color: #001f3f;
 }
@@ -54,6 +55,10 @@ table.custom-table-style {
     background-color: rgba(255,255,255,.1);
 }
 
+[class*=sidebar-dark] .user-panel:last-child {
+    border-bottom: none;
+}
+
 li.sidebar-item {
     ul {
         li {
@@ -67,8 +72,11 @@ li.sidebar-item {
 .card {
     .card-header {
         .card-title {
-            font-size: 30px;
+            font-size: 20px;
             text-transform: capitalize;
+        }
+        .index-card-title {
+            font-size: 30px;
         }
     }
 }
@@ -93,10 +101,13 @@ li.sidebar-item {
         }
     }
 }
-
+.bg-white>a.btn {
+    color: white !important;
+}
 .add-exam-mini-section {
     margin-top: 100px;
     h1 {
         color: red;
     }
 }
+

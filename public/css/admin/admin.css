@@ -3201,14 +3201,22 @@ table.custom-table-style tbody tr td {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+[class*=sidebar-dark] .user-panel:last-child {
+  border-bottom: none;
+}
+
 li.sidebar-item ul li i,
 li.sidebar-item ul li p {
   font-size: 80% !important;
 }
 
 .card .card-header .card-title {
-  font-size: 30px;
+  font-size: 20px;
   text-transform: capitalize;
+}
+
+.card .card-header .index-card-title {
+  font-size: 30px;
 }
 
 .empty-data-section {
@@ -3225,6 +3233,10 @@ li.sidebar-item ul li p {
 
 .count-section .info-box-main .progress {
   height: 10px;
+}
+
+.bg-white > a.btn {
+  color: white !important;
 }
 
 .add-exam-mini-section {

@@ -3,6 +3,14 @@
 namespace App;
 
 use App\Model\Grammar\Grammar;
+use App\Model\Vocabulary\Combination\Combination;
+use App\Model\Vocabulary\Combination\CombinationOption;
+use App\Model\Vocabulary\Definition\Definition;
+use App\Model\Vocabulary\Definition\DefinitionOption;
+use App\Model\Vocabulary\FillInTheGap\FillInTheGap;
+use App\Model\Vocabulary\FillInTheGap\FillInTheGapOption;
+use App\Model\Vocabulary\Synonym\Synonym;
+use App\Model\Vocabulary\Synonym\SynonymOption;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
@@ -55,4 +63,49 @@ class QuestionSet extends Model
     {
         return $this->hasMany(SortQuestion::class);
     }
+
+    // Synonym
+    public function synonyms()
+    {
+        return $this->hasMany(Synonym::class);
+    }
+    // Synonym Options
+    public function synonymOptions()
+    {
+        return $this->hasMany(SynonymOption::class);
+    }
+
+    // Definition
+    public function definitions()
+    {
+        return $this->hasMany(Definition::class);
+    }
+    // DefinitionOptions
+    public function definitionOptions()
+    {
+        return $this->hasMany(DefinitionOption::class);
+    }
+
+    // Combination
+    public function combinations()
+    {
+        return $this->hasMany(Combination::class);
+    }
+    // Combination Options
+    public function combinationOptions()
+    {
+        return $this->hasMany(CombinationOption::class);
+    }
+
+    // Fill In The Gap
+    public function fillInTheGaps()
+    {
+        return $this->hasMany(FillInTheGap::class);
+    }
+    // Fill In The Gap
+    public function fillInTheGapOptions()
+    {
+        return $this->hasMany(FillInTheGapOption::class);
+    }
+
 }

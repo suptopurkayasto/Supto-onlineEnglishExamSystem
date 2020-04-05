@@ -3,10 +3,10 @@
 @section('title', 'All Students')
 
 @section('content')
-    @if($authTeacherStudents->count() > 0)
+    @if($authTeacher->students()->count() > 0)
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title float-left">All Students</h3>
+                <h3 class="card-title float-left index-card-title">All Students</h3>
 
                 <a href="{{ route('teacher.students.create') }}"
                    class="btn btn-hover-effect bg-gradient-primary float-right"><i class="fas fa-pen-alt mr-1"></i> Add Students</a>
@@ -28,7 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($authTeacherStudents as $index => $student)
+                    @foreach($authTeacher->students as $index => $student)
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td title="{{ 'ID Number: ' . $student->id_number }}">{{ $student->id_number }}</td>
@@ -49,11 +49,15 @@
             <!-- /.card-body -->
         </div>
     @else
-        <div class="empty-data-section">
-            <h2 class="text-center text-warning display-1 font-weight-bolder">Empty.</h2>
-            <a href="{{ route('teacher.students.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
-                    class="fas fa-pen-alt mr-1"></i> Add Students</a>
-        </div><!-- /.empty-data-section -->
+        <div class="row">
+            <div class="col col-md-8 offset-md-2">
+                <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded empty-data-section shadow">
+                    <h2 class="text-center text-warning display-4">Empty.</h2>
+                    <a href="{{ route('teacher.students.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
+                            class="fas fa-pen-alt mr-1"></i> Add Students</a>
+                </div><!-- /.empty-data-section -->
+            </div><!-- /.col col-md-8 offset-md-2 -->
+        </div><!-- /.row -->
     @endif
 @endsection
 
