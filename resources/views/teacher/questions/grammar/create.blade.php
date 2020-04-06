@@ -49,7 +49,7 @@
                                     <option selected disabled>Select set</option>
                                     @foreach($questionSets as $questionSet)
                                         <option
-                                            {{ old('question_set') == $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
+                                            {{ old('question_set') == $questionSet->id || decrypt(request()->get('set')) === $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('question_set')

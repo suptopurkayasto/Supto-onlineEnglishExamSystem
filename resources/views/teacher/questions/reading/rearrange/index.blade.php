@@ -9,7 +9,8 @@
                 <div class="card mb-5">
                     <div
                         class="card-header">
-                        <h3 class="card-title float-left index-card-title {{ $exam->rearranges()->count() === 4 ? 'text-success' : 'text-warning' }}" title="{{ $exam->name }}"><span
+                        <h3 class="card-title float-left index-card-title {{ $exam->rearranges()->count() === 4 ? 'text-success' : 'text-warning' }}"
+                            title="{{ $exam->name }}"><span
                                 class="">{{ Str::limit($exam->name, 30) }}</span>
                             <span class="font-weight-bolder">Rearranges</span>
                             @if($exam->rearranges()->count() === 4)
@@ -54,12 +55,12 @@
                                                      style="width: {{ ($rearrangeCountBySet*100)/1 }}%"></div>
                                             </div>
                                             <div class="progress-description">
-                                                @if($rearrangeCountBySet === 1)
-                                                    <span class="text-success"><i class="fas fa-check-circle"></i> Done.</span>
-                                                @else
+                                                @if($rearrangeCountBySet < 1)
                                                     <a href="{{ route('teachers.questions.rearranges.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                       class="btn btn-sm btn-outline-primary btn-block">Add
+                                                       class="btn-link btn-block"><i class="fas fa-pen mr-1"></i> Add
                                                         Rearrange</a>
+                                                @else
+                                                    <span class="text-success"><i class="fas fa-check-circle mr-1"></i> Done.</span>
                                                 @endif
                                             </div>
                                         </div>

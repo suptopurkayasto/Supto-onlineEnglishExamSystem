@@ -9,26 +9,31 @@
             @if($exam->grammarQuestions()->count() > 0)
                 <div class="card mb-5">
                     <div class="card-header">
-                        <h3 class="card-title float-md-left index-card-title" title="{{ $exam->name }}"><span
-                                class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
-                            Grammar Questions
+                        <h3 class="card-title float-md-left index-card-title {{ $exam->grammarQuestions()->count() === 100 ? 'text-success' : 'text-warning' }}"
+                            title="{{ $exam->name }}">
+                            <span>{{ Str::limit($exam->name, 30) }}</span>
+                            <span class="font-weight-bolder ml-2">Grammar Questions</span>
+                            @if($exam->grammarQuestions()->count() === 100)
+                                <i class="fas fa-check-circle"></i>
+                            @endif
                         </h3>
                         @if($exam->grammarQuestions()->count() !== 100)
                             <a href="{{ route('teachers.questions.grammars.create') }}?exam={{ encrypt($exam->id) }}"
-                               class="btn btn-primary float-md-right btn-hover-effect"><i class="fas fa-pen-alt mr-1"></i>
+                               class="btn btn-primary float-md-right btn-hover-effect"><i
+                                    class="fas fa-pen-alt mr-1"></i>
                                 Add
                                 Grammar Question</a>
                         @endif
                     </div><!-- /.card-header -->
                     @if($exam->grammarQuestions()->count() === 100)
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
+                            <div class="progress-bar bg-success"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
                     @else
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+                            <div class="progress-bar bg-warning"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
@@ -50,7 +55,13 @@
                                                      style="width: {{ ($grammarQuestionsCountBySet*100)/25 }}%"></div>
                                             </div>
                                             <span class="progress-description">
-                                    </span>
+                                                @if($grammarQuestionsCountBySet < 25)
+                                                    <a href="{{ route('teachers.questions.grammars.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id)}}"
+                                                       class="btn-link"><i class="fas fa-pen"></i> Add Question</a>
+                                                @else
+                                                    <span class="text-success"><i class="fas fa-check-circle"></i> Done</span>
+                                                @endif
+                                            </span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
