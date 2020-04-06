@@ -3,6 +3,15 @@
 use Illuminate\Support\Facades\Route;
 
 /**
+ * All Reading Routes
+ */
+
+// Rearrange route
+Route::resource('reading/rearranges', 'Teacher\Question\Reading\Rearrange\RearrangeController');
+
+
+
+/**
  * All Vocabulary routes
  */
 
