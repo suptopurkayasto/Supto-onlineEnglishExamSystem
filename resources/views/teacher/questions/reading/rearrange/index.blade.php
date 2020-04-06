@@ -1,63 +1,65 @@
 @extends('layouts.teacher')
 
-@section('title', 'All Synonym Questions')
+@section('title', 'All Rearranges')
 
 @section('content')
     @if($authTeacher->exams()->count() > 0)
         @foreach($authTeacher->exams as $exam)
-            @if($exam->synonyms()->count() > 0)
+            @if($exam->rearranges()->count() > 0)
                 <div class="card mb-5">
                     <div
                         class="card-header">
-                        <h3 class="card-title float-left index-card-title" title="{{ $exam->name }}"><span
-                                class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
-                            Synonym Word
+                        <h3 class="card-title float-left index-card-title {{ $exam->rearranges()->count() === 4 ? 'text-success' : 'text-warning' }}" title="{{ $exam->name }}"><span
+                                class="">{{ Str::limit($exam->name, 30) }}</span>
+                            <span class="font-weight-bolder">Rearranges</span>
+                            @if($exam->rearranges()->count() === 4)
+                                <span class="text-success ml-2" title="Ready For Exam">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                            @endif
                         </h3>
-                        @if($exam->synonyms()->count() !== 20)
-                            <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ encrypt($exam->id) }}"
+                        @if($exam->rearranges()->count() !== 4)
+                            <a href="{{ route('teachers.questions.rearranges.create') }}?exam={{ encrypt($exam->id) }}"
                                class="btn bg-gradient-primary float-right btn-hover-effect">
                                 <i class="fas fa-pen-alt mr-1"></i>
-                                Add Synonym Word</a>
+                                Add Rearrange</a>
                         @endif
                     </div><!-- /.card-header -->
-                    @if($exam->synonyms()->count() === 20 && $exam->synonymOptions()->count() === 40)
+                    @if($exam->rearranges()->count() === 4)
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar  bg-success"
+                                 role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
                         </div>
                     @else
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-warning"
+                                 role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
                         </div>
                     @endif
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)
-                                @php $synonymCountBySet = $exam->synonyms()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $rearrangeCountBySet = $exam->rearranges()->where('question_set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
-                                            <span class="info-box-number font-weight-normal">{{ $synonymCountBySet }} / 5 Synonym word.</span>
+                                            <span class="info-box-number font-weight-normal">{{ $rearrangeCountBySet }} / 1 Rearrange.</span>
 
                                             <div class="progress">
                                                 <div class="progress-bar"
-                                                     style="width: {{ ($synonymCountBySet*100)/5 }}%"></div>
+                                                     style="width: {{ ($rearrangeCountBySet*100)/1 }}%"></div>
                                             </div>
                                             <div class="progress-description">
-                                                @if($synonymCountBySet === 5)
-                                                    @if($exam->synonymOptions()->where('question_set_id', $set->id)->get()->count() === 10)
-                                                        <a href="{{ route('teachers.questions.synonyms.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                           class="btn btn-sm btn-primary btn-block">View
-                                                            Option</a>
-                                                    @else
-                                                        <a href="{{ route('teachers.questions.synonyms.options.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                           class="btn btn-sm btn-outline-primary btn-block">Add
-                                                            Options</a>
-                                                    @endif
+                                                @if($rearrangeCountBySet === 1)
+                                                    <span class="text-success"><i class="fas fa-check-circle"></i> Done.</span>
                                                 @else
-                                                    <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                       class="btn btn-sm btn-outline-primary btn-block">Add Words</a>
+                                                    <a href="{{ route('teachers.questions.rearranges.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
+                                                       class="btn btn-sm btn-outline-primary btn-block">Add
+                                                        Rearrange</a>
                                                 @endif
                                             </div>
                                         </div>
@@ -74,21 +76,21 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Word</th>
+                                        <th>First Line</th>
                                         <th>Set</th>
                                         <th>Exam</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($exam->synonyms as $index => $synonym)
+                                    @foreach($exam->rearranges as $index => $rearrange)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td title="{{ $synonym->word }}">{{ Str::limit($synonym->word, 70) }}</td>
-                                            <td>{{ $synonym->set->name }}</td>
-                                            <td>{{ $synonym->exam->name }}</td>
+                                            <td title="{{ $rearrange->line_1 }}">{{ Str::limit($rearrange->line_1, 90) }}</td>
+                                            <td>{{ $rearrange->set->name }}</td>
+                                            <td title="{{ $rearrange->exam->name }}">{{ Str::limit($rearrange->exam->name, 40) }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('teachers.questions.synonyms.show', $synonym->id) }}?exam={{ encrypt($synonym->exam->id) }}&set={{ encrypt($synonym->set->id) }}"
+                                                <a href="{{ route('teachers.questions.rearranges.show', $rearrange->id) }}?exam={{ encrypt($rearrange->exam->id) }}"
                                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
                                                         class="fas fa-eye mr-1"></i> View</a>
                                             </td>
@@ -106,9 +108,9 @@
                         <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded empty-data-section shadow">
                             <h1 class="h1" title="{{ $exam->name }}">{{ Str::limit($exam->name, 30) }}</h1>
                             <h2 class="text-center text-warning display-4">Empty.</h2>
-                            <a href="{{ route('teachers.questions.synonyms.create') }}?exam={{ encrypt($exam->id) }}"
+                            <a href="{{ route('teachers.questions.rearranges.create') }}?exam={{ encrypt($exam->id) }}"
                                class="btn btn-lg mt-4 bg-gradient-primary"><i
-                                    class="fas fa-pen-alt"></i> Add Synonym Word</a>
+                                    class="fas fa-pen-alt"></i> Add Rearrange</a>
                         </div><!-- /.empty-data-section -->
                     </div><!-- /.col col-md-8 offset-md-2 -->
                 </div><!-- /.row -->

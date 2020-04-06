@@ -17,8 +17,13 @@ class CreateRearrangesTable extends Migration
             $table->id();
             $table->foreignId('exam_id');
             $table->foreignId('question_set_id');
-            $table->string('line');
-            $table->unsignedInteger('position');
+            $table->string('line_1');
+            $table->string('line_2');
+            $table->string('line_3');
+            $table->string('line_4');
+            $table->string('line_5');
+            $table->string('line_6');
+            $table->string('line_7');
             $table->timestamps();
         });
     }

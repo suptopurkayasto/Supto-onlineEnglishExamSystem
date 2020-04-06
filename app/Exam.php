@@ -27,10 +27,10 @@ class Exam extends Model
         'name', 'slug', 'user_id', 'status'
     ];
 
-    public function setNameAttribute($name)
-    {
-        return $this->attributes['name'] = '('.$name.')-'.Auth::guard('teacher')->user()->location->name;
-    }
+//    public function setNameAttribute($name)
+//    {
+//        return $this->attributes['name'] = '('.$name.')-'.Auth::guard('teacher')->user()->location->name;
+//    }
 
     public function teacher()
     {
