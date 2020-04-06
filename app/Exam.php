@@ -4,6 +4,7 @@ namespace App;
 
 use App\Model\Grammar\Grammar;
 use App\Model\Grammar\StudentGrammarQuestion;
+use App\Model\Reading\Rearrange\Rearrange;
 use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Combination\CombinationOption;
 use App\Model\Vocabulary\Definition\Definition;
@@ -115,5 +116,13 @@ class Exam extends Model
         return $this->hasMany(FillInTheGapOption::class);
     }
 
+    /**
+     * Method for Reading part
+     */
+    // Rearrange
+    public function rearranges()
+    {
+        return $this->hasMany(Rearrange::class);
+    }
 
 }
