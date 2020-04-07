@@ -193,6 +193,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
+                                            <a href="{{ route('teachers.questions.headings.index') }}"
+                                               class="nav-link {{ request()->segment(4) === 'headings' ? 'active' : '' }}">
+                                                <i class="fas fa-heading nav-icon"></i>
+                                                <p>Headings</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="{{ route('teachers.questions.rearranges.index') }}"
                                                class="nav-link {{ request()->segment(4) === 'rearranges' ? 'active' : '' }}">
                                                 <i class="fas fa-layer-group nav-icon"></i>
