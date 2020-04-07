@@ -15,6 +15,9 @@ class CreateHeadingOptionsTable extends Migration
     {
         Schema::create('heading_options', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('exam_id');
+            $table->foreignId('question_set_id');
+            $table->string('heading');
             $table->timestamps();
         });
     }
