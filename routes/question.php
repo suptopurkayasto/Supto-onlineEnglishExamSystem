@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 /**
  * All Reading Routes
  */
-// Combination option route
-//Route::resource('vocabulary/combinations/options', 'Teacher\Question\Vocabulary\Combination\CombinationOptionController', ['as' => 'combinations']);
-// Combination routes
+// Heading option route
+Route::resource('reading/headings/options', 'Teacher\Question\Reading\Heading\HeadingOptionController', ['as' => 'headings']);
+// Heading routes
 Route::resource('reading/headings', 'Teacher\Question\Reading\Heading\HeadingController');
 
 

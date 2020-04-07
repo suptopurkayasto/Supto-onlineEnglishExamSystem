@@ -1,26 +1,26 @@
 @extends('layouts.teacher')
 
-@section('title', 'All Definition Questions')
+@section('title', 'All Heading Questions')
 
 @section('content')
     @if($authTeacher->exams()->count() > 0)
         @foreach($authTeacher->exams as $exam)
-            @if($exam->definitions()->count() > 0)
+            @if($exam->headings()->count() > 0)
                 <div class="card mb-5">
                     <div
                         class="card-header">
                         <h3 class="card-title float-left index-card-title" title="{{ $exam->name }}"><span
                                 class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
-                            Definition Sentence
+                            Heading
                         </h3>
-                        @if($exam->definitions()->count() !== 20)
-                            <a href="{{ route('teachers.questions.definitions.create') }}?exam={{ encrypt($exam->id) }}"
+                        @if($exam->headings()->count() !== 20)
+                            <a href="{{ route('teachers.questions.headings.create') }}?exam={{ encrypt($exam->id) }}"
                                class="btn bg-gradient-primary float-right btn-hover-effect">
                                 <i class="fas fa-pen-alt mr-1"></i>
-                                Add Definition Sentence</a>
+                                Add Heading</a>
                         @endif
                     </div><!-- /.card-header -->
-                    @if($exam->definitions()->count() === 20 && $exam->definitionOptions()->count() === 40)
+                    @if($exam->headings()->count() === 20 && $exam->headingOptions()->count() === 40)
                         <div class="progress" style="height: 7px">
                             <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
@@ -36,33 +36,32 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)
-                                @php $definitionCountBySet = $exam->definitions()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $headingCountBySet = $exam->headings()->where('question_set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
-                                            <span class="info-box-number font-weight-normal">{{ $definitionCountBySet }} / 5 Definition Sentence.</span>
+                                            <span class="info-box-number font-weight-normal">{{ $headingCountBySet }} / 5 Heading.</span>
 
                                             <div class="progress">
                                                 <div class="progress-bar"
-                                                     style="width: {{ ($definitionCountBySet*100)/5 }}%"></div>
+                                                     style="width: {{ ($headingCountBySet*100)/5 }}%"></div>
                                             </div>
                                             <div class="progress-description">
-                                                @if($definitionCountBySet === 5)
-                                                    @if($exam->definitionOptions()->where('question_set_id', $set->id)->get()->count() === 10)
-                                                        <a href="{{ route('teachers.questions.definitions.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
+                                                @if($headingCountBySet === 5)
+                                                    @if($exam->headingOptions()->where('question_set_id', $set->id)->get()->count() === 10)
+                                                        <a href="{{ route('teachers.questions.headings.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
                                                            class="btn btn-sm btn-primary btn-block">View
-                                                            Option</a>
+                                                            extra heading</a>
                                                     @else
-                                                        <a href="{{ route('teachers.questions.definitions.options.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
+                                                        <a href="{{ route('teachers.questions.headings.options.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
                                                            class="btn btn-sm btn-outline-primary btn-block">Add
-                                                            Options</a>
+                                                            extra heading</a>
                                                     @endif
                                                 @else
-                                                    <a href="{{ route('teachers.questions.definitions.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                       class="btn btn-sm btn-outline-primary btn-block">Add Definition
-                                                        Sentence</a>
+                                                    <a href="{{ route('teachers.questions.headings.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
+                                                       class="btn btn-sm btn-outline-primary btn-block">Add Heading</a>
                                                 @endif
                                             </div>
                                         </div>
@@ -79,21 +78,21 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Definition Sentence</th>
+                                        <th>Paragraph</th>
                                         <th>Set</th>
                                         <th>Exam</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($exam->definitions as $index => $definition)
+                                    @foreach($exam->headings as $index => $heading)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td title="{{ $definition->sentence }}">{{ Str::limit($definition->sentence, 70) }}</td>
-                                            <td>{{ $definition->set->name }}</td>
-                                            <td title="{{ $definition->exam->name }}">{{ Str::limit($definition->exam->name, 40) }}</td>
+                                            <td title="{{ $heading->paragraph }}">{{ Str::limit($heading->paragraph, 70) }}</td>
+                                            <td>{{ $heading->set->name }}</td>
+                                            <td title="{{ $heading->exam->name }}">{{ Str::limit($heading->exam->name, 40) }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('teachers.questions.definitions.show', $definition->id) }}?exam={{ encrypt($definition->exam->id) }}&set={{ encrypt($definition->set->id) }}"
+                                                <a href="{{ route('teachers.questions.headings.show', $heading->id) }}?exam={{ encrypt($heading->exam->id) }}&set={{ encrypt($heading->set->id) }}"
                                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
                                                         class="fas fa-eye mr-1"></i> View</a>
                                             </td>
@@ -112,9 +111,9 @@
                         <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded empty-data-section shadow">
                             <h1 class="h1" title="{{ $exam->name }}">{{ Str::limit($exam->name, 30) }}</h1>
                             <h2 class="text-center text-warning display-4">Empty.</h2>
-                            <a href="{{ route('teachers.questions.definitions.create') }}?exam={{ encrypt($exam->id) }}"
+                            <a href="{{ route('teachers.questions.headings.create') }}?exam={{ encrypt($exam->id) }}"
                                class="btn btn-lg mt-4 bg-gradient-primary"><i
-                                    class="fas fa-pen-alt"></i> Add Definition Sentence</a>
+                                    class="fas fa-pen-alt"></i> Add Heading</a>
                         </div><!-- /.empty-data-section -->
                     </div><!-- /.col col-md-8 offset-md-2 -->
                 </div><!-- /.row -->

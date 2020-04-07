@@ -17,7 +17,7 @@ class CreateHeadingOptionsTable extends Migration
             $table->id();
             $table->foreignId('exam_id');
             $table->foreignId('question_set_id');
-            $table->string('heading');
+            $table->string('headings');
             $table->timestamps();
         });
     }
