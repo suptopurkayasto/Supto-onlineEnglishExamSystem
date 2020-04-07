@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Model\Grammar\Grammar;
+use App\Model\Reading\Heading\Heading;
 use App\Model\Reading\Rearrange\Rearrange;
 use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Combination\CombinationOption;
@@ -117,6 +118,11 @@ class QuestionSet extends Model
     public function rearranges()
     {
         return $this->hasMany(Rearrange::class);
+    }
+    // Heading
+    public function headings()
+    {
+        return $this->hasMany(Heading::class);
     }
 
 }
