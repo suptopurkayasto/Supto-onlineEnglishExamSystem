@@ -3166,7 +3166,7 @@
 }
 
 .student-list-group-container div.list-group a.list-group-item {
-  transition: all 0.4ms ease-in-out;
+  transition: all 200ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
   text-align: center;
   padding: 0.75rem 1.25rem;
   display: block;
@@ -3175,12 +3175,12 @@
 
 .student-list-group-container div.list-group a.list-group-item:hover {
   color: white;
-  background-color: #c6d93f;
+  background-color: #9bab22;
 }
 
 .table thead tr {
-  background-color: rgba(198, 217, 63, 0.2);
-  color: #c6d93f;
+  background-color: rgba(155, 171, 34, 0.2);
+  color: #9bab22;
 }
 
 .table thead tr th {
@@ -3189,18 +3189,18 @@
 }
 
 .table-heading-bg {
-  background-color: rgba(198, 217, 63, 0.3);
-  color: #c6d93f;
+  background-color: rgba(155, 171, 34, 0.3);
+  color: #9bab22;
 }
 
 table td,
 th,
 .custom-table-heading {
-  border-color: rgba(198, 217, 63, 0.1) !important;
+  border-color: rgba(155, 171, 34, 0.1) !important;
 }
 
 table tbody tr:hover {
-  background-color: rgba(198, 217, 63, 0.1) !important;
+  background-color: rgba(155, 171, 34, 0.1) !important;
 }
 
 table td {
@@ -3210,7 +3210,7 @@ table td {
 
 .login-card .card-header {
   background-color: white;
-  border-bottom: 2px solid #c6d93f;
+  border-bottom: 2px solid #9bab22;
   text-align: center;
   font-size: 30px;
   font-weight: 900;

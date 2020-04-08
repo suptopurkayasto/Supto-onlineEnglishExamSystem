@@ -56,7 +56,7 @@
 
                                 @foreach($exams as $exam)
                                     <tr class="text-center">
-                                        <td class="text-left" title="{{ $exam->name }}">{{ Str::limit($exam->name) }}</td>
+                                        <td class="text-left" title="{{ $exam->name }}">{{ Str::limit($exam->name, 20) }}</td>
                                         <td>
                                             @php $grammarStudentMarks = $authStudent->grammarMarks()->where('id', 1)->get()->first() @endphp
 
