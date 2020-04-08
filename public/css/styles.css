@@ -3165,26 +3165,22 @@
   font-size: 40px;
 }
 
-.middle-section ul li {
-  padding: 0;
-}
-
-.middle-section ul li a {
+.student-list-group-container div.list-group a.list-group-item {
   transition: all 0.4ms ease-in-out;
   text-align: center;
   padding: 0.75rem 1.25rem;
   display: block;
-  font-size: 30px;
+  font-size: 20px;
 }
 
-.middle-section ul li a:hover {
+.student-list-group-container div.list-group a.list-group-item:hover {
   color: white;
-  background-color: #007bff;
+  background-color: #c6d93f;
 }
 
 .table thead tr {
-  background-color: rgba(0, 123, 255, 0.2);
-  color: #007bff;
+  background-color: rgba(198, 217, 63, 0.2);
+  color: #c6d93f;
 }
 
 .table thead tr th {
@@ -3193,18 +3189,18 @@
 }
 
 .table-heading-bg {
-  background-color: rgba(0, 123, 255, 0.3);
-  color: #007bff;
+  background-color: rgba(198, 217, 63, 0.3);
+  color: #c6d93f;
 }
 
 table td,
 th,
 .custom-table-heading {
-  border-color: rgba(0, 123, 255, 0.1) !important;
+  border-color: rgba(198, 217, 63, 0.1) !important;
 }
 
 table tbody tr:hover {
-  background-color: rgba(0, 123, 255, 0.1) !important;
+  background-color: rgba(198, 217, 63, 0.1) !important;
 }
 
 table td {
@@ -3214,7 +3210,7 @@ table td {
 
 .login-card .card-header {
   background-color: white;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid #c6d93f;
   text-align: center;
   font-size: 30px;
   font-weight: 900;

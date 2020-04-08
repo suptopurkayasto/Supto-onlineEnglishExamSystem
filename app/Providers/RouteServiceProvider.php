@@ -120,7 +120,7 @@ class RouteServiceProvider extends ServiceProvider
     }
     protected function mapExamRoutes()
     {
-        Route::prefix('student/exams')
+        Route::prefix('student/exams/{exam}')
             ->namespace($this->namespace)
             ->middleware(['web'])
             ->group(base_path('routes/exam.php'));
