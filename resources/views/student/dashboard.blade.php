@@ -72,7 +72,7 @@
                                         <td class="font-weight-bolder">{{ __( '0' ) }}</td>
                                         <td>
                                             @if($exam->status == 'running')
-                                                <a href="{{ route('student.exam.subject', $exam->slug) }}"
+                                                <a href=""
                                                    class="btn btn-primary btn-sm">Start Quiz</a>
                                             @elseif($exam->status == 'complete')
                                                 <span class="text-success"><i class="fas fa-check"></i> Completed</span>
