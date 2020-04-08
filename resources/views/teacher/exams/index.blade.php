@@ -35,39 +35,41 @@
                             <td title="{{ $exam->created_at->diffForHumans() }}">{{ $exam->created_at->toFormattedDateString() }}</td>
                             <td>
                                 @if($exam->grammarQuestions()->count() === 100)
-                                    <span class="badge badge-success">Ok</span>
+                                    <span class="text-success font-weight-bolder"><i class="fas fa-check-circle mr-1"></i> Ready</span>
                                 @else
                                     <span class="badge badge-warning">Pending</span>
                                 @endif
                             </td>
                             <td>
-                                @if($exam->dialogs()->count() === 1 && $exam->informalEmails()->count() === 1 && $exam->formalEmails()->count() === 1)
-                                    <span class="badge badge-success">Ok</span>
+                                @if($exam->dialogs()->count() === 4 && $exam->informalEmails()->count() === 4 && $exam->formalEmails()->count() === 4 && $exam->sortQuestions()->count() === 28)
+                                    <span class="text-success font-weight-bolder"><i class="fas fa-check-circle mr-1"></i> Ready</span>
                                 @else
                                     <span class="badge badge-warning">Pending</span>
                                 @endif
                             </td>
                             <td>
-                                @php
-                                    $synonyms = $exam->synonyms()->count();
-                                    $synonymOptions = $exam->synonymOptions()->count();
+                                <?php
+                                $synonyms = $exam->synonyms()->count();
+                                $synonymOptions = $exam->synonymOptions()->count();
 
-                                    $definitions = $exam->definitions()->count();
-                                    $definitionOptions = $exam->definitionOptions()->count();
+                                $definitions = $exam->definitions()->count();
+                                $definitionOptions = $exam->definitionOptions()->count();
 
-                                    $combination = $exam->combinations()->count();
-                                    $combinationOptions = $exam->combinationOptions()->count();
+                                $combination = $exam->combinations()->count();
+                                $combinationOptions = $exam->combinationOptions()->count();
 
-                                    $fillInTheGaps = $exam->fillInTheGaps()->count();
-                                    $fillInTheGapOptions = $exam->fillInTheGapOptions()->count();
-                                @endphp
-                                @if( $synonyms == 20 && $definitions == 20 && $combination == 20 && $fillInTheGaps == 20 && $synonymOptions == 40 && $definitionOptions == 40 && $combinationOptions == 40 && fillInTheGapOptions == 40 )
-                                    <span class="badge badge-success">Ok</span>
+                                $fillInTheGaps = $exam->fillInTheGaps()->count();
+                                $fillInTheGapOptions = $exam->fillInTheGapOptions()->count();
+                                ?>
+                                @if( $synonyms == 20 && $definitions == 20 && $combination == 20 && $fillInTheGaps == 20 && $synonymOptions == 40 && $definitionOptions == 40 && $combinationOptions == 40 && $fillInTheGapOptions == 40 )
+                                    <span class="text-success font-weight-bolder"><i class="fas fa-check-circle mr-1"></i> Ready</span>
                                 @else
                                     <span class="badge badge-warning">Pending</span>
                                 @endif
                             </td>
                             <td style="width: 220px !important;">
+                                <?php
+                                ?>
                                 @if($exam->grammarQuestions()->count() === 100)
                                     @if($exam->status === 'pending' || $exam->status === 'cancel')
                                         <form action="{{ route('teacher.exams.status', $exam->id) }}" method="post"
@@ -124,7 +126,8 @@
             <div class="col col-md-8 offset-md-2">
                 <div class="empty-data-section">
                     <h2 class="text-center text-warning mt-5 display-1 font-weight">Empty.</h2>
-                    <a href="{{ route('teacher.exams.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i class="fas fa-pen-alt mr-1"></i> Add Exam</a>
+                    <a href="{{ route('teacher.exams.create') }}" class="btn btn-lg mt-4 bg-gradient-primary"><i
+                            class="fas fa-pen-alt mr-1"></i> Add Exam</a>
                 </div><!-- /.empty-data-section -->
             </div><!-- /.col col-md-8 offset-md-2 -->
         </div><!-- /.row -->

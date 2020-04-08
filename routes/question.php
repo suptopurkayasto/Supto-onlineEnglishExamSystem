@@ -3,6 +3,20 @@
 use Illuminate\Support\Facades\Route;
 
 /**
+ * All Reading Routes
+ */
+// Heading option route
+Route::resource('reading/headings/options', 'Teacher\Question\Reading\Heading\HeadingOptionController', ['as' => 'headings']);
+// Heading routes
+Route::resource('reading/headings', 'Teacher\Question\Reading\Heading\HeadingController');
+
+
+// Rearrange route
+Route::resource('reading/rearranges', 'Teacher\Question\Reading\Rearrange\RearrangeController');
+
+
+
+/**
  * All Vocabulary routes
  */
 

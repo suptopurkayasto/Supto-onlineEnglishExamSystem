@@ -7,6 +7,9 @@ use Faker\Generator as Faker;
 
 $factory->define(FillInTheGap::class, function (Faker $faker) {
     return [
-        //
+        'exam_id' => 1,
+        'question_set_id' => 1,
+        'sentence' => $faker->sentence,
+        'fill_in_the_gap_option_id' => 1
     ];
 });

@@ -18,12 +18,27 @@ class DatabaseSeeder extends Seeder
         $this->call(GroupSeeder::class);
         $this->call(QuestionSetSeeder::class);
         $this->call(StudentSeeder::class);
+
+
         $this->call(ExamSeeder::class);
+
+        // Grammar Seeder
         $this->call(GrammarQuestionSeeder::class);
 
+        // Writing Seeder
+        $this->call(DialogSeeder::class);
+        $this->call(InformalEmailSeeder::class);
+        $this->call(FormalEmailSeeder::class);
+        $this->call(SortQuestionSeeder::class);
 
-//        $exam = \App\Exam::find(1);
-//        $questionSets = \App\QuestionSet::all();
-//        $exam->sets()->attach($questionSets);
+        // Vocabulary Seeder
+        $this->call(SynonymSeeder::class);
+        $this->call(DefinitionSeeder::class);
+        $this->call(CombinationSeeder::class);
+        $this->call(FillInTheGapSeeder::class);
+
+        // Reading Seeder
+        $this->call(HeadingSeeder::class);
+        $this->call(RearrangeSeeder::class);
     }
 }

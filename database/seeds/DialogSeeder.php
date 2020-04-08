@@ -11,6 +11,8 @@ class DialogSeeder extends Seeder
      */
     public function run()
     {
-        //
+        for ($set = 1; $set <= 4; $set++) {
+            factory(\App\Model\Writing\Dialog::class)->create(['question_set_id' => $set]);
+        }
     }
 }

@@ -3,6 +3,9 @@
 namespace App;
 
 use App\Model\Grammar\Grammar;
+use App\Model\Reading\Heading\Heading;
+use App\Model\Reading\Heading\HeadingOption;
+use App\Model\Reading\Rearrange\Rearrange;
 use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Combination\CombinationOption;
 use App\Model\Vocabulary\Definition\Definition;
@@ -106,6 +109,27 @@ class QuestionSet extends Model
     public function fillInTheGapOptions()
     {
         return $this->hasMany(FillInTheGapOption::class);
+    }
+
+    /**
+     * Method for Reading part
+     */
+
+    // Rearrange
+    public function rearranges()
+    {
+        return $this->hasMany(Rearrange::class);
+    }
+    // Heading
+    public function headings()
+    {
+        return $this->hasMany(Heading::class);
+    }
+
+    // Heading Option
+    public function headingOptions()
+    {
+        return $this->hasMany(HeadingOption::class);
     }
 
 }
