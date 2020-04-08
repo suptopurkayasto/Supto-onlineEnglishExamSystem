@@ -54,6 +54,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapQuestionRoutes();
 
         $this->mapStudentRoutes();
+
+        $this->mapExamRoutes();
     }
 
     /**
@@ -115,5 +117,12 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->middleware(['web'])
             ->group(base_path('routes/student.php'));
+    }
+    protected function mapExamRoutes()
+    {
+        Route::prefix('student/exams')
+            ->namespace($this->namespace)
+            ->middleware(['web'])
+            ->group(base_path('routes/exam.php'));
     }
 }
