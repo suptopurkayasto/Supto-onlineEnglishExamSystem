@@ -21,10 +21,20 @@ class DatabaseSeeder extends Seeder
 
 
         $this->call(ExamSeeder::class);
+
+        // Grammar Seeder
         $this->call(GrammarQuestionSeeder::class);
+
+        // Writing Seeder
         $this->call(DialogSeeder::class);
         $this->call(InformalEmailSeeder::class);
         $this->call(FormalEmailSeeder::class);
         $this->call(SortQuestionSeeder::class);
+
+        // Vocabulary Seeder
+        $this->call(SynonymSeeder::class);
+        $this->call(DefinitionSeeder::class);
+        $this->call(CombinationSeeder::class);
+        $this->call(FillInTheGapSeeder::class);
     }
 }

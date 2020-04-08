@@ -11,6 +11,11 @@ class DefinitionSeeder extends Seeder
      */
     public function run()
     {
-        //
+        for ($set = 1; $set <= 4; $set++) {
+            for ($number = 1; $number <= 5; $number++) {
+                factory(\App\Model\Vocabulary\Definition\Definition::class)->create(['question_set_id' => $set, 'definition_option_id' => $number]);
+            }
+            factory(\App\Model\Vocabulary\Definition\DefinitionOption::class, 10)->create(['question_set_id' => $set]);
+        }
     }
 }
