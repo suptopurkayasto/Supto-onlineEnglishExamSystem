@@ -12,6 +12,8 @@ class StudentSeeder extends Seeder
     public function run()
     {
         factory(\App\Student::class)->create([
+            'name' => 'Supto Purkayasto',
+            'email' => 'suptopurkayasto@gmail.com',
             'location_id' => 1,
             'group_id' => 1,
             'section_id' => 1,
