@@ -36,5 +36,9 @@ class DatabaseSeeder extends Seeder
         $this->call(DefinitionSeeder::class);
         $this->call(CombinationSeeder::class);
         $this->call(FillInTheGapSeeder::class);
+
+        // Reading Seeder
+        $this->call(HeadingSeeder::class);
+        $this->call(RearrangeSeeder::class);
     }
 }

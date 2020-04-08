@@ -16,7 +16,6 @@ class SynonymSeeder extends Seeder
                 factory(\App\Model\Vocabulary\Synonym\Synonym::class)->create(['question_set_id' => $set, 'synonym_option_id' => $number]);
             }
             factory(\App\Model\Vocabulary\Synonym\SynonymOption::class, 10)->create(['question_set_id' => $set]);
-
         }
     }
 }
