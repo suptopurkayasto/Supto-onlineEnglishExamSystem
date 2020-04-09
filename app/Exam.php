@@ -40,7 +40,7 @@ class Exam extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function grammarQuestions()
+    public function grammars()
     {
         return $this->hasMany(Grammar::class);
     }
@@ -48,10 +48,6 @@ class Exam extends Model
     public function sets()
     {
         return $this->belongsToMany(QuestionSet::class, 'exam_question_set', 'exam_id');
-    }
-    public function students()
-    {
-        return $this->hasMany(StudentGrammarQuestion::class);
     }
 
     // Dialog

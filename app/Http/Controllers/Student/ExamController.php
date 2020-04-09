@@ -54,7 +54,15 @@ class ExamController extends Controller
     {
         if ($this->validExamRequest($exam)) {
 
-            return $request->all();
+            $student = Auth::guard('student')->user();
+            foreach ($request->except('_token') as $index => $value) {
+                $student->studentGrammars()->create([
+                    'grammar_id' => $index,
+                    'question_set_id' => $student->set->id,
+                    'exam_id' => $exam->id,
+                    'answer' => $value
+                ]);
+            }
 
         } else {
             alert()->error('😒', 'You can\'t do this.');

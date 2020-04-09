@@ -19,7 +19,7 @@
                                                 <li class="mb-2">
                                                     <div class="custom-control custom-radio">
                                                         <?php $id = Str::random() ?>
-                                                        <input type="radio" id="{{ $id }}" name="question{{ $index+1 }}"
+                                                        <input type="radio" id="{{ $id }}" name="{{ $index+1 }}"
                                                                class="custom-control-input" value="{{ $grammar->option_1 }}">
                                                         <label class="custom-control-label"
                                                                for="{{ $id }}">{{ $grammar->option_1 }}</label>
@@ -28,7 +28,7 @@
                                                 <li class="mb-2">
                                                     <div class="custom-control custom-radio">
                                                         <?php $id = Str::random() ?>
-                                                        <input type="radio" id="{{ $id }}" name="question{{ $index+1 }}"
+                                                        <input type="radio" id="{{ $id }}" name="{{ $index+1 }}"
                                                                class="custom-control-input" value="{{ $grammar->option_2 }}">
                                                         <label class="custom-control-label"
                                                                for="{{ $id }}">{{ $grammar->option_2 }}</label>
@@ -37,7 +37,7 @@
                                                 <li>
                                                     <div class="custom-control custom-radio">
                                                         <?php $id = Str::random() ?>
-                                                        <input type="radio" id="{{ $id }}" name="question{{ $index+1 }}"
+                                                        <input type="radio" id="{{ $id }}" name="{{ $index+1 }}"
                                                                class="custom-control-input" value="{{ $grammar->option_3 }}">
                                                         <label class="custom-control-label"
                                                                for="{{ $id }}">{{ $grammar->option_3 }}</label>

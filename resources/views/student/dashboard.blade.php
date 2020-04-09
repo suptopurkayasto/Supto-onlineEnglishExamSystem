@@ -58,13 +58,13 @@
                                     <tr class="text-center">
                                         <td class="text-left" title="{{ $exam->name }}">{{ Str::limit($exam->name, 20) }}</td>
                                         <td>
-                                            @php $grammarStudentMarks = $authStudent->grammarMarks()->where('id', 1)->get()->first() @endphp
+{{--                                            @php $grammarStudentMarks = $authStudent->grammarMarks()->where('id', 1)->get()->first() @endphp--}}
 
-                                            @if($grammarStudentMarks != null)
-                                                {{ $grammarStudentMarks->got_marks }}
-                                            @else
-                                                0
-                                            @endif
+{{--                                            @if($grammarStudentMarks != null)--}}
+{{--                                                {{ $grammarStudentMarks->got_marks }}--}}
+{{--                                            @else--}}
+{{--                                                0--}}
+{{--                                            @endif--}}
                                         </td>
                                         <td>0</td>
                                         <td>0</td>
