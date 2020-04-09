@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Model\Grammar\StudentGrammarQuestionExamGotMarks;
+use App\Model\Grammar\Student\StudentGrammar;
 use App\Model\Writing\Dialog;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -73,11 +73,10 @@ class Student extends Authenticatable
         return $this->belongsTo(QuestionSet::class, 'question_set_id');
     }
 
-    public function grammarMarks()
+
+    // StudentGrammar
+    public function studentGrammars()
     {
-        return $this->hasMany(StudentGrammarQuestionExamGotMarks::class);
+        return $this->hasMany(StudentGrammar::class);
     }
-
-
-    // Dialog
 }

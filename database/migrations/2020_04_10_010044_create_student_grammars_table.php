@@ -15,6 +15,11 @@ class CreateStudentGrammarsTable extends Migration
     {
         Schema::create('student_grammars', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('grammar_id');
+            $table->foreignId('student_id');
+            $table->foreignId('exam_id');
+            $table->foreignId('question_set_id');
+            $table->string('answer');
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Model\Grammar\Grammar;
+use App\Model\Grammar\Student\StudentGrammar;
 use App\Model\Grammar\StudentGrammarQuestion;
 use App\Model\Reading\Heading\Heading;
 use App\Model\Reading\Heading\HeadingOption;
@@ -136,6 +137,13 @@ class Exam extends Model
     public function headingOptions()
     {
         return $this->hasMany(HeadingOption::class);
+    }
+
+
+    // StudentGrammar
+    public function studentGrammars()
+    {
+        return $this->hasMany(StudentGrammar::class);
     }
 
 }
