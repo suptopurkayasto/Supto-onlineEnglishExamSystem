@@ -3153,6 +3153,17 @@
     animation-iteration-count: 1 !important;
   }
 }
+body {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.btn-primary {
+  color: white;
+}
+
 .timerContainer {
   background-color: white;
   position: fixed;
