@@ -5,11 +5,18 @@ namespace App\Http\Controllers\Student;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Grammar\Grammar;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class ExamController extends Controller
 {
+    /**
+     * @param Exam $exam
+     * @return Factory|RedirectResponse|View
+     */
     public function showTopic(Exam $exam)
     {
         if ($this->validExamRequest($exam)) {
@@ -20,6 +27,11 @@ class ExamController extends Controller
         }
     }
 
+
+    /**
+     * @param Exam $exam
+     * @return Factory|RedirectResponse|View
+     */
     public function showGrammarQuestion(Exam $exam)
     {
         if ($this->validExamRequest($exam)) {
@@ -33,6 +45,11 @@ class ExamController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param Exam $exam
+     * @return array|RedirectResponse
+     */
     public function submitGrammarQuestion(Request $request, Exam $exam)
     {
         if ($this->validExamRequest($exam)) {
