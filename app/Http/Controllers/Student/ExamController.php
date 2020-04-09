@@ -13,6 +13,10 @@ use Illuminate\View\View;
 
 class ExamController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:student');
+    }
     /**
      * @param Exam $exam
      * @return Factory|RedirectResponse|View
@@ -20,7 +24,8 @@ class ExamController extends Controller
     public function showTopic(Exam $exam)
     {
         if ($this->validExamRequest($exam)) {
-            return view('student.exam.show-topic', compact('exam'));
+            return view('student.exam.show-topic', compact('exam'))
+                ->with('authStudent', Auth::guard('student')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->route('student.dashboard');
@@ -37,7 +42,7 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-grammar-question', compact('exam'))
-                ->with('grammars', Grammar::where('question_set_id', $authStudent->set->id)->get());
+                ->with('grammars', $exam->grammars()->where('question_set_id', $authStudent->set->id)->get());
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -53,15 +58,37 @@ class ExamController extends Controller
     public function submitGrammarQuestion(Request $request, Exam $exam)
     {
         if ($this->validExamRequest($exam)) {
-
             $student = Auth::guard('student')->user();
-            foreach ($request->except('_token') as $index => $value) {
-                $student->studentGrammars()->create([
-                    'grammar_id' => $index,
-                    'question_set_id' => $student->set->id,
+
+            $checkStudentGrammarSubmit = $student->studentGrammars()->where('exam_id', $exam->id)->get()->count();
+            if ($checkStudentGrammarSubmit === 0) {
+                // Store Student Grammar Answer
+                foreach ($request->except('_token') as $index => $value) {
+                    $student->studentGrammars()->create([
+                        'grammar_id' => $index,
+                        'question_set_id' => $student->set->id,
+                        'exam_id' => $exam->id,
+                        'answer' => $value
+                    ]);
+                }
+
+
+                // Generate grammar marks
+                $marks = 0;
+                foreach ($request->except('_token') as $index => $value) {
+                    $grammar = Grammar::find($index);
+                    if ($grammar->answer == $value) {
+                        $marks += 1;
+                    }
+                }
+                $student->marks()->create([
                     'exam_id' => $exam->id,
-                    'answer' => $value
+                    'question_set_id' => $student->set->id,
+                    'grammar' => $marks
                 ]);
+            } else {
+                alert()->error('😒', 'You will no longer be able to resubmit');
+                return redirect()->route('student.exam.show.topic', $exam->id);
             }
 
         } else {
