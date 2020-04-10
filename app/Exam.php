@@ -15,6 +15,7 @@ use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\Definition\DefinitionOption;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGap;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGapOption;
+use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
 use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Vocabulary\Synonym\SynonymOption;
 use App\Model\Writing\Dialog;
@@ -147,6 +148,16 @@ class Exam extends Model
     public function marks()
     {
         return $this->hasMany(Marks::class);
+    }
+
+
+    /**
+     * Student Vocabulary
+     */
+    // Synonym
+    public function studentSynonyms()
+    {
+        return $this->hasMany(StudentSynonym::class);
     }
 
 }

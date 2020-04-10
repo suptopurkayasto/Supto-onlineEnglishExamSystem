@@ -15,6 +15,11 @@ class CreateStudentSynonymsTable extends Migration
     {
         Schema::create('student_synonyms', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('student_id');
+            $table->foreignId('exam_id');
+            $table->foreignId('question_set_id');
+            $table->foreignId('synonym_id');
+            $table->string('answer');
             $table->timestamps();
         });
     }
