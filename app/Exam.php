@@ -49,7 +49,7 @@ class Exam extends Model
 
     public function sets()
     {
-        return $this->belongsToMany(QuestionSet::class, 'exam_question_set', 'exam_id');
+        return $this->belongsToMany(Set::class);
     }
 
     // Dialog

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Teacher\Question\Reading\Heading;
 use App\Model\Reading\Heading\Heading;
 use App\Http\Controllers\Controller;
 use App\Model\Reading\Heading\HeadingOption;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ class HeadingController extends Controller
     public function create()
     {
         return view('teacher.questions.reading.rearrange.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('questionSets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -63,7 +63,7 @@ class HeadingController extends Controller
             toast('Heading has been successfully added','success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add heading to this '. QuestionSet::find($setId)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add heading to this '. Set::find($setId)->name .' set.');
         }
         return redirect()->back();
     }
@@ -78,7 +78,7 @@ class HeadingController extends Controller
     {
         if ($this->validHeadingRequest($heading)) {
             return view('teacher.questions.reading.heading.show', compact('heading'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -96,7 +96,7 @@ class HeadingController extends Controller
     {
         if ($this->validHeadingRequest($heading)) {
             return view('teacher.questions.reading.heading.edit', compact('heading'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -132,7 +132,7 @@ class HeadingController extends Controller
                 return redirect(route('teachers.questions.headings.show', $heading->id).'?exam='.request()->get('exam').'&set='.request()->get('set'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add definition sentence to this '. QuestionSet::find($set->id)->name .' set.');
+                alert()->info('Fail!', 'You can no longer add definition sentence to this '. Set::find($set->id)->name .' set.');
                 return redirect()->back();
             }
 

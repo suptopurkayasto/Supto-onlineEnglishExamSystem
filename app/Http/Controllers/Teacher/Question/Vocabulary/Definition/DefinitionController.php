@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Teacher\Question\Vocabulary\Definition;
 use App\Http\Controllers\Controller;
 use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\Definition\DefinitionOption;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,7 +38,7 @@ class DefinitionController extends Controller
     public function create()
     {
         return view('teacher.questions.vocabulary.definition.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('questionSets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -66,7 +66,7 @@ class DefinitionController extends Controller
             toast('Definition sentence has been successfully added','success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add synonym word to this '. QuestionSet::find($setId)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add synonym word to this '. Set::find($setId)->name .' set.');
         }
         return redirect()->back();
     }
@@ -81,7 +81,7 @@ class DefinitionController extends Controller
     {
         if ($this->validDefinitionRequest($definition)) {
             return view('teacher.questions.vocabulary.definition.show', compact('definition'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -100,7 +100,7 @@ class DefinitionController extends Controller
 
         if ($this->validDefinitionRequest($definition)) {
             return view('teacher.questions.vocabulary.definition.edit', compact('definition'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -136,7 +136,7 @@ class DefinitionController extends Controller
                 return redirect(route('teachers.questions.definitions.show', $definition->id).'?exam='.request()->get('exam').'&set='.request()->get('set'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add definition sentence to this '. QuestionSet::find($set->id)->name .' set.');
+                alert()->info('Fail!', 'You can no longer add definition sentence to this '. Set::find($set->id)->name .' set.');
                 return redirect()->back();
             }
 

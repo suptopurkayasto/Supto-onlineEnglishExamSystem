@@ -16,14 +16,14 @@ class DatabaseSeeder extends Seeder
         $this->call(TeacherSeeder::class);
         $this->call(SectionSeeder::class);
         $this->call(GroupSeeder::class);
-        $this->call(QuestionSetSeeder::class);
+        $this->call(SetSeeder::class);
         $this->call(StudentSeeder::class);
 
 
         $this->call(ExamSeeder::class);
 
         // Grammar Seeder
-        $this->call(GrammarQuestionSeeder::class);
+        $this->call(GrammarSeeder::class);
 
         // Writing Seeder
         $this->call(DialogSeeder::class);

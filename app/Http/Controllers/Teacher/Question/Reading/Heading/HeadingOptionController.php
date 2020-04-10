@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Teacher\Question\Reading\Heading;
 
 use App\Model\Reading\Heading\HeadingOption;
 use App\Http\Controllers\Controller;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -63,7 +63,7 @@ class HeadingOptionController extends Controller
             return redirect()->back();
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add extra heading to this '. QuestionSet::find($setId)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add extra heading to this '. Set::find($setId)->name .' set.');
             return redirect()->back();
         }
     }

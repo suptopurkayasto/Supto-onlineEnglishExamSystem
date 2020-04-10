@@ -3,7 +3,7 @@
 namespace App\Model\Marks;
 
 use App\Exam;
-use App\QuestionSet;
+use App\Set;
 use App\Student;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,6 +22,6 @@ class Marks extends Model
 
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class);
+        return $this->belongsTo(Set::class);
     }
 }

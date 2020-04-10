@@ -6,7 +6,7 @@ use App\Exam;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Student\StudentCreateRequest;
-use App\QuestionSet;
+use App\Set;
 use App\Section;
 use App\Student;
 use App\Teacher;
@@ -63,7 +63,7 @@ class StudentController extends Controller
     public function store(StudentCreateRequest $request)
     {
         $data = $request->only('name', 'email');
-        $data['question_set_id'] = QuestionSet::all()->random()->id;
+        $data['question_set_id'] = Set::all()->random()->id;
         $data['location_id'] = Auth::guard('teacher')->user()->location->id;
         $data['group_id'] = $request->group;
         $data['section_id'] = $request->section;

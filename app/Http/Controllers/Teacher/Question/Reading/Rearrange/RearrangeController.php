@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Teacher\Question\Reading\Rearrange;
 
 use App\Model\Reading\Rearrange\Rearrange;
 use App\Http\Controllers\Controller;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class RearrangeController extends Controller
     public function create()
     {
         return view('teacher.questions.reading.rearrange.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('questionSets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -60,7 +60,7 @@ class RearrangeController extends Controller
 
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add rearrange to this ' . QuestionSet::find($setId)->name . ' set.');
+            alert()->info('Fail!', 'You can no longer add rearrange to this ' . Set::find($setId)->name . ' set.');
             return redirect()->back();
         }
     }
@@ -75,7 +75,7 @@ class RearrangeController extends Controller
     {
         if ($this->validRearrangeRequest($rearrange)) {
             return view('teacher.questions.reading.rearrange.show', compact('rearrange'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -93,7 +93,7 @@ class RearrangeController extends Controller
     {
         if ($this->validRearrangeRequest($rearrange)) {
             return view('teacher.questions.reading.rearrange.edit', compact('rearrange'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -126,7 +126,7 @@ class RearrangeController extends Controller
                 return redirect(route('teachers.questions.rearranges.show', $rearrange->id) . '?exam=' . request()->get('exam'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add rearrange to this ' . QuestionSet::find($set)->name . ' set.');
+                alert()->info('Fail!', 'You can no longer add rearrange to this ' . Set::find($set)->name . ' set.');
                 return redirect()->back();
             }
         } else {

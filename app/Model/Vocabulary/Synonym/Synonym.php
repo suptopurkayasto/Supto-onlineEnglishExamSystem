@@ -4,7 +4,7 @@ namespace App\Model\Vocabulary\Synonym;
 
 use App\Exam;
 use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Database\Eloquent\Model;
 
 class Synonym extends Model
@@ -17,7 +17,7 @@ class Synonym extends Model
     }
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class, 'question_set_id');
+        return $this->belongsTo(Set::class, 'question_set_id');
     }
     public function answer()
     {

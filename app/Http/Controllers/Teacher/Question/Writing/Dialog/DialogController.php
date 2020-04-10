@@ -6,7 +6,7 @@ use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\WritingPart;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -40,7 +40,7 @@ class DialogController extends Controller
     public function create()
     {
         return view('teacher.questions.writing.dialogs.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('questionSets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -64,7 +64,7 @@ class DialogController extends Controller
             toast('Dialog has been successfully added','success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add dialog to this '. QuestionSet::find($set)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add dialog to this '. Set::find($set)->name .' set.');
         }
         return redirect()->back();
     }
@@ -80,7 +80,7 @@ class DialogController extends Controller
         if ($this->validDialogRequest($dialog)) {
             return view('teacher.questions.writing.dialogs.show', compact('dialog'))
                 ->with('authTeacherExams', Auth::guard('teacher')->user()->exams)
-                ->with('questionSets', QuestionSet::all());
+                ->with('questionSets', Set::all());
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->back();
@@ -98,7 +98,7 @@ class DialogController extends Controller
         if ($this->validDialogRequest($dialog)) {
             return view('teacher.questions.writing.dialogs.edit', compact('dialog'))
                 ->with('authTeacherExams', Auth::guard('teacher')->user()->exams()->latest()->get())
-                ->with('questionSets', QuestionSet::all());
+                ->with('questionSets', Set::all());
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->back();

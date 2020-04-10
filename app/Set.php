@@ -24,7 +24,7 @@ use App\Model\Writing\SortQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class QuestionSet extends Model
+class Set extends Model
 {
     protected $guarded = [];
 
@@ -40,7 +40,7 @@ class QuestionSet extends Model
 
     public function exams()
     {
-        return $this->belongsToMany(Exam::class, 'exam_question_set', 'question_set_id');
+        return $this->belongsToMany(Exam::class);
     }
     public function students()
     {

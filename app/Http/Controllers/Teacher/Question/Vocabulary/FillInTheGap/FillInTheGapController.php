@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Teacher\Question\Vocabulary\FillInTheGap;
 use App\Http\Controllers\Controller;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGap;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGapOption;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,7 +38,7 @@ class FillInTheGapController extends Controller
     public function create()
     {
         return view('teacher.questions.vocabulary.fill-in-the-gap.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('questionSets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -66,7 +66,7 @@ class FillInTheGapController extends Controller
             toast('Fill in the gap sentence has been successfully added','success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add fill in the gap sentence to this '. QuestionSet::find($setId)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add fill in the gap sentence to this '. Set::find($setId)->name .' set.');
         }
         return redirect()->back();
     }
@@ -81,7 +81,7 @@ class FillInTheGapController extends Controller
     {
         if ($this->validFillInTheGapRequest($fillInTheGap)) {
             return view('teacher.questions.vocabulary.fill-in-the-gap.show', compact('fillInTheGap'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -99,7 +99,7 @@ class FillInTheGapController extends Controller
     {
         if ($this->validFillInTheGapRequest($fillInTheGap)) {
             return view('teacher.questions.vocabulary.fill-in-the-gap.edit', compact('fillInTheGap'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -136,7 +136,7 @@ class FillInTheGapController extends Controller
                 return redirect(route('teachers.questions.fill-in-the-gaps.show', $fillInTheGap->id).'?exam='.request()->get('exam').'&set='.request()->get('set'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add fill in the gap sentence to this '. QuestionSet::find($set->id)->name .' set.');
+                alert()->info('Fail!', 'You can no longer add fill in the gap sentence to this '. Set::find($set->id)->name .' set.');
                 return redirect()->back();
             }
 

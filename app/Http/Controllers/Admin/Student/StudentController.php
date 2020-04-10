@@ -7,7 +7,7 @@ use App\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Student\StudentCreateRequest;
 use App\Location;
-use App\QuestionSet;
+use App\Set;
 use App\Section;
 use App\Student;
 use Illuminate\Http\Request;
@@ -60,7 +60,7 @@ class StudentController extends Controller
         $data['location_id'] = $request->location;
         $data['group_id'] = $request->group;
         $data['section_id'] = $request->section;
-        $data['question_set_id'] = QuestionSet::all()->random()->id;
+        $data['question_set_id'] = Set::all()->random()->id;
 
         $data['id_number'] = Str::upper(Str::random(1)) . now('asia/dhaka')->format('sms') . Str::upper(Str::random(1));
 

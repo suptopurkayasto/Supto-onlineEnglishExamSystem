@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Teacher\Question\Writing\SortQuestion;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Writing\SortQuestion;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -42,7 +42,7 @@ class SortQuestionController extends Controller
     public function create()
     {
         return view('teacher.questions.writing.sort-questions.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('questionSets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -66,7 +66,7 @@ class SortQuestionController extends Controller
             toast('Sort Question has been successfully added','success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add sort question to this '. QuestionSet::find($set)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add sort question to this '. Set::find($set)->name .' set.');
         }
         return redirect()->back();
     }
@@ -81,7 +81,7 @@ class SortQuestionController extends Controller
     {
         if ($this->validSortQuestionRequest($sortQuestion)) {
             return view('teacher.questions.writing.sort-questions.show', compact('sortQuestion'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -99,7 +99,7 @@ class SortQuestionController extends Controller
     {
         if ($this->validSortQuestionRequest($sortQuestion)) {
             return view('teacher.questions.writing.sort-questions.edit', compact('sortQuestion'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -131,7 +131,7 @@ class SortQuestionController extends Controller
                 return redirect(route('teachers.questions.sort-questions.show', $sortQuestion->id).'?exam='.\request()->get('exam'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add sort question to this '. QuestionSet::find($set)->name .' set.');
+                alert()->info('Fail!', 'You can no longer add sort question to this '. Set::find($set)->name .' set.');
             }
             return redirect()->back();
 

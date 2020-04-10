@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionSetsTable extends Migration
+class CreateSetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateQuestionSetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('question_sets', function (Blueprint $table) {
+        Schema::create('sets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();

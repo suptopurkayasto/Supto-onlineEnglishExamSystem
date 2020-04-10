@@ -4,7 +4,7 @@ namespace App\Model\Vocabulary\Synonym\Student;
 
 use App\Exam;
 use App\Model\Vocabulary\Synonym\Synonym;
-use App\QuestionSet;
+use App\Set;
 use App\Student;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +22,7 @@ class StudentSynonym extends Model
     }
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class);
+        return $this->belongsTo(Set::class);
     }
     public function synonym()
     {

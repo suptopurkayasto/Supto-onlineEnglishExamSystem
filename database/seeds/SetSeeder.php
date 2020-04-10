@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class QuestionSetSeeder extends Seeder
+class SetSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,14 +11,14 @@ class QuestionSetSeeder extends Seeder
      */
     public function run()
     {
-        \App\QuestionSet::create(['name' => 'A']);
-        \App\QuestionSet::create(['name' => 'B']);
-        \App\QuestionSet::create(['name' => 'C']);
-        \App\QuestionSet::create(['name' => 'D']);
+        \App\Set::create(['name' => 'A']);
+        \App\Set::create(['name' => 'B']);
+        \App\Set::create(['name' => 'C']);
+        \App\Set::create(['name' => 'D']);
 
-//        factory(\App\QuestionSet::class, 5)->create();
+//        factory(\App\Set::class, 5)->create();
 
-//        \App\QuestionSet::all()->each(function ($questionSet) {
+//        \App\Set::all()->each(function ($questionSet) {
 //            for ($grammarQuestionLimit = 1; $grammarQuestionLimit <= 25; $grammarQuestionLimit++) {
 //                $questionSet->grammarQuestions()->save(factory(\App\Model\Grammar\Grammar::class)->make());
 //            }

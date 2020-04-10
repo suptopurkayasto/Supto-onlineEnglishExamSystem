@@ -4,7 +4,7 @@ namespace App\Model\Grammar\Student;
 
 use App\Exam;
 use App\Model\Grammar\Grammar;
-use App\QuestionSet;
+use App\Set;
 use App\Student;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,6 +27,6 @@ class StudentGrammar extends Model
 
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class, 'question_set_id');
+        return $this->belongsTo(Set::class, 'question_set_id');
     }
 }

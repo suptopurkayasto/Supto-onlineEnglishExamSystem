@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Teacher\Question\Vocabulary\Combination;
 
 use App\Http\Controllers\Controller;
 use App\Model\Vocabulary\Combination\CombinationOption;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -64,7 +64,7 @@ class CombinationOptionController extends Controller
             return redirect()->back();
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add Option to this '. QuestionSet::find($setId)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add Option to this '. Set::find($setId)->name .' set.');
             return redirect()->back();
         }
     }

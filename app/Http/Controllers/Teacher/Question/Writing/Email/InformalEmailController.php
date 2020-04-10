@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\InformalEmail;
 use App\Model\Writing\WritingPart;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -40,7 +40,7 @@ class InformalEmailController extends Controller
     public function create()
     {
         return view('teacher.questions.writing.emails.informal.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('questionSets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -63,7 +63,7 @@ class InformalEmailController extends Controller
             toast('Informal email has been successfully added','success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add informal email to this '. QuestionSet::find($set)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add informal email to this '. Set::find($set)->name .' set.');
         }
         return redirect()->back();
     }
@@ -78,7 +78,7 @@ class InformalEmailController extends Controller
     {
         if ($this->validInformalEmailRequest($informalEmail)) {
             return view('teacher.questions.writing.emails.informal.show', compact('informalEmail'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -96,7 +96,7 @@ class InformalEmailController extends Controller
     {
         if ($this->validInformalEmailRequest($informalEmail)) {
             return view('teacher.questions.writing.emails.informal.edit', compact('informalEmail'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
         } else {
             alert()->error('😒', 'You can\'t do this.');

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class GrammarQuestionSeeder extends Seeder
+class GrammarSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,7 @@ class GrammarQuestionSeeder extends Seeder
     {
         for ($gqs = 1; $gqs <= 4; $gqs++) {
             for ($gq = 0; $gq < 25; $gq++) {
-                factory(\App\Model\Grammar\Grammar::class)->create(['question_set_id' => $gqs]);
+                factory(\App\Model\Grammar\Grammar::class)->create(['set_id' => $gqs]);
             }
         }
 

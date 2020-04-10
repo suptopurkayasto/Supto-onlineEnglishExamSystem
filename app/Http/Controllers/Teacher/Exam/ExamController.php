@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Teacher\Exam;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Exam\ExamCreateRequest;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,7 +51,7 @@ class ExamController extends Controller
     public function store(Request $request)
     {
         $createdExam = Auth::guard('teacher')->user()->exams()->create($this->validateExamCreateRequest($request));
-        $createdExam->sets()->attach(QuestionSet::all());
+        $createdExam->sets()->attach(Set::all());
 
         toast('Exam has been successfully added','success');
         session()->flash('success_audio');

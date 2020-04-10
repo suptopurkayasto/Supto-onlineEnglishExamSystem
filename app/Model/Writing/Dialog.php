@@ -3,7 +3,7 @@
 namespace App\Model\Writing;
 
 use App\Exam;
-use App\QuestionSet;
+use App\Set;
 use App\Student;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +17,7 @@ class Dialog extends Model
     }
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class, 'question_set_id');
+        return $this->belongsTo(Set::class, 'question_set_id');
     }
 
     public function writingPart()

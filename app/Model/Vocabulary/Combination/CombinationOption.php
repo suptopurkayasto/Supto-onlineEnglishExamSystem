@@ -3,7 +3,7 @@
 namespace App\Model\Vocabulary\Combination;
 
 use App\Exam;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Database\Eloquent\Model;
 
 class CombinationOption extends Model
@@ -16,7 +16,7 @@ class CombinationOption extends Model
     }
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class, 'question_set_id');
+        return $this->belongsTo(Set::class, 'question_set_id');
     }
     public function combination()
     {

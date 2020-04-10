@@ -6,18 +6,18 @@
 
     @if($authTeacher->exams()->count() > 0)
         @foreach($authTeacher->exams as $exam)
-            @if($exam->grammarQuestions()->count() > 0)
-                <div class="card mb-5">
+            @if($exam->grammars()->count() > 0)
+                <div class="card mb-5 index-card">
                     <div class="card-header">
-                        <h3 class="card-title float-md-left index-card-title {{ $exam->grammarQuestions()->count() === 100 ? 'text-success' : 'text-warning' }}"
+                        <h3 class="card-title float-md-left index-card-title {{ $exam->grammars()->count() === 100 ? 'text-success' : 'text-warning' }}"
                             title="{{ $exam->name }}">
                             <span>{{ Str::limit($exam->name, 30) }}</span>
                             <span class="font-weight-bolder ml-2">Grammar Questions</span>
-                            @if($exam->grammarQuestions()->count() === 100)
+                            @if($exam->grammars()->count() === 100)
                                 <i class="fas fa-check-circle"></i>
                             @endif
                         </h3>
-                        @if($exam->grammarQuestions()->count() !== 100)
+                        @if($exam->grammars()->count() !== 100)
                             <a href="{{ route('teachers.questions.grammars.create') }}?exam={{ encrypt($exam->id) }}"
                                class="btn btn-primary float-md-right btn-hover-effect"><i
                                     class="fas fa-pen-alt mr-1"></i>
@@ -25,7 +25,7 @@
                                 Grammar Question</a>
                         @endif
                     </div><!-- /.card-header -->
-                    @if($exam->grammarQuestions()->count() === 100)
+                    @if($exam->grammars()->count() === 100)
                         <div class="progress" style="height: 7px">
                             <div class="progress-bar bg-success"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
@@ -41,21 +41,21 @@
                     <div class="card-body">
                         <div class="row count-section">
                             @foreach($exam->sets as $set)
-                                @php $grammarQuestionsCountBySet = $exam->grammarQuestions()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $grammarsCountBySet = $exam->grammars()->where('question_set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
                                             <span
-                                                class="info-box-number font-weight-normal">{{ $grammarQuestionsCountBySet }}/25 questions</span>
+                                                class="info-box-number font-weight-normal">{{ $grammarsCountBySet }}/25 questions</span>
 
                                             <div class="progress">
                                                 <div class="progress-bar"
-                                                     style="width: {{ ($grammarQuestionsCountBySet*100)/25 }}%"></div>
+                                                     style="width: {{ ($grammarsCountBySet*100)/25 }}%"></div>
                                             </div>
                                             <span class="progress-description">
-                                                @if($grammarQuestionsCountBySet < 25)
+                                                @if($grammarsCountBySet < 25)
                                                     <a href="{{ route('teachers.questions.grammars.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id)}}"
                                                        class="btn-link"><i class="fas fa-pen"></i> Add Question</a>
                                                 @else
@@ -81,7 +81,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($exam->grammarQuestions as $index => $grammarQuestion)
+                                    @foreach($exam->grammars as $index => $grammarQuestion)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td title="{{ $grammarQuestion->question }}">{{ Str::limit($grammarQuestion->question, 90) }}</td>

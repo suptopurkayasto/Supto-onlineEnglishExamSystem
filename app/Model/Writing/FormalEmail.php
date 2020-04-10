@@ -3,7 +3,7 @@
 namespace App\Model\Writing;
 
 use App\Exam;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Database\Eloquent\Model;
 
 class FormalEmail extends Model
@@ -16,6 +16,6 @@ class FormalEmail extends Model
     }
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class, 'question_set_id');
+        return $this->belongsTo(Set::class, 'question_set_id');
     }
 }

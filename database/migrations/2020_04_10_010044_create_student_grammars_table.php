@@ -18,7 +18,7 @@ class CreateStudentGrammarsTable extends Migration
             $table->foreignId('grammar_id');
             $table->foreignId('student_id');
             $table->foreignId('exam_id');
-            $table->foreignId('question_set_id');
+            $table->foreignId('set_id');
             $table->string('answer');
             $table->timestamps();
         });

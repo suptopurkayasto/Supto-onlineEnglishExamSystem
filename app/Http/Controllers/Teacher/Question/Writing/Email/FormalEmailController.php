@@ -6,7 +6,7 @@ use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -39,7 +39,7 @@ class FormalEmailController extends Controller
     public function create()
     {
         return view('teacher.questions.writing.emails.formal.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('questionSets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -63,7 +63,7 @@ class FormalEmailController extends Controller
             toast('Formal email has been successfully added','success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add formal email to this '. QuestionSet::find($set)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add formal email to this '. Set::find($set)->name .' set.');
         }
         return redirect()->back();
     }
@@ -78,7 +78,7 @@ class FormalEmailController extends Controller
     {
         if ($this->validFormalEmailRequest($formalEmail)) {
             return view('teacher.questions.writing.emails.formal.show', compact('formalEmail'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -96,7 +96,7 @@ class FormalEmailController extends Controller
     {
         if ($this->validFormalEmailRequest($formalEmail)) {
             return view('teacher.questions.writing.emails.formal.edit', compact('formalEmail'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');

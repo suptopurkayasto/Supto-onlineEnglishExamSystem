@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Teacher\Question\Vocabulary\Combination;
 use App\Http\Controllers\Controller;
 use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Combination\CombinationOption;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,7 +38,7 @@ class CombinationController extends Controller
     public function create()
     {
         return view('teacher.questions.vocabulary.combination.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('questionSets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -66,7 +66,7 @@ class CombinationController extends Controller
             toast('Combination word has been successfully added','success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add combination word to this '. QuestionSet::find($setId)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add combination word to this '. Set::find($setId)->name .' set.');
         }
         return redirect()->back();
     }
@@ -81,7 +81,7 @@ class CombinationController extends Controller
     {
         if ($this->validCombinationRequest($combination)) {
             return view('teacher.questions.vocabulary.combination.show', compact('combination'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -99,7 +99,7 @@ class CombinationController extends Controller
     {
         if ($this->validCombinationRequest($combination)) {
             return view('teacher.questions.vocabulary.combination.edit', compact('combination'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -135,7 +135,7 @@ class CombinationController extends Controller
                 return redirect(route('teachers.questions.combinations.show', $combination->id).'?exam='.request()->get('exam').'&set='.request()->get('set'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add definition sentence to this '. QuestionSet::find($set->id)->name .' set.');
+                alert()->info('Fail!', 'You can no longer add definition sentence to this '. Set::find($set->id)->name .' set.');
                 return redirect()->back();
             }
 

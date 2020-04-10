@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Teacher\Question\Vocabulary\Synonym;
 use App\Http\Controllers\Controller;
 use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Vocabulary\Synonym\SynonymOption;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ class SynonymController extends Controller
     public function create()
     {
         return view('teacher.questions.vocabulary.synonym.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('questionSets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -64,7 +64,7 @@ class SynonymController extends Controller
             toast('Synonym word has been successfully added', 'success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add synonym word to this ' . QuestionSet::find($setId)->name . ' set.');
+            alert()->info('Fail!', 'You can no longer add synonym word to this ' . Set::find($setId)->name . ' set.');
         }
         return redirect()->back();
     }
@@ -79,7 +79,7 @@ class SynonymController extends Controller
     {
         if ($this->validSynonymRequest($synonym)) {
             return view('teacher.questions.vocabulary.synonym.show', compact('synonym'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -97,7 +97,7 @@ class SynonymController extends Controller
     {
         if ($this->validSynonymRequest($synonym)) {
             return view('teacher.questions.vocabulary.synonym.edit', compact('synonym'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('questionSets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -132,7 +132,7 @@ class SynonymController extends Controller
                 return redirect(route('teachers.questions.synonyms.show', $synonym->id) . '?exam=' . request()->get('exam') . '&set=' . request()->get('set'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add synonym word to this ' . QuestionSet::find($set->id)->name . ' set.');
+                alert()->info('Fail!', 'You can no longer add synonym word to this ' . Set::find($set->id)->name . ' set.');
                 return redirect()->back();
             }
         } else {

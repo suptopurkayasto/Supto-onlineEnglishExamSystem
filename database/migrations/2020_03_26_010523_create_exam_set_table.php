@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExamQuestionSetTable extends Migration
+class CreateExamSetTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateExamQuestionSetTable extends Migration
      */
     public function up()
     {
-        Schema::create('exam_question_set', function (Blueprint $table) {
+        Schema::create('exam_set', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id');
-            $table->foreignId('question_set_id');
+            $table->foreignId('set_id');
             $table->timestamps();
         });
     }
