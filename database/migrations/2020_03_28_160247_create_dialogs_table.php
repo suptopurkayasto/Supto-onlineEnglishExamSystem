@@ -16,7 +16,7 @@ class CreateDialogsTable extends Migration
         Schema::create('dialogs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id');
-            $table->foreignId('question_set_id');
+            $table->foreignId('set_id');
             $table->string('topic');
             $table->text('question_1');
             $table->text('question_2');

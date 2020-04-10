@@ -7,7 +7,7 @@
     @if($authTeacher->exams()->count() > 0)
         @foreach($authTeacher->exams as $exam)
             @if($exam->dialogs()->count() > 0)
-                <div class="card mb-5">
+                <div class="card mb-5 index-card">
                     <div class="card-header">
                         <h3 class="card-title index-card-title float-left" title="{{ $exam->name }}"><span
                                 class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
@@ -37,7 +37,7 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)
-                                @php $dialogCountBySet = $exam->dialogs()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $dialogCountBySet = $exam->dialogs()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"

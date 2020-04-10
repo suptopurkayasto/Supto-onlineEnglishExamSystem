@@ -40,7 +40,7 @@ class DialogController extends Controller
     public function create()
     {
         return view('teacher.questions.writing.dialogs.create')
-            ->with('questionSets', Set::all())
+            ->with('sets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -56,7 +56,7 @@ class DialogController extends Controller
         $set = $request->questionSet;
 
         $authTeacher = Auth::guard('teacher')->user();
-        $countDialogs = $authTeacher->exams()->find($exam)->dialogs()->where(['question_set_id' => $set])->get()->count();
+        $countDialogs = $authTeacher->exams()->find($exam)->dialogs()->where(['set_id' => $set])->get()->count();
 
         if ($countDialogs < 1) {
             Dialog::create($this->validateDialogCreateRequest($request));
@@ -80,7 +80,7 @@ class DialogController extends Controller
         if ($this->validDialogRequest($dialog)) {
             return view('teacher.questions.writing.dialogs.show', compact('dialog'))
                 ->with('authTeacherExams', Auth::guard('teacher')->user()->exams)
-                ->with('questionSets', Set::all());
+                ->with('sets', Set::all());
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->back();
@@ -98,7 +98,7 @@ class DialogController extends Controller
         if ($this->validDialogRequest($dialog)) {
             return view('teacher.questions.writing.dialogs.edit', compact('dialog'))
                 ->with('authTeacherExams', Auth::guard('teacher')->user()->exams()->latest()->get())
-                ->with('questionSets', Set::all());
+                ->with('sets', Set::all());
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->back();
@@ -162,7 +162,7 @@ class DialogController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'topic' => 'required|string|max:255',
             'question_1' => 'required|string|max:255',
             'question_2' => 'required|string|max:255',
@@ -171,7 +171,7 @@ class DialogController extends Controller
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'topic' => $validateData['topic'],
             'question_1' => $validateData['question_1'],
             'question_2' => $validateData['question_2'],
@@ -184,7 +184,7 @@ class DialogController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'topic' => 'required|string|max:255',
             'question_1' => 'required|string|max:255',
             'question_2' => 'required|string|max:255',
@@ -193,7 +193,7 @@ class DialogController extends Controller
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'topic' => $validateData['topic'],
             'question_1' => $validateData['question_1'],
             'question_2' => $validateData['question_2'],
