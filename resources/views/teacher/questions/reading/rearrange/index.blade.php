@@ -6,7 +6,7 @@
     @if($authTeacher->exams()->count() > 0)
         @foreach($authTeacher->exams as $exam)
             @if($exam->rearranges()->count() > 0)
-                <div class="card mb-5">
+                <div class="card mb-5 index-card">
                     <div
                         class="card-header">
                         <h3 class="card-title float-left index-card-title {{ $exam->rearranges()->count() === 4 ? 'text-success' : 'text-warning' }}"
@@ -42,7 +42,7 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)
-                                @php $rearrangeCountBySet = $exam->rearranges()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $rearrangeCountBySet = $exam->rearranges()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"

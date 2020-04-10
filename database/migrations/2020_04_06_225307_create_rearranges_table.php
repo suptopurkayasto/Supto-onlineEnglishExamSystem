@@ -16,7 +16,7 @@ class CreateRearrangesTable extends Migration
         Schema::create('rearranges', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id');
-            $table->foreignId('question_set_id');
+            $table->foreignId('set_id');
             $table->string('line_1');
             $table->string('line_2');
             $table->string('line_3');

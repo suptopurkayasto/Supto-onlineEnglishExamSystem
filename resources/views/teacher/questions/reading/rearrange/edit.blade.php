@@ -21,7 +21,7 @@
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
                                 <select name="exam" id="exam" class="form-control @error('exam') is-invalid @enderror" required>
-                                    <option required selected>Select exam</option>
+                                    <option selected>Select exam</option>
                                     @foreach($authTeacher->exams as $exam)
                                         <option
                                             {{ $rearrange->exam->id == $exam->id ? 'selected' : '' }} value="{{ $exam->id }}">{{ $exam->name }}</option>
@@ -37,18 +37,18 @@
 
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
-                                <label for="questionSet">Question Set</label>
+                                <label for="set">Set</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                                <select name="questionSet" id="questionSet"
-                                        class="form-control @error('questionSet') is-invalid @enderror" required>
-                                    <option selected>Select group</option>
-                                    @foreach($questionSets as $questionSet)
+                                <select name="set" id="set"
+                                        class="form-control @error('set') is-invalid @enderror" required>
+                                    <option selected>Select Set</option>
+                                    @foreach($sets as $set)
                                         <option
-                                            {{ $rearrange->set->id == $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
+                                            {{ $rearrange->set->id == $set->id ? 'selected' : '' }} value="{{ $set->id }}">{{ $set->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('questionSet')
+                                @error('set')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
