@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Grammar\Grammar;
+use App\Model\Vocabulary\Synonym\Synonym;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -116,12 +117,52 @@ class ExamController extends Controller
         }
     }
 
-    public function submitVocabularyQuestion(Request $request)
+    public function submitVocabularyQuestion(Request $request, Exam $exam)
     {
-        // Store Student submitted Synonym data
-        $synonymData = $request->input('synonym.*');
 
-        return $synonymData;
+        if ($this->validExamRequest($exam)) {
+            $authStudent = Auth::guard('student')->user();
+
+            $checkStudentSynonymSubmit = $authStudent->studentSynonyms()->where('exam_id', $exam->id)->get()->count();
+            if ($checkStudentSynonymSubmit === 0) {
+                // Store Student submitted Synonym data
+                $studentSubmittedSynonymData = $request->input('synonym.*');
+                foreach ($studentSubmittedSynonymData as $data) {
+                    foreach ($data as $key => $value) {
+                        $authStudent->studentSynonyms()->create([
+                            'exam_id' => $exam->id,
+                            'question_set_id' => $authStudent->set->id,
+                            'synonym_id' => $key,
+                            'answer' => $value
+                        ]);
+                    }
+                }
+
+                // Generate Synonym marks
+                $marks = 0;
+                foreach ($request->input('synonym.*') as $data) {
+                    foreach ($data as $key => $value) {
+                        $synonym = Synonym::find($key);
+                        if ($synonym->answer->options == $value) {
+                            $marks += 1;
+                        }
+                    }
+                }
+                $authStudent->marks()->create([
+                    'exam_id' => $exam->id,
+                    'question_set_id' => $authStudent->set->id,
+                    'synonym' => $marks
+                ]);
+            } else {
+                alert()->error('😒', 'You will no longer be able to resubmit');
+                return redirect()->route('student.exam.show.topic', $exam->id);
+            }
+
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->route('student.dashboard');
+        }
+
     }
 
 
