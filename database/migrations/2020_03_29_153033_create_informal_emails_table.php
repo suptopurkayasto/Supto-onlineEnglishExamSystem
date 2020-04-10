@@ -16,7 +16,7 @@ class CreateInformalEmailsTable extends Migration
         Schema::create('informal_emails', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id');
-            $table->foreignId('question_set_id');
+            $table->foreignId('set_id');
             $table->string('topic');
             $table->timestamps();
         });
