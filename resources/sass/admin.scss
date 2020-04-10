@@ -12,6 +12,7 @@
         animation: pulse 150ms;
     }
 }
+
 table.custom-table-style {
     tr {
         td, th {
@@ -19,11 +20,13 @@ table.custom-table-style {
                 text-align: center;
                 width: 50px;
             }
+
             &:last-of-type {
                 width: 100px;
             }
         }
     }
+
     thead {
         tr {
             th {
@@ -32,15 +35,19 @@ table.custom-table-style {
             }
         }
     }
+
     tbody {
         tr {
             background-color: white;
+
             &:nth-of-type(odd) {
                 background-color: transparentize($primary-admin, .9) !important;
             }
+
             &:hover {
                 background-color: transparentize($primary-admin, .6) !important;
             }
+
             td {
                 border: 0;
                 padding: .25rem !important;
@@ -50,9 +57,9 @@ table.custom-table-style {
     }
 }
 
-[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active {
+[class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active {
     color: white;
-    background-color: rgba(255,255,255,.1);
+    background-color: rgba(255, 255, 255, .1);
 }
 
 [class*=sidebar-dark] .user-panel:last-child {
@@ -71,13 +78,23 @@ li.sidebar-item {
 
 .card {
     .card-header {
+        border-bottom-color: $primary-admin;
+        border-bottom-width: 5px;
+
         .card-title {
             font-size: 20px;
             text-transform: capitalize;
         }
+
         .index-card-title {
             font-size: 30px;
         }
+    }
+}
+
+.card.index-card {
+    .card-header {
+        border-bottom: none;
     }
 }
 
@@ -88,24 +105,30 @@ li.sidebar-item {
 .count-section {
     .progress {
         height: 5px;
+
         .progress-bar {
             background-color: $primary-admin;
         }
     }
+
     .info-box-main {
         .progress {
             height: 10px;
+
             .progress-bar {
 
             }
         }
     }
 }
-.bg-white>a.btn {
+
+.bg-white > a.btn {
     color: white !important;
 }
+
 .add-exam-mini-section {
     margin-top: 100px;
+
     h1 {
         color: red;
     }
