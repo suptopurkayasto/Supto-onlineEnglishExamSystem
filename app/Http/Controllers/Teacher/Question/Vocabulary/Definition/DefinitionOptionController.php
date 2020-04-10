@@ -26,7 +26,7 @@ class DefinitionOptionController extends Controller
         $examId = Crypt::decrypt(\request()->get('exam'));
         $setId = Crypt::decrypt(\request()->get('set'));
 
-        $options = $authTeacher->exams()->find($examId)->definitionOptions()->where(['question_set_id' => $setId])->get();
+        $options = $authTeacher->exams()->find($examId)->definitionOptions()->where(['set_id' => $setId])->get();
 
         return view('teacher.questions.vocabulary.definition.options.index', compact('options'));
     }
@@ -144,7 +144,7 @@ class DefinitionOptionController extends Controller
         $setId = Crypt::decrypt(\request()->get('set'));
         $authTeacher = Auth::guard('teacher')->user();
 
-        $authTeacherOptionsByExamAndSet = $authTeacher->exams()->find($examId)->definitionOptions()->where('question_set_id', $setId)->get();
+        $authTeacherOptionsByExamAndSet = $authTeacher->exams()->find($examId)->definitionOptions()->where('set_id', $setId)->get();
 
         $valid = null;
         foreach ($authTeacherOptionsByExamAndSet as $item) {

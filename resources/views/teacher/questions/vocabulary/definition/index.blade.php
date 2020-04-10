@@ -6,7 +6,7 @@
     @if($authTeacher->exams()->count() > 0)
         @foreach($authTeacher->exams as $exam)
             @if($exam->definitions()->count() > 0)
-                <div class="card mb-5">
+                <div class="card mb-5 index-card">
                     <div
                         class="card-header">
                         <h3 class="card-title float-left index-card-title" title="{{ $exam->name }}"><span
@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)
-                                @php $definitionCountBySet = $exam->definitions()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $definitionCountBySet = $exam->definitions()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"
@@ -50,7 +50,7 @@
                                             </div>
                                             <div class="progress-description">
                                                 @if($definitionCountBySet === 5)
-                                                    @if($exam->definitionOptions()->where('question_set_id', $set->id)->get()->count() === 10)
+                                                    @if($exam->definitionOptions()->where('set_id', $set->id)->get()->count() === 10)
                                                         <a href="{{ route('teachers.questions.definitions.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
                                                            class="btn btn-sm btn-primary btn-block">View
                                                             Option</a>

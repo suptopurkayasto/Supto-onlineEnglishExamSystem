@@ -38,7 +38,7 @@ class DefinitionController extends Controller
     public function create()
     {
         return view('teacher.questions.vocabulary.definition.create')
-            ->with('questionSets', Set::all())
+            ->with('sets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -52,8 +52,8 @@ class DefinitionController extends Controller
     {
         $authTeacher = Auth::guard('teacher')->user();
         $examId = $request->exam;
-        $setId = $request->questionSet;
-        $countSynonymWordByExamAndSet = $authTeacher->exams()->find($examId)->definitions()->where('question_set_id', $setId)->get()->count();
+        $setId = $request->set;
+        $countSynonymWordByExamAndSet = $authTeacher->exams()->find($examId)->definitions()->where('set_id', $setId)->get()->count();
 
         if ($countSynonymWordByExamAndSet < 5) {
 
@@ -81,7 +81,7 @@ class DefinitionController extends Controller
     {
         if ($this->validDefinitionRequest($definition)) {
             return view('teacher.questions.vocabulary.definition.show', compact('definition'))
-                ->with('questionSets', Set::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -100,7 +100,7 @@ class DefinitionController extends Controller
 
         if ($this->validDefinitionRequest($definition)) {
             return view('teacher.questions.vocabulary.definition.edit', compact('definition'))
-                ->with('questionSets', Set::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -121,11 +121,11 @@ class DefinitionController extends Controller
 
             $authTeacher = Auth::guard('teacher')->user();
             $exam = $authTeacher->exams()->find($request->exam);
-            $set = $exam->sets()->find($request->questionSet);
+            $set = $exam->sets()->find($request->set);
 
-            $countSynonymWordByExamAndSet = $exam->definitions()->where(['question_set_id' => $set->id])->get()->count();
+            $countSynonymWordByExamAndSet = $exam->definitions()->where(['set_id' => $set->id])->get()->count();
 
-            if ($countSynonymWordByExamAndSet < 5 || $definition->exam->id == $request->exam && $definition->set->id == $request->questionSet) {
+            if ($countSynonymWordByExamAndSet < 5 || $definition->exam->id == $request->exam && $definition->set->id == $request->set) {
                 // Update Definition
                 $definition->update($this->validateDefinitionUpdateRequest($request));
 
@@ -186,7 +186,7 @@ class DefinitionController extends Controller
     private function validateDefinitionCreateRequest(Request $request)
     {
         return [
-            'question_set_id' => $request->questionSet,
+            'set_id' => $request->set,
             'definition_option_id' => $this->definitionOptions['id'],
             'sentence' => $request->sentence,
         ];
@@ -196,14 +196,14 @@ class DefinitionController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'sentence' => 'required|string|max:255',
             'answer' => 'required|string|max:255',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'options' => $validateData['answer']
         ];
     }
@@ -212,13 +212,13 @@ class DefinitionController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'sentence' => 'required|string|max:255',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'sentence' => $validateData['sentence'],
         ];
     }
