@@ -36,7 +36,7 @@ class HeadingController extends Controller
     public function create()
     {
         return view('teacher.questions.reading.rearrange.create')
-            ->with('questionSets', Set::all())
+            ->with('sets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -50,8 +50,8 @@ class HeadingController extends Controller
     {
         $authTeacher = Auth::guard('teacher')->user();
         $examId = $request->exam;
-        $setId = $request->questionSet;
-        $countHeadingByExamAndSet = $authTeacher->exams()->find($examId)->headings()->where('question_set_id', $setId)->get()->count();
+        $setId = $request->set;
+        $countHeadingByExamAndSet = $authTeacher->exams()->find($examId)->headings()->where('set_id', $setId)->get()->count();
         if ($countHeadingByExamAndSet < 5) {
 
             $headingOption = HeadingOption::create($this->validateHeadingOptionsCreateRequest($request));
@@ -78,7 +78,7 @@ class HeadingController extends Controller
     {
         if ($this->validHeadingRequest($heading)) {
             return view('teacher.questions.reading.heading.show', compact('heading'))
-                ->with('questionSets', Set::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -96,7 +96,7 @@ class HeadingController extends Controller
     {
         if ($this->validHeadingRequest($heading)) {
             return view('teacher.questions.reading.heading.edit', compact('heading'))
-                ->with('questionSets', Set::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -117,11 +117,11 @@ class HeadingController extends Controller
 
             $authTeacher = Auth::guard('teacher')->user();
             $exam = $authTeacher->exams()->find($request->exam);
-            $set = $exam->sets()->find($request->questionSet);
+            $set = $exam->sets()->find($request->set);
 
-            $countHeadingByExamAndSet = $exam->headings()->where(['question_set_id' => $set->id])->get()->count();
+            $countHeadingByExamAndSet = $exam->headings()->where(['set_id' => $set->id])->get()->count();
 
-            if ($countHeadingByExamAndSet < 5 || $heading->exam->id == $request->exam && $heading->set->id == $request->questionSet) {
+            if ($countHeadingByExamAndSet < 5 || $heading->exam->id == $request->exam && $heading->set->id == $request->set) {
                 // Update Definition
                 $heading->update($this->validateHeadingUpdateRequest($request));
 
@@ -167,14 +167,14 @@ class HeadingController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'heading' => 'required|string|max:255',
             'paragraph' => 'required|string',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'headings' => $validateData['heading']
         ];
     }
@@ -182,7 +182,7 @@ class HeadingController extends Controller
     private function validateHeadingCreateRequest(Request $request)
     {
         return [
-            'question_set_id' => $request->input('questionSet'),
+            'set_id' => $request->input('set'),
             'heading_option_id' => $this->headingOption['id'],
             'paragraph' => $request->input('paragraph'),
         ];
@@ -207,14 +207,14 @@ class HeadingController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'heading' => 'required|string|max:255',
             'paragraph' => 'required|string',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'paragraph' => $validateData['paragraph']
         ];
     }
@@ -223,7 +223,7 @@ class HeadingController extends Controller
     {
         return [
             'exam_id' => $request->input('exam'),
-            'question_set_id' => $request->input('questionSet'),
+            'set_id' => $request->input('set'),
             'headings' => $request->input('heading')
         ];
     }

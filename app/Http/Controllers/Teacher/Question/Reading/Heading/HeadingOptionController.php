@@ -26,7 +26,7 @@ class HeadingOptionController extends Controller
         $authTeacher = Auth::guard('teacher')->user();
         $examId = Crypt::decrypt(\request()->get('exam'));
         $setId = Crypt::decrypt(\request()->get('set'));
-        $options = $authTeacher->exams()->find($examId)->headingOptions()->where(['question_set_id' => $setId])->get();
+        $options = $authTeacher->exams()->find($examId)->headingOptions()->where(['set_id' => $setId])->get();
 
         return view('teacher.questions.reading.heading.options.index', compact('options'));
     }
@@ -53,7 +53,7 @@ class HeadingOptionController extends Controller
         $examId = Crypt::decrypt($request->exam);
         $setId = Crypt::decrypt($request->set);
 
-        $authTeacherHeadingOptionsCountByExamAndSet =  $authTeacher->exams()->find($examId)->headingOptions()->where(['question_set_id' => $setId])->get()->count();
+        $authTeacherHeadingOptionsCountByExamAndSet =  $authTeacher->exams()->find($examId)->headingOptions()->where(['set_id' => $setId])->get()->count();
 
         if ($authTeacherHeadingOptionsCountByExamAndSet < 10) {
 
@@ -147,7 +147,7 @@ class HeadingOptionController extends Controller
 
         return [
             'exam_id' => Crypt::decrypt(\request()->get('exam')),
-            'question_set_id' => Crypt::decrypt(\request()->get('set')),
+            'set_id' => Crypt::decrypt(\request()->get('set')),
             'headings' => $validateData['heading']
         ];
     }
@@ -158,7 +158,7 @@ class HeadingOptionController extends Controller
         $setId = Crypt::decrypt(\request()->get('set'));
         $authTeacher = Auth::guard('teacher')->user();
 
-        $authTeacherOptionsByExamAndSet = $authTeacher->exams()->find($examId)->headingOptions()->where('question_set_id', $setId)->get();
+        $authTeacherOptionsByExamAndSet = $authTeacher->exams()->find($examId)->headingOptions()->where('set_id', $setId)->get();
 
         $valid = null;
         foreach ($authTeacherOptionsByExamAndSet as $item) {
