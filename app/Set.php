@@ -33,7 +33,7 @@ class Set extends Model
         return $this->attributes['name'] = Str::upper($name);
     }
 
-    public function grammarQuestions()
+    public function grammars()
     {
         return $this->hasMany(Grammar::class);
     }

@@ -41,7 +41,7 @@
                     <div class="card-body">
                         <div class="row count-section">
                             @foreach($exam->sets as $set)
-                                @php $grammarsCountBySet = $exam->grammars()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $grammarsCountBySet = $exam->grammars()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"

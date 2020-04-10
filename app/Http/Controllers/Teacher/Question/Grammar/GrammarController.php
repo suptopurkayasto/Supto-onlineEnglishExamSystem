@@ -56,10 +56,10 @@ class GrammarController extends Controller
 
         $exam = $authTeacher->exams()->find($request->get('exam'));
         $set = $request->input('set');
-        $questionCount = $exam->grammars()->where('set', $set)->count();
+        $questionCount = $exam->grammars()->where('set_id', $set)->count();
 
         if ($questionCount < 25) {
-            $authTeacher->exams()->find($request->exam)->grammars()->create($this->validateGrammarCreateRequest($request));
+            $authTeacher->exams()->find($request->input('exam'))->grammars()->create($this->validateGrammarCreateRequest($request));
             toast('Grammar question has been successfully added', 'success');
             session()->flash('success_audio');
             if ($exam->grammars()->count() >= 100) {
@@ -68,7 +68,7 @@ class GrammarController extends Controller
             return redirect()->back();
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add dialog to this ' . Set::find($request->question_set)->name . ' set.');
+            alert()->info('Fail!', 'You can no longer add dialog to this ' . Set::find($request->input('set'))->name . ' set.');
             return redirect()->back();
         }
 
@@ -124,18 +124,18 @@ class GrammarController extends Controller
         if ($this->validGrammarQuestionRequest($grammar)) {
 
             $authTeacher = Auth::guard('teacher')->user();
-            $authTeacherExam = $authTeacher->exams()->find($request->exam);
-            $authTeacherGrammarQuestions = $authTeacherExam->grammars()->where(['question_set_id' => $request->question_set])->get();
+            $authTeacherExam = $authTeacher->exams()->find($request->input('exam'));
+            $authTeacherGrammarQuestions = $authTeacherExam->grammars()->where(['set_id' => $request->input('set')])->get();
 
 
-            if ($authTeacherGrammarQuestions->count() < 25 || $grammar->set->id == $request->question_set) {
+            if ($authTeacherGrammarQuestions->count() < 25 || $grammar->set->id == $request->input('set')) {
                 $grammar->update($this->validateGrammarsUpdateRequest($request));
                 toast('Grammar question has been successfully updated', 'success');
                 session()->flash('success_audio');
                 return redirect(route('teachers.questions.grammars.show', $grammar->id).'?exam='.\request()->get('exam'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add dialog to this ' . Set::find($request->question_set)->name . ' set.');
+                alert()->info('Fail!', 'You can no longer add dialog to this ' . Set::find($request->input('set'))->name . ' set.');
                 return redirect()->back();
             }
         } else {
@@ -168,7 +168,7 @@ class GrammarController extends Controller
      * @param $grammar
      * @return bool|null
      */
-    private function validGrammarQuestionRequest($grammar) {
+    private function validGrammarQuestionRequest(Grammar $grammar) {
 
         $examId = Crypt::decrypt(\request()->get('exam'));
 
@@ -193,7 +193,7 @@ class GrammarController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|max:255|string',
-            'question_set' => 'required|max:255|string',
+            'set' => 'required|max:255|string',
             'question' => 'required|max:255|string',
             'option_1' => 'required|max:255|string',
             'option_2' => 'required|max:255|string',
@@ -221,7 +221,7 @@ class GrammarController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'question_set' => 'required|integer',
+            'set' => 'required|integer',
             'question' => 'required|max:255|string',
             'option_1' => 'required|max:255|string',
             'option_2' => 'required|max:255|string',
@@ -231,7 +231,7 @@ class GrammarController extends Controller
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['question_set'],
+            'set_id' => $validateData['set'],
             'question' => $validateData['question'],
             'option_1' => $validateData['option_1'],
             'option_2' => $validateData['option_2'],
