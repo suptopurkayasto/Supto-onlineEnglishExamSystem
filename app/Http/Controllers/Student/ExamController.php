@@ -123,9 +123,10 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
 
+
+            // Store Student submitted Synonym data
             $checkStudentSynonymSubmit = $authStudent->studentSynonyms()->where('exam_id', $exam->id)->get()->count();
             if ($checkStudentSynonymSubmit === 0) {
-                // Store Student submitted Synonym data
                 $studentSubmittedSynonymData = $request->input('synonym.*');
                 foreach ($studentSubmittedSynonymData as $data) {
                     foreach ($data as $key => $value) {
@@ -156,7 +157,12 @@ class ExamController extends Controller
             } else {
                 alert()->error('😒', 'You will no longer be able to resubmit');
                 return redirect()->route('student.exam.show.topic', $exam->id);
-            }
+            } // End
+
+
+
+
+
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
