@@ -18,7 +18,7 @@ class StudentSeeder extends Seeder
             'group_id' => 1,
             'section_id' => 1,
             'teacher_id' => 1,
-            'question_set_id' => rand(1, 4)
+            'set_id' => rand(1, 4)
         ]);
     }
 }
