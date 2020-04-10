@@ -8,7 +8,7 @@
     <div class="student-main-section h-100">
         <div class="container h-100">
             <div class="h-100 w-100 flex-wrap d-flex justify-content-center align-items-center">
-                <div class="shadow rounded p-3 border border-primary w-100">
+                <div class="student-info-sec shadow rounded p-3 border border-primary w-100">
                     <div class="form-row">
                         <div class="col-12 col-lg-4 mb-5 mb-lg-0">
                             <img title="{{ $authStudent->name }}" class="border-primary border rounded"

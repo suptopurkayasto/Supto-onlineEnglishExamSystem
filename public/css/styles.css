@@ -3238,6 +3238,12 @@ table td {
   margin: -60px auto 0 auto;
 }
 
+@media (min-width: 768px) {
+  .student-info-sec {
+    transform: scale(1.2);
+  }
+}
+
 body {
   font-family: "Roboto", sans-serif;
 }
