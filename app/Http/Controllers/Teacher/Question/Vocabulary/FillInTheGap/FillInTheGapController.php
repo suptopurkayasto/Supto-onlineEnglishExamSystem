@@ -38,7 +38,7 @@ class FillInTheGapController extends Controller
     public function create()
     {
         return view('teacher.questions.vocabulary.fill-in-the-gap.create')
-            ->with('questionSets', Set::all())
+            ->with('sets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -52,8 +52,8 @@ class FillInTheGapController extends Controller
     {
         $authTeacher = Auth::guard('teacher')->user();
         $examId = $request->exam;
-        $setId = $request->questionSet;
-        $countFillINTheGapsByExamAndSet = $authTeacher->exams()->find($examId)->fillInTheGaps()->where('question_set_id', $setId)->get()->count();
+        $setId = $request->set;
+        $countFillINTheGapsByExamAndSet = $authTeacher->exams()->find($examId)->fillInTheGaps()->where('set_id', $setId)->get()->count();
 
         if ($countFillINTheGapsByExamAndSet < 5) {
 
@@ -81,7 +81,7 @@ class FillInTheGapController extends Controller
     {
         if ($this->validFillInTheGapRequest($fillInTheGap)) {
             return view('teacher.questions.vocabulary.fill-in-the-gap.show', compact('fillInTheGap'))
-                ->with('questionSets', Set::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -99,7 +99,7 @@ class FillInTheGapController extends Controller
     {
         if ($this->validFillInTheGapRequest($fillInTheGap)) {
             return view('teacher.questions.vocabulary.fill-in-the-gap.edit', compact('fillInTheGap'))
-                ->with('questionSets', Set::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -120,11 +120,11 @@ class FillInTheGapController extends Controller
 
             $authTeacher = Auth::guard('teacher')->user();
             $exam = $authTeacher->exams()->find($request->exam);
-            $set = $exam->sets()->find($request->questionSet);
+            $set = $exam->sets()->find($request->set);
 
-            $countSynonymWordByExamAndSet = $exam->fillInTheGaps()->where(['question_set_id' => $set->id])->get()->count();
+            $countSynonymWordByExamAndSet = $exam->fillInTheGaps()->where(['set_id' => $set->id])->get()->count();
 
-            if ($countSynonymWordByExamAndSet < 5 || $fillInTheGap->exam->id == $request->exam && $fillInTheGap->set->id == $request->questionSet) {
+            if ($countSynonymWordByExamAndSet < 5 || $fillInTheGap->exam->id == $request->exam && $fillInTheGap->set->id == $request->set) {
 
                 // Update fill in the gap
                 $fillInTheGap->update($this->validateFillInTheGapUpdateRequest($request));
@@ -174,14 +174,14 @@ class FillInTheGapController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'sentence' => 'required|string|max:255',
             'answer' => 'required|string|max:255',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'options' => $validateData['answer']
         ];
     }
@@ -190,7 +190,7 @@ class FillInTheGapController extends Controller
     {
         return [
             'exam_id' => $request->exam,
-            'question_set_id' => $request->questionSet,
+            'set_id' => $request->set,
             'sentence' => $request->sentence,
             'fill_in_the_gap_option_id' => $this->fillInTheGapOption['id']
         ];
@@ -215,14 +215,14 @@ class FillInTheGapController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'sentence' => 'required|string|max:255',
             'answer' => 'required|string|max:255',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'sentence' => $validateData['sentence'],
         ];
     }

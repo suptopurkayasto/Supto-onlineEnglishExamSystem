@@ -27,7 +27,7 @@ class FillInTheGapOptionController extends Controller
         $examId = Crypt::decrypt(\request()->get('exam'));
         $setId = Crypt::decrypt(\request()->get('set'));
 
-        $options = $authTeacher->exams()->find($examId)->fillInTheGapOptions()->where(['question_set_id' => $setId])->get();
+        $options = $authTeacher->exams()->find($examId)->fillInTheGapOptions()->where(['set_id' => $setId])->get();
 
         return view('teacher.questions.vocabulary.fill-in-the-gap.options.index', compact('options'));
     }
@@ -54,7 +54,7 @@ class FillInTheGapOptionController extends Controller
         $examId = Crypt::decrypt($request->exam);
         $setId = Crypt::decrypt($request->set);
 
-        $authTeacherFillInTheGapOptionsCountByExamAndSet =  $authTeacher->exams()->find($examId)->fillInTheGapOptions()->where(['question_set_id' => $setId])->get()->count();
+        $authTeacherFillInTheGapOptionsCountByExamAndSet =  $authTeacher->exams()->find($examId)->fillInTheGapOptions()->where(['set_id' => $setId])->get()->count();
 
         if ($authTeacherFillInTheGapOptionsCountByExamAndSet < 10) {
 
@@ -149,7 +149,7 @@ class FillInTheGapOptionController extends Controller
 
         return [
             'exam_id' => Crypt::decrypt(\request()->get('exam')),
-            'question_set_id' => Crypt::decrypt(\request()->get('set')),
+            'set_id' => Crypt::decrypt(\request()->get('set')),
             'options' => $validateData['option']
         ];
     }
@@ -160,7 +160,7 @@ class FillInTheGapOptionController extends Controller
         $setId = Crypt::decrypt(\request()->get('set'));
         $authTeacher = Auth::guard('teacher')->user();
 
-        $authTeacherOptionsByExamAndSet = $authTeacher->exams()->find($examId)->fillInTheGapOptions()->where('question_set_id', $setId)->get();
+        $authTeacherOptionsByExamAndSet = $authTeacher->exams()->find($examId)->fillInTheGapOptions()->where('set_id', $setId)->get();
 
         $valid = null;
         foreach ($authTeacherOptionsByExamAndSet as $item) {
