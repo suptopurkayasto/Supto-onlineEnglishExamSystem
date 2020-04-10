@@ -42,7 +42,7 @@ class SortQuestionController extends Controller
     public function create()
     {
         return view('teacher.questions.writing.sort-questions.create')
-            ->with('questionSets', Set::all())
+            ->with('sets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -55,10 +55,10 @@ class SortQuestionController extends Controller
     public function store(Request $request)
     {
         $exam = $request->exam;
-        $set = $request->questionSet;
+        $set = $request->set;
         $authTeacher = Auth::guard('teacher')->user();
 
-        $authTeacherSortQuestionByExamAndSet = $authTeacher->exams()->find($exam)->sortQuestions()->where(['question_set_id' => $set])->get();
+        $authTeacherSortQuestionByExamAndSet = $authTeacher->exams()->find($exam)->sortQuestions()->where(['set_id' => $set])->get();
 
         if ($authTeacherSortQuestionByExamAndSet->count() < 7) {
             SortQuestion::create($this->validateSortQuestionCreateRequest($request));
@@ -81,7 +81,7 @@ class SortQuestionController extends Controller
     {
         if ($this->validSortQuestionRequest($sortQuestion)) {
             return view('teacher.questions.writing.sort-questions.show', compact('sortQuestion'))
-                ->with('questionSets', Set::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -99,7 +99,7 @@ class SortQuestionController extends Controller
     {
         if ($this->validSortQuestionRequest($sortQuestion)) {
             return view('teacher.questions.writing.sort-questions.edit', compact('sortQuestion'))
-                ->with('questionSets', Set::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -119,10 +119,10 @@ class SortQuestionController extends Controller
         if ($this->validSortQuestionRequest($sortQuestion)) {
 
             $exam = $request->exam;
-            $set = $request->questionSet;
+            $set = $request->set;
             $authTeacher = Auth::guard('teacher')->user();
 
-            $authTeacherSortQuestionByExamAndSet = $authTeacher->exams()->find($exam)->sortQuestions()->where(['question_set_id' => $set])->get();
+            $authTeacherSortQuestionByExamAndSet = $authTeacher->exams()->find($exam)->sortQuestions()->where(['set_id' => $set])->get();
 
             if ($authTeacherSortQuestionByExamAndSet->count() < 7 ) {
                 $sortQuestion->update($this->validateSortQuestionUpdateRequest($request));
@@ -185,13 +185,13 @@ class SortQuestionController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'question' => 'required|string|max:255',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'question' => $validateData['question'],
         ];
 
@@ -201,13 +201,13 @@ class SortQuestionController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'question' => 'required|string|max:255',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'question' => $validateData['question'],
         ];
 
