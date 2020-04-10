@@ -34,7 +34,7 @@
                             <td title="{{ $exam->name }}">{{ Str::limit($exam->name, 30) }}</td>
                             <td title="{{ $exam->created_at->diffForHumans() }}">{{ $exam->created_at->toFormattedDateString() }}</td>
                             <td>
-                                @if($exam->grammarQuestions()->count() === 100)
+                                @if($exam->grammars()->count() === 100)
                                     <span class="text-success font-weight-bolder"><i class="fas fa-check-circle mr-1"></i> Ready</span>
                                 @else
                                     <span class="badge badge-warning">Pending</span>
@@ -70,7 +70,7 @@
                             <td style="width: 220px !important;">
                                 <?php
                                 ?>
-                                @if($exam->grammarQuestions()->count() === 100)
+                                @if($exam->grammars()->count() === 100)
                                     @if($exam->status === 'pending' || $exam->status === 'cancel')
                                         <form action="{{ route('teacher.exams.status', $exam->id) }}" method="post"
                                               class="">
