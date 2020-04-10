@@ -38,7 +38,7 @@ class CombinationController extends Controller
     public function create()
     {
         return view('teacher.questions.vocabulary.combination.create')
-            ->with('questionSets', Set::all())
+            ->with('sets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -51,9 +51,9 @@ class CombinationController extends Controller
     public function store(Request $request)
     {
         $authTeacher = Auth::guard('teacher')->user();
-        $examId = $request->exam;
-        $setId = $request->questionSet;
-        $countSynonymWordByExamAndSet = $authTeacher->exams()->find($examId)->combinations()->where('question_set_id', $setId)->get()->count();
+        $examId = $request->input('exam');
+        $setId = $request->input('set');
+        $countSynonymWordByExamAndSet = $authTeacher->exams()->find($examId)->combinations()->where('set_id', $setId)->get()->count();
 
         if ($countSynonymWordByExamAndSet < 5) {
 
@@ -81,7 +81,7 @@ class CombinationController extends Controller
     {
         if ($this->validCombinationRequest($combination)) {
             return view('teacher.questions.vocabulary.combination.show', compact('combination'))
-                ->with('questionSets', Set::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -99,7 +99,7 @@ class CombinationController extends Controller
     {
         if ($this->validCombinationRequest($combination)) {
             return view('teacher.questions.vocabulary.combination.edit', compact('combination'))
-                ->with('questionSets', Set::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -119,12 +119,12 @@ class CombinationController extends Controller
         if ($this->validCombinationRequest($combination)) {
 
             $authTeacher = Auth::guard('teacher')->user();
-            $exam = $authTeacher->exams()->find($request->exam);
-            $set = $exam->sets()->find($request->questionSet);
+            $exam = $authTeacher->exams()->find($request->input('exam'));
+            $set = $exam->sets()->find($request->input('set'));
 
-            $countSynonymWordByExamAndSet = $exam->combinations()->where(['question_set_id' => $set->id])->get()->count();
+            $countSynonymWordByExamAndSet = $exam->combinations()->where(['set_id' => $set->id])->get()->count();
 
-            if ($countSynonymWordByExamAndSet < 5 || $combination->exam->id == $request->exam && $combination->set->id == $request->questionSet) {
+            if ($countSynonymWordByExamAndSet < 5 || $combination->exam->id == $request->input('exam') && $combination->set->id == $request->input('set')) {
                 // Update Definition
                 $combination->update($this->validateCombinationUpdateRequest($request));
 
@@ -170,14 +170,14 @@ class CombinationController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'word' => 'required|string|max:255',
             'answer' => 'required|string|max:255',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'options' => $validateData['answer']
         ];
     }
@@ -185,8 +185,8 @@ class CombinationController extends Controller
     private function validateCombinationCreateRequest(Request $request)
     {
         return [
-            'exam_id' => $request->exam,
-            'question_set_id' => $request->questionSet,
+            'exam_id' => $request->input('exam'),
+            'set_id' => $request->input('set'),
             'word' => $request->word,
             'combination_option_id' => $this->combinationOption['id']
         ];
@@ -215,14 +215,14 @@ class CombinationController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'word' => 'required|string|max:255',
             'answer' => 'required|string|max:255',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'word' => $validateData['word'],
         ];
     }

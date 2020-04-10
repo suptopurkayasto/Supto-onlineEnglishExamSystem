@@ -40,25 +40,25 @@
 
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
-                                <label for="questionSet">Question Set</label>
+                                <label for="set">Set</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                                <select name="questionSet" id="questionSet"
-                                        class="form-control @error('questionSet') is-invalid @enderror" autofocus>
+                                <select name="set" id="set"
+                                        class="form-control @error('set') is-invalid @enderror" autofocus>
                                     <option disabled selected>Select Set</option>
-                                    @foreach($questionSets as $questionSet)
+                                    @foreach($sets as $set)
                                         <option
-                                            @if(old('questionSet') == $questionSet->id)
+                                            @if(old('set') == $set->id)
                                             selected
                                             @elseif(request()->has('set'))
-                                            @if(decrypt(request()->get('set')) === $questionSet->id)
+                                            @if(decrypt(request()->get('set')) === $set->id)
                                             selected
                                             @endif
                                             @endif
-                                            value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
+                                            value="{{ $set->id }}">{{ $set->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('questionSet')
+                                @error('set')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

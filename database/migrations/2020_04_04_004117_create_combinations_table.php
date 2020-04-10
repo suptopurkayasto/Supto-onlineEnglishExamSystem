@@ -16,7 +16,7 @@ class CreateCombinationsTable extends Migration
         Schema::create('combinations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id');
-            $table->foreignId('question_set_id');
+            $table->foreignId('set_id');
             $table->string('word');
             $table->foreignId('combination_option_id');
             $table->timestamps();
