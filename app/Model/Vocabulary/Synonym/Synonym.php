@@ -17,7 +17,7 @@ class Synonym extends Model
     }
     public function set()
     {
-        return $this->belongsTo(Set::class, 'question_set_id');
+        return $this->belongsTo(Set::class);
     }
     public function answer()
     {
