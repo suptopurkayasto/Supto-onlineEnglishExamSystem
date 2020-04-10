@@ -3242,6 +3242,10 @@ table td {
   .student-info-sec {
     transform: scale(1.2);
   }
+
+  .student-question-sec {
+    transform: scale(1.3);
+  }
 }
 
 body {

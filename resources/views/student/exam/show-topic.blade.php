@@ -8,7 +8,7 @@
                     <a href="{{ route('student.exam.grammar.questions', $exam->id) }}"
                        class="list-group-item list-group-item-action">Grammar</a>
                 @endif
-                <a href="#" class="list-group-item list-group-item-action">Vocabulary</a>
+                <a href="{{ route('student.exam.vocabulary.questions', $exam->id) }}" class="list-group-item list-group-item-action">Vocabulary</a>
                 <a href="#" class="list-group-item list-group-item-action">Reading</a>
                 <a href="#" class="list-group-item list-group-item-action">Writing</a>
             </div>

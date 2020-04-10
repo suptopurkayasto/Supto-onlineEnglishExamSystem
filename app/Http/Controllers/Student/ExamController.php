@@ -8,6 +8,7 @@ use App\Model\Grammar\Grammar;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -95,6 +96,32 @@ class ExamController extends Controller
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->route('student.dashboard');
         }
+    }
+
+
+
+    //
+
+    public function showVocabularyQuestion(Exam $exam)
+    {
+        if ($this->validExamRequest($exam)) {
+            $authStudent = Auth::guard('student')->user();
+            return view('student.exam.question.show-vocabulary-question', compact('exam'))
+                ->with('synonyms', $exam->synonyms()->where('question_set_id', $authStudent->set->id)->get())
+                ->with('synonymOptions', $exam->synonymOptions()->where('question_set_id', $authStudent->set->id)->get());
+
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->route('student.dashboard');
+        }
+    }
+
+    public function submitVocabularyQuestion(Request $request)
+    {
+        // Store Student submitted Synonym data
+        $synonymData = $request->input('synonym.*');
+
+        return $synonymData;
     }
 
 
