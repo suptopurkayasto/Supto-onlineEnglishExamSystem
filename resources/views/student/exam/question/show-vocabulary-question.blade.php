@@ -6,34 +6,40 @@
             <div class="col-12 col-md-8 h-100">
                 <div class="h-100 d-flex justify-content-center align-items-center">
                     <div class="p-4 rounded shadow bg-white student-question-sec">
-                        <div class="row">
-                            <div class="col-12">
+                        <div class="card border-primary w-100">
+                            <div class="card-header border-primary">
+                                <h3 class="h3 text-center font-weight-bolder">Synonym Word</h3>
+                                <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
                                 <form action="{{ route('student.exam.vocabulary.questions.submit', $exam->id) }}"
                                       id="myform"
                                       class="" method="post">
                                     @csrf
-                                    <span class="text-black-50 mb-4 d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
-                                    @foreach($synonyms as $index => $synonym)
-                                        <fieldset>
+                                    <fieldset>
+                                        @foreach($synonyms as $index => $synonym)
                                             <div class="form-group row">
                                                 <div class="col-12 col-md-6">
-                                                    <label for="synonym" class="h2">{{ $index+1 }}
-                                                        . {{ $synonym->word }}</label>
+                                                    <label for="synonym" class="mb-md-0">
+                                                        <h4 class="h4">{{ $index+1 }}. {{ $synonym->word }}</h4>
+                                                    </label>
                                                 </div><!-- /.col-12 col-md-6 -->
                                                 <div class="col-12 col-md-6">
-                                                    <select name="synonym[][{{ $synonym->id }}]" id="synonym" class="form-control">
-                                                        <option disabled selected class="h3">Choose word</option>
+                                                    <select name="synonym[][{{ $synonym->id }}]" id="synonym"
+                                                            class="form-control">
+                                                        <option disabled selected class="h4">Choose word</option>
                                                         @foreach($synonymOptions as $option)
-                                                            <option value="{{ $option->options }}" class="h3">{{ $option->options }}</option>
+                                                            <option value="{{ $option->options }}"
+                                                                    class="h4">{{ $option->options }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div><!-- /.col-12 col-md-6 -->
                                             </div><!-- /.form-group -->
-                                        </fieldset>
-                                    @endforeach
+                                        @endforeach
+                                    </fieldset>
                                 </form>
-                            </div><!-- /. -->
-                            <div class="col-12 mt-3">
+                            </div><!-- /.card-body -->
+                            <div class="card-footer border-primary">
                                 <div class="row">
                                     <div class="col">
                                         <button class="btn btn-outline-primary btn-block"
@@ -47,8 +53,8 @@
                                         </button>
                                     </div><!-- /.col -->
                                 </div><!-- /.row -->
-                            </div><!-- /. -->
-                        </div><!-- /.row -->
+                            </div><!-- /.card-footer -->
+                        </div><!-- /.card -->
                     </div><!-- /.p-4 rounded shadow bg-white student-question-sec -->
                 </div><!-- /.h-100 d-flex justify-content-center align-items-center -->
             </div><!-- /.col-12 col-md-6 -->

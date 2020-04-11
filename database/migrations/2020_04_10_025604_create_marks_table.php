@@ -17,7 +17,7 @@ class CreateMarksTable extends Migration
             $table->id();
             $table->foreignId('student_id');
             $table->foreignId('exam_id');
-            $table->foreignId('question_set_id');
+            $table->foreignId('set_id');
             $table->unsignedInteger('grammar')->nullable();
             $table->unsignedInteger('synonym')->nullable();
             $table->timestamps();
