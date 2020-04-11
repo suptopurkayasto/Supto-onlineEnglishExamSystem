@@ -53,10 +53,10 @@
                             <div class="col-12 mt-3">
                                 <div class="row">
                                     <div class="col">
-                                        <button class="btn btn-primary btn-block" onclick="$('#myform').prevpage();">Previous</button>
+                                        <button class="btn btn-outline-primary btn-block" onclick="$('#myform').prevpage();">Previous</button>
                                     </div><!-- /.col -->
                                     <div class="col">
-                                        <button class="btn btn-primary btn-block" onclick="$('#myform').nextpage();">Next</button>
+                                        <button class="btn btn-outline-primary btn-block" onclick="$('#myform').nextpage();">Next</button>
                                     </div><!-- /.col -->
                                 </div><!-- /.row -->
                             </div><!-- /. -->

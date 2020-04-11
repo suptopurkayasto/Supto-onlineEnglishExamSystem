@@ -44,7 +44,7 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-grammar-question', compact('exam'))
-                ->with('grammars', $exam->grammars()->where('question_set_id', $authStudent->set->id)->get());
+                ->with('grammars', $exam->grammars()->where('set_id', $authStudent->set->id)->get());
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -68,7 +68,7 @@ class ExamController extends Controller
                 foreach ($request->except('_token') as $index => $value) {
                     $student->studentGrammars()->create([
                         'grammar_id' => $index,
-                        'question_set_id' => $student->set->id,
+                        'set_id' => $student->set->id,
                         'exam_id' => $exam->id,
                         'answer' => $value
                     ]);
@@ -85,7 +85,7 @@ class ExamController extends Controller
                 }
                 $student->marks()->create([
                     'exam_id' => $exam->id,
-                    'question_set_id' => $student->set->id,
+                    'set_id' => $student->set->id,
                     'grammar' => $marks
                 ]);
             } else {
@@ -108,8 +108,8 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-vocabulary-question', compact('exam'))
-                ->with('synonyms', $exam->synonyms()->where('question_set_id', $authStudent->set->id)->get())
-                ->with('synonymOptions', $exam->synonymOptions()->where('question_set_id', $authStudent->set->id)->get());
+                ->with('synonyms', $exam->synonyms()->where('set_id', $authStudent->set->id)->get())
+                ->with('synonymOptions', $exam->synonymOptions()->where('set_id', $authStudent->set->id)->get());
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -132,7 +132,7 @@ class ExamController extends Controller
                     foreach ($data as $key => $value) {
                         $authStudent->studentSynonyms()->create([
                             'exam_id' => $exam->id,
-                            'question_set_id' => $authStudent->set->id,
+                            'set_id' => $authStudent->set->id,
                             'synonym_id' => $key,
                             'answer' => $value
                         ]);
@@ -151,7 +151,7 @@ class ExamController extends Controller
                 }
                 $authStudent->marks()->create([
                     'exam_id' => $exam->id,
-                    'question_set_id' => $authStudent->set->id,
+                    'set_id' => $authStudent->set->id,
                     'synonym' => $marks
                 ]);
             } else {
