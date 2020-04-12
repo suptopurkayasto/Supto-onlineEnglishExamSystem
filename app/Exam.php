@@ -17,6 +17,7 @@ use App\Model\Vocabulary\Definition\DefinitionOption;
 use App\Model\Vocabulary\Definition\Student\StudentDefinition;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGap;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGapOption;
+use App\Model\Vocabulary\FillInTheGap\Student\StudentFillInTheGap;
 use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
 use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Vocabulary\Synonym\SynonymOption;
@@ -172,6 +173,12 @@ class Exam extends Model
     public function studentCombinations()
     {
         return $this->hasMany(StudentCombination::class);
+    }
+
+    // Fill In The Gap
+    public function studentFillInTheGaps()
+    {
+        return $this->hasMany(StudentFillInTheGap::class);
     }
 
 }

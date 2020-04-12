@@ -8,8 +8,8 @@
                     <form action="{{ route('student.exam.vocabulary.questions.submit', $exam->id) }}"
                           id="myform"
                           class="" method="post">
-                        @csrf
-                        <!-- START:: Synonym Markup -->
+                    @csrf
+                    <!-- START:: Synonym Markup -->
                         <fieldset>
                             <div class="card-header border-primary">
                                 <h3 class="h3 text-center font-weight-bolder">Synonym Word</h3>
@@ -37,9 +37,9 @@
                                 @endforeach
                             </div><!-- /.card-body -->
                         </fieldset>
-                         <!-- END:: Synonym Markup -->
+                        <!-- END:: Synonym Markup -->
 
-                         <!-- START:: Definition Markup -->
+                        <!-- START:: Definition Markup -->
                         <fieldset>
                             <div class="card-header border-primary">
                                 <h3 class="h3 text-center font-weight-bolder">Definition</h3>
@@ -67,38 +67,70 @@
                                 @endforeach
                             </div><!-- /.card-body -->
                         </fieldset>
-                         <!-- END:: Definition Markup -->
+                        <!-- END:: Definition Markup -->
 
 
-                            <!-- START:: Combination Markup -->
-                            <fieldset>
-                                <div class="card-header border-primary">
-                                    <h3 class="h3 text-center font-weight-bolder">Word Combination</h3>
-                                    <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
-                                </div><!-- /.card-header -->
-                                <div class="card-body">
-                                    @foreach($combinations as $index => $combination)
-                                        <div class="form-group row">
-                                            <div class="col-12 col-md-6">
-                                                <label for="definition_{{ $combination->id }}" class="mb-md-0">
-                                                    <h5 class="h5 mb-0">{{ $index+1 }}. {{ $combination->word }}</h5>
-                                                </label>
-                                            </div><!-- /.col-12 col-md-6 -->
-                                            <div class="col-12 col-md-6">
-                                                <select name="combination[][{{ $combination->id }}]" id="definition_{{ $combination->id }}"
-                                                        class="form-control">
-                                                    <option disabled selected class="h5">Choose word</option>
-                                                    @foreach($combinationOptions as $option)
-                                                        <option value="{{ $option->options }}"
-                                                                class="h5">{{ $option->options }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div><!-- /.col-12 col-md-6 -->
-                                        </div><!-- /.form-group -->
-                                    @endforeach
-                                </div><!-- /.card-body -->
-                            </fieldset>
-                            <!-- END:: Combination Markup -->
+                        <!-- START:: Combination Markup -->
+                        <fieldset>
+                            <div class="card-header border-primary">
+                                <h3 class="h3 text-center font-weight-bolder">Word Combination</h3>
+                                <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                @foreach($combinations as $index => $combination)
+                                    <div class="form-group row">
+                                        <div class="col-12 col-md-6">
+                                            <label for="definition_{{ $combination->id }}" class="mb-md-0">
+                                                <h5 class="h5 mb-0">{{ $index+1 }}. {{ $combination->word }}</h5>
+                                            </label>
+                                        </div><!-- /.col-12 col-md-6 -->
+                                        <div class="col-12 col-md-6">
+                                            <select name="combination[][{{ $combination->id }}]"
+                                                    id="definition_{{ $combination->id }}"
+                                                    class="form-control">
+                                                <option disabled selected class="h5">Choose word</option>
+                                                @foreach($combinationOptions as $option)
+                                                    <option value="{{ $option->options }}"
+                                                            class="h5">{{ $option->options }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div><!-- /.col-12 col-md-6 -->
+                                    </div><!-- /.form-group -->
+                                @endforeach
+                            </div><!-- /.card-body -->
+                        </fieldset>
+                        <!-- END:: Combination Markup -->
+
+                        <!-- START:: Fill in the gap Markup -->
+                        <fieldset>
+                            <div class="card-header border-primary">
+                                <h3 class="h3 text-center font-weight-bolder">Fill in the gap</h3>
+                                <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                @foreach($fillInTheGaps as $index => $fillInTheGap)
+                                    <div class="form-group row">
+                                        <div class="col-12 col-md-8">
+                                            <label for="fillInTheGap_{{ $fillInTheGap->id }}" class="mb-md-0">
+                                                <h5 class="h5 mb-0">{{ $index+1 }}. {{ $fillInTheGap->sentence }}</h5>
+                                            </label>
+                                        </div><!-- /.col-12 col-md-8 -->
+                                        <div class="col-12 col-md-4">
+                                            <select name="fillInTheGap[][{{ $fillInTheGap->id }}]"
+                                                    id="fillInTheGap_{{ $fillInTheGap->id }}"
+                                                    class="form-control">
+                                                <option disabled selected class="h5">Choose word</option>
+                                                @foreach($fillInTheGapOptions as $option)
+                                                    <option value="{{ $option->options }}"
+                                                            class="h5">{{ $option->options }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div><!-- /.col-12 col-md-4 -->
+                                    </div><!-- /.form-group -->
+                                @endforeach
+                            </div><!-- /.card-body -->
+                        </fieldset>
+                        <!-- END:: Fill in the gap Markup -->
 
 
                     </form>

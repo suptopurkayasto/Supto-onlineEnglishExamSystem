@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Grammar\Grammar;
 use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Definition\Definition;
+use App\Model\Vocabulary\FillInTheGap\FillInTheGap;
 use App\Model\Vocabulary\Synonym\Synonym;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -117,7 +118,10 @@ class ExamController extends Controller
                 ->with('definitionOptions', $exam->definitionOptions()->where('set_id', $authStudent->set->id)->get())
 
                 ->with('combinations', $exam->combinations()->where('set_id', $authStudent->set->id)->get())
-                ->with('combinationOptions', $exam->combinationOptions()->where('set_id', $authStudent->set->id)->get());
+                ->with('combinationOptions', $exam->combinationOptions()->where('set_id', $authStudent->set->id)->get())
+
+                ->with('fillInTheGaps', $exam->fillInTheGaps()->where('set_id', $authStudent->set->id)->get())
+                ->with('fillInTheGapOptions', $exam->fillInTheGapOptions()->where('set_id', $authStudent->set->id)->get());
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -134,8 +138,9 @@ class ExamController extends Controller
             $checkResubmitSynonym = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->synonym;
             $checkResubmitDefinition = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->definition;
             $checkResubmitCombination = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->combination;
+            $checkResubmitFillInTheGap = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->fillInTheGap;
 
-            if ($checkResubmitSynonym === null && $checkResubmitDefinition === null && $checkResubmitCombination === null) {
+            if ($checkResubmitSynonym === null && $checkResubmitDefinition === null && $checkResubmitCombination === null && $checkResubmitFillInTheGap === null) {
                 /**
                  * Synonym
                  */
@@ -224,6 +229,38 @@ class ExamController extends Controller
                 }
                 $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
                     'combination' => $marks
+                ]);
+
+
+
+
+                /**
+                 * fill in the gap
+                 */
+                $authStudentSubmittedFillInTheGapData = $request->input('fillInTheGap.*', []);
+                foreach ($authStudentSubmittedFillInTheGapData as $data) {
+                    foreach ($data as $key => $value) {
+                        $authStudent->studentFillInTheGaps()->create([
+                            'exam_id' => $exam->id,
+                            'set_id' => $authStudent->set->id,
+                            'fillInTheGap_id' => $key,
+                            'answer' => $value
+                        ]);
+                    }
+                }
+
+                // Generate fillInTheGap marks
+                $marks = 0;
+                foreach ($request->input('fillInTheGap.*', []) as $data) {
+                    foreach ($data as $key => $value) {
+                        $fillInTheGap = FillInTheGap::find($key);
+                        if ($fillInTheGap->answer->options == $value) {
+                            $marks += 1;
+                        }
+                    }
+                }
+                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
+                    'fillInTheGap' => $marks
                 ]);
 
 

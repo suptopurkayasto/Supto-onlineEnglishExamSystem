@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMarksTable extends Migration
+class CreateStudentFillInTheGapsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateMarksTable extends Migration
      */
     public function up()
     {
-        Schema::create('marks', function (Blueprint $table) {
+        Schema::create('student_fill_in_the_gaps', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id');
             $table->foreignId('exam_id');
             $table->foreignId('set_id');
-            $table->unsignedInteger('grammar')->nullable();
-            $table->unsignedInteger('synonym')->nullable();
-            $table->unsignedInteger('definition')->nullable();
-            $table->unsignedInteger('combination')->nullable();
-            $table->unsignedInteger('fillInTheGap')->nullable();
+            $table->foreignId('fillInTheGap_id');
+            $table->string('answer');
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ class CreateMarksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marks');
+        Schema::dropIfExists('student_fill_in_the_gaps');
     }
 }
