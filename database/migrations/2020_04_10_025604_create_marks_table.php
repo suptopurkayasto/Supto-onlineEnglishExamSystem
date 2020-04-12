@@ -20,6 +20,7 @@ class CreateMarksTable extends Migration
             $table->foreignId('set_id');
             $table->unsignedInteger('grammar')->nullable();
             $table->unsignedInteger('synonym')->nullable();
+            $table->unsignedInteger('definition')->nullable();
             $table->timestamps();
         });
     }

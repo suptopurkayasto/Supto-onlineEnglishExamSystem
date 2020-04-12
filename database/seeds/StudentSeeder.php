@@ -20,5 +20,6 @@ class StudentSeeder extends Seeder
             'teacher_id' => 1,
             'set_id' => rand(1, 4)
         ]);
+        factory(\App\Student::class, 119)->create();
     }
 }

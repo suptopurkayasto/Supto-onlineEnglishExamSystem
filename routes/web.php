@@ -1,5 +1,7 @@
 <?php
 
+use App\Student;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +33,6 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('test', function () {
-  $checkStudentGrammarSubmit = auth()->guard('student')->user()->studentGrammars()->where('exam_id', 2)->get()->count();
-  dd($checkStudentGrammarSubmit);
+    $students = Student::where('location_id', Auth::guard('teacher')->user()->location->id)->get();
+    return $students;
 });

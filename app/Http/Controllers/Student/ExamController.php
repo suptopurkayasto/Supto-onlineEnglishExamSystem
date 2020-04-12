@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Grammar\Grammar;
+use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\Synonym\Synonym;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -60,15 +61,16 @@ class ExamController extends Controller
     public function submitGrammarQuestion(Request $request, Exam $exam)
     {
         if ($this->validExamRequest($exam)) {
-            $student = Auth::guard('student')->user();
+            $authStudent = Auth::guard('student')->user();
 
-            $checkStudentGrammarSubmit = $student->studentGrammars()->where('exam_id', $exam->id)->get()->count();
-            if ($checkStudentGrammarSubmit === 0) {
+            $checkResubmitGrammarQuestion = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->grammar;
+            if ($checkResubmitGrammarQuestion === null) {
+
                 // Store Student Grammar Answer
                 foreach ($request->except('_token') as $index => $value) {
-                    $student->studentGrammars()->create([
+                    $authStudent->studentGrammars()->create([
                         'grammar_id' => $index,
-                        'set_id' => $student->set->id,
+                        'set_id' => $authStudent->set->id,
                         'exam_id' => $exam->id,
                         'answer' => $value
                     ]);
@@ -83,9 +85,7 @@ class ExamController extends Controller
                         $marks += 1;
                     }
                 }
-                $student->marks()->create([
-                    'exam_id' => $exam->id,
-                    'set_id' => $student->set->id,
+                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
                     'grammar' => $marks
                 ]);
             } else {
@@ -108,8 +108,12 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-vocabulary-question', compact('exam'))
+
                 ->with('synonyms', $exam->synonyms()->where('set_id', $authStudent->set->id)->get())
-                ->with('synonymOptions', $exam->synonymOptions()->where('set_id', $authStudent->set->id)->get());
+                ->with('synonymOptions', $exam->synonymOptions()->where('set_id', $authStudent->set->id)->get())
+
+                ->with('definitions', $exam->definitions()->where('set_id', $authStudent->set->id)->get())
+                ->with('definitionOptions', $exam->definitionOptions()->where('set_id', $authStudent->set->id)->get());
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -123,12 +127,15 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
 
+            $checkResubmitSynonym = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->synonym;
+            $checkResubmitDefinition = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->synonym;
 
-            // Store Student submitted Synonym data
-            $checkStudentSynonymSubmit = $authStudent->studentSynonyms()->where('exam_id', $exam->id)->get()->count();
-            if ($checkStudentSynonymSubmit === 0) {
-                $studentSubmittedSynonymData = $request->input('synonym.*');
-                foreach ($studentSubmittedSynonymData as $data) {
+            if ($checkResubmitSynonym === null && $checkResubmitDefinition === null) {
+                /**
+                 * Synonym
+                 */
+                $authStudentSubmittedSynonymData = $request->input('synonym.*', []);
+                foreach ($authStudentSubmittedSynonymData as $data) {
                     foreach ($data as $key => $value) {
                         $authStudent->studentSynonyms()->create([
                             'exam_id' => $exam->id,
@@ -141,7 +148,7 @@ class ExamController extends Controller
 
                 // Generate Synonym marks
                 $marks = 0;
-                foreach ($request->input('synonym.*') as $data) {
+                foreach ($request->input('synonym.*', []) as $data) {
                     foreach ($data as $key => $value) {
                         $synonym = Synonym::find($key);
                         if ($synonym->answer->options == $value) {
@@ -149,20 +156,47 @@ class ExamController extends Controller
                         }
                     }
                 }
-                $authStudent->marks()->create([
-                    'exam_id' => $exam->id,
-                    'set_id' => $authStudent->set->id,
+                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
                     'synonym' => $marks
                 ]);
+
+
+
+                /**
+                 * Definition
+                 */
+                $authStudentSubmittedSynonymData = $request->input('definition.*', []);
+                foreach ($authStudentSubmittedSynonymData as $data) {
+                    foreach ($data as $key => $value) {
+                        $authStudent->studentDefinitions()->create([
+                            'exam_id' => $exam->id,
+                            'set_id' => $authStudent->set->id,
+                            'definition_id' => $key,
+                            'answer' => $value
+                        ]);
+                    }
+                }
+
+                // Generate definition marks
+                $marks = 0;
+                foreach ($request->input('definition.*', []) as $data) {
+                    foreach ($data as $key => $value) {
+                        $synonym = Definition::find($key);
+                        if ($synonym->answer->options == $value) {
+                            $marks += 1;
+                        }
+                    }
+                }
+                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
+                    'definition' => $marks
+                ]);
+
+
+
             } else {
                 alert()->error('😒', 'You will no longer be able to resubmit');
                 return redirect()->route('student.exam.show.topic', $exam->id);
-            } // End
-
-
-
-
-
+            }
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
