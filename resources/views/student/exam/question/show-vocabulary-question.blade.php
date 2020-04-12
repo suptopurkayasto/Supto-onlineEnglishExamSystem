@@ -68,6 +68,39 @@
                             </div><!-- /.card-body -->
                         </fieldset>
                          <!-- END:: Definition Markup -->
+
+
+                            <!-- START:: Combination Markup -->
+                            <fieldset>
+                                <div class="card-header border-primary">
+                                    <h3 class="h3 text-center font-weight-bolder">Word Combination</h3>
+                                    <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
+                                </div><!-- /.card-header -->
+                                <div class="card-body">
+                                    @foreach($combinations as $index => $combination)
+                                        <div class="form-group row">
+                                            <div class="col-12 col-md-6">
+                                                <label for="definition_{{ $combination->id }}" class="mb-md-0">
+                                                    <h5 class="h5 mb-0">{{ $index+1 }}. {{ $combination->word }}</h5>
+                                                </label>
+                                            </div><!-- /.col-12 col-md-6 -->
+                                            <div class="col-12 col-md-6">
+                                                <select name="combination[][{{ $combination->id }}]" id="definition_{{ $combination->id }}"
+                                                        class="form-control">
+                                                    <option disabled selected class="h5">Choose word</option>
+                                                    @foreach($combinationOptions as $option)
+                                                        <option value="{{ $option->options }}"
+                                                                class="h5">{{ $option->options }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div><!-- /.col-12 col-md-6 -->
+                                        </div><!-- /.form-group -->
+                                    @endforeach
+                                </div><!-- /.card-body -->
+                            </fieldset>
+                            <!-- END:: Combination Markup -->
+
+
                     </form>
                     <div class="card-footer border-primary">
                         <div class="row">

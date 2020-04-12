@@ -6,22 +6,30 @@
             <div class="col-12 col-md-8 h-100">
                 <div class="h-100 d-flex justify-content-center align-items-center">
                     <div class="p-4 rounded shadow student-question-sec">
-                        <div class="row">
-                            <div class="col-12">
-                                <form action="{{ route('student.exam.grammar.questions.submit', $exam->id) }}" id="myform" class="" method="post">
+                        <div class="card border-primary bg-white">
+                            <div class="card-header border-primary">
+                                <h3 class="h3 text-center font-weight-bolder">Grammar Questions</h3>
+                                <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <form action="{{ route('student.exam.grammar.questions.submit', $exam->id) }}"
+                                      id="myform" class="" method="post">
                                     @csrf
                                     <?php $qn = 0; ?>
                                     @foreach($grammars as $index => $grammar)
                                         <?php $qn = $index; ?>
                                         <fieldset>
                                             <ul class="list-unstyled form-group">
-                                                <li class="mb-3"><h3 class="h3">{{ $index+1 }}. {{ $grammar->question }}</h3></li>
+                                                <li class="mb-3">
+                                                    <h5 class="h5">{{ $index+1 }}. {{ $grammar->question }}</h5>
+                                                </li>
                                                 <ul class="list-unstyled ml-4">
                                                     <li class="mb-2">
                                                         <div class="custom-control custom-radio">
                                                             <?php $id = Str::random() ?>
                                                             <input type="radio" id="{{ $id }}" name="{{ $index+1 }}"
-                                                                   class="custom-control-input" value="{{ $grammar->option_1 }}">
+                                                                   class="custom-control-input"
+                                                                   value="{{ $grammar->option_1 }}">
                                                             <label class="custom-control-label"
                                                                    for="{{ $id }}">{{ $grammar->option_1 }}</label>
                                                         </div>
@@ -30,7 +38,8 @@
                                                         <div class="custom-control custom-radio">
                                                             <?php $id = Str::random() ?>
                                                             <input type="radio" id="{{ $id }}" name="{{ $index+1 }}"
-                                                                   class="custom-control-input" value="{{ $grammar->option_2 }}">
+                                                                   class="custom-control-input"
+                                                                   value="{{ $grammar->option_2 }}">
                                                             <label class="custom-control-label"
                                                                    for="{{ $id }}">{{ $grammar->option_2 }}</label>
                                                         </div>
@@ -39,7 +48,8 @@
                                                         <div class="custom-control custom-radio">
                                                             <?php $id = Str::random() ?>
                                                             <input type="radio" id="{{ $id }}" name="{{ $index+1 }}"
-                                                                   class="custom-control-input" value="{{ $grammar->option_3 }}">
+                                                                   class="custom-control-input"
+                                                                   value="{{ $grammar->option_3 }}">
                                                             <label class="custom-control-label"
                                                                    for="{{ $id }}">{{ $grammar->option_3 }}</label>
                                                         </div>
@@ -49,18 +59,22 @@
                                         </fieldset>
                                     @endforeach
                                 </form>
-                            </div><!-- /. -->
-                            <div class="col-12 mt-3">
+                            </div><!-- /.card-body -->
+                            <div class="card-footer border-primary">
                                 <div class="row">
                                     <div class="col">
-                                        <button class="btn btn-outline-primary btn-block" onclick="$('#myform').prevpage();">Previous</button>
+                                        <button class="btn btn-outline-primary btn-block"
+                                                onclick="$('#myform').prevpage();">Previous
+                                        </button>
                                     </div><!-- /.col -->
                                     <div class="col">
-                                        <button class="btn btn-outline-primary btn-block" onclick="$('#myform').nextpage();">Next</button>
+                                        <button class="btn btn-outline-primary btn-block"
+                                                onclick="$('#myform').nextpage();">Next
+                                        </button>
                                     </div><!-- /.col -->
                                 </div><!-- /.row -->
-                            </div><!-- /. -->
-                        </div><!-- /.row -->
+                            </div><!-- /.card-footer -->
+                        </div><!-- /.card -->
                     </div><!-- /.p-4 rounded shadow student-question-sec -->
                 </div><!-- /.h-100 d-flex justify-content-center align-items-center -->
             </div><!-- /.col-12 col-md-6 -->

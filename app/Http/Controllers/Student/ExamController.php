@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Grammar\Grammar;
+use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\Synonym\Synonym;
 use Illuminate\Contracts\View\Factory;
@@ -113,7 +114,10 @@ class ExamController extends Controller
                 ->with('synonymOptions', $exam->synonymOptions()->where('set_id', $authStudent->set->id)->get())
 
                 ->with('definitions', $exam->definitions()->where('set_id', $authStudent->set->id)->get())
-                ->with('definitionOptions', $exam->definitionOptions()->where('set_id', $authStudent->set->id)->get());
+                ->with('definitionOptions', $exam->definitionOptions()->where('set_id', $authStudent->set->id)->get())
+
+                ->with('combinations', $exam->combinations()->where('set_id', $authStudent->set->id)->get())
+                ->with('combinationOptions', $exam->combinationOptions()->where('set_id', $authStudent->set->id)->get());
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -128,9 +132,10 @@ class ExamController extends Controller
             $authStudent = Auth::guard('student')->user();
 
             $checkResubmitSynonym = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->synonym;
-            $checkResubmitDefinition = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->synonym;
+            $checkResubmitDefinition = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->definition;
+            $checkResubmitCombination = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->combination;
 
-            if ($checkResubmitSynonym === null && $checkResubmitDefinition === null) {
+            if ($checkResubmitSynonym === null && $checkResubmitDefinition === null && $checkResubmitCombination === null) {
                 /**
                  * Synonym
                  */
@@ -189,6 +194,36 @@ class ExamController extends Controller
                 }
                 $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
                     'definition' => $marks
+                ]);
+
+
+                /**
+                 * Combination
+                 */
+                $authStudentSubmittedCombinationData = $request->input('combination.*', []);
+                foreach ($authStudentSubmittedCombinationData as $data) {
+                    foreach ($data as $key => $value) {
+                        $authStudent->studentCombinations()->create([
+                            'exam_id' => $exam->id,
+                            'set_id' => $authStudent->set->id,
+                            'combination_id' => $key,
+                            'answer' => $value
+                        ]);
+                    }
+                }
+
+                // Generate combination marks
+                $marks = 0;
+                foreach ($request->input('combination.*', []) as $data) {
+                    foreach ($data as $key => $value) {
+                        $combination = Combination::find($key);
+                        if ($combination->answer->options == $value) {
+                            $marks += 1;
+                        }
+                    }
+                }
+                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
+                    'combination' => $marks
                 ]);
 
 

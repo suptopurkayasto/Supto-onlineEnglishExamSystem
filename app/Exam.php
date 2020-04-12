@@ -11,6 +11,7 @@ use App\Model\Reading\Heading\HeadingOption;
 use App\Model\Reading\Rearrange\Rearrange;
 use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Combination\CombinationOption;
+use App\Model\Vocabulary\Combination\Student\StudentCombination;
 use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\Definition\DefinitionOption;
 use App\Model\Vocabulary\Definition\Student\StudentDefinition;
@@ -165,6 +166,12 @@ class Exam extends Model
     public function studentDefinitions()
     {
         return $this->hasMany(StudentDefinition::class);
+    }
+
+    // Combination
+    public function studentCombinations()
+    {
+        return $this->hasMany(StudentCombination::class);
     }
 
 }

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Model\Grammar\Student\StudentGrammar;
 use App\Model\Marks\Marks;
+use App\Model\Vocabulary\Combination\Student\StudentCombination;
 use App\Model\Vocabulary\Definition\Student\StudentDefinition;
 use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
 use App\Model\Writing\Dialog;
@@ -101,6 +102,11 @@ class Student extends Authenticatable
     public function studentDefinitions()
     {
         return $this->hasMany(StudentDefinition::class);
+    }
+    // Combination
+    public function studentCombinations()
+    {
+        return $this->hasMany(StudentCombination::class);
     }
 
 
