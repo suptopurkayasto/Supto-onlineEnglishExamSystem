@@ -13,6 +13,7 @@ use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Combination\CombinationOption;
 use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\Definition\DefinitionOption;
+use App\Model\Vocabulary\Definition\Student\StudentDefinition;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGap;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGapOption;
 use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
@@ -158,6 +159,12 @@ class Exam extends Model
     public function studentSynonyms()
     {
         return $this->hasMany(StudentSynonym::class);
+    }
+
+    // Definition
+    public function studentDefinitions()
+    {
+        return $this->hasMany(StudentDefinition::class);
     }
 
 }

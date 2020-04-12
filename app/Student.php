@@ -4,6 +4,7 @@ namespace App;
 
 use App\Model\Grammar\Student\StudentGrammar;
 use App\Model\Marks\Marks;
+use App\Model\Vocabulary\Definition\Student\StudentDefinition;
 use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
 use App\Model\Writing\Dialog;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -95,6 +96,11 @@ class Student extends Authenticatable
     public function studentSynonyms()
     {
         return $this->hasMany(StudentSynonym::class);
+    }
+    // Definition
+    public function studentDefinitions()
+    {
+        return $this->hasMany(StudentDefinition::class);
     }
 
 

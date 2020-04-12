@@ -15,6 +15,11 @@ class CreateStudentDefinitionsTable extends Migration
     {
         Schema::create('student_definitions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('student_id');
+            $table->foreignId('exam_id');
+            $table->foreignId('set_id');
+            $table->foreignId('definition_id');
+            $table->string('answer');
             $table->timestamps();
         });
     }
