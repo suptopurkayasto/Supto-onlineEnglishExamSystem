@@ -82,6 +82,22 @@
 
                     <div class="form-group row">
                         <div class="col-12 col-md-2">
+                            <label for="phone_number">Phone Number</label>
+                        </div><!-- /.col-12 col-md-2 -->
+                        <div class="col-12 col-md-10">
+                            <input type="text" name="phone_number" id="phone_number"
+                                   class="form-control @error('phone_number') is-invalid @enderror" value="{{ $student->phone_number }}"
+                                   disabled>
+                            @error('phone_number')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                            @enderror
+                        </div><!-- /.col-12 col-md-10 -->
+                    </div><!-- /.form-group -->
+
+                    <div class="form-group row">
+                        <div class="col-12 col-md-2">
                             <label for="email">Email</label>
                         </div><!-- /.col-12 col-md-2 -->
                         <div class="col-12 col-md-10">
@@ -102,11 +118,11 @@
                         <div class="col-12 col-md-10">
                             <div class="row">
                                 <div class="col col-md-6">
-                                    <a href="{{ route('teacher.students.edit', $student->id_number) }}"
+                                    <a href="{{ route('teacher.students.edit', $student->id) }}"
                                        class="btn bg-gradient-primary btn-block"><i class="fas fa-edit mr-1"></i> Edit Student</a>
                                 </div><!-- /.col col-md-6 -->
                                 <div class="col col-md-6">
-                                    <form action="{{ route('teacher.students.destroy', $student->id_number) }}" method="post"
+                                    <form action="{{ route('teacher.students.destroy', $student->id) }}" method="post"
                                           class="ml-3">
                                         @method('DELETE')
                                         @csrf

@@ -31,13 +31,13 @@
                     @foreach($authTeacher->students as $index => $student)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td title="{{ 'ID Number: ' . $student->id_number }}">{{ $student->id_number }}</td>
+                            <td title="{{ 'ID Number: ' . $student->id }}">{{ $student->id }}</td>
                             <td title="{{ $student->name }}">{{ Str::limit($student->name, 20) }}</td>
                             <td title="{{ 'Group: ' . $student->group->name }}">{{ $student->group->name }}</td>
                             <td title="{{ 'Section: ' . $student->section->name }}">{{ $student->section->name }}</td>
                             <td title="{{ $student->email }}">{{ Str::limit($student->email, 30) }}</td>
                             <td class="text-center">
-                                <a href="{{ route('teacher.students.show', $student->id_number) }}"
+                                <a href="{{ route('teacher.students.show', $student->id) }}"
                                    class="btn btn-primary btn-sm btn-block btn-hover-effect"><i
                                         class="fas fa-eye mr-1"></i> View</a>
                             </td>

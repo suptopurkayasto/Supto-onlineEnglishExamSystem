@@ -47,11 +47,6 @@ class Student extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getRouteKeyName()
-    {
-        return 'id_number';
-    }
-
     public function admin()
     {
         return $this->belongsTo(Admin::class);

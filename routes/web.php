@@ -34,15 +34,5 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('test', function () {
-
-    $sid = 'AC2667917e1123a447e4dcd07498cf3f10';
-    $token = '4243baaf525f396166e2f6597a9c2573';
-
-    $client = new Client($sid, $token);
-    for ($n = 1; $n < 100; $n++) {
-        $client->messages->create('+8801740-915311', [
-            'from' => '+15866666750',
-            'body' => "Hi, Supto {$n}"
-        ]);
-    }
+    return Auth::guard('teacher')->user()->students;
 });

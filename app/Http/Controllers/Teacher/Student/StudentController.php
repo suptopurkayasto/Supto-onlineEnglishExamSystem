@@ -72,27 +72,39 @@ class StudentController extends Controller
      * Display the specified resource.
      *
      * @param Student $student
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function show(Student $student)
     {
-        return view('teacher.student.show', compact('student'))
-            ->with('authTeacher', Auth::guard('teacher')->user());
+        if ($this->validStudentRequest($student)) {
+            return view('teacher.student.show', compact('student'))
+                ->with('authTeacher', Auth::guard('teacher')->user());
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
+
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param Student $student
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function edit(Student $student)
     {
-        return view('teacher.student.edit')
-            ->with('student', $student)
-            ->with('groups', Group::all())
-            ->with('sections', Section::all())
-            ->with('authTeacher', Auth::guard('teacher')->user());
+        if ($this->validStudentRequest($student)) {
+            return view('teacher.student.edit')
+                ->with('student', $student)
+                ->with('groups', Group::all())
+                ->with('sections', Section::all())
+                ->with('authTeacher', Auth::guard('teacher')->user());
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -104,10 +116,15 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        $student->update($this->validateUpdateStudentRequest($request));
-        toast('Student has been successfully updated','success');
-        session()->flash('success_audio');
-        return redirect()->route('teacher.students.index');
+        if ($this->validStudentRequest($student)) {
+            $student->update($this->validateStudentUpdateRequest($request));
+            toast('Student has been successfully updated','success');
+            session()->flash('success_audio');
+            return redirect()->route('teacher.students.index');
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -156,12 +173,13 @@ class StudentController extends Controller
     }
 
 
-    protected function validateUpdateStudentRequest($request) {
+    protected function validateStudentUpdateRequest($request) {
         $validateData = $this->validate($request, [
             'name' => 'required|max:255|string',
             'group' => 'required',
             'section' => 'required',
-            'email' => 'required|max:255|email',
+            'email' => 'required|max:255|email|unique:students',
+            'phone_number' => 'required'
         ]);
 
         $finalData =  [
@@ -169,7 +187,8 @@ class StudentController extends Controller
             'name' => $validateData['name'],
             'group_id' => $validateData['group'],
             'section_id' => $validateData['section'],
-            'email' => $validateData['email']
+            'email' => $validateData['email'],
+            'phone_number' => $validateData['phone_number']
         ];
 
         if ($request->password != null) {
@@ -181,5 +200,19 @@ class StudentController extends Controller
         }
 
         return $finalData;
+    }
+
+    private function validStudentRequest(Student $student)
+    {
+        $authTeacherStudents = Auth::guard('teacher')->user()->students;
+
+        $valid = null;
+        foreach ($authTeacherStudents as $atStudent) {
+            if ($atStudent->id === $student->id) {
+                $valid = true;
+            }
+        }
+
+        return $valid;
     }
 }

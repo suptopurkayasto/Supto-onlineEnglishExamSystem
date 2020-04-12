@@ -11,7 +11,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ route('teacher.students.update', $student->id_number) }}" method="post">
+                    <form action="{{ route('teacher.students.update', $student->id) }}" method="post">
                         @method('PATCH')
                         @csrf
 
@@ -93,6 +93,22 @@
                                 @enderror
                             </div><!-- /.col-12 col-md-10 -->
                         </div><!-- /.form-group row -->
+
+                        <div class="form-group row">
+                            <div class="col-12 col-md-2">
+                                <label for="phone_number">Phone Number</label>
+                            </div><!-- /.col-12 col-md-2 -->
+                            <div class="col-12 col-md-10">
+                                <input type="text" name="phone_number" id="phone_number"
+                                       class="form-control @error('phone_number') is-invalid @enderror" value="{{ $student->phone_number }}"
+                                       required>
+                                @error('phone_number')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div><!-- /.col-12 col-md-10 -->
+                        </div><!-- /.form-group -->
 
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
