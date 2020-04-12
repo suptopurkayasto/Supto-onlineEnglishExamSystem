@@ -1,18 +1,18 @@
 @extends('layouts.teacher')
 
-@section('title', 'Add Definition Sentence')
+@section('title', 'Add Heading')
 
 
 @section('content')
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
-                    <h3 class="h3 card-title">Add Definition Sentence</h3>
+                    <h3 class="h3 card-title">Add Heading Matching</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ route('teachers.questions.definitions.store') }}" method="post">
+                    <form action="{{ route('teachers.questions.headings.store') }}" method="post">
                         @csrf
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
@@ -39,25 +39,25 @@
 
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
-                                <label for="questionSet">Question Set</label>
+                                <label for="set">Set</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                                <select name="questionSet" id="questionSet"
-                                        class="form-control @error('questionSet') is-invalid @enderror" autofocus>
+                                <select name="set" id="set"
+                                        class="form-control @error('set') is-invalid @enderror" autofocus>
                                     <option disabled selected>Select Set</option>
-                                    @foreach($questionSets as $questionSet)
+                                    @foreach($sets as $set)
                                         <option
-                                            @if(old('questionSet') == $questionSet->id)
+                                            @if(old('set') == $set->id)
                                             selected
                                             @elseif(request()->has('set'))
-                                            @if(decrypt(request()->get('set')) === $questionSet->id)
+                                            @if(decrypt(request()->get('set')) === $set->id)
                                             selected
                                             @endif
                                             @endif
-                                            value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
+                                            value="{{ $set->id }}">{{ $set->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('questionSet')
+                                @error('set')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -67,14 +67,14 @@
 
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
-                                <label for="sentence">Sentence</label>
+                                <label for="heading">Heading</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                                <input type="text" name="sentence" id="sentence"
-                                       class="form-control @error('sentence') is-invalid @enderror"
-                                       value="{{ old('sentence') }}"
+                                <input type="text" name="heading" id="heading"
+                                       class="form-control @error('heading') is-invalid @enderror"
+                                       value="{{ old('heading') }}"
                                        required>
-                                @error('sentence')
+                                @error('heading')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -85,14 +85,13 @@
 
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
-                                <label for="answer">Answer</label>
+                                <label for="paragraph">Paragraph</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                                <input type="text" name="answer" id="answer"
-                                       class="form-control @error('answer') is-invalid @enderror"
-                                       value="{{ old('answer') }}"
-                                       required>
-                                @error('answer')
+                                <textarea type="text" name="paragraph" id="paragraph" rows="10"
+                                       class="form-control @error('paragraph') is-invalid @enderror"
+                                          required>{{ old('paragraph') }}</textarea>
+                                @error('paragraph')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -107,7 +106,7 @@
                                 <div class="row">
                                     <div class="col col-md-6">
                                         <button type="submit" class="btn bg-gradient-primary btn-block"><i class="fas fa-check"></i> Add
-                                            Definition Sentence
+                                            Heading Matching
                                         </button>
                                     </div><!-- /.col col-md-6 -->
                                 </div><!-- /.row -->
