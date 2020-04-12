@@ -22,8 +22,8 @@ class CreateStudentsTable extends Migration
             $table->unsignedBigInteger('section_id');
             $table->unsignedBigInteger('group_id');
             $table->string('name');
-            $table->string('id_number');
             $table->string('email')->unique();
+            $table->string('phone_number');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

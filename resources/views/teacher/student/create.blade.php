@@ -86,6 +86,23 @@
 
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
+                                <label for="phone_number">Phone Number</label>
+                            </div><!-- /.col-12 col-md-2 -->
+                            <div class="col-12 col-md-10">
+                                <input type="text" name="phone_number" id="phone_number"
+                                       class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}"
+                                       required>
+                                @error('phone_number')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div><!-- /.col-12 col-md-10 -->
+                        </div><!-- /.form-group -->
+
+
+                        <div class="form-group row">
+                            <div class="col-12 col-md-2">
                                 <label for="email">Email</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
@@ -152,7 +169,7 @@
                             <div class="col-12 col-md-10">
                                 <div class="row">
                                     <div class="col col-md-6">
-                                        <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-check mr-1"></i> Add Student</button>
+                                        <button type="submit" class="btn bg-gradient-primary btn-block"><i class="fas fa-check-circle mr-1"></i> Add Student</button>
                                     </div><!-- /.col col-md-6 -->
                                 </div><!-- /.row -->
                             </div><!-- /.col-12 col-md-10 -->

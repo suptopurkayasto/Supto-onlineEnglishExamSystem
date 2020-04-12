@@ -60,17 +60,9 @@ class StudentController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(StudentCreateRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->only('name', 'email');
-        $data['question_set_id'] = Set::all()->random()->id;
-        $data['location_id'] = Auth::guard('teacher')->user()->location->id;
-        $data['group_id'] = $request->group;
-        $data['section_id'] = $request->section;
-        $data['password'] = Hash::make($request->password);
-        $data['id_number'] = Str::upper(Str::random(1)) . now('asia/dhaka')->format('sms') . Str::upper(Str::random(1));
-
-        Auth::guard('teacher')->user()->students()->create($data);
+        Auth::guard('teacher')->user()->students()->create($this->validateStudentCreateRequest($request));
         toast('Student has been successfully added','success');
         session()->flash('success_audio');
         return redirect()->back();
@@ -140,6 +132,29 @@ class StudentController extends Controller
             ->with('exams', Exam::latest()->get())
             ->with('students', Student::all());
     }
+
+    protected function validateStudentCreateRequest(Request $request) {
+        $validateData = $this->validate($request, [
+            'name' => 'required|max:255|string',
+            'group' => 'required',
+            'section' => 'required',
+            'phone_number' => 'required',
+            'email' => 'required|max:255|email',
+            'password' => 'required|min:8'
+        ]);
+
+        return [
+            'location_id' => Auth::guard('teacher')->user()->location->id,
+            'name' => $validateData['name'],
+            'group_id' => $validateData['group'],
+            'section_id' => $validateData['section'],
+            'set_id' => rand(1, 4),
+            'phone_number' => $validateData['phone_number'],
+            'email' => $validateData['email'],
+            'password' => Hash::make($validateData['password'])
+        ];
+    }
+
 
     protected function validateUpdateStudentRequest($request) {
         $validateData = $this->validate($request, [
