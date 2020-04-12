@@ -21,11 +21,8 @@
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
                                 <select name="exam" id="exam"
-                                        class="form-control @error('exam') is-invalid @enderror" autofocus>
-                                    <option selected>Select exam</option>
-                                    @foreach($authTeacher->exams as $exam)
-                                        <option {{ $exam->id == $grammar->exam->id ? 'selected' : ''  }} value="{{ $exam->id }}">{{ $exam->name }}</option>
-                                    @endforeach
+                                        class="form-control @error('exam') is-invalid @enderror" readonly>
+                                        <option selected value="{{ $grammar->exam->id }}">{{ $grammar->exam->name }}</option>
                                 </select>
                                 @error('exam')
                                 <span class="invalid-feedback" role="alert">
@@ -42,8 +39,7 @@
                             <div class="col-12 col-md-10">
                                 <select name="set" id="set"
                                         class="form-control @error('set') is-invalid @enderror" >
-                                    <option disabled>Select question set</option>
-                                    @foreach($questionSets as $set)
+                                    @foreach($sets as $set)
                                         <option {{ $set->id == $grammar->set->id ? 'selected' : ''  }} value="{{ $set->id }}">{{ $set->name }}</option>
                                     @endforeach
                                 </select>

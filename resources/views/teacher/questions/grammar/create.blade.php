@@ -49,7 +49,7 @@
                                     <option selected disabled>Select set</option>
                                     @foreach($sets as $set)
                                         <option
-                                            {{ old('set') == $set->id || decrypt(request()->get('set')) === $set->id ? 'selected' : '' }} value="{{ $set->id }}">{{ $set->name }}</option>
+                                            {{ old('set') == $set->id || request()->has('set') ? decrypt(request()->get('set')) === $set->id ? 'selected' : '' : '' }} value="{{ $set->id }}">{{ $set->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('set')
@@ -154,7 +154,7 @@
                                     <div class="col col-md-6">
                                         <button type="submit" class="btn bg-gradient-primary btn-block"><i
                                                 class="fas fa-check mr-1"></i>
-                                            Add Question
+                                            Add Grammar Question
                                         </button>
                                     </div><!-- /.col col-md-6 -->
                                 </div><!-- /.row -->

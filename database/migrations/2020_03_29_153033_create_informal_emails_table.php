@@ -17,7 +17,7 @@ class CreateInformalEmailsTable extends Migration
             $table->id();
             $table->foreignId('exam_id');
             $table->foreignId('set_id');
-            $table->string('topic');
+            $table->text('topic');
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@
 @section('content')
 
     @if($authTeacher->exams()->count() > 0)
-        @foreach($authTeacher->exams as $exam)
+        @foreach($authTeacher->exams()->orderBy('id', 'DESC')->get() as $exam)
             @if($exam->grammars()->count() > 0)
                 <div class="card mb-5 index-card">
                     <div class="card-header">
@@ -68,8 +68,8 @@
                                 </div><!-- /.col -->
                             @endforeach
                             <div class="col-12">
-                                <table id="example"
-                                       class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
+                                <table id=""
+                                       class="example table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
                                        style="width: 100%">
                                     <thead>
                                     <tr>

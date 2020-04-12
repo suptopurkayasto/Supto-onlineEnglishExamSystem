@@ -22,6 +22,7 @@
                         <th>Created Date</th>
                         <th>Grammar</th>
                         <th>Writing</th>
+                        <th>Reading</th>
                         <th>Vocabulary</th>
                         <th>Exam Status</th>
                         <th>Action</th>
@@ -35,14 +36,24 @@
                             <td title="{{ $exam->created_at->diffForHumans() }}">{{ $exam->created_at->toFormattedDateString() }}</td>
                             <td>
                                 @if($exam->grammars()->count() === 100)
-                                    <span class="text-success font-weight-bolder"><i class="fas fa-check-circle mr-1"></i> Ready</span>
+                                    <span class="text-success font-weight-bolder"><i
+                                            class="fas fa-check-circle mr-1"></i> Ready</span>
                                 @else
                                     <span class="badge badge-warning">Pending</span>
                                 @endif
                             </td>
                             <td>
                                 @if($exam->dialogs()->count() === 4 && $exam->informalEmails()->count() === 4 && $exam->formalEmails()->count() === 4 && $exam->sortQuestions()->count() === 28)
-                                    <span class="text-success font-weight-bolder"><i class="fas fa-check-circle mr-1"></i> Ready</span>
+                                    <span class="text-success font-weight-bolder"><i
+                                            class="fas fa-check-circle mr-1"></i> Ready</span>
+                                @else
+                                    <span class="badge badge-warning">Pending</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($exam->headings()->count() === 20 && $exam->headingOptions()->count() === 40)
+                                    <span class="text-success font-weight-bolder"><i
+                                            class="fas fa-check-circle mr-1"></i> Ready</span>
                                 @else
                                     <span class="badge badge-warning">Pending</span>
                                 @endif
@@ -62,7 +73,8 @@
                                 $fillInTheGapOptions = $exam->fillInTheGapOptions()->count();
                                 ?>
                                 @if( $synonyms == 20 && $definitions == 20 && $combination == 20 && $fillInTheGaps == 20 && $synonymOptions == 40 && $definitionOptions == 40 && $combinationOptions == 40 && $fillInTheGapOptions == 40 )
-                                    <span class="text-success font-weight-bolder"><i class="fas fa-check-circle mr-1"></i> Ready</span>
+                                    <span class="text-success font-weight-bolder"><i
+                                            class="fas fa-check-circle mr-1"></i> Ready</span>
                                 @else
                                     <span class="badge badge-warning">Pending</span>
                                 @endif
