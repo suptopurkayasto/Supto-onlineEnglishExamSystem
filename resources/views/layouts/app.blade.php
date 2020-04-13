@@ -44,6 +44,12 @@
             var height = $(window).innerHeight();
             $('body').css({'height': height});
         });
+        $(document).tooltip({
+            track: true,
+            classes: {
+                "ui-tooltip": "text-primary shadow-sm rounded bordered border-primary"
+            }
+        });
     </script>
 
 </body>

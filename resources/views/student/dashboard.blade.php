@@ -18,6 +18,7 @@
                         </div><!-- /.col-12 col-md-5 mb-5 mb-md-0 -->
                         <div class="col-12 col-lg-8">
                             <h2
+                                id="supto"
                                 title="{{ auth()->guard('student')->user()->name }}"
                                 class="h2 float-left font-weight-bolder">
                                 @if(session('welcome'))
