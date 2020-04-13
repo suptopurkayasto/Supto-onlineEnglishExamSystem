@@ -19,8 +19,8 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>ID Number</th>
                         <th>Name</th>
+                        <th>Phone Number</th>
                         <th>Group</th>
                         <th>Section</th>
                         <th>Email</th>
@@ -31,8 +31,8 @@
                     @foreach($authTeacher->students as $index => $student)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td title="{{ 'ID Number: ' . $student->id }}">{{ $student->id }}</td>
                             <td title="{{ $student->name }}">{{ Str::limit($student->name, 20) }}</td>
+                            <td>{{ $student->phone_number }}</td>
                             <td title="{{ 'Group: ' . $student->group->name }}">{{ $student->group->name }}</td>
                             <td title="{{ 'Section: ' . $student->section->name }}">{{ $student->section->name }}</td>
                             <td title="{{ $student->email }}">{{ Str::limit($student->email, 30) }}</td>

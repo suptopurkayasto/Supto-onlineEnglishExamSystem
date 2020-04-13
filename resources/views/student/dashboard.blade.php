@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
-{{--    @include('partials.student.navigation')--}}
+    {{--    @include('partials.student.navigation')--}}
 
     <div class="student-main-section h-100">
         <div class="container h-100">
@@ -13,17 +13,33 @@
                         <div class="col-12 col-lg-4 mb-5 mb-lg-0">
                             <img title="{{ $authStudent->name }}" class="border-primary border rounded"
                                  style="width: 100%; border-width: 2px !important;"
-                                 src="{{ Gravatar::get(auth()->guard('student')->user()->email, ['size' => 1024]) }}" alt="">
+                                 src="{{ Gravatar::get(auth()->guard('student')->user()->email, ['size' => 1024]) }}"
+                                 alt="">
                         </div><!-- /.col-12 col-md-5 mb-5 mb-md-0 -->
                         <div class="col-12 col-lg-8">
                             <h2
                                 title="{{ auth()->guard('student')->user()->name }}"
-                                class="h2 float-left">
+                                class="h2 float-left font-weight-bolder">
+                                @if(session('welcome'))
+                                    <span class="text-primary font-weight-bolder mr-2">
+                                        <i class="fas fa-smile mx-2"></i>
+                                        @if (now()->format('H') < 12)
+                                            Good morning
+                                        @elseif (now()->format('H') < 17)
+                                            Good afternoon
+                                        @else
+                                            Good evening
+                                        @endif
+                                    </span>
+                                @endif
+
                                 {{ Str::limit(auth()->guard('student')->user()->name, 30) }}
                             </h2>
 
                             <div class="btn-group float-right">
-                                <button type="button" class="btn btn-outline-danger btn-sm dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" class="btn btn-outline-danger btn-sm dropdown-toggle"
+                                        data-toggle="dropdown" data-display="static" aria-haspopup="true"
+                                        aria-expanded="false">
                                     Log Out
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-lg-right">
@@ -56,15 +72,16 @@
 
                                 @foreach($exams as $exam)
                                     <tr class="text-center">
-                                        <td class="text-left" title="{{ $exam->name }}">{{ Str::limit($exam->name, 20) }}</td>
+                                        <td class="text-left"
+                                            title="{{ $exam->name }}">{{ Str::limit($exam->name, 20) }}</td>
                                         <td>
-{{--                                            @php $grammarStudentMarks = $authStudent->grammarMarks()->where('id', 1)->get()->first() @endphp--}}
+                                            {{--                                            @php $grammarStudentMarks = $authStudent->grammarMarks()->where('id', 1)->get()->first() @endphp--}}
 
-{{--                                            @if($grammarStudentMarks != null)--}}
-{{--                                                {{ $grammarStudentMarks->got_marks }}--}}
-{{--                                            @else--}}
-{{--                                                0--}}
-{{--                                            @endif--}}
+                                            {{--                                            @if($grammarStudentMarks != null)--}}
+                                            {{--                                                {{ $grammarStudentMarks->got_marks }}--}}
+                                            {{--                                            @else--}}
+                                            {{--                                                0--}}
+                                            {{--                                            @endif--}}
                                         </td>
                                         <td>0</td>
                                         <td>0</td>

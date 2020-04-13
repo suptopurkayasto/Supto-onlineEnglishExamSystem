@@ -1,6 +1,7 @@
 <?php
 
 use App\Student;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Twilio\Rest\Client;
@@ -34,5 +35,5 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('test', function () {
-    return Auth::guard('teacher')->user()->students;
+
 });
