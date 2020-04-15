@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Grammar\Grammar;
+use App\Model\Reading\Heading\Heading;
 use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGap;
@@ -23,6 +24,7 @@ class ExamController extends Controller
     {
         $this->middleware('auth:student');
     }
+
     /**
      * @param Exam $exam
      * @return Factory|RedirectResponse|View
@@ -112,16 +114,12 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-vocabulary-question', compact('exam'))
-
                 ->with('synonyms', $exam->synonyms()->where('set_id', $authStudent->set->id)->get())
                 ->with('synonymOptions', $exam->synonymOptions()->where('set_id', $authStudent->set->id)->get())
-
                 ->with('definitions', $exam->definitions()->where('set_id', $authStudent->set->id)->get())
                 ->with('definitionOptions', $exam->definitionOptions()->where('set_id', $authStudent->set->id)->get())
-
                 ->with('combinations', $exam->combinations()->where('set_id', $authStudent->set->id)->get())
                 ->with('combinationOptions', $exam->combinationOptions()->where('set_id', $authStudent->set->id)->get())
-
                 ->with('fillInTheGaps', $exam->fillInTheGaps()->where('set_id', $authStudent->set->id)->get())
                 ->with('fillInTheGapOptions', $exam->fillInTheGapOptions()->where('set_id', $authStudent->set->id)->get());
 
@@ -140,7 +138,8 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-reading-question', compact('exam'))
-
+                ->with('headings', $exam->headings()->where('set_id', $authStudent->set->id)->get())
+                ->with('headingOptions', $exam->headingOptions()->where('set_id', $authStudent->set->id)->get())
                 ->with('rearranges', $exam->rearranges()->where('set_id', $authStudent->set->id)->get());
 
         } else {
@@ -194,7 +193,6 @@ class ExamController extends Controller
                 $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
                     'synonym' => $marks
                 ]);
-
 
 
                 /**
@@ -257,8 +255,6 @@ class ExamController extends Controller
                 ]);
 
 
-
-
                 /**
                  * fill in the gap
                  */
@@ -289,7 +285,6 @@ class ExamController extends Controller
                 ]);
 
 
-
             } else {
                 alert()->error('😒', 'You will no longer be able to resubmit');
                 return redirect()->route('student.exam.show.topic', $exam->id);
@@ -308,14 +303,44 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
 
+            $checkResubmitHeading = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->heading;
             $checkResubmitRearrange = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->rearrange;
 
-            if ($checkResubmitRearrange === null) {
+            if ($checkResubmitRearrange === null && $checkResubmitHeading === null) {
+
+
+                /**
+                 * Heading
+                 */
+                foreach ($request->input('heading.*') as $headings) {
+                    foreach ($headings as $index => $value) {
+                        $authStudent->studentHeadings()->create([
+                            'exam_id' => $exam->id,
+                            'set_id' => $authStudent->set->id,
+                            'heading_id' => $index,
+                            'heading_option_id' => $value
+                        ]);
+                    }
+                }
+
+                // Generate rearrange marks
+                $authStudentSubmittedHeadings = $authStudent->studentHeadings()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->get();
+
+                $marks = 0;
+                foreach ($authStudentSubmittedHeadings as $authStudentSubmittedHeading) {
+                    $heading = Heading::find($authStudentSubmittedHeading->heading->id);
+                    if ($authStudentSubmittedHeading->heading_option_id === $heading->heading_option_id) {
+                        $marks += 1;
+                    }
+                }
+                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
+                    'heading' => $marks
+                ]);
+
+
                 /**
                  * Rearrange
                  */
-
-
                 // Store Student submitted Rearrange data
                 $authStudent->studentRearranges()->create([
                     'exam_id' => $exam->id,
@@ -344,6 +369,9 @@ class ExamController extends Controller
                 ]);
 
 
+                toast('Reading part has been successfully submitted','success');
+                session()->flash('success_audio');
+                return redirect()->route('student.exam.show.topic', $exam->id);
 
             } else {
                 alert()->error('😒', 'You will no longer be able to resubmit');

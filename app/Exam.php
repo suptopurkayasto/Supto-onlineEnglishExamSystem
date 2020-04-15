@@ -8,6 +8,7 @@ use App\Model\Grammar\StudentGrammarQuestion;
 use App\Model\Marks\Marks;
 use App\Model\Reading\Heading\Heading;
 use App\Model\Reading\Heading\HeadingOption;
+use App\Model\Reading\Heading\Student\StudentHeading;
 use App\Model\Reading\Rearrange\Rearrange;
 use App\Model\Reading\Rearrange\Student\StudentRearrange;
 use App\Model\Vocabulary\Combination\Combination;
@@ -190,6 +191,11 @@ class Exam extends Model
     public function studentRearranges()
     {
         return $this->hasMany(StudentRearrange::class);
+    }
+    // Heading
+    public function studentHeadings()
+    {
+        return $this->hasMany(StudentHeading::class);
     }
 
 }

@@ -3248,6 +3248,10 @@ table td {
   }
 }
 
+.ui-selectmenu-button {
+  display: block;
+}
+
 body {
   font-family: "Roboto", sans-serif;
 }

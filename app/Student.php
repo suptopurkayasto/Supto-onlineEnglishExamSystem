@@ -4,6 +4,7 @@ namespace App;
 
 use App\Model\Grammar\Student\StudentGrammar;
 use App\Model\Marks\Marks;
+use App\Model\Reading\Heading\Student\StudentHeading;
 use App\Model\Reading\Rearrange\Student\StudentRearrange;
 use App\Model\Vocabulary\Combination\Student\StudentCombination;
 use App\Model\Vocabulary\Definition\Student\StudentDefinition;
@@ -118,6 +119,11 @@ class Student extends Authenticatable
     public function studentRearranges()
     {
         return $this->hasMany(StudentRearrange::class);
+    }
+    // Heading
+    public function studentHeadings()
+    {
+        return $this->hasMany(StudentHeading::class);
     }
 
 

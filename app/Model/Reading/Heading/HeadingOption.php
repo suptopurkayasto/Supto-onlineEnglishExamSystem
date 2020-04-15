@@ -3,6 +3,7 @@
 namespace App\Model\Reading\Heading;
 
 use App\Exam;
+use App\Model\Reading\Heading\Student\StudentHeading;
 use App\Set;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,5 +25,11 @@ class HeadingOption extends Model
     public function heading()
     {
         return $this->hasOne(Heading::class);
+    }
+
+    // Student Heading
+    public function studentHeadings()
+    {
+        return $this->hasMany(StudentHeading::class);
     }
 }

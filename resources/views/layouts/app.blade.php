@@ -3,8 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script src="https://kit.fontawesome.com/01809e8659.js" crossorigin="anonymous"></script>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -45,10 +43,10 @@
         });
     </script>
     <script>
-        $(document).ready(function () {
-            var height = $(window).innerHeight();
-            $('body').css({'height': height});
-        });
+        // $(document).ready(function () {
+        //     var height = $(window).innerHeight();
+        //     $('body').css({'height': height});
+        // });
         $(document).tooltip({
             track: true,
             classes: {
@@ -56,6 +54,6 @@
             }
         });
     </script>
-
+    <script src="https://kit.fontawesome.com/01809e8659.js" crossorigin="anonymous"></script>
 </body>
 </html>
