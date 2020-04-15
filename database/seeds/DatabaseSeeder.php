@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FillInTheGapSeeder::class);
 
         // Reading Seeder
-//        $this->call(HeadingSeeder::class);
+        $this->call(HeadingSeeder::class);
         $this->call(RearrangeSeeder::class);
     }
 }

@@ -38,7 +38,12 @@
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('extra-scripts')
     @include('sweetalert::alert')
-
+    <script src="{{ asset('js/extra/jquery.multipage.js') }}"></script>
+    <script>
+        $('#myform').multipage({
+            generateNavigation: false,
+        });
+    </script>
     <script>
         $(document).ready(function () {
             var height = $(window).innerHeight();

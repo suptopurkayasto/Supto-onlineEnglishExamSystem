@@ -9,6 +9,7 @@ use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGap;
 use App\Model\Vocabulary\Synonym\Synonym;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -102,9 +103,10 @@ class ExamController extends Controller
     }
 
 
-
-    //
-
+    /**
+     * @param Exam $exam
+     * @return Application|Factory|RedirectResponse|View
+     */
     public function showVocabularyQuestion(Exam $exam)
     {
         if ($this->validExamRequest($exam)) {
@@ -129,6 +131,29 @@ class ExamController extends Controller
         }
     }
 
+    /**
+     * @param Exam $exam
+     * @return Application|Factory|RedirectResponse|View
+     */
+    public function showReadingQuestion(Exam $exam)
+    {
+        if ($this->validExamRequest($exam)) {
+            $authStudent = Auth::guard('student')->user();
+            return view('student.exam.question.show-reading-question', compact('exam'))
+
+                ->with('rearranges', $exam->rearranges()->where('set_id', $authStudent->set->id)->get());
+
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->route('student.dashboard');
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param Exam $exam
+     * @return RedirectResponse
+     */
     public function submitVocabularyQuestion(Request $request, Exam $exam)
     {
 
@@ -275,6 +300,60 @@ class ExamController extends Controller
             return redirect()->route('student.dashboard');
         }
 
+    }
+
+
+    public function submitReadingQuestion(Request $request, Exam $exam)
+    {
+        if ($this->validExamRequest($exam)) {
+            $authStudent = Auth::guard('student')->user();
+
+            $checkResubmitRearrange = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->rearrange;
+
+            if ($checkResubmitRearrange === null) {
+                /**
+                 * Rearrange
+                 */
+
+
+                // Store Student submitted Rearrange data
+                $authStudent->studentRearranges()->create([
+                    'exam_id' => $exam->id,
+                    'set_id' => $authStudent->set->id,
+                    'line_1' => $request->input('1'),
+                    'line_2' => $request->input('2'),
+                    'line_3' => $request->input('3'),
+                    'line_4' => $request->input('4'),
+                    'line_5' => $request->input('5'),
+                    'line_6' => $request->input('6'),
+                    'line_7' => $request->input('7'),
+                ]);
+
+                // Generate rearrange marks
+                $authStudentSubmittedRearrange = $authStudent->studentRearranges()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->get()->first();
+                $rearrangeForAuthStudent = $exam->rearranges()->where('set_id', $authStudent->set->id)->get()->first();
+
+                $marks = 0;
+                for ($number = 1; $number <= 7; $number++) {
+                    if ($authStudentSubmittedRearrange["line_$number"] === $rearrangeForAuthStudent["line_$number"]) {
+                        $marks += 1;
+                    }
+                }
+                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
+                    'rearrange' => $marks
+                ]);
+
+
+
+            } else {
+                alert()->error('😒', 'You will no longer be able to resubmit');
+                return redirect()->route('student.exam.show.topic', $exam->id);
+            }
+
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->route('student.dashboard');
+        }
     }
 
 

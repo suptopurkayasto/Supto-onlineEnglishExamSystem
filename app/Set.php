@@ -8,6 +8,7 @@ use App\Model\Marks\Marks;
 use App\Model\Reading\Heading\Heading;
 use App\Model\Reading\Heading\HeadingOption;
 use App\Model\Reading\Rearrange\Rearrange;
+use App\Model\Reading\Rearrange\Student\StudentRearrange;
 use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Combination\CombinationOption;
 use App\Model\Vocabulary\Combination\Student\StudentCombination;
@@ -173,5 +174,15 @@ class Set extends Model
     public function studentFillInTheGaps()
     {
         return $this->hasMany(StudentFillInTheGap::class);
+    }
+
+
+    /**
+     * Student Reading
+     */
+    // Rearrange
+    public function studentRearranges()
+    {
+        return $this->hasMany(StudentRearrange::class);
     }
 }

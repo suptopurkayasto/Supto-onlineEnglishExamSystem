@@ -4,6 +4,7 @@ namespace App;
 
 use App\Model\Grammar\Student\StudentGrammar;
 use App\Model\Marks\Marks;
+use App\Model\Reading\Rearrange\Student\StudentRearrange;
 use App\Model\Vocabulary\Combination\Student\StudentCombination;
 use App\Model\Vocabulary\Definition\Student\StudentDefinition;
 use App\Model\Vocabulary\FillInTheGap\Student\StudentFillInTheGap;
@@ -108,6 +109,15 @@ class Student extends Authenticatable
     public function studentFillInTheGaps()
     {
         return $this->hasMany(StudentFillInTheGap::class);
+    }
+
+    /**
+     * Student Reading
+     */
+    // Rearrange
+    public function studentRearranges()
+    {
+        return $this->hasMany(StudentRearrange::class);
     }
 
 
