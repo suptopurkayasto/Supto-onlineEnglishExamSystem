@@ -6,10 +6,10 @@
             <div class="col-12 col-md-8 h-100">
                 <div class="h-100 d-flex justify-content-center align-items-center">
                     <div class="p-4 rounded shadow student-question-sec">
-                        <div class="card border-primary bg-white">
+                        <div class="card border-primary w-100">
                             <div class="card-header border-primary">
-                                <h3 class="h3 text-center font-weight-bolder">Grammar Questions</h3>
-                                <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
+                                <h4 class="h4 text-center font-weight-bolder">Grammar Questions</h4>
+                                <span class="text-muted d-block text-center font-weight-light" style="font-size: 15px">Select the correct word from the dropdown on the right</span>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <form action="{{ route('student.exam.grammar.questions.submit', $exam->id) }}"
@@ -21,6 +21,7 @@
                                         <fieldset>
                                             <ul class="list-unstyled form-group">
                                                 <li class="mb-3">
+                                                    <input type="hidden" autofocus>
                                                     <h5 class="h5">{{ $index+1 }}. {{ $grammar->question }}</h5>
                                                 </li>
                                                 <ul class="list-unstyled ml-4">
@@ -82,15 +83,14 @@
     </div><!-- /.container -->
 @endsection
 
-@section('extra-scripts')
-    <script src="{{ asset('js/extra/jquery.multipage.js') }}"></script>
+
+@section('extra-script')
     <script>
-        $('#myform').multipage({
-            generateNavigation: false,
+        $(document).ready(function () {
+            var height = $(window).innerHeight();
+            $('body').css({'height': height});
         });
 
-
-        //
         // function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); }
         // $(document).on("keydown", disableF5);
 
@@ -98,6 +98,5 @@
         //     return "Unloading this page may lose data. What do you want to do...";
         //     e.preventDefault();
         // });
-
     </script>
 @endsection

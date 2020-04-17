@@ -19,12 +19,12 @@
                                 @foreach($synonyms as $index => $synonym)
                                     <div class="form-group row">
                                         <div class="col-12 col-md-6">
-                                            <label for="synonym" class="mb-md-0">
+                                            <label for="synonym_{{ $synonym->id }}" class="mb-md-0">
                                                 <h5 class="h5">{{ $index+1 }}. {{ $synonym->word }}</h5>
                                             </label>
                                         </div><!-- /.col-12 col-md-6 -->
                                         <div class="col-12 col-md-6">
-                                            <select name="synonym[][{{ $synonym->id }}]" id="synonym"
+                                            <select name="synonym[][{{ $synonym->id }}]" id="synonym_{{ $synonym->id }}"
                                                     class="form-control">
                                                 <option disabled selected class="h5">Choose word</option>
                                                 @foreach($synonymOptions as $option)
@@ -42,19 +42,19 @@
                         <!-- START:: Definition Markup -->
                         <fieldset>
                             <div class="card-header border-primary">
-                                <h3 class="h3 text-center font-weight-bolder">Definition</h3>
+                                <h4 class="h4 text-center font-weight-bolder">Definition</h4>
                                 <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 @foreach($definitions as $index => $definition)
                                     <div class="form-group row">
                                         <div class="col-12 col-md-8">
-                                            <label for="synonym" class="mb-md-0">
+                                            <label for="definition_{{ $definition->id }}" class="mb-md-0">
                                                 <h5 class="h5">{{ $index+1 }}. {{ $definition->sentence }}</h5>
                                             </label>
                                         </div><!-- /.col-12 col-md-8 -->
                                         <div class="col-12 col-md-4">
-                                            <select name="definition[][{{ $definition->id }}]" id="synonym"
+                                            <select name="definition[][{{ $definition->id }}]" id="definition_{{ $definition->id }}"
                                                     class="form-control">
                                                 <option disabled selected class="h5">Choose word</option>
                                                 @foreach($definitionOptions as $option)
@@ -73,7 +73,7 @@
                         <!-- START:: Combination Markup -->
                         <fieldset>
                             <div class="card-header border-primary">
-                                <h3 class="h3 text-center font-weight-bolder">Word Combination</h3>
+                                <h4 class="h4 text-center font-weight-bolder">Word Combination</h4>
                                 <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
                             </div><!-- /.card-header -->
                             <div class="card-body">
@@ -104,7 +104,7 @@
                         <!-- START:: Fill in the gap Markup -->
                         <fieldset>
                             <div class="card-header border-primary">
-                                <h3 class="h3 text-center font-weight-bolder">Fill in the gap</h3>
+                                <h4 class="h4 text-center font-weight-bolder">Fill in the gap</h4>
                                 <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
                             </div><!-- /.card-header -->
                             <div class="card-body">
@@ -155,15 +155,13 @@
     </div><!-- /.container -->
 @endsection
 
-@section('extra-scripts')
-    <script src="{{ asset('js/extra/jquery.multipage.js') }}"></script>
+@section('extra-script')
     <script>
-        $('#myform').multipage({
-            generateNavigation: false,
+        $(document).ready(function () {
+            var height = $(window).innerHeight();
+            $('body').css({'height': height});
         });
 
-
-        //
         // function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); }
         // $(document).on("keydown", disableF5);
 
@@ -171,6 +169,5 @@
         //     return "Unloading this page may lose data. What do you want to do...";
         //     e.preventDefault();
         // });
-
     </script>
 @endsection

@@ -3238,13 +3238,22 @@ table td {
   margin: -60px auto 0 auto;
 }
 
+.login-form .card-body .input-group .input-group-prepend .input-group-text {
+  background-color: #9bab22;
+}
+
+.login-form .card-body .input-group .input-group-prepend .input-group-text i {
+  color: white;
+}
+
 @media (min-width: 768px) {
   .student-info-sec {
     transform: scale(1.2);
   }
 
   .student-question-sec {
-    transform: scale(1.18);
+    transform: scale(1);
+    background-color: white;
   }
 }
 

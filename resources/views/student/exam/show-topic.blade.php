@@ -18,3 +18,12 @@
         </div><!-- /.h-100 d-flex justify-content-center align-items-center -->
     </div><!-- /.container -->
 @endsection
+
+@section('extra-script')
+    <script>
+        $(document).ready(function () {
+            var height = $(window).innerHeight();
+            $('body').css({'height': height});
+        });
+    </script>
+@endsection

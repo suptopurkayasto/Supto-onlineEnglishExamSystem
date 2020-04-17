@@ -113,3 +113,12 @@
     </div><!-- /.student-main-section -->
 
 @endsection
+
+@section('extra-script')
+    <script>
+        $(document).ready(function () {
+            var height = $(window).innerHeight();
+            $('body').css({'height': height});
+        });
+    </script>
+@endsection

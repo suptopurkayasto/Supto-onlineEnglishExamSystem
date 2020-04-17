@@ -6,7 +6,6 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-{{--    <title>{{ config('app.name', 'Laravel') }}</title>--}}
     <title>@yield('title')</title>
 
 
@@ -17,43 +16,36 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+
     @yield('extra-css')
-    <script>
-        var h = window.innerHeight
-            || document.documentElement.clientHeight
-            || document.body.clientHeight;
-    </script>
 </head>
 <body>
-    @include('components.audio-alert')
-    <div id="app" class="h-100">
-        <main class=" h-100">
-            @yield('content')
-        </main>
-    </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    @yield('extra-scripts')
-    @include('sweetalert::alert')
-    <script src="{{ asset('js/extra/jquery.multipage.js') }}"></script>
-    <script>
-        $('#myform').multipage({
-            generateNavigation: false,
-        });
-    </script>
-    <script>
-        // $(document).ready(function () {
-        //     var height = $(window).innerHeight();
-        //     $('body').css({'height': height});
-        // });
-        $(document).tooltip({
-            track: true,
-            classes: {
-                "ui-tooltip": "text-primary shadow-sm rounded bordered border-primary"
-            }
-        });
-    </script>
-    <script src="https://kit.fontawesome.com/01809e8659.js" crossorigin="anonymous"></script>
+@include('components.audio-alert')
+
+@yield('content')
+
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}"></script>
+
+@include('sweetalert::alert')
+
+<script>
+    $(document).tooltip({
+        track: true,
+        classes: {
+            "ui-tooltip": "text-primary shadow-sm rounded bordered border-primary"
+        }
+    });
+</script>
+<script src="{{ asset('js/extra/jquery.multipage.js') }}"></script>
+<script>
+    $('#myform').multipage({
+        generateNavigation: false,
+    });
+</script>
+
+<script src="https://kit.fontawesome.com/01809e8659.js" crossorigin="anonymous"></script>
+@yield('extra-script')
 </body>
 </html>

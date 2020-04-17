@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container h-100">
+    <div class="container h-100 my-5">
         <div class="h-100 d-flex justify-content-center align-items-center">
             <div class="p-4 rounded shadow bg-white student-question-sec">
                 <div class="card border-primary" style="width: 900px">
@@ -14,7 +14,7 @@
                         <fieldset>
                             <div class="card">
                                 <div class="card-header border-primary">
-                                    <h3 class="h3 text-center font-weight-bolder">Heading Matching</h3>
+                                    <h4 class="h4 text-center font-weight-bolder">Heading Matching</h4>
                                     <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
                                 </div><!-- /.card-header -->
                                 <div class="card-body">
@@ -109,7 +109,7 @@
     </div><!-- /.container -->
 @endsection
 
-@section('extra-scripts')
+@section('extra-script')
     <script>
         // $( ".select-menu" ).selectmenu();
         $("#sortable").sortable({
