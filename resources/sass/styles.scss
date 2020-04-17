@@ -5,10 +5,12 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
-@import "custom_variables";
 @import "~bourbon/core/bourbon";
 
+@import "custom_variables";
+
 @import "~animate.css";
+
 
 @import "base/base-dir";
 @import "modules/modules-dir";

@@ -18,12 +18,13 @@
                         </div><!-- /.col-12 col-md-5 mb-5 mb-md-0 -->
                         <div class="col-12 col-lg-8">
                             <h2
-                                id="supto"
+                                id=""
                                 title="{{ auth()->guard('student')->user()->name }}"
                                 class="h2 float-left font-weight-bolder">
+                                {{ Str::limit(auth()->guard('student')->user()->name, 30) }}
                                 @if(session('welcome'))
-                                    <span class="text-primary font-weight-bolder mr-2">
-                                        <i class="fas fa-smile mx-2"></i>
+                                    <span class="badge badge-success font-weight-normal mr-1">
+                                        <i class="fas fa-smile mx-1"></i>
                                         @if (now()->format('H') < 12)
                                             Good morning
                                         @elseif (now()->format('H') < 17)
@@ -33,8 +34,6 @@
                                         @endif
                                     </span>
                                 @endif
-
-                                {{ Str::limit(auth()->guard('student')->user()->name, 30) }}
                             </h2>
 
                             <div class="btn-group float-right">
@@ -72,26 +71,44 @@
                                 <tbody>
 
                                 @foreach($exams as $exam)
-                                    <tr class="text-center">
-                                        <td class="text-left"
-                                            title="{{ $exam->name }}">{{ Str::limit($exam->name, 20) }}</td>
-                                        <td>
-                                            {{--                                            @php $grammarStudentMarks = $authStudent->grammarMarks()->where('id', 1)->get()->first() @endphp--}}
+                                    <?php
+                                    $grammar = $exam->marks()->where('student_id', $authStudent->id)->first()->grammar;
 
-                                            {{--                                            @if($grammarStudentMarks != null)--}}
-                                            {{--                                                {{ $grammarStudentMarks->got_marks }}--}}
-                                            {{--                                            @else--}}
-                                            {{--                                                0--}}
-                                            {{--                                            @endif--}}
-                                        </td>
+                                    $grammarTotal = $grammar;
+
+
+                                    // Vocabulary
+                                    $synonym = $exam->marks()->where('student_id', $authStudent->id)->first()->synonym;
+                                    $definition = $exam->marks()->where('student_id', $authStudent->id)->first()->definition;
+                                    $combination = $exam->marks()->where('student_id', $authStudent->id)->first()->combination;
+                                    $fillInTheGap = $exam->marks()->where('student_id', $authStudent->id)->first()->fillInTheGap;
+
+                                    $vocabularyTotal = $synonym + $definition + $combination + $fillInTheGap;
+
+
+                                    // Reading
+                                    $heading = $exam->marks()->where('student_id', $authStudent->id)->first()->heading;
+                                    $rearrange = $exam->marks()->where('student_id', $authStudent->id)->first()->rearrange;
+
+                                    $readingTotal = $heading + $rearrange;
+
+                                    ?>
+                                    <tr class="text-center">
+                                        <td class="text-left" title="{{ $exam->name }}">{{ Str::limit($exam->name, 20) }}</td>
+
+                                        <td title="{{ 'Grammar: '.$grammar }}">{{ $grammar === null ? 0 : $grammar }}</td>
+
+                                        <td title="{{ 'Synonym: '.$synonym.', Definition: '.$definition.', Combination: '.$combination.', Fill in the gap: '.$fillInTheGap }}">{{ $vocabularyTotal }}</td>
+
+                                        <td title="{{ 'Heading Matching: '.$heading.', Rearrange: '.$rearrange }}">{{ $readingTotal }}</td>
+
                                         <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td class="font-weight-bolder">{{ __( '0' ) }}</td>
+                                        <td class="font-weight-bolder">{{ $grammarTotal + $vocabularyTotal + $readingTotal }}</td>
                                         <td>
                                             @if($exam->status == 'running')
-                                                <a href="{{ route('student.exam.show.topic', $exam->id) }}"
-                                                   class="btn btn-primary btn-sm">Start Quiz</a>
+                                                <a
+                                                    href="{{ route('student.exam.show.topic', $exam->id) }}"
+                                                    class="btn btn-primary btn-sm {{ $grammar !== null && $synonym !== null && $definition !== null && $combination !== null && $fillInTheGap !== null && $heading !== null && $rearrange !== null ? 'disabled' : '' }}">Start Quiz</a>
                                             @elseif($exam->status == 'complete')
                                                 <span class="text-success"><i class="fas fa-check"></i> Completed</span>
                                             @elseif($exam->status == 'cancel')
