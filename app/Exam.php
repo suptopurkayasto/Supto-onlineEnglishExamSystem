@@ -24,7 +24,8 @@ use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Vocabulary\Synonym\SynonymOption;
 use App\Model\Writing\Dialog\Dialog;
 use App\Model\Writing\Dialog\StudentDialog;
-use App\Model\Writing\FormalEmail;
+use App\Model\Writing\FormalEmail\FormalEmail;
+use App\Model\Writing\FormalEmail\StudentFormalEmail;
 use App\Model\Writing\InformalEmail\InformalEmail;
 use App\Model\Writing\InformalEmail\StudentInformalEmail;
 use App\Model\Writing\SortQuestion;
@@ -209,9 +210,15 @@ class Exam extends Model
     }
 
     // Informal Email
-    public function studentInformalEmail()
+    public function studentInformalEmails()
     {
         return $this->hasMany(StudentInformalEmail::class);
+    }
+
+    // Formal Email
+    public function studentFormalEmails()
+    {
+        return $this->hasMany(StudentFormalEmail::class);
     }
 
 }

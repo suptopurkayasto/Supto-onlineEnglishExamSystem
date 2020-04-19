@@ -12,6 +12,7 @@ use App\Model\Vocabulary\FillInTheGap\Student\StudentFillInTheGap;
 use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\Dialog\StudentDialog;
+use App\Model\Writing\FormalEmail\StudentFormalEmail;
 use App\Model\Writing\InformalEmail\StudentInformalEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -137,9 +138,14 @@ class Student extends Authenticatable
         return $this->hasMany(StudentDialog::class);
     }
     // Informal Email
-    public function studentInformalEmail()
+    public function studentInformalEmails()
     {
         return $this->hasMany(StudentInformalEmail::class);
+    }
+    // Formal Email
+    public function studentFormalEmails()
+    {
+        return $this->hasMany(StudentFormalEmail::class);
     }
 
 

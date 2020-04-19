@@ -158,8 +158,10 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-writing-question', compact('exam'))
+
                 ->with('dialog', $exam->dialogs()->where('set_id', $authStudent->set->id)->get()->first())
-                ->with('informalEmail', $exam->informalEmails()->where('set_id', $authStudent->set->id)->get()->first());
+                ->with('informalEmail', $exam->informalEmails()->where('set_id', $authStudent->set->id)->get()->first())
+                ->with('formalEmail', $exam->formalEmails()->where('set_id', $authStudent->set->id)->get()->first());
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->route('student.dashboard');
@@ -411,8 +413,9 @@ class ExamController extends Controller
 
             $checkResubmitDialog = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->dialog;
             $checkResubmitInformalEmail = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->informalEmail;
+            $checkResubmitFormalEmail = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->formalEmail;
 
-            if ($checkResubmitDialog === null && $checkResubmitInformalEmail === null) {
+            if ($checkResubmitDialog === null && $checkResubmitInformalEmail === null && $checkResubmitFormalEmail === null) {
 
                 // Store student submitted dialog
                 $exam->studentDialogs()->create([
@@ -423,18 +426,27 @@ class ExamController extends Controller
                     'answer_3' => $request->input('dialog.answer.3'),
                 ]);
 
-                // Store student submitted dialog
-                $exam->studentInformalEmail()->create([
+                // Store student submitted informal email
+                $exam->studentInformalEmails()->create([
                     'student_id' => $authStudent->id,
                     'informal_email_id' => $request->input('informal_email_id'),
                     'subject' => $request->input('informalEmail.subject'),
                     'body' => $request->input('informalEmail.body'),
                 ]);
 
+                // Store student submitted formal email
+                $exam->studentFormalEmails()->create([
+                    'student_id' => $authStudent->id,
+                    'formal_email_id' => $request->input('formal_email_id'),
+                    'subject' => $request->input('formalEmail.subject'),
+                    'body' => $request->input('formalEmail.body'),
+                ]);
+
 
                 $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
                     'dialog' => 0,
-                    'informalEmail' => 0
+                    'informalEmail' => 0,
+                    'formalEmail' => 0
                 ]);
 
 

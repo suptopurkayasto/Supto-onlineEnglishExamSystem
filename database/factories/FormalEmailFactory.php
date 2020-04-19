@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model\Writing\FormalEmail;
+use App\Model\Writing\FormalEmail\FormalEmail;
 use Faker\Generator as Faker;
 
 $factory->define(FormalEmail::class, function (Faker $faker) {
