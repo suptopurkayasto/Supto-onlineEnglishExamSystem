@@ -138,12 +138,27 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-reading-question', compact('exam'))
-
                 ->with('headings', $exam->headings()->where('set_id', $authStudent->set->id)->get())
                 ->with('headingOptions', $exam->headingOptions()->where('set_id', $authStudent->set->id)->orderBy('headings')->get())
-
                 ->with('rearranges', $exam->rearranges()->where('set_id', $authStudent->set->id)->get());
 
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->route('student.dashboard');
+        }
+    }
+
+
+    /**
+     * @param Exam $exam
+     * @return Application|Factory|RedirectResponse|View
+     */
+    public function showWritingQuestion(Exam $exam)
+    {
+        if ($this->validExamRequest($exam)) {
+            $authStudent = Auth::guard('student')->user();
+            return view('student.exam.question.show-writing-question', compact('exam'))
+                ->with('dialog', $exam->dialogs()->where('set_id', $authStudent->set->id)->get()->first());
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->route('student.dashboard');
@@ -371,7 +386,7 @@ class ExamController extends Controller
                 ]);
 
 
-                toast('Reading part has been successfully submitted','success');
+                toast('Reading part has been successfully submitted', 'success');
                 session()->flash('success_audio');
                 return redirect()->route('student.exam.show.topic', $exam->id);
 
@@ -379,6 +394,46 @@ class ExamController extends Controller
                 alert()->error('😒', 'You will no longer be able to resubmit');
                 return redirect()->route('student.exam.show.topic', $exam->id);
             }
+
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->route('student.dashboard');
+        }
+    }
+
+
+    public function submitWritingQuestion(Request $request, Exam $exam)
+    {
+        if ($this->validExamRequest($exam)) {
+
+            $authStudent = Auth::guard('student')->user();
+
+            $checkResubmitDialog = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->dialog;
+
+            if ($checkResubmitDialog === null) {
+
+                // Store student submitted dialog
+                $exam->studentDialogs()->create([
+                    'student_id' => $authStudent->id,
+                    'dialog_id' => $request->input('dialog_id'),
+                    'answer_1' => $request->input('dialog.answer.1'),
+                    'answer_2' => $request->input('dialog.answer.2'),
+                    'answer_3' => $request->input('dialog.answer.3'),
+                ]);
+                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
+                    'dialog' => 0
+                ]);
+
+
+                toast('Writing part has been successfully submitted', 'success');
+                session()->flash('success_audio');
+                return redirect()->route('student.exam.show.topic', $exam->id);
+
+            } else {
+                alert()->error('😒', 'You will no longer be able to resubmit');
+                return redirect()->route('student.exam.show.topic', $exam->id);
+            }
+
 
         } else {
             alert()->error('😒', 'You can\'t do this.');

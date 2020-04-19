@@ -4,7 +4,6 @@ namespace App;
 
 use App\Model\Grammar\Grammar;
 use App\Model\Grammar\Student\StudentGrammar;
-use App\Model\Grammar\StudentGrammarQuestion;
 use App\Model\Marks\Marks;
 use App\Model\Reading\Heading\Heading;
 use App\Model\Reading\Heading\HeadingOption;
@@ -23,7 +22,8 @@ use App\Model\Vocabulary\FillInTheGap\Student\StudentFillInTheGap;
 use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
 use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Vocabulary\Synonym\SynonymOption;
-use App\Model\Writing\Dialog;
+use App\Model\Writing\Dialog\Dialog;
+use App\Model\Writing\Dialog\StudentDialog;
 use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
 use App\Model\Writing\SortQuestion;
@@ -196,6 +196,15 @@ class Exam extends Model
     public function studentHeadings()
     {
         return $this->hasMany(StudentHeading::class);
+    }
+
+    /**
+     * Student Writing
+     */
+    // Dialog
+    public function studentDialogs()
+    {
+        return $this->hasOne(StudentDialog::class);
     }
 
 }

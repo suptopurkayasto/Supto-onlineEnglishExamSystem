@@ -3164,6 +3164,10 @@ body {
   color: white;
 }
 
+.my-shadow {
+  box-shadow: 0 20px 30px -16px rgba(9, 9, 16, 0.2);
+}
+
 .timerContainer {
   background-color: white;
   position: fixed;
@@ -3186,12 +3190,12 @@ body {
 
 .student-list-group-container div.list-group a.list-group-item:hover {
   color: white;
-  background-color: #9bab22;
+  background-color: #75811a;
 }
 
 .table thead tr {
-  background-color: rgba(155, 171, 34, 0.2);
-  color: #9bab22;
+  background-color: rgba(117, 129, 26, 0.2);
+  color: #75811a;
 }
 
 .table thead tr th {
@@ -3200,18 +3204,18 @@ body {
 }
 
 .table-heading-bg {
-  background-color: rgba(155, 171, 34, 0.3);
-  color: #9bab22;
+  background-color: rgba(117, 129, 26, 0.3);
+  color: #75811a;
 }
 
 table td,
 th,
 .custom-table-heading {
-  border-color: rgba(155, 171, 34, 0.1) !important;
+  border-color: rgba(117, 129, 26, 0.1) !important;
 }
 
 table tbody tr:hover {
-  background-color: rgba(155, 171, 34, 0.1) !important;
+  background-color: rgba(117, 129, 26, 0.1) !important;
 }
 
 table td {
@@ -3221,7 +3225,7 @@ table td {
 
 .login-card .card-header {
   background-color: white;
-  border-bottom: 2px solid #9bab22;
+  border-bottom: 2px solid #75811a;
   text-align: center;
   font-size: 30px;
   font-weight: 900;
@@ -3239,7 +3243,7 @@ table td {
 }
 
 .login-form .card-body .input-group .input-group-prepend .input-group-text {
-  background-color: #9bab22;
+  background-color: #75811a;
 }
 
 .login-form .card-body .input-group .input-group-prepend .input-group-text i {
@@ -3249,6 +3253,7 @@ table td {
 @media (min-width: 768px) {
   .student-info-sec {
     transform: scale(1.2);
+    background-color: white;
   }
 
   .student-question-sec {
@@ -3263,5 +3268,6 @@ table td {
 
 body {
   font-family: "Roboto", sans-serif;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 

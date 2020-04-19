@@ -11,6 +11,7 @@ use App\Model\Vocabulary\Definition\Student\StudentDefinition;
 use App\Model\Vocabulary\FillInTheGap\Student\StudentFillInTheGap;
 use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
 use App\Model\Writing\Dialog;
+use App\Model\Writing\Dialog\StudentDialog;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -124,6 +125,15 @@ class Student extends Authenticatable
     public function studentHeadings()
     {
         return $this->hasMany(StudentHeading::class);
+    }
+
+    /**
+     * Student Writing
+     */
+    // Dialog
+    public function studentDialogs()
+    {
+        return $this->hasOne(StudentDialog::class);
     }
 
 

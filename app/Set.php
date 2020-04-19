@@ -22,7 +22,7 @@ use App\Model\Vocabulary\FillInTheGap\Student\StudentFillInTheGap;
 use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
 use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Vocabulary\Synonym\SynonymOption;
-use App\Model\Writing\Dialog;
+use App\Model\Writing\Dialog\Dialog;
 use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
 use App\Model\Writing\SortQuestion;

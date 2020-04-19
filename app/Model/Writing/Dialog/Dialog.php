@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Model\Writing;
+namespace App\Model\Writing\Dialog;
 
 use App\Exam;
 use App\Set;
-use App\Student;
 use Illuminate\Database\Eloquent\Model;
 
 class Dialog extends Model
@@ -20,8 +19,12 @@ class Dialog extends Model
         return $this->belongsTo(Set::class);
     }
 
-    public function writingPart()
+    /**
+     * Student Writing
+     */
+    // Dialog
+    public function studentDialogs()
     {
-        return $this->belongsTo(WritingPart::class);
+        return $this->hasOne(StudentDialog::class);
     }
 }

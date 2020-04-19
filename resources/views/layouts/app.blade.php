@@ -34,7 +34,7 @@
     $(document).tooltip({
         track: true,
         classes: {
-            "ui-tooltip": "text-primary shadow-sm rounded bordered border-primary"
+            "ui-tooltip": "text-primary my-shadow border-primary rounded"
         }
     });
 </script>
@@ -45,7 +45,7 @@
     });
 </script>
 
-<script src="https://kit.fontawesome.com/01809e8659.js" crossorigin="anonymous"></script>
 @yield('extra-script')
+<script src="https://kit.fontawesome.com/01809e8659.js" crossorigin="anonymous"></script>
 </body>
 </html>

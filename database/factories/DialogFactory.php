@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model\Writing\Dialog;
+use App\Model\Writing\Dialog\Dialog;
 use Faker\Generator as Faker;
 
 $factory->define(Dialog::class, function (Faker $faker) {

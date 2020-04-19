@@ -16,7 +16,10 @@
                         <a href="{{ route('student.exam.reading.questions', $exam->id) }}"
                            class="list-group-item list-group-item-action">Reading</a>
                 @endif
-                <a href="#" class="list-group-item list-group-item-action">Writing</a>
+                    @if($authStudent->marks()->where('exam_id', $exam->id)->get()->first()->writing === null)
+                        <a href="{{ route('student.exam.writing.questions', $exam->id) }}"
+                           class="list-group-item list-group-item-action">Writing</a>
+                    @endif
             </div>
         </div><!-- /.h-100 d-flex justify-content-center align-items-center -->
     </div><!-- /.container -->

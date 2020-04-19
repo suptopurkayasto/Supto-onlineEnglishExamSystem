@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 
+// Writing
+Route::post('questions/writing', 'Student\ExamController@submitWritingQuestion')->name('student.exam.writing.questions.submit');
+Route::get('questions/writing', 'Student\ExamController@showWritingQuestion')->name('student.exam.writing.questions');
+
 // Reading
 Route::post('questions/reading', 'Student\ExamController@submitReadingQuestion')->name('student.exam.reading.questions.submit');
 Route::get('questions/reading', 'Student\ExamController@showReadingQuestion')->name('student.exam.reading.questions');

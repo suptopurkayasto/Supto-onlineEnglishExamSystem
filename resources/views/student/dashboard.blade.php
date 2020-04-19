@@ -8,7 +8,7 @@
     <div class="student-main-section h-100">
         <div class="container h-100">
             <div class="h-100 w-100 flex-wrap d-flex justify-content-center align-items-center">
-                <div class="student-info-sec shadow rounded p-3 border border-primary w-100">
+                <div class="student-info-sec my-shadow rounded p-3 border border-primary w-100">
                     <div class="form-row">
                         <div class="col-12 col-lg-4 mb-5 mb-lg-0">
                             <img title="{{ $authStudent->name }}" class="border-primary border rounded"
@@ -71,53 +71,55 @@
                                 <tbody>
 
                                 @foreach($exams as $exam)
-                                    <?php
-                                    $grammar = $exam->marks()->where('student_id', $authStudent->id)->first()->grammar;
+                                    @if($exam->status == 'running' || $exam->status == 'complete')
+                                        <?php
+                                        $grammar = $exam->marks()->where('student_id', $authStudent->id)->first()->grammar;
 
-                                    $grammarTotal = $grammar;
-
-
-                                    // Vocabulary
-                                    $synonym = $exam->marks()->where('student_id', $authStudent->id)->first()->synonym;
-                                    $definition = $exam->marks()->where('student_id', $authStudent->id)->first()->definition;
-                                    $combination = $exam->marks()->where('student_id', $authStudent->id)->first()->combination;
-                                    $fillInTheGap = $exam->marks()->where('student_id', $authStudent->id)->first()->fillInTheGap;
-
-                                    $vocabularyTotal = $synonym + $definition + $combination + $fillInTheGap;
+                                        $grammarTotal = $grammar;
 
 
-                                    // Reading
-                                    $heading = $exam->marks()->where('student_id', $authStudent->id)->first()->heading;
-                                    $rearrange = $exam->marks()->where('student_id', $authStudent->id)->first()->rearrange;
+                                        // Vocabulary
+                                        $synonym = $exam->marks()->where('student_id', $authStudent->id)->first()->synonym;
+                                        $definition = $exam->marks()->where('student_id', $authStudent->id)->first()->definition;
+                                        $combination = $exam->marks()->where('student_id', $authStudent->id)->first()->combination;
+                                        $fillInTheGap = $exam->marks()->where('student_id', $authStudent->id)->first()->fillInTheGap;
 
-                                    $readingTotal = $heading + $rearrange;
+                                        $vocabularyTotal = $synonym + $definition + $combination + $fillInTheGap;
 
-                                    ?>
-                                    <tr class="text-center">
-                                        <td class="text-left" title="{{ $exam->name }}">{{ Str::limit($exam->name, 20) }}</td>
 
-                                        <td title="{{ 'Grammar: '.$grammar }}">{{ $grammar === null ? 0 : $grammar }}</td>
+                                        // Reading
+                                        $heading = $exam->marks()->where('student_id', $authStudent->id)->first()->heading;
+                                        $rearrange = $exam->marks()->where('student_id', $authStudent->id)->first()->rearrange;
 
-                                        <td title="{{ 'Synonym: '.$synonym.', Definition: '.$definition.', Combination: '.$combination.', Fill in the gap: '.$fillInTheGap }}">{{ $vocabularyTotal }}</td>
+                                        $readingTotal = $heading + $rearrange;
 
-                                        <td title="{{ 'Heading Matching: '.$heading.', Rearrange: '.$rearrange }}">{{ $readingTotal }}</td>
+                                        ?>
+                                        <tr class="text-center">
+                                            <td class="text-left" title="{{ $exam->name }}">{{ Str::limit($exam->name, 20) }}</td>
 
-                                        <td>0</td>
-                                        <td class="font-weight-bolder">{{ $grammarTotal + $vocabularyTotal + $readingTotal }}</td>
-                                        <td>
-                                            @if($exam->status == 'running')
-                                                <a
-                                                    href="{{ route('student.exam.show.topic', $exam->id) }}"
-                                                    class="btn btn-primary btn-sm {{ $grammar !== null && $synonym !== null && $definition !== null && $combination !== null && $fillInTheGap !== null && $heading !== null && $rearrange !== null ? 'disabled' : '' }}">Start Quiz</a>
-                                            @elseif($exam->status == 'complete')
-                                                <span class="text-success"><i class="fas fa-check"></i> Completed</span>
-                                            @elseif($exam->status == 'cancel')
-                                                <span class="text-danger"><i class="fas fa-times"></i> Canceled</span>
-                                            @elseif($exam->status == 'pending')
-                                                Pending
-                                            @endif
-                                        </td>
-                                    </tr>
+                                            <td title="{{ 'Grammar: '.$grammar }}">{{ $grammar === null ? 0 : $grammar }}</td>
+
+                                            <td title="{{ 'Synonym: '.$synonym.', Definition: '.$definition.', Combination: '.$combination.', Fill in the gap: '.$fillInTheGap }}">{{ $vocabularyTotal }}</td>
+
+                                            <td title="{{ 'Heading Matching: '.$heading.', Rearrange: '.$rearrange }}">{{ $readingTotal }}</td>
+
+                                            <td>0</td>
+                                            <td class="font-weight-bolder">{{ $grammarTotal + $vocabularyTotal + $readingTotal }}</td>
+                                            <td>
+                                                @if($exam->status == 'running')
+                                                    <a
+                                                        href="{{ route('student.exam.show.topic', $exam->id) }}"
+                                                        class="btn btn-primary btn-sm {{ $grammar !== null && $synonym !== null && $definition !== null && $combination !== null && $fillInTheGap !== null && $heading !== null && $rearrange !== null ? 'disabled' : '' }}">Start Quiz</a>
+                                                @elseif($exam->status == 'complete')
+                                                    <span class="text-success"><i class="fas fa-check"></i> Completed</span>
+                                                @elseif($exam->status == 'cancel')
+                                                    <span class="text-danger"><i class="fas fa-times"></i> Canceled</span>
+                                                @elseif($exam->status == 'pending')
+                                                    Pending
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>
