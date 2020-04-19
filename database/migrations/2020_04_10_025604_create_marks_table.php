@@ -26,6 +26,7 @@ class CreateMarksTable extends Migration
             $table->unsignedInteger('rearrange')->nullable();
             $table->unsignedInteger('heading')->nullable();
             $table->unsignedInteger('dialog')->nullable();
+            $table->unsignedInteger('informalEmail')->nullable();
             $table->timestamps();
         });
     }

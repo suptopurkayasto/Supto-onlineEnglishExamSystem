@@ -24,7 +24,7 @@ use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Vocabulary\Synonym\SynonymOption;
 use App\Model\Writing\Dialog\Dialog;
 use App\Model\Writing\FormalEmail;
-use App\Model\Writing\InformalEmail;
+use App\Model\Writing\InformalEmail\InformalEmail;
 use App\Model\Writing\SortQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;

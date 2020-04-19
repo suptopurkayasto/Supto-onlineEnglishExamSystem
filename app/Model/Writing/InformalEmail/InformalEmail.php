@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Writing;
+namespace App\Model\Writing\InformalEmail;
 
 use App\Exam;
 use App\Set;
@@ -17,5 +17,11 @@ class InformalEmail extends Model
     public function set()
     {
         return $this->belongsTo(Set::class);
+    }
+
+    // Informal Email
+    public function studentInformalEmail()
+    {
+        return $this->hasMany(StudentInformalEmail::class);
     }
 }

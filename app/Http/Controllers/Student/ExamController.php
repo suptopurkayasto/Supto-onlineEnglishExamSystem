@@ -158,7 +158,8 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-writing-question', compact('exam'))
-                ->with('dialog', $exam->dialogs()->where('set_id', $authStudent->set->id)->get()->first());
+                ->with('dialog', $exam->dialogs()->where('set_id', $authStudent->set->id)->get()->first())
+                ->with('informalEmail', $exam->informalEmails()->where('set_id', $authStudent->set->id)->get()->first());
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->route('student.dashboard');
@@ -409,8 +410,9 @@ class ExamController extends Controller
             $authStudent = Auth::guard('student')->user();
 
             $checkResubmitDialog = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->dialog;
+            $checkResubmitInformalEmail = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->informalEmail;
 
-            if ($checkResubmitDialog === null) {
+            if ($checkResubmitDialog === null && $checkResubmitInformalEmail === null) {
 
                 // Store student submitted dialog
                 $exam->studentDialogs()->create([
@@ -420,9 +422,22 @@ class ExamController extends Controller
                     'answer_2' => $request->input('dialog.answer.2'),
                     'answer_3' => $request->input('dialog.answer.3'),
                 ]);
-                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
-                    'dialog' => 0
+
+                // Store student submitted dialog
+                $exam->studentInformalEmail()->create([
+                    'student_id' => $authStudent->id,
+                    'informal_email_id' => $request->input('informal_email_id'),
+                    'subject' => $request->input('informalEmail.subject'),
+                    'body' => $request->input('informalEmail.body'),
                 ]);
+
+
+                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
+                    'dialog' => 0,
+                    'informalEmail' => 0
+                ]);
+
+
 
 
                 toast('Writing part has been successfully submitted', 'success');

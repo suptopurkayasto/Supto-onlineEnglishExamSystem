@@ -25,7 +25,8 @@ use App\Model\Vocabulary\Synonym\SynonymOption;
 use App\Model\Writing\Dialog\Dialog;
 use App\Model\Writing\Dialog\StudentDialog;
 use App\Model\Writing\FormalEmail;
-use App\Model\Writing\InformalEmail;
+use App\Model\Writing\InformalEmail\InformalEmail;
+use App\Model\Writing\InformalEmail\StudentInformalEmail;
 use App\Model\Writing\SortQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -204,7 +205,13 @@ class Exam extends Model
     // Dialog
     public function studentDialogs()
     {
-        return $this->hasOne(StudentDialog::class);
+        return $this->hasMany(StudentDialog::class);
+    }
+
+    // Informal Email
+    public function studentInformalEmail()
+    {
+        return $this->hasMany(StudentInformalEmail::class);
     }
 
 }

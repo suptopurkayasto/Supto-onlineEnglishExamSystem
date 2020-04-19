@@ -25,6 +25,6 @@ class Dialog extends Model
     // Dialog
     public function studentDialogs()
     {
-        return $this->hasOne(StudentDialog::class);
+        return $this->hasMany(StudentDialog::class);
     }
 }
