@@ -120,6 +120,28 @@
                             </div><!-- /.card -->
                         </fieldset>
                         <!-- END:: Formal Email Markup -->
+
+
+                        <!-- START:: Sort question Markup -->
+                        <fieldset>
+                            <div class="card">
+                                <div class="card-header border-primary">
+                                    <h4 class="h4 text-center font-weight-bolder">Sort Questions</h4>
+                                    {{--                                    <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>--}}
+                                </div><!-- /.card-header -->
+                                <div class="card-body">
+                                    @foreach($sortQuestions as $index => $sortQuestion)
+                                        <div class="form-group mb-5">
+                                            <label for="">{{ $index }}. {{ $sortQuestion->question }}</label>
+                                            <input type="hidden" name="sortQuestion[question][{{ $sortQuestion->id }}]" value="{{ $sortQuestion->id }}">
+                                            <textarea type="text" name="sortQuestion[answer][{{ $sortQuestion->id }}]" class="form-control" id=""></textarea>
+                                        </div><!-- /.form-group -->
+                                    @endforeach
+                                </div><!-- /.card-body -->
+                            </div><!-- /.card -->
+                        </fieldset>
+                        <!-- END:: Sort question Markup -->
+
                     </form>
                     <div class="card-footer border-primary">
                         <div class="row">

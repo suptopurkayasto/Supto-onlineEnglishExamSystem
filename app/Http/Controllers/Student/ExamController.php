@@ -158,10 +158,10 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-writing-question', compact('exam'))
-
                 ->with('dialog', $exam->dialogs()->where('set_id', $authStudent->set->id)->get()->first())
                 ->with('informalEmail', $exam->informalEmails()->where('set_id', $authStudent->set->id)->get()->first())
-                ->with('formalEmail', $exam->formalEmails()->where('set_id', $authStudent->set->id)->get()->first());
+                ->with('formalEmail', $exam->formalEmails()->where('set_id', $authStudent->set->id)->get()->first())
+                ->with('sortQuestions', $exam->sortQuestions()->where('set_id', $authStudent->set->id)->get());
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->route('student.dashboard');
@@ -414,8 +414,9 @@ class ExamController extends Controller
             $checkResubmitDialog = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->dialog;
             $checkResubmitInformalEmail = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->informalEmail;
             $checkResubmitFormalEmail = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->formalEmail;
+            $checkResubmitSortQuestion = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->sortQuestion;
 
-            if ($checkResubmitDialog === null && $checkResubmitInformalEmail === null && $checkResubmitFormalEmail === null) {
+            if ($checkResubmitDialog === null && $checkResubmitInformalEmail === null && $checkResubmitFormalEmail === null && $checkResubmitSortQuestion === null) {
 
                 // Store student submitted dialog
                 $exam->studentDialogs()->create([
@@ -442,14 +443,23 @@ class ExamController extends Controller
                     'body' => $request->input('formalEmail.body'),
                 ]);
 
+                // Store student submitted sort question
+                foreach ($request->input('sortQuestion.question.*') as $questionId) {
+                    $exam->studentSortQuestions()->create([
+                        'student_id' => $authStudent->id,
+                        'sort_question_id' => $questionId,
+                        'answer' => $request->input('sortQuestion.answer.' . $questionId)
+                    ]);
+                }
 
+
+                // Generate marks
                 $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
                     'dialog' => 0,
                     'informalEmail' => 0,
-                    'formalEmail' => 0
+                    'formalEmail' => 0,
+                    'sortQuestion' => 0
                 ]);
-
-
 
 
                 toast('Writing part has been successfully submitted', 'success');

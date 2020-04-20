@@ -13,7 +13,7 @@ class SortQuestionSeeder extends Seeder
     {
         for ($set = 1; $set <= 4; $set++) {
             for ($question = 1; $question <= 7; $question++) {
-                factory(\App\Model\Writing\SortQuestion::class)->create(['set_id' => $set]);
+                factory(\App\Model\Writing\SortQuestion\SortQuestion::class)->create(['set_id' => $set]);
             }
         }
     }

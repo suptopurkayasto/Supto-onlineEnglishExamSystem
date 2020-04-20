@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Writing;
+namespace App\Model\Writing\SortQuestion;
 
 use App\Exam;
 use App\Set;
@@ -17,6 +17,12 @@ class SortQuestion extends Model
     public function set()
     {
         return $this->belongsTo(Set::class);
+    }
+
+    // Sort Question
+    public function studentSortQuestions()
+    {
+        return $this->hasMany(StudentSortQuestion::class);
     }
 
 }

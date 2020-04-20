@@ -14,6 +14,7 @@ use App\Model\Writing\Dialog;
 use App\Model\Writing\Dialog\StudentDialog;
 use App\Model\Writing\FormalEmail\StudentFormalEmail;
 use App\Model\Writing\InformalEmail\StudentInformalEmail;
+use App\Model\Writing\SortQuestion\StudentSortQuestion;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -146,6 +147,11 @@ class Student extends Authenticatable
     public function studentFormalEmails()
     {
         return $this->hasMany(StudentFormalEmail::class);
+    }
+    // Sort Question
+    public function studentSortQuestions()
+    {
+        return $this->hasMany(StudentSortQuestion::class);
     }
 
 

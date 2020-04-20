@@ -93,6 +93,14 @@
 
                                         $readingTotal = $heading + $rearrange;
 
+                                        // Writing
+                                        $dialog = $exam->marks()->where('student_id', $authStudent->id)->first()->dialog;
+                                        $informalEmail = $exam->marks()->where('student_id', $authStudent->id)->first()->informalEmail;
+                                        $formalEmail = $exam->marks()->where('student_id', $authStudent->id)->first()->formalEmail;
+                                        $sortQuestion = $exam->marks()->where('student_id', $authStudent->id)->first()->sortQuestion;
+
+                                        $writingTotal = $dialog + $informalEmail + $formalEmail + $sortQuestion;
+
                                         ?>
                                         <tr class="text-center">
                                             <td class="text-left" title="{{ $exam->name }}">{{ Str::limit($exam->name, 20) }}</td>
@@ -103,7 +111,7 @@
 
                                             <td title="{{ 'Heading Matching: '.$heading.', Rearrange: '.$rearrange }}">{{ $readingTotal }}</td>
 
-                                            <td>0</td>
+                                            <td title="{{ 'Dialog: '.$dialog.', Informal Email: '.$informalEmail.', Formal Email: '.$formalEmail.', Sort Question: '.$sortQuestion }}">{{ $writingTotal }}</td>
                                             <td class="font-weight-bolder">{{ $grammarTotal + $vocabularyTotal + $readingTotal }}</td>
                                             <td>
                                                 @if($exam->status == 'running')

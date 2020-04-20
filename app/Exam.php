@@ -28,7 +28,8 @@ use App\Model\Writing\FormalEmail\FormalEmail;
 use App\Model\Writing\FormalEmail\StudentFormalEmail;
 use App\Model\Writing\InformalEmail\InformalEmail;
 use App\Model\Writing\InformalEmail\StudentInformalEmail;
-use App\Model\Writing\SortQuestion;
+use App\Model\Writing\SortQuestion\SortQuestion;
+use App\Model\Writing\SortQuestion\StudentSortQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -219,6 +220,11 @@ class Exam extends Model
     public function studentFormalEmails()
     {
         return $this->hasMany(StudentFormalEmail::class);
+    }
+    // Sort Question
+    public function studentSortQuestions()
+    {
+        return $this->hasMany(StudentSortQuestion::class);
     }
 
 }
