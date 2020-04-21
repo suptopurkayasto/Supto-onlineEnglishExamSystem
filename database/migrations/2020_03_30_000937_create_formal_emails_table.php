@@ -17,7 +17,7 @@ class CreateFormalEmailsTable extends Migration
             $table->id();
             $table->foreignId('exam_id');
             $table->foreignId('set_id');
-            $table->string('topic');
+            $table->text('topic');
             $table->text('received_email');
             $table->timestamps();
         });

@@ -9,9 +9,13 @@
             @if($exam->formalEmails()->count() > 0)
                 <div class="card mb-5 index-card">
                     <div class="card-header">
-                        <h3 class="card-title float-left" title="{{ $exam->name }}"><span
-                                class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
-                            Formal Email
+                        <h3 class="card-title index-card-title float-left {{ $exam->formalEmails()->count() === 4 ? 'text-success' : 'text-warning' }}" title="{{ $exam->name }}">
+                            <span>{{ Str::limit($exam->name, 30) }}</span>
+                            <span class="font-weight-bolder ml-2">Formal Email</span>
+                            @if($exam->formalEmails()->count() === 4)
+                                <i class="fas fa-check-circle"></i>
+                            @endif
+
                         </h3>
                         @if($exam->formalEmails()->count() !== 4)
                             <a href="{{ route('teachers.questions.formal-email.create') }}?exam={{ encrypt($exam->id) }}"
@@ -21,13 +25,13 @@
                     </div><!-- /.card-header -->
                     @if($exam->formalEmails()->count() === 4)
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
+                            <div class="progress-bar bg-success"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
                     @else
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+                            <div class="progress-bar bg-warning"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
@@ -37,20 +41,25 @@
                             @foreach($exam->sets as $set)
                                 @php $formalEmailCountBySet = $exam->formalEmails()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3">
-                                    <div class="info-box bg-white border-primary border">
-                                    <span class="info-box-icon text-primary"
+                                    <div class="info-box bg-white border {{ $formalEmailCountBySet === 1 ? ' border-success': ' border-warning' }}">
+                                    <span class="info-box-icon text-white {{ $formalEmailCountBySet === 1 ? 'bg-success': 'bg-warning' }}"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
                                             <span
-                                                class="info-box-number">{{ $formalEmailCountBySet }} Formal email</span>
+                                                class="info-box-number">{{ $formalEmailCountBySet }} Email</span>
 
                                             <div class="progress">
-                                                <div class="progress-bar"
+                                                <div class="progress-bar bg-success"
                                                      style="width: {{ ($formalEmailCountBySet*100)/1 }}%"></div>
                                             </div>
                                             <span class="progress-description">
-                                        {{ $formalEmailCountBySet }} / 1 Formal email
-                                    </span>
+                                                @if($formalEmailCountBySet < 1)
+                                                    <a href="{{ route('teachers.questions.formal-email.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id)}}"
+                                                       class="btn-link"><i class="fas fa-pen-square"></i> Add formal email</a>
+                                                @else
+                                                    <span class="text-success"><i class="fas fa-check-circle"></i> Done</span>
+                                                @endif
+                                            </span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
@@ -65,16 +74,18 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Topic</th>
+                                            <th>Received Email</th>
                                             <th>Set</th>
                                             <th>Exam</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($exam->formalEmails as $index => $formalEmail)
+                                        @foreach($exam->formalEmails()->orderByDesc('id')->get() as $index => $formalEmail)
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
-                                                <td title="{{ $formalEmail->topic }}">{{ Str::limit($formalEmail->topic, 90) }}</td>
+                                                <td title="{{ $formalEmail->topic }}">{{ Str::limit($formalEmail->topic, 50) }}</td>
+                                                <td title="{{ $formalEmail->received_email }}">{{ Str::limit($formalEmail->received_email, 60) }}</td>
                                                 <td>{{ $formalEmail->set->name }}</td>
                                                 <td title="{{ $formalEmail->exam->name }}">{{ Str::limit($formalEmail->exam->name, 40) }}</td>
                                                 <td class="text-center">

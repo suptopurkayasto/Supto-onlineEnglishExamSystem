@@ -63,10 +63,9 @@
                                 <label for="topic">Topic</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                                <input type="text" name="topic" id="topic"
-                                       class="form-control @error('topic') is-invalid @enderror"
-                                       value="{{ $formalEmail->topic }}"
-                                       required>
+                                <textarea type="text" name="topic" id="topic" rows="4"
+                                          class="form-control @error('topic') is-invalid @enderror"
+                                          required>{{ $formalEmail->topic }}</textarea>
                                 @error('topic')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

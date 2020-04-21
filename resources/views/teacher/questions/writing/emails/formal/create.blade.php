@@ -12,7 +12,8 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ route('teachers.questions.formal-email.store') }}" method="post" id="writingPartForm">
+                    <form action="{{ route('teachers.questions.formal-email.store') }}" method="post"
+                          id="writingPartForm">
                         @csrf
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
@@ -44,7 +45,8 @@
                                     <option disabled selected>Select Set</option>
                                     @foreach($sets as $set)
                                         <option
-                                            {{ old('set') == $set->id ? 'selected' : '' }} value="{{ $set->id }}">{{ $set->name }}</option>
+                                            {{ old('set') == $set->id || request()->has('set') ? decrypt(request()->get('set')) === $set->id ? 'selected' : '' : '' }}
+                                            value="{{ $set->id }}">{{ $set->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('set')
@@ -60,9 +62,9 @@
                                 <label for="topic">Topic</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                                <input type="text" name="topic" id="topic"
-                                       class="form-control @error('topic') is-invalid @enderror" value="{{ old('topic') }}"
-                                       required>
+                                <textarea type="text" name="topic" id="topic" rows="4"
+                                       class="form-control @error('topic') is-invalid @enderror"
+                                          required>{{ old('topic') }}</textarea>
                                 @error('topic')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -76,7 +78,7 @@
                                 <label for="topic">Received E-mail</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                        <textarea type="text" rows="7" name="received_email" id="received_email"
+                        <textarea type="text" rows="8" name="received_email" id="received_email"
                                   class="form-control @error('received_email') is-invalid @enderror"
                                   required>{{ old('received_email') }}</textarea>
                                 @error('received_email')
@@ -93,7 +95,8 @@
                             <div class="col-12 col-md-10">
                                 <div class="row">
                                     <div class="col col-md-6">
-                                        <button type="submit" class="btn bg-gradient-primary btn-block"><i class="fas fa-check"></i> Add
+                                        <button type="submit" class="btn bg-gradient-primary btn-block"><i
+                                                class="fas fa-check"></i> Add
                                             Formal Email
                                         </button>
                                     </div><!-- /.col col-md-6 -->

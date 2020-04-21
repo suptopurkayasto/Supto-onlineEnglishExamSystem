@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Teacher\Question\Writing\Email;
 
-use App\Exam;
 use App\Http\Controllers\Controller;
-use App\Model\Writing\FormalEmail;
-use App\Model\Writing\InformalEmail;
+use App\Model\Writing\FormalEmail\FormalEmail;
 use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -171,7 +169,7 @@ class FormalEmailController extends Controller
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
             'set' => 'required|integer',
-            'topic' => 'required|string|max:255',
+            'topic' => 'required|string',
             'received_email' => 'required|string'
         ]);
 
@@ -189,7 +187,7 @@ class FormalEmailController extends Controller
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
             'set' => 'required|integer',
-            'topic' => 'required|string|max:255',
+            'topic' => 'required|string',
             'received_email' => 'required|string'
         ]);
 
