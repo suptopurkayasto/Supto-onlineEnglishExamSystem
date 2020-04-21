@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Teacher\Question\Writing\SortQuestion;
 
-use App\Exam;
 use App\Http\Controllers\Controller;
-use App\Model\Writing\SortQuestion;
+use App\Model\Writing\SortQuestion\SortQuestion;
 use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\View\View;

@@ -8,9 +8,13 @@
             @if($exam->sortQuestions()->count() > 0)
                 <div class="card mb-5 index-card">
                     <div class="card-header">
-                        <h3 class="card-title float-left index-card-title" title="{{ $exam->name }}"><span
-                                class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
-                            Sort Questions
+                        <h3 class="card-title index-card-title float-left {{ $exam->sortQuestions()->count() === 28 ? 'text-success' : 'text-warning' }}" title="{{ $exam->name }}">
+                            <span>{{ Str::limit($exam->name, 30) }}</span>
+                            <span class="font-weight-bolder ml-2">Sort Questions</span>
+                            @if($exam->sortQuestions()->count() === 28)
+                                <i class="fas fa-check-circle"></i>
+                            @endif
+
                         </h3>
                         @if($exam->sortQuestions()->count() !== 28)
                             <a href="{{ route('teachers.questions.sort-questions.create') }}?exam={{ encrypt($exam->id) }}"
@@ -20,13 +24,13 @@
                     </div><!-- /.card-header -->
                     @if($exam->sortQuestions()->count() === 28)
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
+                            <div class="progress-bar bg-success"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
                     @else
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+                            <div class="progress-bar bg-warning"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
@@ -36,26 +40,33 @@
                             @foreach($exam->sets as $set)
                                 @php $sortQuestionCountBySet = $exam->sortQuestions()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
-                                    <div class="info-box bg-white border-primary border">
-                                    <span class="info-box-icon text-primary"
+                                    <div class="info-box bg-white border {{ $sortQuestionCountBySet === 7 ? ' border-success': ' border-warning' }}">
+                                    <span class="info-box-icon text-white {{ $sortQuestionCountBySet === 7 ? 'bg-success': 'bg-warning' }}"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
                                             <span class="info-box-number font-weight-normal">{{ $sortQuestionCountBySet }} / 7 Sort questions.</span>
 
                                             <div class="progress">
-                                                <div class="progress-bar"
+                                                <div class="progress-bar {{ $sortQuestionCountBySet === 7 ? 'bg-success': 'bg-warning' }}"
                                                      style="width: {{ ($sortQuestionCountBySet*100)/7 }}%"></div>
                                             </div>
-                                        </div>
-                                        <!-- /.info-box-content -->
+                                            <span class="progress-description">
+                                                @if($sortQuestionCountBySet < 7)
+                                                    <a href="{{ route('teachers.questions.sort-questions.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id)}}"
+                                                       class="btn-link"><i class="fas fa-pen-square"></i> Add sort question</a>
+                                                @else
+                                                    <span class="text-success"><i class="fas fa-check-circle"></i> Done</span>
+                                                @endif
+                                            </span>
+                                        </div><!-- /.info-box-content -->
                                     </div>
                                 </div><!-- /.col -->
                             @endforeach
 
                             <div class="col-12">
                                     <table
-                                        id="example"
-                                        class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
+                                        id=""
+                                        class="example table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
                                         style="width: 100%">
                                         <thead>
                                         <tr>
@@ -67,7 +78,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($exam->sortQuestions as $index => $sortQuestion)
+                                        @foreach($exam->sortQuestions()->orderByDesc('id')->get() as $index => $sortQuestion)
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td title="{{ $sortQuestion->question }}">{{ Str::limit($sortQuestion->question, 90) }}</td>

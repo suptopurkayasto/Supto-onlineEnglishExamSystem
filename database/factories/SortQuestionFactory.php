@@ -9,6 +9,6 @@ $factory->define(SortQuestion::class, function (Faker $faker) {
     return [
         'exam_id' => 1,
         'set_id' => 1,
-        'question' => $faker->sentence . '?'
+        'question' => $faker->sentence
     ];
 });
