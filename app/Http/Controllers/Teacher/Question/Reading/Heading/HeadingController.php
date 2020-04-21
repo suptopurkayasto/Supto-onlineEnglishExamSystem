@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Teacher\Question\Reading\Heading;
 use App\Model\Reading\Heading\Heading;
 use App\Http\Controllers\Controller;
 use App\Model\Reading\Heading\HeadingOption;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -35,8 +35,8 @@ class HeadingController extends Controller
      */
     public function create()
     {
-        return view('teacher.questions.reading.rearrange.create')
-            ->with('questionSets', QuestionSet::all())
+        return view('teacher.questions.reading.heading.create')
+            ->with('sets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -49,23 +49,27 @@ class HeadingController extends Controller
     public function store(Request $request)
     {
         $authTeacher = Auth::guard('teacher')->user();
-        $examId = $request->exam;
-        $setId = $request->questionSet;
-        $countHeadingByExamAndSet = $authTeacher->exams()->find($examId)->headings()->where('question_set_id', $setId)->get()->count();
+        $examId = $request->input('exam');
+        $setId = $request->input('set');
+        $countHeadingByExamAndSet = $authTeacher->exams()->find($examId)->headings()->where('set_id', $setId)->get()->count();
         if ($countHeadingByExamAndSet < 5) {
 
             $headingOption = HeadingOption::create($this->validateHeadingOptionsCreateRequest($request));
             $this->headingOption = $headingOption;
 
             $authTeacher->exams()->find($examId)->headings()->create($this->validateHeadingCreateRequest($request));
-
             session()->flash('success_audio');
             toast('Heading has been successfully added','success');
+            if ($countHeadingByExamAndSet === 4) {
+                return redirect()->route('teachers.questions.headings.index');
+            } else {
+                return redirect()->back();
+            }
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add heading to this '. QuestionSet::find($setId)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add heading to this '. Set::find($setId)->name .' set.');
+            return redirect()->route('teachers.questions.headings.index');
         }
-        return redirect()->back();
     }
 
     /**
@@ -78,7 +82,7 @@ class HeadingController extends Controller
     {
         if ($this->validHeadingRequest($heading)) {
             return view('teacher.questions.reading.heading.show', compact('heading'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -96,7 +100,7 @@ class HeadingController extends Controller
     {
         if ($this->validHeadingRequest($heading)) {
             return view('teacher.questions.reading.heading.edit', compact('heading'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -116,12 +120,12 @@ class HeadingController extends Controller
         if ($this->validHeadingRequest($heading)) {
 
             $authTeacher = Auth::guard('teacher')->user();
-            $exam = $authTeacher->exams()->find($request->exam);
-            $set = $exam->sets()->find($request->questionSet);
+            $exam = $authTeacher->exams()->find($request->input('exam'));
+            $set = $exam->sets()->find($request->input('set'));
 
-            $countHeadingByExamAndSet = $exam->headings()->where(['question_set_id' => $set->id])->get()->count();
+            $countHeadingByExamAndSet = $exam->headings()->where(['set_id' => $set->id])->get()->count();
 
-            if ($countHeadingByExamAndSet < 5 || $heading->exam->id == $request->exam && $heading->set->id == $request->questionSet) {
+            if ($countHeadingByExamAndSet < 5 || $heading->exam->id == $request->input('exam') && $heading->set->id == $request->input('set')) {
                 // Update Definition
                 $heading->update($this->validateHeadingUpdateRequest($request));
 
@@ -132,7 +136,7 @@ class HeadingController extends Controller
                 return redirect(route('teachers.questions.headings.show', $heading->id).'?exam='.request()->get('exam').'&set='.request()->get('set'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add definition sentence to this '. QuestionSet::find($set->id)->name .' set.');
+                alert()->info('Fail!', 'You can no longer add definition sentence to this '. Set::find($set->id)->name .' set.');
                 return redirect()->back();
             }
 
@@ -167,14 +171,14 @@ class HeadingController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'heading' => 'required|string|max:255',
             'paragraph' => 'required|string',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'headings' => $validateData['heading']
         ];
     }
@@ -182,7 +186,7 @@ class HeadingController extends Controller
     private function validateHeadingCreateRequest(Request $request)
     {
         return [
-            'question_set_id' => $request->input('questionSet'),
+            'set_id' => $request->input('set'),
             'heading_option_id' => $this->headingOption['id'],
             'paragraph' => $request->input('paragraph'),
         ];
@@ -207,14 +211,14 @@ class HeadingController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'heading' => 'required|string|max:255',
             'paragraph' => 'required|string',
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'paragraph' => $validateData['paragraph']
         ];
     }
@@ -223,7 +227,7 @@ class HeadingController extends Controller
     {
         return [
             'exam_id' => $request->input('exam'),
-            'question_set_id' => $request->input('questionSet'),
+            'set_id' => $request->input('set'),
             'headings' => $request->input('heading')
         ];
     }

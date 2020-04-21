@@ -16,7 +16,7 @@ class CreateGrammarsTable extends Migration
         Schema::create('grammars', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id');
-            $table->foreignId('question_set_id');
+            $table->foreignId('set_id');
             $table->string('question');
             $table->string('option_1');
             $table->string('option_2');

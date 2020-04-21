@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Teacher\Question\Reading\Rearrange;
 
 use App\Model\Reading\Rearrange\Rearrange;
 use App\Http\Controllers\Controller;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class RearrangeController extends Controller
     public function create()
     {
         return view('teacher.questions.reading.rearrange.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('sets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
@@ -47,9 +47,9 @@ class RearrangeController extends Controller
     public function store(Request $request)
     {
         $authTeacher = Auth::guard('teacher')->user();
-        $examId = $request->exam;
-        $setId = $request->questionSet;
-        $countRearrangeByExamAndSet = $authTeacher->exams()->find($examId)->rearranges()->where('question_set_id', $setId)->get()->count();
+        $examId = $request->input('exam');
+        $setId = $request->input('set');
+        $countRearrangeByExamAndSet = $authTeacher->exams()->find($examId)->rearranges()->where('set_id', $setId)->get()->count();
 
         if ($countRearrangeByExamAndSet < 1) {
 
@@ -60,7 +60,7 @@ class RearrangeController extends Controller
 
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add rearrange to this ' . QuestionSet::find($setId)->name . ' set.');
+            alert()->info('Fail!', 'You can no longer add rearrange to this ' . Set::find($setId)->name . ' set.');
             return redirect()->back();
         }
     }
@@ -75,7 +75,7 @@ class RearrangeController extends Controller
     {
         if ($this->validRearrangeRequest($rearrange)) {
             return view('teacher.questions.reading.rearrange.show', compact('rearrange'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -93,7 +93,7 @@ class RearrangeController extends Controller
     {
         if ($this->validRearrangeRequest($rearrange)) {
             return view('teacher.questions.reading.rearrange.edit', compact('rearrange'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -113,11 +113,11 @@ class RearrangeController extends Controller
         if ($this->validRearrangeRequest($rearrange)) {
             $authTeacher = Auth::guard('teacher')->user();
             $exam = $authTeacher->exams()->find(decrypt(\request()->get('exam')));
-            $set = $request->get('questionSet');
+            $set = $request->get('set');
 
-            $countRearrangeWordByExamAndSet = $exam->rearranges()->where('question_set_id', $set)->count();
+            $countRearrangeWordByExamAndSet = $exam->rearranges()->where('set_id', $set)->count();
 
-            if ($countRearrangeWordByExamAndSet < 1 || $rearrange->exam->id == $request->exam && $rearrange->set->id == $request->questionSet) {
+            if ($countRearrangeWordByExamAndSet < 1 || $rearrange->exam->id == $request->input('exam') && $rearrange->set->id == $request->input('set')) {
                 // Update Synonym
                 $rearrange->update($this->validateRearrangeUpdateRequest($request));
 
@@ -126,7 +126,7 @@ class RearrangeController extends Controller
                 return redirect(route('teachers.questions.rearranges.show', $rearrange->id) . '?exam=' . request()->get('exam'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add rearrange to this ' . QuestionSet::find($set)->name . ' set.');
+                alert()->info('Fail!', 'You can no longer add rearrange to this ' . Set::find($set)->name . ' set.');
                 return redirect()->back();
             }
         } else {
@@ -174,7 +174,7 @@ class RearrangeController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'line_1' => 'required|string|max:255',
             'line_2' => 'required|string|max:255',
             'line_3' => 'required|string|max:255',
@@ -186,7 +186,7 @@ class RearrangeController extends Controller
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'line_1' => $validateData['line_1'],
             'line_2' => $validateData['line_2'],
             'line_3' => $validateData['line_3'],
@@ -202,7 +202,7 @@ class RearrangeController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'line_1' => 'required|string|max:255',
             'line_2' => 'required|string|max:255',
             'line_3' => 'required|string|max:255',
@@ -214,7 +214,7 @@ class RearrangeController extends Controller
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'line_1' => $validateData['line_1'],
             'line_2' => $validateData['line_2'],
             'line_3' => $validateData['line_3'],

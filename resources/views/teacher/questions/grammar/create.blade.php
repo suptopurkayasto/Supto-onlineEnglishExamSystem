@@ -41,18 +41,18 @@
                         </div><!-- /.form-group row -->
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
-                                <label for="question_set">Question set</label>
+                                <label for="set">Set</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                                <select name="question_set" id="question_set"
-                                        class="form-control @error('question_set') is-invalid @enderror">
+                                <select name="set" id="set"
+                                        class="form-control @error('set') is-invalid @enderror">
                                     <option selected disabled>Select set</option>
-                                    @foreach($questionSets as $questionSet)
+                                    @foreach($sets as $set)
                                         <option
-                                            {{ old('question_set') == $questionSet->id || decrypt(request()->get('set')) === $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
+                                            {{ old('set') == $set->id || request()->has('set') ? decrypt(request()->get('set')) === $set->id ? 'selected' : '' : '' }} value="{{ $set->id }}">{{ $set->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('question_set')
+                                @error('set')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -154,7 +154,7 @@
                                     <div class="col col-md-6">
                                         <button type="submit" class="btn bg-gradient-primary btn-block"><i
                                                 class="fas fa-check mr-1"></i>
-                                            Add Question
+                                            Add Grammar Question
                                         </button>
                                     </div><!-- /.col col-md-6 -->
                                 </div><!-- /.row -->

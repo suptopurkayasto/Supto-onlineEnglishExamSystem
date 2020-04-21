@@ -12,7 +12,7 @@ class InformalEmailSeeder extends Seeder
     public function run()
     {
         for ($set = 1; $set <= 4; $set++) {
-            factory(\App\Model\Writing\InformalEmail::class)->create(['question_set_id' => $set]);
+            factory(\App\Model\Writing\InformalEmail\InformalEmail::class)->create(['set_id' => $set]);
         }
     }
 }

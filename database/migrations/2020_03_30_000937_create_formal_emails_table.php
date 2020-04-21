@@ -16,7 +16,7 @@ class CreateFormalEmailsTable extends Migration
         Schema::create('formal_emails', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id');
-            $table->foreignId('question_set_id');
+            $table->foreignId('set_id');
             $table->string('topic');
             $table->text('received_email');
             $table->timestamps();

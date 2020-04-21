@@ -36,18 +36,18 @@
 
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
-                                <label for="questionSet">Question Set</label>
+                                <label for="set">Set</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                                <select name="questionSet" id="questionSet"
-                                        class="form-control @error('questionSet') is-invalid @enderror">
+                                <select name="set" id="set"
+                                        class="form-control @error('set') is-invalid @enderror">
                                     <option disabled selected>Select Set</option>
-                                    @foreach($questionSets as $questionSet)
+                                    @foreach($sets as $set)
                                         <option
-                                            {{ old('questionSet') == $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
+                                            {{ old('set') == $set->id ? 'selected' : '' }} value="{{ $set->id }}">{{ $set->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('questionSet')
+                                @error('set')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -78,9 +78,7 @@
                             <div class="col-12 col-md-10">
                         <textarea type="text" rows="7" name="received_email" id="received_email"
                                   class="form-control @error('received_email') is-invalid @enderror"
-                                  required>
-                            {{ old('received_email') }}
-                        </textarea>
+                                  required>{{ old('received_email') }}</textarea>
                                 @error('received_email')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

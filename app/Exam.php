@@ -3,22 +3,33 @@
 namespace App;
 
 use App\Model\Grammar\Grammar;
-use App\Model\Grammar\StudentGrammarQuestion;
+use App\Model\Grammar\Student\StudentGrammar;
+use App\Model\Marks\Marks;
 use App\Model\Reading\Heading\Heading;
 use App\Model\Reading\Heading\HeadingOption;
+use App\Model\Reading\Heading\Student\StudentHeading;
 use App\Model\Reading\Rearrange\Rearrange;
+use App\Model\Reading\Rearrange\Student\StudentRearrange;
 use App\Model\Vocabulary\Combination\Combination;
 use App\Model\Vocabulary\Combination\CombinationOption;
+use App\Model\Vocabulary\Combination\Student\StudentCombination;
 use App\Model\Vocabulary\Definition\Definition;
 use App\Model\Vocabulary\Definition\DefinitionOption;
+use App\Model\Vocabulary\Definition\Student\StudentDefinition;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGap;
 use App\Model\Vocabulary\FillInTheGap\FillInTheGapOption;
+use App\Model\Vocabulary\FillInTheGap\Student\StudentFillInTheGap;
+use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
 use App\Model\Vocabulary\Synonym\Synonym;
 use App\Model\Vocabulary\Synonym\SynonymOption;
-use App\Model\Writing\Dialog;
-use App\Model\Writing\FormalEmail;
-use App\Model\Writing\InformalEmail;
-use App\Model\Writing\SortQuestion;
+use App\Model\Writing\Dialog\Dialog;
+use App\Model\Writing\Dialog\StudentDialog;
+use App\Model\Writing\FormalEmail\FormalEmail;
+use App\Model\Writing\FormalEmail\StudentFormalEmail;
+use App\Model\Writing\InformalEmail\InformalEmail;
+use App\Model\Writing\InformalEmail\StudentInformalEmail;
+use App\Model\Writing\SortQuestion\SortQuestion;
+use App\Model\Writing\SortQuestion\StudentSortQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -39,18 +50,14 @@ class Exam extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function grammarQuestions()
+    public function grammars()
     {
         return $this->hasMany(Grammar::class);
     }
 
     public function sets()
     {
-        return $this->belongsToMany(QuestionSet::class, 'exam_question_set', 'exam_id');
-    }
-    public function students()
-    {
-        return $this->hasMany(StudentGrammarQuestion::class);
+        return $this->belongsToMany(Set::class);
     }
 
     // Dialog
@@ -136,6 +143,88 @@ class Exam extends Model
     public function headingOptions()
     {
         return $this->hasMany(HeadingOption::class);
+    }
+
+
+    // StudentGrammar
+    public function studentGrammars()
+    {
+        return $this->hasMany(StudentGrammar::class);
+    }
+
+    // Marks
+    public function marks()
+    {
+        return $this->hasMany(Marks::class);
+    }
+
+
+    /**
+     * Student Vocabulary
+     */
+    // Synonym
+    public function studentSynonyms()
+    {
+        return $this->hasMany(StudentSynonym::class);
+    }
+
+    // Definition
+    public function studentDefinitions()
+    {
+        return $this->hasMany(StudentDefinition::class);
+    }
+
+    // Combination
+    public function studentCombinations()
+    {
+        return $this->hasMany(StudentCombination::class);
+    }
+
+    // Fill In The Gap
+    public function studentFillInTheGaps()
+    {
+        return $this->hasMany(StudentFillInTheGap::class);
+    }
+
+
+    /**
+     * Student Reading
+     */
+    // Rearrange
+    public function studentRearranges()
+    {
+        return $this->hasMany(StudentRearrange::class);
+    }
+    // Heading
+    public function studentHeadings()
+    {
+        return $this->hasMany(StudentHeading::class);
+    }
+
+    /**
+     * Student Writing
+     */
+    // Dialog
+    public function studentDialogs()
+    {
+        return $this->hasMany(StudentDialog::class);
+    }
+
+    // Informal Email
+    public function studentInformalEmails()
+    {
+        return $this->hasMany(StudentInformalEmail::class);
+    }
+
+    // Formal Email
+    public function studentFormalEmails()
+    {
+        return $this->hasMany(StudentFormalEmail::class);
+    }
+    // Sort Question
+    public function studentSortQuestions()
+    {
+        return $this->hasMany(StudentSortQuestion::class);
     }
 
 }

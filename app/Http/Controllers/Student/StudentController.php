@@ -17,8 +17,9 @@ class StudentController extends Controller
     }
     public function index()
     {
+        $authStudent = Auth::guard('student')->user();
         return view('student.dashboard')
-            ->with('exams', Exam::all())
-            ->with('authStudent', Auth::guard('student')->user());
+            ->with('authStudent', $authStudent)
+            ->with('exams', Exam::where('teacher_id', $authStudent->teacher->id)->get());
     }
 }

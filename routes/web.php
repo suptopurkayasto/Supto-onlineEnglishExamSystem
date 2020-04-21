@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,5 +32,6 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('test', function () {
-   return \App\Model\Vocabulary\Synonym\SynonymOption::find(1)->synonym;
+    $exam = \App\Exam::find(2);
+    return $exam->studentDialogs()->where('student_id', 1)->get();
 });

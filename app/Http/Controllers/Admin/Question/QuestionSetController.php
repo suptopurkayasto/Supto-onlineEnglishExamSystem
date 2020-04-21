@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Question;
 
 use App\Http\Controllers\Controller;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Http\Request;
 
 class QuestionSetController extends Controller
@@ -42,10 +42,10 @@ class QuestionSetController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\QuestionSet  $questionSet
+     * @param  \App\Set  $questionSet
      * @return \Illuminate\Http\Response
      */
-    public function show(QuestionSet $questionSet)
+    public function show(Set $questionSet)
     {
         //
     }
@@ -53,10 +53,10 @@ class QuestionSetController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\QuestionSet  $questionSet
+     * @param  \App\Set  $questionSet
      * @return \Illuminate\Http\Response
      */
-    public function edit(QuestionSet $questionSet)
+    public function edit(Set $questionSet)
     {
         //
     }
@@ -65,10 +65,10 @@ class QuestionSetController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\QuestionSet  $questionSet
+     * @param  \App\Set  $questionSet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, QuestionSet $questionSet)
+    public function update(Request $request, Set $questionSet)
     {
         //
     }
@@ -76,10 +76,10 @@ class QuestionSetController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\QuestionSet  $questionSet
+     * @param  \App\Set  $questionSet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(QuestionSet $questionSet)
+    public function destroy(Set $questionSet)
     {
         //
     }

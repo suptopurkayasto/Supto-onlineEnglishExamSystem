@@ -6,10 +6,13 @@ use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Writing\FormalEmail;
 use App\Model\Writing\InformalEmail;
-use App\QuestionSet;
+use App\Set;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\View\View;
 
 class FormalEmailController extends Controller
 {
@@ -23,7 +26,7 @@ class FormalEmailController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -34,20 +37,20 @@ class FormalEmailController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
         return view('teacher.questions.writing.emails.formal.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('sets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -55,7 +58,7 @@ class FormalEmailController extends Controller
         $set = $request->questionSet;
 
         $authTeacher = Auth::guard('teacher')->user();
-        $authTeacherFormalEmailsByExamAndSet = $authTeacher->exams()->find($exam)->formalEmails()->where(['question_set_id'=> $set])->get();
+        $authTeacherFormalEmailsByExamAndSet = $authTeacher->exams()->find($exam)->formalEmails()->where(['set_id'=> $set])->get();
 
         if ($authTeacherFormalEmailsByExamAndSet->count() < 1) {
             FormalEmail::create($this->validateFormalEmailCreateRequest($request));
@@ -63,7 +66,7 @@ class FormalEmailController extends Controller
             toast('Formal email has been successfully added','success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add formal email to this '. QuestionSet::find($set)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add formal email to this '. Set::find($set)->name .' set.');
         }
         return redirect()->back();
     }
@@ -71,14 +74,14 @@ class FormalEmailController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Model\Writing\FormalEmail $formalEmail
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @param FormalEmail $formalEmail
+     * @return Factory|RedirectResponse|View
      */
     public function show(FormalEmail $formalEmail)
     {
         if ($this->validFormalEmailRequest($formalEmail)) {
             return view('teacher.questions.writing.emails.formal.show', compact('formalEmail'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -89,14 +92,14 @@ class FormalEmailController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Model\Writing\FormalEmail $formalEmail
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @param FormalEmail $formalEmail
+     * @return Factory|RedirectResponse|View
      */
     public function edit(FormalEmail $formalEmail)
     {
         if ($this->validFormalEmailRequest($formalEmail)) {
             return view('teacher.questions.writing.emails.formal.edit', compact('formalEmail'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('sets', Set::all())
                 ->with('authTeacher', Auth::guard('teacher')->user());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -107,9 +110,9 @@ class FormalEmailController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Model\Writing\FormalEmail $formalEmail
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param FormalEmail $formalEmail
+     * @return RedirectResponse
      */
     public function update(Request $request, FormalEmail $formalEmail)
     {
@@ -127,8 +130,8 @@ class FormalEmailController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Model\Writing\FormalEmail $formalEmail
-     * @return \Illuminate\Http\RedirectResponse
+     * @param FormalEmail $formalEmail
+     * @return RedirectResponse
      */
     public function destroy(FormalEmail $formalEmail)
     {
@@ -167,14 +170,14 @@ class FormalEmailController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'topic' => 'required|string|max:255',
             'received_email' => 'required|string'
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'topic' => $validateData['topic'],
             'received_email' => $validateData['received_email'],
         ];
@@ -185,14 +188,14 @@ class FormalEmailController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'topic' => 'required|string|max:255',
             'received_email' => 'required|string'
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'topic' => $validateData['topic'],
             'received_email' => $validateData['received_email'],
         ];

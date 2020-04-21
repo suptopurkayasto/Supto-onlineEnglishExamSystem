@@ -6,7 +6,7 @@ use App\Exam;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Student\StudentCreateRequest;
-use App\QuestionSet;
+use App\Set;
 use App\Section;
 use App\Student;
 use App\Teacher;
@@ -60,17 +60,9 @@ class StudentController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(StudentCreateRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->only('name', 'email');
-        $data['question_set_id'] = QuestionSet::all()->random()->id;
-        $data['location_id'] = Auth::guard('teacher')->user()->location->id;
-        $data['group_id'] = $request->group;
-        $data['section_id'] = $request->section;
-        $data['password'] = Hash::make($request->password);
-        $data['id_number'] = Str::upper(Str::random(1)) . now('asia/dhaka')->format('sms') . Str::upper(Str::random(1));
-
-        Auth::guard('teacher')->user()->students()->create($data);
+        Auth::guard('teacher')->user()->students()->create($this->validateStudentCreateRequest($request));
         toast('Student has been successfully added','success');
         session()->flash('success_audio');
         return redirect()->back();
@@ -80,27 +72,39 @@ class StudentController extends Controller
      * Display the specified resource.
      *
      * @param Student $student
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function show(Student $student)
     {
-        return view('teacher.student.show', compact('student'))
-            ->with('authTeacher', Auth::guard('teacher')->user());
+        if ($this->validStudentRequest($student)) {
+            return view('teacher.student.show', compact('student'))
+                ->with('authTeacher', Auth::guard('teacher')->user());
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
+
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param Student $student
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function edit(Student $student)
     {
-        return view('teacher.student.edit')
-            ->with('student', $student)
-            ->with('groups', Group::all())
-            ->with('sections', Section::all())
-            ->with('authTeacher', Auth::guard('teacher')->user());
+        if ($this->validStudentRequest($student)) {
+            return view('teacher.student.edit')
+                ->with('student', $student)
+                ->with('groups', Group::all())
+                ->with('sections', Section::all())
+                ->with('authTeacher', Auth::guard('teacher')->user());
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -112,10 +116,15 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        $student->update($this->validateUpdateStudentRequest($request));
-        toast('Student has been successfully updated','success');
-        session()->flash('success_audio');
-        return redirect()->route('teacher.students.index');
+        if ($this->validStudentRequest($student)) {
+            $student->update($this->validateStudentUpdateRequest($request));
+            toast('Student has been successfully updated','success');
+            session()->flash('success_audio');
+            return redirect()->route('teacher.students.index');
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -141,12 +150,36 @@ class StudentController extends Controller
             ->with('students', Student::all());
     }
 
-    protected function validateUpdateStudentRequest($request) {
+    protected function validateStudentCreateRequest(Request $request) {
         $validateData = $this->validate($request, [
             'name' => 'required|max:255|string',
             'group' => 'required',
             'section' => 'required',
+            'phone_number' => 'required',
             'email' => 'required|max:255|email',
+            'password' => 'required|min:8'
+        ]);
+
+        return [
+            'location_id' => Auth::guard('teacher')->user()->location->id,
+            'name' => $validateData['name'],
+            'group_id' => $validateData['group'],
+            'section_id' => $validateData['section'],
+            'set_id' => rand(1, 4),
+            'phone_number' => $validateData['phone_number'],
+            'email' => $validateData['email'],
+            'password' => Hash::make($validateData['password'])
+        ];
+    }
+
+
+    protected function validateStudentUpdateRequest($request) {
+        $validateData = $this->validate($request, [
+            'name' => 'required|max:255|string',
+            'group' => 'required',
+            'section' => 'required',
+            'email' => 'required|max:255|email|unique:students',
+            'phone_number' => 'required'
         ]);
 
         $finalData =  [
@@ -154,7 +187,8 @@ class StudentController extends Controller
             'name' => $validateData['name'],
             'group_id' => $validateData['group'],
             'section_id' => $validateData['section'],
-            'email' => $validateData['email']
+            'email' => $validateData['email'],
+            'phone_number' => $validateData['phone_number']
         ];
 
         if ($request->password != null) {
@@ -166,5 +200,19 @@ class StudentController extends Controller
         }
 
         return $finalData;
+    }
+
+    private function validStudentRequest(Student $student)
+    {
+        $authTeacherStudents = Auth::guard('teacher')->user()->students;
+
+        $valid = null;
+        foreach ($authTeacherStudents as $atStudent) {
+            if ($atStudent->id === $student->id) {
+                $valid = true;
+            }
+        }
+
+        return $valid;
     }
 }

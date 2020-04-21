@@ -16,12 +16,11 @@
                             <label for="exam_name">Exam name</label>
                         </div><!-- /.col-12 col-md-2 -->
                         <div class="col-12 col-md-10">
-                            <select name="exam_name" id="exam_name"
-                                    class="form-control @error('exam_name') is-invalid @enderror" disabled>
-                                <option selected>Select exam</option>
+                            <select name="exam" id="exam"
+                                    class="form-control @error('exam') is-invalid @enderror" disabled>
                                 <option selected value="{{ $grammar->exam->id }}">{{ $grammar->exam->name }}</option>
                             </select>
-                            @error('exam_name')
+                            @error('exam')
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -30,18 +29,18 @@
                     </div><!-- /.form-group row -->
                     <div class="form-group row">
                         <div class="col-12 col-md-2">
-                            <label for="question_set">Question set</label>
+                            <label for="set">Set</label>
                         </div><!-- /.col-12 col-md-2 -->
                         <div class="col-12 col-md-10">
-                            <select name="question_set" id="question_set"
-                                    class="form-control @error('question_set') is-invalid @enderror" disabled>
+                            <select name="set" id="set"
+                                    class="form-control @error('set') is-invalid @enderror" disabled>
                                 <option disabled>Select question set</option>
-                                @foreach($questionSets as $set)
+                                @foreach($sets as $set)
                                     <option
                                         {{ $set->id == $grammar->set->id ? 'selected' : ''  }} value="{{ $set->id }}">{{ $set->name }}</option>
                                 @endforeach
                             </select>
-                            @error('question_set')
+                            @error('set')
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Teacher\Exam;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Exam\ExamCreateRequest;
-use App\QuestionSet;
+use App\Set;
+use App\Student;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,7 +52,7 @@ class ExamController extends Controller
     public function store(Request $request)
     {
         $createdExam = Auth::guard('teacher')->user()->exams()->create($this->validateExamCreateRequest($request));
-        $createdExam->sets()->attach(QuestionSet::all());
+        $createdExam->sets()->attach(Set::all());
 
         toast('Exam has been successfully added','success');
         session()->flash('success_audio');
@@ -113,19 +114,28 @@ class ExamController extends Controller
 
     public function status(Request $request, Exam $exam)
     {
-        if ($request->status === 'running') {
+        if ($request->input('status') === 'running') {
+            if ($exam->marks()->count() === 0) {
+                $students = Student::where('location_id', Auth::guard('teacher')->user()->location->id)->get();
+                foreach ($students as $student) {
+                    $student->marks()->create([
+                        'exam_id' => $exam->id,
+                        'set_id' => $student->set->id
+                    ]);
+                }
+            }
             $exam->update(['status' => 'running']);
             toast('Exam has been successfully running','success');
             session()->flash('success_audio');
-        } elseif ($request->status === 'complete') {
+        } elseif ($request->input('status') === 'complete') {
             $exam->update(['status' => 'complete']);
             toast('Exam has been successfully completed','success');
             session()->flash('success_audio');
-        } elseif ($request->status === 'cancel') {
+        } elseif ($request->input('status') === 'cancel') {
             $exam->update(['status' => 'cancel']);
             toast('Exam has been successfully canceled','success');
             session()->flash('success_audio');
-        } elseif ($request->status === 'complete') {
+        } elseif ($request->input('status') === 'complete') {
             $exam->update(['status' => 'complete']);
             toast('Exam has been successfully completed','success');
             session()->flash('success_audio');

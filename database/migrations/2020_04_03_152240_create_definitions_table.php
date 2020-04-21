@@ -16,7 +16,7 @@ class CreateDefinitionsTable extends Migration
         Schema::create('definitions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id');
-            $table->foreignId('question_set_id');
+            $table->foreignId('set_id');
             $table->string('sentence');
             $table->foreignId('definition_option_id');
             $table->timestamps();

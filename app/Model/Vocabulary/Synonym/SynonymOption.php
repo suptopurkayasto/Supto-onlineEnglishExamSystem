@@ -3,7 +3,7 @@
 namespace App\Model\Vocabulary\Synonym;
 
 use App\Exam;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Database\Eloquent\Model;
 
 class SynonymOption extends Model
@@ -16,7 +16,7 @@ class SynonymOption extends Model
     }
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class, 'question_set_id');
+        return $this->belongsTo(Set::class);
     }
     public function synonym()
     {

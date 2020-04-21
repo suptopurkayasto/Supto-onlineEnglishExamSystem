@@ -3,12 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script src="https://kit.fontawesome.com/01809e8659.js" crossorigin="anonymous"></script>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-{{--    <title>{{ config('app.name', 'Laravel') }}</title>--}}
     <title>@yield('title')</title>
 
 
@@ -19,31 +16,36 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-    <script>
-        var h = window.innerHeight
-            || document.documentElement.clientHeight
-            || document.body.clientHeight;
-    </script>
+
+    @yield('extra-css')
 </head>
 <body>
-    @include('components.audio-alert')
-    <div id="app" class="h-100">
-        <main class=" h-100">
-            @yield('content')
-        </main>
-    </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    @yield('extra-scripts')
-    @include('sweetalert::alert')
+@include('components.audio-alert')
 
-    <script>
-        $(document).ready(function () {
-            var height = $(window).innerHeight();
-            $('body').css({'height': height});
-        });
-    </script>
+@yield('content')
 
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}"></script>
+
+@include('sweetalert::alert')
+
+<script>
+    $(document).tooltip({
+        track: true,
+        classes: {
+            "ui-tooltip": "text-primary shadow border-primary rounded"
+        }
+    });
+</script>
+<script src="{{ asset('js/extra/jquery.multipage.js') }}"></script>
+<script>
+    $('#myform').multipage({
+        generateNavigation: false,
+    });
+</script>
+
+@yield('extra-script')
+<script src="https://kit.fontawesome.com/01809e8659.js" crossorigin="anonymous"></script>
 </body>
 </html>

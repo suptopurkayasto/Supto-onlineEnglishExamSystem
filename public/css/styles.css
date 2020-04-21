@@ -3153,6 +3153,21 @@
     animation-iteration-count: 1 !important;
   }
 }
+body {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.btn-primary {
+  color: white;
+}
+
+.my-shadow {
+  box-shadow: 0 20px 30px -16px rgba(9, 9, 16, 0.2);
+}
+
 .timerContainer {
   background-color: white;
   position: fixed;
@@ -3165,26 +3180,22 @@
   font-size: 40px;
 }
 
-.middle-section ul li {
-  padding: 0;
-}
-
-.middle-section ul li a {
-  transition: all 0.4ms ease-in-out;
+.student-list-group-container div.list-group a.list-group-item {
+  transition: all 200ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
   text-align: center;
   padding: 0.75rem 1.25rem;
   display: block;
-  font-size: 30px;
+  font-size: 20px;
 }
 
-.middle-section ul li a:hover {
+.student-list-group-container div.list-group a.list-group-item:hover {
   color: white;
-  background-color: #007bff;
+  background-color: #75811a;
 }
 
 .table thead tr {
-  background-color: rgba(0, 123, 255, 0.2);
-  color: #007bff;
+  background-color: rgba(117, 129, 26, 0.2);
+  color: #75811a;
 }
 
 .table thead tr th {
@@ -3193,18 +3204,18 @@
 }
 
 .table-heading-bg {
-  background-color: rgba(0, 123, 255, 0.3);
-  color: #007bff;
+  background-color: rgba(117, 129, 26, 0.3);
+  color: #75811a;
 }
 
 table td,
 th,
 .custom-table-heading {
-  border-color: rgba(0, 123, 255, 0.1) !important;
+  border-color: rgba(117, 129, 26, 0.1) !important;
 }
 
 table tbody tr:hover {
-  background-color: rgba(0, 123, 255, 0.1) !important;
+  background-color: rgba(117, 129, 26, 0.1) !important;
 }
 
 table td {
@@ -3214,7 +3225,7 @@ table td {
 
 .login-card .card-header {
   background-color: white;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid #75811a;
   text-align: center;
   font-size: 30px;
   font-weight: 900;
@@ -3231,7 +3242,32 @@ table td {
   margin: -60px auto 0 auto;
 }
 
+.login-form .card-body .input-group .input-group-prepend .input-group-text {
+  background-color: #75811a;
+}
+
+.login-form .card-body .input-group .input-group-prepend .input-group-text i {
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .student-info-sec {
+    transform: scale(1.2);
+    background-color: white;
+  }
+
+  .student-question-sec {
+    transform: scale(1);
+    background-color: white;
+  }
+}
+
+.ui-selectmenu-button {
+  display: block;
+}
+
 body {
   font-family: "Roboto", sans-serif;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 

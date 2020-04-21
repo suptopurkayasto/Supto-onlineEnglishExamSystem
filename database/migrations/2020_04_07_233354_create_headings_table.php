@@ -16,7 +16,7 @@ class CreateHeadingsTable extends Migration
         Schema::create('headings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id');
-            $table->foreignId('question_set_id');
+            $table->foreignId('set_id');
             $table->text('paragraph');
             $table->foreignId('heading_option_id');
             $table->timestamps();

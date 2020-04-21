@@ -6,13 +6,20 @@
     @if($authTeacher->exams()->count() > 0)
         @foreach($authTeacher->exams as $exam)
             @if($exam->headings()->count() > 0)
-                <div class="card mb-5">
+                <div class="card mb-5 index-card">
                     <div
                         class="card-header">
-                        <h3 class="card-title float-left index-card-title" title="{{ $exam->name }}"><span
-                                class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
-                            Heading
+                        <h3 class="card-title float-left index-card-title {{ $exam->headings()->count() === 20 && $exam->headingOptions()->count() === 40 ? 'text-success' : 'text-warning' }}"
+                            title="{{ $exam->name }}"><span
+                                class="">{{ Str::limit($exam->name, 30) }}</span>
+                            <span class="font-weight-bolder">Heading Matching</span>
+                            @if($exam->headings()->count() === 20 && $exam->headingOptions()->count() === 40)
+                                <span class="text-success ml-2" title="Ready For Exam">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                            @endif
                         </h3>
+
                         @if($exam->headings()->count() !== 20)
                             <a href="{{ route('teachers.questions.headings.create') }}?exam={{ encrypt($exam->id) }}"
                                class="btn bg-gradient-primary float-right btn-hover-effect">
@@ -22,13 +29,13 @@
                     </div><!-- /.card-header -->
                     @if($exam->headings()->count() === 20 && $exam->headingOptions()->count() === 40)
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
+                            <div class="progress-bar bg-success progress-bar-animated"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
                     @else
                         <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+                            <div class="progress-bar bg-warning"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
@@ -36,7 +43,7 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)
-                                @php $headingCountBySet = $exam->headings()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $headingCountBySet = $exam->headings()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"
@@ -50,18 +57,16 @@
                                             </div>
                                             <div class="progress-description">
                                                 @if($headingCountBySet === 5)
-                                                    @if($exam->headingOptions()->where('question_set_id', $set->id)->get()->count() === 10)
+                                                    @if($exam->headingOptions()->where('set_id', $set->id)->get()->count() === 10)
                                                         <a href="{{ route('teachers.questions.headings.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                           class="btn btn-sm btn-primary btn-block">View
-                                                            extra heading</a>
+                                                           class="btn-link text-success"><i class="fas fa-check-circle mr-1"></i> View extra heading</a>
                                                     @else
                                                         <a href="{{ route('teachers.questions.headings.options.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                           class="btn btn-sm btn-outline-primary btn-block">Add
-                                                            extra heading</a>
+                                                           class="btn-link text-muted"><i class="fas fa-pen mr-1"></i> Add extra heading</a>
                                                     @endif
                                                 @else
                                                     <a href="{{ route('teachers.questions.headings.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                       class="btn btn-sm btn-outline-primary btn-block">Add Heading</a>
+                                                       class="btn-link"><i class="fas fa-pen-alt mr-1"></i> Add Heading</a>
                                                 @endif
                                             </div>
                                         </div>
@@ -72,8 +77,8 @@
 
                             <div class="col-12">
                                 <table
-                                    id="example"
-                                    class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
+                                    id=""
+                                    class="example table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
                                     style="width: 100%">
                                     <thead>
                                     <tr>

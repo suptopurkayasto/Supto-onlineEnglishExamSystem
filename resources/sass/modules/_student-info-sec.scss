@@ -1,0 +1,10 @@
+@include media-breakpoint-up('md') {
+    .student-info-sec {
+        transform: scale(1.2);
+        background-color: white;
+    }
+    .student-question-sec {
+        transform: scale(1);
+        background-color: white;
+    }
+}

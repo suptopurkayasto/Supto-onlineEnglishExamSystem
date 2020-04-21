@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\Question\GrammarQuestion\GrammarQuestionUpdateRequest;
 use App\Http\Requests\Teacher\Question\GrammarQuestionCreateRequest;
 use App\Model\Grammar\Grammar;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,7 +38,7 @@ class GrammarController extends Controller
     {
         return view('teacher.questions.grammar.create')
             ->with('authTeacher', Auth::guard('teacher')->user())
-            ->with('questionSets', QuestionSet::all());
+            ->with('sets', Set::all());
     }
 
     /**
@@ -55,19 +55,20 @@ class GrammarController extends Controller
         $authTeacher = Auth::guard('teacher')->user();
 
         $exam = $authTeacher->exams()->find($request->get('exam'));
-        $questionCount = $exam->grammarQuestions()->count();
+        $set = $request->input('set');
+        $questionCount = $exam->grammars()->where('set_id', $set)->count();
 
         if ($questionCount < 25) {
-            $authTeacher->exams()->find($request->exam)->grammarQuestions()->create($this->validateGrammarCreateRequest($request));
+            $authTeacher->exams()->find($request->input('exam'))->grammars()->create($this->validateGrammarCreateRequest($request));
             toast('Grammar question has been successfully added', 'success');
             session()->flash('success_audio');
-            if ($exam->grammarQuestions()->count() >= 100) {
+            if ($exam->grammars()->count() >= 100) {
                 return redirect()->route('teachers.questions.grammars.index');
             }
             return redirect()->back();
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add dialog to this ' . QuestionSet::find($request->question_set)->name . ' set.');
+            alert()->info('Fail!', 'You can no longer add grammar question to this ' . Set::find($request->input('set'))->name . ' set.');
             return redirect()->back();
         }
 
@@ -84,7 +85,7 @@ class GrammarController extends Controller
         if ($this->validGrammarQuestionRequest($grammar)) {
             return view('teacher.questions.grammar.show')
                 ->with('grammar', $grammar)
-                ->with('questionSets', QuestionSet::all());
+                ->with('sets', Set::all());
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->back();
@@ -103,7 +104,7 @@ class GrammarController extends Controller
             return view('teacher.questions.grammar.edit')
                 ->with('authTeacher', Auth::guard('teacher')->user())
                 ->with('grammar', $grammar)
-                ->with('questionSets', QuestionSet::all());
+                ->with('sets', Set::all());
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->back();
@@ -123,18 +124,17 @@ class GrammarController extends Controller
         if ($this->validGrammarQuestionRequest($grammar)) {
 
             $authTeacher = Auth::guard('teacher')->user();
-            $authTeacherExam = $authTeacher->exams()->find($request->exam);
-            $authTeacherGrammarQuestions = $authTeacherExam->grammarQuestions()->where(['question_set_id' => $request->question_set])->get();
 
+            $authTeacherGrammarQuestions = $authTeacher->exams()->find($grammar->exam->id)->grammars()->where(['set_id' => $request->input('set')])->get();
 
-            if ($authTeacherGrammarQuestions->count() < 25 || $grammar->set->id == $request->question_set) {
+            if ($authTeacherGrammarQuestions->count() < 25 || $grammar->set->id == $request->input('set')) {
                 $grammar->update($this->validateGrammarsUpdateRequest($request));
                 toast('Grammar question has been successfully updated', 'success');
                 session()->flash('success_audio');
                 return redirect(route('teachers.questions.grammars.show', $grammar->id).'?exam='.\request()->get('exam'));
             } else {
                 session()->flash('field_audio');
-                alert()->info('Fail!', 'You can no longer add dialog to this ' . QuestionSet::find($request->question_set)->name . ' set.');
+                alert()->info('Fail!', 'You can no longer add grammar question to this ' . Set::find($request->input('set'))->name . ' set.');
                 return redirect()->back();
             }
         } else {
@@ -167,11 +167,11 @@ class GrammarController extends Controller
      * @param $grammar
      * @return bool|null
      */
-    private function validGrammarQuestionRequest($grammar) {
+    private function validGrammarQuestionRequest(Grammar $grammar) {
 
         $examId = Crypt::decrypt(\request()->get('exam'));
 
-        $authGrammarQuestions = Auth::guard('teacher')->user()->exams()->find($examId)->grammarQuestions()->get();
+        $authGrammarQuestions = Auth::guard('teacher')->user()->exams()->find($examId)->grammars()->get();
 
         $valid = null;
         foreach ($authGrammarQuestions as $authGrammarQuestion) {
@@ -192,7 +192,7 @@ class GrammarController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|max:255|string',
-            'question_set' => 'required|max:255|string',
+            'set' => 'required|max:255|string',
             'question' => 'required|max:255|string',
             'option_1' => 'required|max:255|string',
             'option_2' => 'required|max:255|string',
@@ -201,7 +201,7 @@ class GrammarController extends Controller
         ]);
 
         return [
-            'question_set_id' => $validateData['question_set'],
+            'set_id' => $validateData['set'],
             'question' => $validateData['question'],
             'option_1' => $validateData['option_1'],
             'option_2' => $validateData['option_2'],
@@ -219,8 +219,7 @@ class GrammarController extends Controller
     private function validateGrammarsUpdateRequest($request)
     {
         $validateData = $this->validate($request, [
-            'exam' => 'required|integer',
-            'question_set' => 'required|integer',
+            'set' => 'required|integer',
             'question' => 'required|max:255|string',
             'option_1' => 'required|max:255|string',
             'option_2' => 'required|max:255|string',
@@ -229,8 +228,7 @@ class GrammarController extends Controller
         ]);
 
         return [
-            'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['question_set'],
+            'set_id' => $validateData['set'],
             'question' => $validateData['question'],
             'option_1' => $validateData['option_1'],
             'option_2' => $validateData['option_2'],

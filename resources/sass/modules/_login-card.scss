@@ -18,4 +18,16 @@
         align-items: center;
         margin: -60px auto 0 auto;
     }
+    .card-body {
+        .input-group {
+            .input-group-prepend {
+                .input-group-text {
+                    background-color: $primary;
+                    i {
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
 }

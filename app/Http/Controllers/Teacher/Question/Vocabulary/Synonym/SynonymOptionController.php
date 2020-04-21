@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Teacher\Question\Vocabulary\Synonym;
 
 use App\Http\Controllers\Controller;
 use App\Model\Vocabulary\Synonym\SynonymOption;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\View\View;
@@ -25,9 +26,9 @@ class SynonymOptionController extends Controller
 
         $authTeacher = Auth::guard('teacher')->user();
         $examId = Crypt::decrypt(\request()->get('exam'));
-        $questionSetId = Crypt::decrypt(\request()->get('set'));
+        $setId = Crypt::decrypt(\request()->get('set'));
 
-        $options = SynonymOption::where(['exam_id' => $examId, 'question_set_id' => $questionSetId])->get();
+        $options = SynonymOption::where(['exam_id' => $examId, 'set_id' => $setId])->get();
 
         return view('teacher.questions.vocabulary.synonym.options.index', compact('options'));
     }
@@ -50,11 +51,10 @@ class SynonymOptionController extends Controller
      */
     public function store(Request $request)
     {
-        $examId = Crypt::decrypt($request->exam_id);
+        $examId = Crypt::decrypt($request->get('exam'));
+        $setId = Crypt::decrypt($request->get('set'));
 
-        $setId = Crypt::decrypt($request->question_set_id);
-
-        $synonymOptionByExamAndSet = SynonymOption::where(['exam_id' => $examId, 'question_set_id' => $setId])->get()->count();
+        $synonymOptionByExamAndSet = SynonymOption::where(['exam_id' => $examId, 'set_id' => $setId])->get()->count();
 
         if ($synonymOptionByExamAndSet < 10) {
 
@@ -64,7 +64,7 @@ class SynonymOptionController extends Controller
             return redirect()->back();
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add Option to this '. QuestionSet::find($setId)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add Option to this '. Set::find($setId)->name .' set.');
             return redirect()->back();
         }
     }
@@ -106,7 +106,7 @@ class SynonymOptionController extends Controller
      *
      * @param Request $request
      * @param SynonymOption $option
-     * @return RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function update(Request $request, SynonymOption $option)
     {
@@ -143,14 +143,12 @@ class SynonymOptionController extends Controller
     private function validateSynonymOptionsCreateRequest($request)
     {
         $validateData = $this->validate($request, [
-            'exam_id' => 'required',
-            'question_set_id' => 'required',
             'option' => 'required|string|max:255',
         ]);
 
         return [
-            'exam_id' => Crypt::decrypt($validateData['exam_id']),
-            'question_set_id' => Crypt::decrypt($validateData['question_set_id']),
+            'exam_id' => Crypt::decrypt($request->get('exam')),
+            'set_id' => Crypt::decrypt($request->get('set')),
             'options' => $validateData['option']
         ];
 
@@ -170,7 +168,7 @@ class SynonymOptionController extends Controller
     private function validOptionRequest($option) {
         $examId = Crypt::decrypt(\request()->get('exam'));
         $setId = Crypt::decrypt(\request()->get('set'));
-        $authTeacherOptionByExamAndSet = Auth::guard('teacher')->user()->exams()->find($examId)->synonymOptions()->where('question_set_id', $setId)->get();
+        $authTeacherOptionByExamAndSet = Auth::guard('teacher')->user()->exams()->find($examId)->synonymOptions()->where('set_id', $setId)->get();
 
         $valid = null;
         foreach ($authTeacherOptionByExamAndSet as $item) {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Teacher\Question\Reading\Heading;
 
 use App\Model\Reading\Heading\HeadingOption;
 use App\Http\Controllers\Controller;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,7 +26,7 @@ class HeadingOptionController extends Controller
         $authTeacher = Auth::guard('teacher')->user();
         $examId = Crypt::decrypt(\request()->get('exam'));
         $setId = Crypt::decrypt(\request()->get('set'));
-        $options = $authTeacher->exams()->find($examId)->headingOptions()->where(['question_set_id' => $setId])->get();
+        $options = $authTeacher->exams()->find($examId)->headingOptions()->where(['set_id' => $setId])->get();
 
         return view('teacher.questions.reading.heading.options.index', compact('options'));
     }
@@ -53,18 +53,22 @@ class HeadingOptionController extends Controller
         $examId = Crypt::decrypt($request->exam);
         $setId = Crypt::decrypt($request->set);
 
-        $authTeacherHeadingOptionsCountByExamAndSet =  $authTeacher->exams()->find($examId)->headingOptions()->where(['question_set_id' => $setId])->get()->count();
+        $authTeacherHeadingOptionsCountByExamAndSet =  $authTeacher->exams()->find($examId)->headingOptions()->where(['set_id' => $setId])->get()->count();
 
         if ($authTeacherHeadingOptionsCountByExamAndSet < 10) {
 
             HeadingOption::create($this->validateHeadingOptionsCreateRequest($request));
             session()->flash('success_audio');
             toast('Extra heading has been successfully created','success');
-            return redirect()->back();
+            if ($authTeacherHeadingOptionsCountByExamAndSet === 9) {
+                return redirect()->route('teachers.questions.headings.index');
+            } else {
+                return redirect()->back();
+            }
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add extra heading to this '. QuestionSet::find($setId)->name .' set.');
-            return redirect()->back();
+            alert()->info('Fail!', 'You can no longer add extra heading to this '. Set::find($setId)->name .' set.');
+            return redirect()->route('teachers.questions.headings.index');
         }
     }
 
@@ -132,7 +136,7 @@ class HeadingOptionController extends Controller
             $option->forceDelete();
             session()->flash('success_audio');
             toast('Extra heading has been successfully deleted','success');
-            return redirect(route('teachers.questions.headings.options.index').'?exam='.\request()->get('exam').'&set='. \request()->get('set'));
+            return redirect(route('teachers.questions.headings.options.create').'?exam='.\request()->get('exam').'&set='.\request()->get('set'));
         } else {
             alert()->error('😒', 'You can\'t do this.');
             return redirect()->back();
@@ -147,7 +151,7 @@ class HeadingOptionController extends Controller
 
         return [
             'exam_id' => Crypt::decrypt(\request()->get('exam')),
-            'question_set_id' => Crypt::decrypt(\request()->get('set')),
+            'set_id' => Crypt::decrypt(\request()->get('set')),
             'headings' => $validateData['heading']
         ];
     }
@@ -158,7 +162,7 @@ class HeadingOptionController extends Controller
         $setId = Crypt::decrypt(\request()->get('set'));
         $authTeacher = Auth::guard('teacher')->user();
 
-        $authTeacherOptionsByExamAndSet = $authTeacher->exams()->find($examId)->headingOptions()->where('question_set_id', $setId)->get();
+        $authTeacherOptionsByExamAndSet = $authTeacher->exams()->find($examId)->headingOptions()->where('set_id', $setId)->get();
 
         $valid = null;
         foreach ($authTeacherOptionsByExamAndSet as $item) {

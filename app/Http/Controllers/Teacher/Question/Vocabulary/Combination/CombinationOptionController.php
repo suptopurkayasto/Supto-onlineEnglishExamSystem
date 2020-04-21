@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Teacher\Question\Vocabulary\Combination;
 
 use App\Http\Controllers\Controller;
 use App\Model\Vocabulary\Combination\CombinationOption;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,7 +27,7 @@ class CombinationOptionController extends Controller
         $examId = Crypt::decrypt(\request()->get('exam'));
         $setId = Crypt::decrypt(\request()->get('set'));
 
-        $options = $authTeacher->exams()->find($examId)->combinationOptions()->where(['question_set_id' => $setId])->get();
+        $options = $authTeacher->exams()->find($examId)->combinationOptions()->where(['set_id' => $setId])->get();
 
         return view('teacher.questions.vocabulary.combination.options.index', compact('options'));
     }
@@ -54,7 +54,7 @@ class CombinationOptionController extends Controller
         $examId = Crypt::decrypt($request->exam);
         $setId = Crypt::decrypt($request->set);
 
-        $authTeacherCombinationOptionsCountByExamAndSet =  $authTeacher->exams()->find($examId)->combinationOptions()->where(['question_set_id' => $setId])->get()->count();
+        $authTeacherCombinationOptionsCountByExamAndSet =  $authTeacher->exams()->find($examId)->combinationOptions()->where(['set_id' => $setId])->get()->count();
 
         if ($authTeacherCombinationOptionsCountByExamAndSet < 10) {
 
@@ -64,7 +64,7 @@ class CombinationOptionController extends Controller
             return redirect()->back();
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add Option to this '. QuestionSet::find($setId)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add Option to this '. Set::find($setId)->name .' set.');
             return redirect()->back();
         }
     }
@@ -148,7 +148,7 @@ class CombinationOptionController extends Controller
 
         return [
             'exam_id' => Crypt::decrypt(\request()->get('exam')),
-            'question_set_id' => Crypt::decrypt(\request()->get('set')),
+            'set_id' => Crypt::decrypt(\request()->get('set')),
             'options' => $validateData['option']
         ];
     }
@@ -159,7 +159,7 @@ class CombinationOptionController extends Controller
         $setId = Crypt::decrypt(\request()->get('set'));
         $authTeacher = Auth::guard('teacher')->user();
 
-        $authTeacherOptionsByExamAndSet = $authTeacher->exams()->find($examId)->combinationOptions()->where('question_set_id', $setId)->get();
+        $authTeacherOptionsByExamAndSet = $authTeacher->exams()->find($examId)->combinationOptions()->where('set_id', $setId)->get();
 
         $valid = null;
         foreach ($authTeacherOptionsByExamAndSet as $item) {

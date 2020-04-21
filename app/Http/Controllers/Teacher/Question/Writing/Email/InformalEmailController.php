@@ -7,10 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Model\Writing\Dialog;
 use App\Model\Writing\InformalEmail;
 use App\Model\Writing\WritingPart;
-use App\QuestionSet;
+use App\Set;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\View\View;
 
 class InformalEmailController extends Controller
 {
@@ -24,7 +27,7 @@ class InformalEmailController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -35,27 +38,27 @@ class InformalEmailController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
         return view('teacher.questions.writing.emails.informal.create')
-            ->with('questionSets', QuestionSet::all())
+            ->with('sets', Set::all())
             ->with('authTeacher', Auth::guard('teacher')->user());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
         $exam = $request->exam;
         $set = $request->questionSet;
 
-        $countDialogs = InformalEmail::where(['exam_id' => $exam, 'question_set_id' => $set])->get()->count();
+        $countDialogs = InformalEmail::where(['exam_id' => $exam, 'set_id' => $set])->get()->count();
 
         if ($countDialogs < 1) {
             InformalEmail::create($this->validateInformalEmailCreateRequest($request));
@@ -63,7 +66,7 @@ class InformalEmailController extends Controller
             toast('Informal email has been successfully added','success');
         } else {
             session()->flash('field_audio');
-            alert()->info('Fail!', 'You can no longer add informal email to this '. QuestionSet::find($set)->name .' set.');
+            alert()->info('Fail!', 'You can no longer add informal email to this '. Set::find($set)->name .' set.');
         }
         return redirect()->back();
     }
@@ -71,14 +74,14 @@ class InformalEmailController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Model\Writing\InformalEmail $informalEmail
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @param InformalEmail $informalEmail
+     * @return Factory|RedirectResponse|View
      */
     public function show(InformalEmail $informalEmail)
     {
         if ($this->validInformalEmailRequest($informalEmail)) {
             return view('teacher.questions.writing.emails.informal.show', compact('informalEmail'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('sets', Set::all())
                 ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -89,14 +92,14 @@ class InformalEmailController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Model\Writing\InformalEmail $informalEmail
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @param InformalEmail $informalEmail
+     * @return Factory|RedirectResponse|View
      */
     public function edit(InformalEmail $informalEmail)
     {
         if ($this->validInformalEmailRequest($informalEmail)) {
             return view('teacher.questions.writing.emails.informal.edit', compact('informalEmail'))
-                ->with('questionSets', QuestionSet::all())
+                ->with('sets', Set::all())
                 ->with('authTeacherExams', Exam::where('teacher_id', Auth::guard('teacher')->id())->get());
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -108,9 +111,9 @@ class InformalEmailController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Writing\InformalEmail  $informalEmail
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param InformalEmail $informalEmail
+     * @return RedirectResponse
      */
     public function update(Request $request, InformalEmail $informalEmail)
     {
@@ -129,8 +132,8 @@ class InformalEmailController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Model\Writing\InformalEmail  $informalEmail
-     * @return \Illuminate\Http\RedirectResponse
+     * @param InformalEmail $informalEmail
+     * @return RedirectResponse
      */
     public function destroy(InformalEmail $informalEmail)
     {
@@ -169,13 +172,13 @@ class InformalEmailController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'topic' => 'required|string|max:255'
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'topic' => $validateData['topic']
         ];
 
@@ -185,13 +188,13 @@ class InformalEmailController extends Controller
     {
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
-            'questionSet' => 'required|integer',
+            'set' => 'required|integer',
             'topic' => 'required|string|max:255'
         ]);
 
         return [
             'exam_id' => $validateData['exam'],
-            'question_set_id' => $validateData['questionSet'],
+            'set_id' => $validateData['set'],
             'topic' => $validateData['topic']
         ];
 

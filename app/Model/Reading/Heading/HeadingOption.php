@@ -3,7 +3,8 @@
 namespace App\Model\Reading\Heading;
 
 use App\Exam;
-use App\QuestionSet;
+use App\Model\Reading\Heading\Student\StudentHeading;
+use App\Set;
 use Illuminate\Database\Eloquent\Model;
 
 class HeadingOption extends Model
@@ -17,12 +18,18 @@ class HeadingOption extends Model
     }
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class, 'question_set_id');
+        return $this->belongsTo(Set::class, 'set_id');
     }
 
     // Heading
     public function heading()
     {
         return $this->hasOne(Heading::class);
+    }
+
+    // Student Heading
+    public function studentHeadings()
+    {
+        return $this->hasMany(StudentHeading::class);
     }
 }

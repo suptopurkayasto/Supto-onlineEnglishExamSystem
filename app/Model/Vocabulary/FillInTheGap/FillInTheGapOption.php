@@ -3,7 +3,7 @@
 namespace App\Model\Vocabulary\FillInTheGap;
 
 use App\Exam;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Database\Eloquent\Model;
 
 class FillInTheGapOption extends Model
@@ -16,7 +16,7 @@ class FillInTheGapOption extends Model
     }
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class, 'question_set_id');
+        return $this->belongsTo(Set::class);
     }
     public function fillInTheGap()
     {

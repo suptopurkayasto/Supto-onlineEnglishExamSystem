@@ -5,6 +5,6 @@
 <script src="{{ asset('js/admin/datatable/responsive.bootstrap4.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('#example').DataTable();
+        $('.example').DataTable();
     } );
 </script>

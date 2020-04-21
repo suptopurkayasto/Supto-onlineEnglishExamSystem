@@ -7,7 +7,7 @@
     @if($authTeacher->exams()->count())
         @foreach($authTeacher->exams as $exam)
             @if($exam->informalEmails()->count() > 0)
-                <div class="card mb-5">
+                <div class="card mb-5 index-card">
                     <div class="card-header">
                         <h3 class="card-title float-left index-card-title" title="{{ $exam->name }}"><span
                                 class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
@@ -35,7 +35,7 @@
                     <div class="card-body">
                         <div class="row count-section">
                             @foreach($exam->sets as $set)
-                                @php $formalEmailCountBySet = $exam->informalEmails()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $formalEmailCountBySet = $exam->informalEmails()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"

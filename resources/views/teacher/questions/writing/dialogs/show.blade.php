@@ -37,18 +37,18 @@
 
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
-                                <label for="questionSet">Question Set</label>
+                                <label for="set">Set</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                                <select name="questionSet" id="questionSet"
-                                        class="form-control @error('questionSet') is-invalid @enderror" disabled>
+                                <select name="set" id="set"
+                                        class="form-control @error('set') is-invalid @enderror" disabled>
                                     <option disabled selected>Select group</option>
-                                    @foreach($questionSets as $questionSet)
+                                    @foreach($sets as $set)
                                         <option
-                                            {{ $dialog->set->id == $questionSet->id ? 'selected' : '' }} value="{{ $questionSet->id }}">{{ $questionSet->name }}</option>
+                                            {{ $dialog->set->id == $set->id ? 'selected' : '' }} value="{{ $set->id }}">{{ $set->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('questionSet')
+                                @error('set')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

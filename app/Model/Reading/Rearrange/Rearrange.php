@@ -3,7 +3,7 @@
 namespace App\Model\Reading\Rearrange;
 
 use App\Exam;
-use App\QuestionSet;
+use App\Set;
 use Illuminate\Database\Eloquent\Model;
 
 class Rearrange extends Model
@@ -17,6 +17,6 @@ class Rearrange extends Model
 
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class, 'question_set_id');
+        return $this->belongsTo(Set::class);
     }
 }

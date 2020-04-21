@@ -2,8 +2,19 @@
 
 namespace App;
 
-use App\Model\Grammar\StudentGrammarQuestionExamGotMarks;
+use App\Model\Grammar\Student\StudentGrammar;
+use App\Model\Marks\Marks;
+use App\Model\Reading\Heading\Student\StudentHeading;
+use App\Model\Reading\Rearrange\Student\StudentRearrange;
+use App\Model\Vocabulary\Combination\Student\StudentCombination;
+use App\Model\Vocabulary\Definition\Student\StudentDefinition;
+use App\Model\Vocabulary\FillInTheGap\Student\StudentFillInTheGap;
+use App\Model\Vocabulary\Synonym\Student\StudentSynonym;
 use App\Model\Writing\Dialog;
+use App\Model\Writing\Dialog\StudentDialog;
+use App\Model\Writing\FormalEmail\StudentFormalEmail;
+use App\Model\Writing\InformalEmail\StudentInformalEmail;
+use App\Model\Writing\SortQuestion\StudentSortQuestion;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,7 +32,7 @@ class Student extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'id_number', 'teacher_id', 'group_id', 'section_id', 'location_id', 'question_set_id'
+        'name', 'email', 'password', 'teacher_id', 'group_id', 'section_id', 'location_id', 'set_id', 'phone_number'
     ];
 
     /**
@@ -41,11 +52,6 @@ class Student extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function getRouteKeyName()
-    {
-        return 'id_number';
-    }
 
     public function admin()
     {
@@ -70,14 +76,83 @@ class Student extends Authenticatable
     }
     public function set()
     {
-        return $this->belongsTo(QuestionSet::class, 'question_set_id');
+        return $this->belongsTo(Set::class);
     }
 
-    public function grammarMarks()
+
+    // StudentGrammar
+    public function studentGrammars()
     {
-        return $this->hasMany(StudentGrammarQuestionExamGotMarks::class);
+        return $this->hasMany(StudentGrammar::class);
+    }
+
+    // Marks
+    public function marks()
+    {
+        return $this->hasMany(Marks::class);
+    }
+
+    /**
+     * Student Vocabulary
+     */
+    // Synonym
+    public function studentSynonyms()
+    {
+        return $this->hasMany(StudentSynonym::class);
+    }
+    // Definition
+    public function studentDefinitions()
+    {
+        return $this->hasMany(StudentDefinition::class);
+    }
+    // Combination
+    public function studentCombinations()
+    {
+        return $this->hasMany(StudentCombination::class);
+    }
+    // Fill In The Gap
+    public function studentFillInTheGaps()
+    {
+        return $this->hasMany(StudentFillInTheGap::class);
+    }
+
+    /**
+     * Student Reading
+     */
+    // Rearrange
+    public function studentRearranges()
+    {
+        return $this->hasMany(StudentRearrange::class);
+    }
+    // Heading
+    public function studentHeadings()
+    {
+        return $this->hasMany(StudentHeading::class);
+    }
+
+    /**
+     * Student Writing
+     */
+    // Dialog
+    public function studentDialogs()
+    {
+        return $this->hasMany(StudentDialog::class);
+    }
+    // Informal Email
+    public function studentInformalEmails()
+    {
+        return $this->hasMany(StudentInformalEmail::class);
+    }
+    // Formal Email
+    public function studentFormalEmails()
+    {
+        return $this->hasMany(StudentFormalEmail::class);
+    }
+    // Sort Question
+    public function studentSortQuestions()
+    {
+        return $this->hasMany(StudentSortQuestion::class);
     }
 
 
-    // Dialog
 }

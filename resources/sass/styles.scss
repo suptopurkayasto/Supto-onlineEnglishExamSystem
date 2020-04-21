@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap');
-@import "custom_variables";
+
+// Required
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
 @import "~bourbon/core/bourbon";
+
+@import "custom_variables";
 
 @import "~animate.css";
 
+
+@import "base/base-dir";
 @import "modules/modules-dir";
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: rgba(0, 0, 0, 0.05);
 }

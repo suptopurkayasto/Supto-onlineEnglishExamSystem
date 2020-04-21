@@ -6,7 +6,7 @@
     @if($authTeacher->exams()->count() > 0)
         @foreach($authTeacher->exams as $exam)
             @if($exam->fillInTheGaps()->count() > 0)
-                <div class="card mb-5">
+                <div class="card mb-5 index-card">
                     <div
                         class="card-header">
                         <h3 class="card-title float-left" title="{{ $exam->name }}"><span
@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)
-                                @php $fillINTheGapsCountBySet = $exam->fillInTheGaps()->where('question_set_id', $set->id)->get()->count() @endphp
+                                @php $fillINTheGapsCountBySet = $exam->fillInTheGaps()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
                                     <div class="info-box bg-white border-primary border">
                                     <span class="info-box-icon text-primary"
@@ -50,7 +50,7 @@
                                             </div>
                                             <div class="progress-description">
                                                 @if($fillINTheGapsCountBySet === 5)
-                                                    @if($exam->fillInTheGapOptions()->where('question_set_id', $set->id)->get()->count() === 10)
+                                                    @if($exam->fillInTheGapOptions()->where('set_id', $set->id)->get()->count() === 10)
                                                         <a href="{{ route('teachers.questions.fill-in-the-gaps.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
                                                            class="btn btn-sm btn-primary btn-block">View
                                                             Option</a>
