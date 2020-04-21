@@ -3232,16 +3232,16 @@ li.sidebar-item ul li p {
   text-align: center;
 }
 
+.index-card .progress {
+  height: 5px !important;
+}
+
 .count-section .progress {
-  height: 5px;
+  height: 2px !important;
 }
 
 .count-section .progress .progress-bar {
   background-color: #007bff;
-}
-
-.count-section .info-box-main .progress {
-  height: 10px;
 }
 
 .bg-white > a.btn {

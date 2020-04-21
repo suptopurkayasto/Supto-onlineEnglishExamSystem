@@ -9,9 +9,12 @@
             @if($exam->dialogs()->count() > 0)
                 <div class="card mb-5 index-card">
                     <div class="card-header">
-                        <h3 class="card-title index-card-title float-left" title="{{ $exam->name }}"><span
-                                class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
-                            Dialog
+                        <h3 class="card-title index-card-title float-left {{ $exam->dialogs()->count() === 4 ? 'text-success' : 'text-warning' }}" title="{{ $exam->name }}">
+                            <span>{{ Str::limit($exam->name, 30) }}</span>
+                            <span class="font-weight-bolder ml-2">Dialog</span>
+                            @if($exam->dialogs()->count() === 4)
+                                <i class="fas fa-check-circle"></i>
+                            @endif
 
                         </h3>
                         @if($exam->dialogs()->count() !== 4)
@@ -22,14 +25,14 @@
 
                     </div><!-- /.card-header -->
                     @if($exam->dialogs()->count() === 4)
-                        <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
+                        <div class="progress">
+                            <div class="progress-bar bg-success"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
                     @else
-                        <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+                        <div class="progress" >
+                            <div class="progress-bar bg-warning"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
@@ -39,19 +42,24 @@
                             @foreach($exam->sets as $set)
                                 @php $dialogCountBySet = $exam->dialogs()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
-                                    <div class="info-box bg-white border-primary border">
-                                    <span class="info-box-icon text-primary"
+                                    <div class="info-box bg-white border {{ $dialogCountBySet === 1 ? ' border-success': ' border-warning' }}">
+                                    <span class="info-box-icon text-white {{ $dialogCountBySet === 1 ? 'bg-success': 'bg-warning' }}"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
                                             <span class="info-box-number">{{ $dialogCountBySet }} Dialog</span>
 
                                             <div class="progress">
-                                                <div class="progress-bar"
+                                                <div class="progress-bar bg-success"
                                                      style="width: {{ ($dialogCountBySet*100)/1 }}%"></div>
                                             </div>
                                             <span class="progress-description">
-                                        {{ $dialogCountBySet }} / 1 dialog
-                                    </span>
+                                                @if($dialogCountBySet < 1)
+                                                    <a href="{{ route('teachers.questions.dialogs.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id)}}"
+                                                       class="btn-link"><i class="fas fa-pen-square"></i> Add Dialog</a>
+                                                @else
+                                                    <span class="text-success"><i class="fas fa-check-circle"></i> Done</span>
+                                                @endif
+                                            </span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
@@ -66,16 +74,22 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Topic</th>
+                                        <th>Question 1</th>
+                                        <th>Question 2</th>
+                                        <th>Question 3</th>
                                         <th>Set</th>
                                         <th>Exam</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($exam->dialogs as $index => $dialog)
+                                    @foreach($exam->dialogs()->orderByDesc('id')->get() as $index => $dialog)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td title="{{ $dialog->topic }}">{{ Str::limit($dialog->topic, 70) }}</td>
+                                            <td title="{{ $dialog->topic }}">{{ Str::limit($dialog->topic, 40) }}</td>
+                                            <td title="{{ $dialog->question_1 }}">{{ Str::limit($dialog->question_1, 20) }}</td>
+                                            <td title="{{ $dialog->question_2 }}">{{ Str::limit($dialog->question_2, 20) }}</td>
+                                            <td title="{{ $dialog->question_3 }}">{{ Str::limit($dialog->question_3, 20) }}</td>
                                             <td>{{ $dialog->set->name }}</td>
                                             <td title="{{ $dialog->exam->name }}">{{ Str::limit($dialog->exam->name, 40) }}</td>
                                             <td class="text-center">

@@ -10,8 +10,8 @@ $factory->define(Dialog::class, function (Faker $faker) {
         'exam_id' => 1,
         'set_id' => 1,
         'topic' => $faker->paragraph,
-        'question_1' => $faker->sentence . '?',
-        'question_2' => $faker->sentence . '?',
-        'question_3' => $faker->sentence . '?',
+        'question_1' => $faker->sentence,
+        'question_2' => $faker->sentence,
+        'question_3' => $faker->sentence,
     ];
 });

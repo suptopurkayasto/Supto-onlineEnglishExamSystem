@@ -1,6 +1,6 @@
 @extends('layouts.teacher')
 
-@section('title', 'Show Dialog Question')
+@section('title', 'Show Dialog')
 
 
 @section('content')
@@ -8,7 +8,7 @@
         <div class="col-12 col-md-8">
             <div class="card shadow">
                 <div class="card-header">
-                    <h3 class="h3 card-title">Show Dialog Question</h3>
+                    <h3 class="h3 card-title">Show Dialog</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -61,9 +61,9 @@
                                 <label for="topic">Topic</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
-                                <input type="text" name="topic" id="topic"
-                                       class="form-control @error('topic') is-invalid @enderror" value="{{ $dialog->topic }}"
-                                       disabled>
+                                <textarea type="text" name="topic" id="topic" rows="4"
+                                          class="form-control @error('topic') is-invalid @enderror"
+                                          disabled>{{ $dialog->topic }}</textarea>
                                 @error('topic')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

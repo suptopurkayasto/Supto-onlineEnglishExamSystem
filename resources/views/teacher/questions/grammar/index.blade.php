@@ -26,13 +26,13 @@
                         @endif
                     </div><!-- /.card-header -->
                     @if($exam->grammars()->count() === 100)
-                        <div class="progress" style="height: 7px">
+                        <div class="progress">
                             <div class="progress-bar bg-success"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
                     @else
-                        <div class="progress" style="height: 7px">
+                        <div class="progress">
                             <div class="progress-bar bg-warning"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
@@ -57,7 +57,7 @@
                                             <span class="progress-description">
                                                 @if($grammarsCountBySet < 25)
                                                     <a href="{{ route('teachers.questions.grammars.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id)}}"
-                                                       class="btn-link"><i class="fas fa-pen"></i> Add Question</a>
+                                                       class="btn-link"><i class="fas fa-pen-square"></i> Add Question</a>
                                                 @else
                                                     <span class="text-success"><i class="fas fa-check-circle"></i> Done</span>
                                                 @endif

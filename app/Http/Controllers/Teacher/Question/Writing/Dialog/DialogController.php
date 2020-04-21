@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Teacher\Question\Writing\Dialog;
 
 use App\Exam;
 use App\Http\Controllers\Controller;
-use App\Model\Writing\Dialog;
-use App\Model\Writing\WritingPart;
+use App\Model\Writing\Dialog\Dialog;
 use App\Set;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -163,7 +162,7 @@ class DialogController extends Controller
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
             'set' => 'required|integer',
-            'topic' => 'required|string|max:255',
+            'topic' => 'required|string',
             'question_1' => 'required|string|max:255',
             'question_2' => 'required|string|max:255',
             'question_3' => 'required|string|max:255',
@@ -185,7 +184,7 @@ class DialogController extends Controller
         $validateData = $this->validate($request, [
             'exam' => 'required|integer',
             'set' => 'required|integer',
-            'topic' => 'required|string|max:255',
+            'topic' => 'required|string',
             'question_1' => 'required|string|max:255',
             'question_2' => 'required|string|max:255',
             'question_3' => 'required|string|max:255',

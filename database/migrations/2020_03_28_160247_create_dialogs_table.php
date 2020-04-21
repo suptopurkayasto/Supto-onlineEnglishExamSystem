@@ -18,9 +18,9 @@ class CreateDialogsTable extends Migration
             $table->foreignId('exam_id');
             $table->foreignId('set_id');
             $table->text('topic');
-            $table->text('question_1');
-            $table->text('question_2');
-            $table->text('question_3');
+            $table->string('question_1');
+            $table->string('question_2');
+            $table->string('question_3');
             $table->timestamps();
         });
     }
