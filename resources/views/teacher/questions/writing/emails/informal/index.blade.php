@@ -9,9 +9,12 @@
             @if($exam->informalEmails()->count() > 0)
                 <div class="card mb-5 index-card">
                     <div class="card-header">
-                        <h3 class="card-title float-left index-card-title" title="{{ $exam->name }}"><span
-                                class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
-                            Informal Email
+                        <h3 class="card-title float-left index-card-title {{ $exam->informalEmails()->count() === 4 ? 'text-success' : 'text-warning' }}" title="{{ $exam->name }}">
+                            <span>{{ Str::limit($exam->name, 30) }}</span>
+                            <span class="font-weight-bolder ml-2">Informal Email</span>
+                            @if($exam->informalEmails()->count() === 4)
+                                <i class="fas fa-check-circle"></i>
+                            @endif
                         </h3>
                         @if($exam->informalEmails()->count() !== 4)
                             <a href="{{ route('teachers.questions.informal-email.create') }}?exam={{ encrypt($exam->id) }}"
@@ -20,14 +23,14 @@
                         @endif
                     </div><!-- /.card-header -->
                     @if($exam->informalEmails()->count() === 4)
-                        <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
+                        <div class="progress">
+                            <div class="progress-bar bg-success"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
                     @else
-                        <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+                        <div class="progress">
+                            <div class="progress-bar bg-warning"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
@@ -37,20 +40,25 @@
                             @foreach($exam->sets as $set)
                                 @php $formalEmailCountBySet = $exam->informalEmails()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3">
-                                    <div class="info-box bg-white border-primary border">
-                                    <span class="info-box-icon text-primary"
+                                    <div class="info-box bg-white border {{ $formalEmailCountBySet === 1 ? ' border-success': ' border-warning' }}">
+                                    <span class="info-box-icon text-primary {{ $formalEmailCountBySet === 1 ? 'bg-success': 'bg-warning' }}"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
                                             <span
-                                                class="info-box-number">{{ $formalEmailCountBySet }} informal email</span>
+                                                class="info-box-number">{{ $formalEmailCountBySet }} Email</span>
 
                                             <div class="progress">
-                                                <div class="progress-bar"
+                                                <div class="progress-bar bg-success"
                                                      style="width: {{ ($formalEmailCountBySet*100)/1 }}%"></div>
                                             </div>
                                             <span class="progress-description">
-                                        {{ $formalEmailCountBySet }} / 1 informal email
-                                    </span>
+                                                @if($formalEmailCountBySet < 1)
+                                                    <a href="{{ route('teachers.questions.informal-email.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id)}}"
+                                                       class="btn-link"><i class="fas fa-pen-square"></i> Add informal email</a>
+                                                @else
+                                                    <span class="text-success"><i class="fas fa-check-circle"></i> Done</span>
+                                                @endif
+                                            </span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
@@ -70,7 +78,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($exam->informalEmails as $index => $informalEmail)
+                                    @foreach($exam->informalEmails()->orderByDesc('id')->get() as $index => $informalEmail)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td title="{{ $informalEmail->topic }}">{{ Str::limit($informalEmail->topic, 90) }}</td>

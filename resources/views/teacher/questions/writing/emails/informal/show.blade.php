@@ -40,7 +40,7 @@
                         <div class="col-12 col-md-10">
                             <select name="set" id="set"
                                     class="form-control @error('set') is-invalid @enderror" disabled>
-                                <option disabled selected>Select group</option>
+                                <option disabled selected>Select set</option>
                                 @foreach($sets as $set)
                                     <option
                                         {{ $informalEmail->set->id == $set->id ? 'selected' : '' }} value="{{ $set->id }}">{{ $set->name }}</option>
@@ -59,10 +59,9 @@
                             <label for="topic">Topic</label>
                         </div><!-- /.col-12 col-md-2 -->
                         <div class="col-12 col-md-10">
-                            <input type="text" name="topic" id="topic"
-                                   class="form-control @error('topic') is-invalid @enderror"
-                                   value="{{ $informalEmail->topic }}"
-                                   disabled>
+                            <textarea type="text" name="topic" id="topic" rows="4"
+                                      class="form-control @error('topic') is-invalid @enderror"
+                                      disabled>{{ $informalEmail->topic }}</textarea>
                             @error('topic')
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
