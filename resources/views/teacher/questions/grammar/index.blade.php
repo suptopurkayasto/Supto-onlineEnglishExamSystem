@@ -51,7 +51,7 @@
                                                 class="info-box-number font-weight-normal">{{ $grammarsCountBySet }}/25 questions</span>
 
                                             <div class="progress">
-                                                <div class="progress-bar"
+                                                <div class="progress-bar {{ $grammarsCountBySet < 25 ? 'bg-warning':'bg-success' }}"
                                                      style="width: {{ ($grammarsCountBySet*100)/25 }}%"></div>
                                             </div>
                                             <span class="progress-description">
