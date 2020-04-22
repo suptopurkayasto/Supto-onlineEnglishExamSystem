@@ -41,17 +41,19 @@
                     <div class="card-body">
                         <div class="row count-section">
                             @foreach($exam->sets as $set)
-                                @php $grammarsCountBySet = $exam->grammars()->where('set_id', $set->id)->get()->count() @endphp
+                                <?php
+                                    $grammarsCountBySet = $exam->grammars()->where('set_id', $set->id)->get()->count();
+                                ?>
                                 <div class="col-12 col-md-6 col-lg-3">
-                                    <div class="info-box bg-white border-primary border">
-                                    <span class="info-box-icon text-primary"
+                                    <div class="info-box bg-white border {{ $grammarsCountBySet === 25 ? ' border-success': ' border-warning' }}">
+                                    <span class="info-box-icon text-white {{ $grammarsCountBySet === 25 ? 'bg-success': 'bg-warning' }}"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
                                             <span
                                                 class="info-box-number font-weight-normal">{{ $grammarsCountBySet }}/25 questions</span>
 
                                             <div class="progress">
-                                                <div class="progress-bar {{ $grammarsCountBySet < 25 ? 'bg-warning':'bg-success' }}"
+                                                <div class="progress-bar  {{ $grammarsCountBySet === 25 ? 'bg-success': 'bg-warning' }}"
                                                      style="width: {{ ($grammarsCountBySet*100)/25 }}%"></div>
                                             </div>
                                             <span class="progress-description">
