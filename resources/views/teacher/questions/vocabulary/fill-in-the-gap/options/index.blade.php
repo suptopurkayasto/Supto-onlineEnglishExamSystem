@@ -31,8 +31,7 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td title="{{ $option->options }}">{{ Str::limit($option->options, 70) }}</td>
-                            <td title="{{ $option->fillInTheGap === null ? 'Extra Options' : $option->fillInTheGap->sentence, 30 }}">{{ $option->definition === null ? 'Extra Options' : Str::limit($option->definition->sentence, 30) }}</td>
-                            <td>{{ Str::limit($option->exam->name, 30) }}</td>
+                            <td>{{ $option->fillInTheGap === null ? 'Extra Options' : $option->fillInTheGap->sentence }}</td>                            <td>{{ Str::limit($option->exam->name, 30) }}</td>
                             <td>{{ $option->set->name }}</td>
                             <td class="text-center">
                                 <a href="{{ route('teachers.questions.fill-in-the-gaps.options.show', $option->id) }}?exam={{ request()->get('exam') }}&set={{ request()->get('set') }}"
