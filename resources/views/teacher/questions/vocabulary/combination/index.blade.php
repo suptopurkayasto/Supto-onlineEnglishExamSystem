@@ -59,7 +59,7 @@
                                                 @if($combinationCountBySet === 5)
                                                     @if($exam->combinationOptions()->where('set_id', $set->id)->get()->count() === 10)
                                                         <a href="{{ route('teachers.questions.combinations.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                           class="btn-link text-success"><i class="fas fa-eye"></i> View option</a>
+                                                           class="btn-link text-success"><i class="fas fa-check-circle mr-1"></i> View option</a>
                                                     @else
                                                         <a href="{{ route('teachers.questions.combinations.options.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
                                                            class="btn-link"><i class="fas fa-pen-square"></i> Add options</a>

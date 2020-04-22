@@ -55,7 +55,7 @@
                                                 @if($synonymCountBySet === 5)
                                                     @if($synonymOptionsCountBySet === 10)
                                                         <a href="{{ route('teachers.questions.synonyms.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                           class="btn-link text-success"><i class="fas fa-eye"></i> View option</a>
+                                                           class="btn-link text-success"><i class="fas fa-check-circle mr-1"></i> View option</a>
                                                     @else
                                                         <a href="{{ route('teachers.questions.synonyms.options.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
                                                            class="btn-link"><i class="fas fa-pen-square"></i> Add options</a>

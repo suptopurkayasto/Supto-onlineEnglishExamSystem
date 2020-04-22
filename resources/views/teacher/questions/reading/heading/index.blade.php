@@ -43,16 +43,19 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)
-                                @php $headingCountBySet = $exam->headings()->where('set_id', $set->id)->get()->count() @endphp
+                                <?php
+                                    $headingCountBySet = $exam->headings()->where('set_id', $set->id)->get()->count();
+                                    $headingOptionsCountBySet = $exam->headingOptions()->where('set_id', $set->id)->get()->count();
+                                ?>
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
-                                    <div class="info-box bg-white border-primary border">
-                                    <span class="info-box-icon text-primary"
+                                    <div class="info-box bg-white border {{ $headingCountBySet === 5 && $headingOptionsCountBySet === 10? ' border-success': ' border-warning' }}">
+                                    <span class="info-box-icon text-white {{ $headingCountBySet === 5 && $headingOptionsCountBySet === 10? 'bg-success': 'bg-warning' }}"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
                                             <span class="info-box-number font-weight-normal">{{ $headingCountBySet }} / 5 Heading.</span>
 
                                             <div class="progress">
-                                                <div class="progress-bar"
+                                                <div class="progress-bar {{ $headingCountBySet === 5 ? 'bg-success': 'bg-warning' }}"
                                                      style="width: {{ ($headingCountBySet*100)/5 }}%"></div>
                                             </div>
                                             <div class="progress-description">
