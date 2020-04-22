@@ -11,9 +11,7 @@ class SectionSeeder extends Seeder
      */
     public function run()
     {
-        \App\Section::create(['name' => 'A']);
-        \App\Section::create(['name' => 'B']);
-        \App\Section::create(['name' => 'C']);
-        \App\Section::create(['name' => 'D']);
+        \App\Section::create(['name' => 1]);
+        \App\Section::create(['name' => 2]);
     }
 }

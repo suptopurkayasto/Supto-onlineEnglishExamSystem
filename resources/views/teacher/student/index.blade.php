@@ -13,8 +13,8 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="example"
-                       class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
+                <table id=""
+                       class="example table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
                        style="width: 100%">
                     <thead>
                     <tr>
@@ -28,7 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($authTeacher->students as $index => $student)
+                    @foreach($authTeacher->students()->orderByDesc('id')->get() as $index => $student)
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td title="{{ $student->name }}">{{ Str::limit($student->name, 20) }}</td>

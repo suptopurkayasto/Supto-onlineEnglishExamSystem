@@ -36,8 +36,9 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $authTeacher = Auth::guard('teacher')->user();
         return view('teacher.student.index')
-            ->with('authTeacher', Auth::guard('teacher')->user());
+            ->with('authTeacher', $authTeacher);
     }
 
 

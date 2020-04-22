@@ -11,7 +11,9 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        \App\Group::create(['name' => 1]);
-        \App\Group::create(['name' => 2]);
+        \App\Group::create(['name' => 'A']);
+        \App\Group::create(['name' => 'B']);
+        \App\Group::create(['name' => 'C']);
+        \App\Group::create(['name' => 'D']);
     }
 }

@@ -21,6 +21,6 @@ class StudentSeeder extends Seeder
             'set_id' => rand(1, 4),
             'phone_number' => '+8801747-064883'
         ]);
-        factory(\App\Student::class, 119)->create();
+        factory(\App\Student::class, 119)->create(['teacher_id' => 1]);
     }
 }
