@@ -20,7 +20,6 @@
     @yield('extra-css')
 </head>
 <body>
-
 @include('components.audio-alert')
 
 @yield('content')
