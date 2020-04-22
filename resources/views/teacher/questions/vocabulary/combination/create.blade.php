@@ -1,6 +1,6 @@
 @extends('layouts.teacher')
 
-@section('title', 'Add Combination Word')
+@section('title', 'Add Combination')
 
 
 @section('content')
@@ -9,7 +9,7 @@
         <div class="col-12 col-md-8">
             <div class="card shadow">
                 <div class="card-header">
-                    <h3 class="h3 card-title">Add Combination Word</h3>
+                    <h3 class="h3 card-title">Add Combination</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -68,7 +68,7 @@
 
                         <div class="form-group row">
                             <div class="col-12 col-md-2">
-                                <label for="word">Combination Word</label>
+                                <label for="word">Combination</label>
                             </div><!-- /.col-12 col-md-2 -->
                             <div class="col-12 col-md-10">
                                 <input type="text" name="word" id="word"
@@ -108,7 +108,7 @@
                                 <div class="row">
                                     <div class="col col-md-6">
                                         <button type="submit" class="btn bg-gradient-primary btn-block"><i class="fas fa-check"></i> Add
-                                            Combination Word
+                                            Combination
                                         </button>
                                     </div><!-- /.col col-md-6 -->
                                 </div><!-- /.row -->

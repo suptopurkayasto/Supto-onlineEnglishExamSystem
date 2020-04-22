@@ -9,26 +9,30 @@
                 <div class="card mb-5 index-card">
                     <div
                         class="card-header">
-                        <h3 class="card-title float-left" title="{{ $exam->name }}"><span
-                                class="font-weight-bolder">{{ Str::limit($exam->name, 30) }}</span>
-                            Combination Word
+                        <h3 class="card-title index-card-title float-left {{ $exam->combinations()->count() === 20 && $exam->combinationOptions()->count() === 40 ? 'text-success' : 'text-warning' }}" title="{{ $exam->name }}">
+                            <span>{{ Str::limit($exam->name, 30) }}</span>
+                            <span class="font-weight-bolder ml-2">Combination</span>
+                            @if($exam->combinations()->count() === 20 && $exam->combinationOptions()->count() === 40)
+                                <i class="fas fa-check-circle"></i>
+                            @endif
+
                         </h3>
                         @if($exam->combinations()->count() !== 20)
                             <a href="{{ route('teachers.questions.combinations.create') }}?exam={{ encrypt($exam->id) }}"
                                class="btn bg-gradient-primary float-right btn-hover-effect">
                                 <i class="fas fa-pen-alt mr-1"></i>
-                                Add Combination Word</a>
+                                Add Combination</a>
                         @endif
                     </div><!-- /.card-header -->
                     @if($exam->combinations()->count() === 20 && $exam->combinationOptions()->count() === 40)
-                        <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
+                        <div class="progress">
+                            <div class="progress-bar bg-success"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
                     @else
-                        <div class="progress" style="height: 7px">
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+                        <div class="progress">
+                            <div class="progress-bar bg-warning"
                                  role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                         </div>
@@ -36,32 +40,33 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($exam->sets as $set)
-                                @php $combinationCountBySet = $exam->combinations()->where('set_id', $set->id)->get()->count() @endphp
+                                <?php
+                                $combinationCountBySet = $exam->combinations()->where('set_id', $set->id)->get()->count();
+                                $combinationOptionsCountBySet = $exam->combinationOptions()->where('set_id', $set->id)->get()->count();
+                                ?>
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
-                                    <div class="info-box bg-white border-primary border">
-                                    <span class="info-box-icon text-primary"
+                                    <div class="info-box bg-white border {{ $combinationCountBySet === 5 && $combinationOptionsCountBySet === 10? ' border-success': ' border-warning' }}">
+                                    <span class="info-box-icon text-white {{ $combinationCountBySet === 5 && $combinationOptionsCountBySet === 10? 'bg-success': 'bg-warning' }}"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
-                                            <span class="info-box-number font-weight-normal">{{ $combinationCountBySet }} / 5 Combination Word.</span>
+                                            <span class="info-box-number font-weight-normal">{{ $combinationCountBySet }} / 5 Combination.</span>
 
                                             <div class="progress">
-                                                <div class="progress-bar"
+                                                <div class="progress-bar {{ $combinationCountBySet === 5 ? 'bg-success': 'bg-warning' }}"
                                                      style="width: {{ ($combinationCountBySet*100)/5 }}%"></div>
                                             </div>
                                             <div class="progress-description">
                                                 @if($combinationCountBySet === 5)
                                                     @if($exam->combinationOptions()->where('set_id', $set->id)->get()->count() === 10)
                                                         <a href="{{ route('teachers.questions.combinations.options.index') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                           class="btn btn-sm btn-primary btn-block">View
-                                                            Option</a>
+                                                           class="btn-link text-success"><i class="fas fa-eye"></i> View option</a>
                                                     @else
                                                         <a href="{{ route('teachers.questions.combinations.options.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                           class="btn btn-sm btn-outline-primary btn-block">Add
-                                                            Options</a>
+                                                           class="btn-link"><i class="fas fa-pen-square"></i> Add options</a>
                                                     @endif
                                                 @else
                                                     <a href="{{ route('teachers.questions.combinations.create') }}?exam={{ encrypt($exam->id) }}&set={{ encrypt($set->id) }}"
-                                                       class="btn btn-sm btn-outline-primary btn-block">Add Combination Word</a>
+                                                       class="btn-link"><i class="fas fa-pen-square"></i> Add Combination</a>
                                                 @endif
                                             </div>
                                         </div>
@@ -72,23 +77,25 @@
 
                             <div class="col-12">
                                 <table
-                                    id="example"
-                                    class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
+                                    id=""
+                                    class="example table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
                                     style="width: 100%">
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Combination Word</th>
+                                        <th>Combination</th>
+                                        <th>Answer</th>
                                         <th>Set</th>
                                         <th>Exam</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($exam->combinations as $index => $combination)
+                                    @foreach($exam->combinations()->orderByDesc('id')->get() as $index => $combination)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td title="{{ $combination->word }}">{{ Str::limit($combination->word, 70) }}</td>
+                                            <td>{{ $combination->answer->options }}</td>
                                             <td>{{ $combination->set->name }}</td>
                                             <td title="{{ $combination->exam->name }}">{{ Str::limit($combination->exam->name, 40) }}</td>
                                             <td class="text-center">
@@ -112,7 +119,7 @@
                             <h2 class="text-center text-warning display-4">Empty.</h2>
                             <a href="{{ route('teachers.questions.combinations.create') }}?exam={{ encrypt($exam->id) }}"
                                class="btn btn-lg mt-4 bg-gradient-primary"><i
-                                    class="fas fa-pen-alt"></i> Add Combination Word</a>
+                                    class="fas fa-pen-alt"></i> Add Combination</a>
                         </div><!-- /.empty-data-section -->
                     </div><!-- /.col col-md-8 offset-md-2 -->
                 </div><!-- /.row -->
