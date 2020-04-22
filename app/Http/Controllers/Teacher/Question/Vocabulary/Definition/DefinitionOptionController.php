@@ -53,7 +53,7 @@ class DefinitionOptionController extends Controller
         $examId = Crypt::decrypt($request->exam);
         $setId = Crypt::decrypt($request->set);
 
-        $authTeacherDefinitionOptionsCountByExamAndSet =  $authTeacher->exams()->find($examId)->definitionOptions()->where(['question_set_id' => $setId])->get()->count();
+        $authTeacherDefinitionOptionsCountByExamAndSet =  $authTeacher->exams()->find($examId)->definitionOptions()->where(['set_id' => $setId])->get()->count();
 
         if ($authTeacherDefinitionOptionsCountByExamAndSet < 10) {
 
@@ -164,7 +164,7 @@ class DefinitionOptionController extends Controller
 
         return [
             'exam_id' => Crypt::decrypt(\request()->get('exam')),
-            'question_set_id' => Crypt::decrypt(\request()->get('set')),
+            'set_id' => Crypt::decrypt(\request()->get('set')),
             'options' => $validateData['option']
         ];
     }
