@@ -44,14 +44,14 @@
                             @foreach($exam->sets as $set)
                                 @php $rearrangeCountBySet = $exam->rearranges()->where('set_id', $set->id)->get()->count() @endphp
                                 <div class="col-12 col-md-6 col-lg-3 count-section">
-                                    <div class="info-box bg-white border-primary border">
-                                    <span class="info-box-icon text-primary"
+                                    <div class="info-box bg-white border {{ $rearrangeCountBySet === 1 ? ' border-success': ' border-warning' }}">
+                                    <span class="info-box-icon text-white {{ $rearrangeCountBySet === 1 ? 'bg-success': 'bg-warning' }}"
                                           style="font-weight: 900">{{ $set->name }}</span>
                                         <div class="info-box-content">
                                             <span class="info-box-number font-weight-normal">{{ $rearrangeCountBySet }} / 1 Rearrange.</span>
 
                                             <div class="progress">
-                                                <div class="progress-bar"
+                                                <div class="progress-bar {{ $rearrangeCountBySet === 1 ? 'bg-success': 'bg-warning' }}"
                                                      style="width: {{ ($rearrangeCountBySet*100)/1 }}%"></div>
                                             </div>
                                             <div class="progress-description">
