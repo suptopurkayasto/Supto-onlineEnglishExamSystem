@@ -137,6 +137,9 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        // Delete marks
+        $student->marks()->delete();
+
         $student->forceDelete();
         toast('Student has been successfully deleted','success');
         session()->flash('success_audio');
