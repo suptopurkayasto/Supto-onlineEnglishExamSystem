@@ -5,7 +5,7 @@
 @section('content')
 
     @if($authTeacher->exams()->count())
-        @foreach($authTeacher->exams as $exam)
+        @foreach($authTeacher->exams()->orderByDesc('id')->get() as $exam)
             @if($exam->informalEmails()->count() > 0)
                 <div class="card mb-5 index-card">
                     <div class="card-header">

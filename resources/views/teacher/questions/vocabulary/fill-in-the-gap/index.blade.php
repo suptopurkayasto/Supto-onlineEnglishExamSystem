@@ -4,7 +4,7 @@
 
 @section('content')
     @if($authTeacher->exams()->count() > 0)
-        @foreach($authTeacher->exams as $exam)
+        @foreach($authTeacher->exams()->orderByDesc('id')->get() as $exam)
             @if($exam->fillInTheGaps()->count() > 0)
                 <div class="card mb-5 index-card">
                     <div
