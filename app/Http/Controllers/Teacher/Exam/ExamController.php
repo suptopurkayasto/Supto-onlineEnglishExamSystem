@@ -151,6 +151,37 @@ class ExamController extends Controller
      */
     public function destroy(Exam $exam)
     {
+        // Delete grammar question by exam
+        $exam->grammars()->forceDelete();
+
+        // Delete writing question by exam
+        $exam->dialogs()->forceDelete();
+        $exam->informalEmails()->forceDelete();
+        $exam->formalEmails()->forceDelete();
+        $exam->sortQuestions()->forceDelete();
+
+        // Delete Vocabulary question by exam
+        $exam->synonyms()->forceDelete();
+        $exam->synonymOptions()->forceDelete();
+
+        $exam->definitions()->forceDelete();
+        $exam->definitionOptions()->forceDelete();
+
+        $exam->combinations()->forceDelete();
+        $exam->combinationOptions()->forceDelete();
+
+        $exam->fillInTheGaps()->forceDelete();
+        $exam->fillInTheGapOptions()->forceDelete();
+
+        // Delete reading question by exam
+        $exam->headings()->forceDelete();
+        $exam->headingOptions()->forceDelete();
+
+        $exam->rearranges()->forceDelete();
+
+        // Delete marks by exam
+        $exam->marks()->forceDelete();
+
         $exam->forceDelete();
         toast('Exam has been successfully deleted','success');
         session()->flash('success_audio');
