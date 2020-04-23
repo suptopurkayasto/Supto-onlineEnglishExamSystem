@@ -134,3 +134,9 @@ li.sidebar-item {
     }
 }
 
+.grammar-answer-sheet-radio {
+    .custom-control-input:disabled~.custom-control-label{
+        color: black;
+    }
+}
+

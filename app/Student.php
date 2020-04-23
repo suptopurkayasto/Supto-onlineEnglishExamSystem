@@ -89,7 +89,7 @@ class Student extends Authenticatable
     // Marks
     public function marks()
     {
-        return $this->hasMany(Marks::class);
+        return $this->hasOne(Marks::class);
     }
 
     /**

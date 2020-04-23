@@ -146,14 +146,6 @@ class StudentController extends Controller
         return redirect()->route('teacher.students.index');
     }
 
-
-    public function result()
-    {
-        return view('teacher.exams.exam-result')
-            ->with('exams', Exam::latest()->get())
-            ->with('students', Student::all());
-    }
-
     protected function validateStudentCreateRequest(Request $request) {
         $validateData = $this->validate($request, [
             'name' => 'required|max:255|string',

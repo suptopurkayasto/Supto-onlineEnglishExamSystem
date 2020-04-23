@@ -51,10 +51,10 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('teacher.students.exams.result') }}"
-                                       class="nav-link {{ request()->url() === route('teacher.students.exams.result') ? 'active' : '' }}">
+                                    <a href="{{ route('teacher.students.exams.answer-sheets') }}"
+                                       class="nav-link {{ request()->url() === route('teacher.students.exams.answer-sheets') ? 'active' : '' }}">
                                         <i class="fas fa-check-circle nav-icon"></i>
-                                        <p>Student Exam Result</p>
+                                        <p>Student Answer Sheet</p>
                                     </a>
                                 </li>
                             </ul>

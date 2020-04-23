@@ -21,7 +21,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/admin/admin.css') }}">
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed {{ request()->segment(7) === 'show' ? 'sidebar-collapse' : '' }}">
 <!-- Site wrapper -->
 <div class="wrapper">
     @include('components.audio-alert')

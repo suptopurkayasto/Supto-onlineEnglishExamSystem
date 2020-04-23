@@ -3256,3 +3256,7 @@ li.sidebar-item ul li p {
   color: red;
 }
 
+.grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label {
+  color: black;
+}
+
