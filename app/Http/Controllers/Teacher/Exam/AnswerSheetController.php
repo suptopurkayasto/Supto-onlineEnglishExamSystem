@@ -70,13 +70,21 @@ class AnswerSheetController extends Controller
             $marks = $student->marks()->where('exam_id', $examId)->first();
 
             $grammars = $exam->grammars()->where('set_id', $student->set->id)->get();
+            $synonyms = $exam->synonyms()->where('set_id', $student->set->id)->get();
+            $definitions = $exam->definitions()->where('set_id', $student->set->id)->get();
+            $combinations = $exam->combinations()->where('set_id', $student->set->id)->get();
+            $fillInTheGaps = $exam->fillInTheGaps()->where('set_id', $student->set->id)->get();
 
             return view('teacher.exams.answer-sheet.show')
                 ->with('authTeacher', $authTeacher)
                 ->with('exam', $exam)
                 ->with('student', $student)
                 ->with('marks', $marks)
-                ->with('grammars', $grammars);
+                ->with('grammars', $grammars)
+                ->with('synonyms', $synonyms)
+                ->with('definitions', $definitions)
+                ->with('combinations', $combinations)
+                ->with('fillInTheGaps', $fillInTheGaps);
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -87,7 +95,7 @@ class AnswerSheetController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -99,7 +107,7 @@ class AnswerSheetController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -110,7 +118,7 @@ class AnswerSheetController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)

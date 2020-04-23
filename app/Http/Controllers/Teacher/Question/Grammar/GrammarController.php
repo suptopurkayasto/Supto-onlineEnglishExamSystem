@@ -114,7 +114,7 @@ class GrammarController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param GrammarQuestionUpdateRequest $request
+     * @param Request $request
      * @param Grammar $grammar
      * @return RedirectResponse
      * @throws ValidationException

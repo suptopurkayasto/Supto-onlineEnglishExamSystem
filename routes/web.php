@@ -32,6 +32,5 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('test', function () {
-    $exam = \App\Exam::find(2);
-    return $exam->studentDialogs()->where('student_id', 1)->get();
+
 });
