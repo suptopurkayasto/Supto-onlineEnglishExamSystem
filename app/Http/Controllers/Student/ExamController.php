@@ -72,7 +72,7 @@ class ExamController extends Controller
             if ($checkResubmitGrammarQuestion === null) {
 
                 // Store Student Grammar Answer
-                foreach ($request->input('grammar') as $index => $value) {
+                foreach ($request->input('grammar', []) as $index => $value) {
                     $authStudent->studentGrammars()->create([
                         'grammar_id' => $index,
                         'set_id' => $authStudent->set->id,
@@ -84,7 +84,7 @@ class ExamController extends Controller
 
                 // Generate grammar marks
                 $marks = 0;
-                foreach ($request->input('grammar') as $index => $value) {
+                foreach ($request->input('grammar', []) as $index => $value) {
                     $grammar = Grammar::find($index);
                     if ($grammar->answer == $value) {
                         $marks += 1;

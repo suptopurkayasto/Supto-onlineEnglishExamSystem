@@ -8,10 +8,10 @@
     <div class="student-main-section h-100">
         <div class="container h-100">
             <div class="h-100 w-100 flex-wrap d-flex justify-content-center align-items-center">
-                <div class="student-info-sec shadow rounded p-3 border border-primary w-100">
+                <div class="student-info-sec shadow rounded p-3 border w-100">
                     <div class="form-row">
                         <div class="col-12 col-lg-4 mb-5 mb-lg-0">
-                            <img title="{{ $authStudent->name }}" class="border-primary border rounded"
+                            <img title="{{ $authStudent->name }}" class="img-thumbnail"
                                  style="width: 100%; border-width: 2px !important;"
                                  src="{{ Gravatar::get(auth()->guard('student')->user()->email, ['size' => 1024]) }}"
                                  alt="">
@@ -23,8 +23,7 @@
                                 class="h2 float-left font-weight-bolder">
                                 {{ Str::limit(auth()->guard('student')->user()->name, 30) }}
                                 @if(session('welcome'))
-                                    <span class="badge badge-success font-weight-normal mr-1">
-                                        <i class="fas fa-smile mx-1"></i>
+                                    <span class="badge badge-primary font-weight-normal mr-1">
                                         @if (now()->format('H') < 12)
                                             Good morning
                                         @elseif (now()->format('H') < 17)

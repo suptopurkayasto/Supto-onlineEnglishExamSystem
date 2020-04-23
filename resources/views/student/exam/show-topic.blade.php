@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Show Topic')
+
 @section('content')
     <div class="container h-100">
         <div class="h-100 d-flex justify-content-center align-items-center student-list-group-container">
@@ -30,13 +32,17 @@
 
 @section('extra-script')
     <script>
+
         $(document).ready(function () {
             var height = $(window).innerHeight();
             $('body').css({'height': height});
 
-            {{--if($.trim($("#show-topic-container").html() === '')) {--}}
-            {{--    window.location.href = {{ route('student.dashboard') }};--}}
-            {{--}--}}
+            function isEmpty( el ){
+                return !$.trim(el.html())
+            }
+            if (isEmpty($('#show-topic-container'))) {
+                window.location.replace("{{ route('student.dashboard') }}");
+            }
         });
     </script>
 @endsection
