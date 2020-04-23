@@ -33,10 +33,9 @@
 @section('extra-script')
     <script>
 
+        var height = $(window).innerHeight();
+        $('body').css({'height': height});
         $(document).ready(function () {
-            var height = $(window).innerHeight();
-            $('body').css({'height': height});
-
             function isEmpty( el ){
                 return !$.trim(el.html())
             }

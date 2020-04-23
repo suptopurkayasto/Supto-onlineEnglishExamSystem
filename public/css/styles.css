@@ -3198,8 +3198,8 @@ body {
 }
 
 .table thead tr {
-  background-color: rgba(117, 129, 26, 0.2);
-  color: #75811a;
+  background-color: #75811a;
+  color: white;
 }
 
 .table thead tr th {
@@ -3237,10 +3237,6 @@ table td {
     transform: scale(1);
     background-color: white;
   }
-}
-
-.ui-selectmenu-button {
-  display: block;
 }
 
 /*Questions Card */

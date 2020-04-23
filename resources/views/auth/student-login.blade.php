@@ -60,9 +60,7 @@
 
 @section('extra-script')
     <script>
-        $(document).ready(function () {
-            var height = $(window).innerHeight();
-            $('body').css({'height': height});
-        });
+        var height = $(window).innerHeight();
+        $('body').css({'height': height});
     </script>
 @endsection

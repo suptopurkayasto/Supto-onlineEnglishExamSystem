@@ -87,10 +87,8 @@
 
 @section('extra-script')
     <script>
-        $(document).ready(function () {
-            var height = $(window).innerHeight();
-            $('body').css({'height': height});
-        });
+        var height = $(window).innerHeight();
+        $('body').css({'height': height});
 
         // function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); }
         // $(document).on("keydown", disableF5);

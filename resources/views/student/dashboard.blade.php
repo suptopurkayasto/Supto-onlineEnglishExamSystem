@@ -11,10 +11,16 @@
                 <div class="student-info-sec shadow rounded p-3 border w-100">
                     <div class="form-row">
                         <div class="col-12 col-lg-4 mb-5 mb-lg-0">
-                            <img title="{{ $authStudent->name }}" class="img-thumbnail"
-                                 style="width: 100%; border-width: 2px !important;"
-                                 src="{{ Gravatar::get(auth()->guard('student')->user()->email, ['size' => 1024]) }}"
-                                 alt="">
+                            @if(Gravatar::exists($authStudent->email))
+                                <img title="{{ $authStudent->name }}" class="img-thumbnail"
+                                     style="width: 100%; border-width: 2px !important;"
+                                     src="{{ Gravatar::get(auth()->guard('student')->user()->email, ['size' => 1024]) }}"
+                                     alt="">
+                            @else
+                                <a target="_blank" href="https://en.gravatar.com/site/signup" title="Create Gravatar account for set your profile photo">
+                                    <img src="https://www.gravatar.com/avatar/42875a70a57aed53585c58e7b60ed26e.jpg?s=400&d=mm&r=g" class="img-thumbnail" alt="">
+                                </a>
+                            @endif
                         </div><!-- /.col-12 col-md-5 mb-5 mb-md-0 -->
                         <div class="col-12 col-lg-8">
                             <h2
@@ -102,7 +108,8 @@
 
                                         ?>
                                         <tr class="text-center">
-                                            <td class="text-left" title="{{ $exam->name }}">{{ Str::limit($exam->name, 20) }}</td>
+                                            <td class="text-left"
+                                                title="{{ $exam->name }}">{{ Str::limit($exam->name, 20) }}</td>
 
                                             <td title="{{ 'Grammar: '.$grammar }}">{{ $grammar === null ? 0 : $grammar }}</td>
 
@@ -116,11 +123,14 @@
                                                 @if($exam->status == 'running')
                                                     <a
                                                         href="{{ route('student.exam.show.topic', $exam->id) }}"
-                                                        class="btn btn-primary btn-sm {{ $grammar !== null && $synonym !== null && $definition !== null && $combination !== null && $fillInTheGap !== null && $heading !== null && $rearrange !== null ? 'disabled' : '' }}">Start Quiz</a>
+                                                        class="btn btn-primary btn-sm {{ $grammar !== null && $synonym !== null && $definition !== null && $combination !== null && $fillInTheGap !== null && $heading !== null && $rearrange !== null ? 'disabled' : '' }}">Start
+                                                        Quiz</a>
                                                 @elseif($exam->status == 'complete')
-                                                    <span class="text-success"><i class="fas fa-check"></i> Completed</span>
+                                                    <span class="text-success"><i
+                                                            class="fas fa-check"></i> Completed</span>
                                                 @elseif($exam->status == 'cancel')
-                                                    <span class="text-danger"><i class="fas fa-times"></i> Canceled</span>
+                                                    <span class="text-danger"><i
+                                                            class="fas fa-times"></i> Canceled</span>
                                                 @elseif($exam->status == 'pending')
                                                     Pending
                                                 @endif
@@ -142,9 +152,7 @@
 
 @section('extra-script')
     <script>
-        $(document).ready(function () {
-            var height = $(window).innerHeight();
-            $('body').css({'height': height});
-        });
+        var height = $(window).innerHeight();
+        $('body').css({'height': height});
     </script>
 @endsection
