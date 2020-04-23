@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
+@section('title', 'Exam - Grammar')
 @section('content')
     <div class="container h-100">
         <div class="row justify-content-center h-100">
             <div class="col-12 col-md-8 h-100">
                 <div class="h-100 d-flex justify-content-center align-items-center">
-                    <div class="p-4 rounded shadow student-question-sec">
-                        <div class="card border-primary w-100">
-                            <div class="card-header border-primary">
-                                <h4 class="h4 text-center font-weight-bolder">Grammar Questions</h4>
-                                <span class="text-muted d-block text-center font-weight-light" style="font-size: 15px">Select the correct word from the dropdown on the right</span>
+                    <div class="rounded shadow">
+                        <div class="card border-0 grammar-questions-card">
+                            <div class="card-header">
+                                <h4 class="h4 title">Grammar Questions</h4>
+                                <span class="subtitle">Check the correct answer</span>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <form action="{{ route('student.exam.grammar.questions.submit', $exam->id) }}"
@@ -61,15 +62,15 @@
                                     @endforeach
                                 </form>
                             </div><!-- /.card-body -->
-                            <div class="card-footer border-primary">
-                                <div class="row">
-                                    <div class="col">
-                                        <button class="btn btn-outline-primary btn-block"
+                            <div class="card-footer">
+                                <div class="row justify-content-center">
+                                    <div class="col col-md-4">
+                                        <button class="btn btn-light btn-block"
                                                 onclick="$('#myform').prevpage();">Previous
                                         </button>
                                     </div><!-- /.col -->
-                                    <div class="col">
-                                        <button class="btn btn-outline-primary btn-block"
+                                    <div class="col col-md-4">
+                                        <button class="btn btn-light btn-block"
                                                 onclick="$('#myform').nextpage();">Next
                                         </button>
                                     </div><!-- /.col -->

@@ -1,0 +1,70 @@
+
+/*Questions Card */
+.grammar-questions-card, .vocabulary-questions-card, .reading-questions-card,.writing-questions-card {
+    @include media-breakpoint-up(sm) {
+        min-width: 600px;
+    }
+    .card-header {
+        background-color: white;
+        border-bottom-color: $primary;
+        border-bottom-width: 2px;
+        .title {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+            color: $primary;
+        }
+        .subtitle {
+            text-align: center;
+            display: block;
+            color: transparentize($primary, .5);
+        }
+    }
+    .card-body {
+
+    }
+    .card-body.body-max-width {
+        max-width: 800px;
+    }
+    .card-footer {
+        border-top-color: $primary;
+        border-top-width: 2px;
+        background-color: white;
+    }
+}
+
+
+/*Login Card*/
+.login-card {
+    .card-header {
+        background-color: white;
+        border-bottom: 2px solid $primary;
+        text-align: center;
+        font-size: 30px;
+        font-weight: 900;
+    }
+}
+
+.login-form {
+    .icon-wrp {
+        @include size(120px);
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: -60px auto 0 auto;
+    }
+    .card-body {
+        .input-group {
+            .input-group-prepend {
+                .input-group-text {
+                    background-color: $primary;
+                    i {
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+}

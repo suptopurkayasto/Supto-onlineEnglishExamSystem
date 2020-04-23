@@ -3168,6 +3168,10 @@ body {
   box-shadow: 0 6px 52px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
+.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
 .timerContainer {
   background-color: white;
   position: fixed;
@@ -3223,6 +3227,79 @@ table td {
   padding-bottom: 6px !important;
 }
 
+@media (min-width: 768px) {
+  .student-info-sec {
+    transform: scale(1.2);
+    background-color: white;
+  }
+
+  .student-question-sec {
+    transform: scale(1);
+    background-color: white;
+  }
+}
+
+.ui-selectmenu-button {
+  display: block;
+}
+
+/*Questions Card */
+
+@media (min-width: 576px) {
+  .grammar-questions-card,
+  .vocabulary-questions-card,
+  .reading-questions-card,
+  .writing-questions-card {
+    min-width: 600px;
+  }
+}
+
+.grammar-questions-card .card-header,
+.vocabulary-questions-card .card-header,
+.reading-questions-card .card-header,
+.writing-questions-card .card-header {
+  background-color: white;
+  border-bottom-color: #75811a;
+  border-bottom-width: 2px;
+}
+
+.grammar-questions-card .card-header .title,
+.vocabulary-questions-card .card-header .title,
+.reading-questions-card .card-header .title,
+.writing-questions-card .card-header .title {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #75811a;
+}
+
+.grammar-questions-card .card-header .subtitle,
+.vocabulary-questions-card .card-header .subtitle,
+.reading-questions-card .card-header .subtitle,
+.writing-questions-card .card-header .subtitle {
+  text-align: center;
+  display: block;
+  color: rgba(117, 129, 26, 0.5);
+}
+
+.grammar-questions-card .card-body.body-max-width,
+.vocabulary-questions-card .card-body.body-max-width,
+.reading-questions-card .card-body.body-max-width,
+.writing-questions-card .card-body.body-max-width {
+  max-width: 800px;
+}
+
+.grammar-questions-card .card-footer,
+.vocabulary-questions-card .card-footer,
+.reading-questions-card .card-footer,
+.writing-questions-card .card-footer {
+  border-top-color: #75811a;
+  border-top-width: 2px;
+  background-color: white;
+}
+
+/*Login Card*/
+
 .login-card .card-header {
   background-color: white;
   border-bottom: 2px solid #75811a;
@@ -3250,24 +3327,8 @@ table td {
   color: white;
 }
 
-@media (min-width: 768px) {
-  .student-info-sec {
-    transform: scale(1.2);
-    background-color: white;
-  }
-
-  .student-question-sec {
-    transform: scale(1);
-    background-color: white;
-  }
-}
-
-.ui-selectmenu-button {
-  display: block;
-}
-
 body {
   font-family: "Roboto", sans-serif;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: #f4f6f9;
 }
 

@@ -1,19 +1,19 @@
 @extends('layouts.app')
-
+@section('title', 'Exam - Vocabulary')
 @section('content')
     <div class="container h-100">
         <div class="h-100 d-flex justify-content-center align-items-center">
-            <div class="p-4 rounded shadow bg-white student-question-sec">
-                <div class="card border-primary w-100">
+            <div class="rounded shadow bg-white">
+                <div class="card border-0 vocabulary-questions-card">
                     <form action="{{ route('student.exam.vocabulary.questions.submit', $exam->id) }}"
                           id="myform"
                           class="" method="post">
-                    @csrf
-                    <!-- START:: Synonym Markup -->
+                        @csrf
+                        <!-- START:: Synonym Markup -->
                         <fieldset>
-                            <div class="card-header border-primary">
-                                <h3 class="h3 text-center font-weight-bolder">Synonym Word</h3>
-                                <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
+                            <div class="card-header">
+                                <h4 class="h4 title">Synonym Word</h4>
+                                <span class="subtitle">Select the correct word from the dropdown on the right</span>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 @foreach($synonyms as $index => $synonym)
@@ -41,9 +41,9 @@
 
                         <!-- START:: Definition Markup -->
                         <fieldset>
-                            <div class="card-header border-primary">
-                                <h4 class="h4 text-center font-weight-bolder">Definition</h4>
-                                <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
+                            <div class="card-header">
+                                <h4 class="h4 title">Definition</h4>
+                                <span class="subtitle">Select the correct word from the dropdown on the right</span>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 @foreach($definitions as $index => $definition)
@@ -72,9 +72,9 @@
 
                         <!-- START:: Combination Markup -->
                         <fieldset>
-                            <div class="card-header border-primary">
-                                <h4 class="h4 text-center font-weight-bolder">Word Combination</h4>
-                                <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
+                            <div class="card-header">
+                                <h4 class="title">Word Combination</h4>
+                                <span class="subtitle">Select the correct word from the dropdown on the right</span>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 @foreach($combinations as $index => $combination)
@@ -103,9 +103,9 @@
 
                         <!-- START:: Fill in the gap Markup -->
                         <fieldset>
-                            <div class="card-header border-primary">
-                                <h4 class="h4 text-center font-weight-bolder">Fill in the gap</h4>
-                                <span class="text-muted d-block text-center font-weight-light">Select the correct word from the dropdown on the right</span>
+                            <div class="card-header">
+                                <h4 class="title">Fill in the gap</h4>
+                                <span class="subtitle">Select the correct word from the dropdown on the right</span>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 @foreach($fillInTheGaps as $index => $fillInTheGap)
@@ -134,16 +134,16 @@
 
 
                     </form>
-                    <div class="card-footer border-primary">
-                        <div class="row">
-                            <div class="col">
-                                <button class="btn btn-outline-primary btn-block"
+                    <div class="card-footer">
+                        <div class="row justify-content-center">
+                            <div class="col col-md-4">
+                                <button class="btn btn-light btn-block"
                                         onclick="$('#myform').prevpage();">
                                     Previous
                                 </button>
                             </div><!-- /.col -->
-                            <div class="col">
-                                <button class="btn btn-outline-primary btn-block"
+                            <div class="col col-md-4">
+                                <button class="btn btn-light btn-block"
                                         onclick="$('#myform').nextpage();">Next
                                 </button>
                             </div><!-- /.col -->
