@@ -55,8 +55,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <span class="d-block w-100 bg-primary" style="height: 2px; clear: both"></span>
-
+                            <div class="clearfix"></div>
 
                             <table class="table table-hover table-bordered rounded">
                                 <h5 class="custom-table-heading h4 border border text-center my-0 py-2 mt-2 font-weight-bolder table-heading-bg">

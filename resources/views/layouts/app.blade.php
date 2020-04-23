@@ -33,7 +33,7 @@
     $(document).tooltip({
         track: true,
         classes: {
-            "ui-tooltip": "text-primary shadow border-primary rounded"
+            "ui-tooltip": "text-primary shadow border-0 rounded"
         }
     });
 </script>
