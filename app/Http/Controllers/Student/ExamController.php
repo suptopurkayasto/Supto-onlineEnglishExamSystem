@@ -114,14 +114,18 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-vocabulary-question', compact('exam'))
+
                 ->with('synonyms', $exam->synonyms()->where('set_id', $authStudent->set->id)->get())
-                ->with('synonymOptions', $exam->synonymOptions()->where('set_id', $authStudent->set->id)->get())
+                ->with('synonymOptions', $exam->synonymOptions()->where('set_id', $authStudent->set->id)->orderBy('options')->get())
+
                 ->with('definitions', $exam->definitions()->where('set_id', $authStudent->set->id)->get())
-                ->with('definitionOptions', $exam->definitionOptions()->where('set_id', $authStudent->set->id)->get())
+                ->with('definitionOptions', $exam->definitionOptions()->where('set_id', $authStudent->set->id)->orderBy('options')->get())
+
                 ->with('combinations', $exam->combinations()->where('set_id', $authStudent->set->id)->get())
-                ->with('combinationOptions', $exam->combinationOptions()->where('set_id', $authStudent->set->id)->get())
+                ->with('combinationOptions', $exam->combinationOptions()->where('set_id', $authStudent->set->id)->orderBy('options')->get())
+
                 ->with('fillInTheGaps', $exam->fillInTheGaps()->where('set_id', $authStudent->set->id)->get())
-                ->with('fillInTheGapOptions', $exam->fillInTheGapOptions()->where('set_id', $authStudent->set->id)->get());
+                ->with('fillInTheGapOptions', $exam->fillInTheGapOptions()->where('set_id', $authStudent->set->id)->orderBy('options')->get());
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
