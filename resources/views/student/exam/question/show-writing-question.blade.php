@@ -16,7 +16,7 @@
                                 <h4 class="h4 title">Dialog</h4>
                                 <span class="subtitle">Select the correct word from the dropdown on the right</span>
                             </div><!-- /.card-header -->
-                            <div class="card-body">
+                            <div class="card-body body-max-width">
                                 <h5 class="h5">{{ $dialog->topic }}</h5>
 
                                 <div id="dialog-question-1"
@@ -128,7 +128,7 @@
                             <div class="card-body">
                                 @foreach($sortQuestions as $index => $sortQuestion)
                                     <div class="form-group mb-5">
-                                        <label for="">{{ $index }}. {{ $sortQuestion->question }}</label>
+                                        <label for="">{{ $index + 1 }}. {{ $sortQuestion->question }}</label>
                                         <input type="hidden" name="sortQuestion[question][{{ $sortQuestion->id }}]"
                                                value="{{ $sortQuestion->id }}">
                                         <textarea type="text" name="sortQuestion[answer][{{ $sortQuestion->id }}]"

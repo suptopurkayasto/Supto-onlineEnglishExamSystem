@@ -93,6 +93,11 @@ class ExamController extends Controller
                 $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
                     'grammar' => $marks
                 ]);
+
+                toast('Grammar part has been successfully submitted', 'success');
+                session()->flash('success_audio');
+                return redirect()->route('student.exam.show.topic', $exam->id);
+
             } else {
                 alert()->error('😒', 'You will no longer be able to resubmit');
                 return redirect()->route('student.exam.show.topic', $exam->id);
@@ -307,7 +312,9 @@ class ExamController extends Controller
                 $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
                     'fillInTheGap' => $marks
                 ]);
-
+                toast('Vocabulary part has been successfully submitted', 'success');
+                session()->flash('success_audio');
+                return redirect()->route('student.exam.show.topic', $exam->id);
 
             } else {
                 alert()->error('😒', 'You will no longer be able to resubmit');
@@ -327,6 +334,8 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
 
+
+
             $checkResubmitHeading = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->heading;
             $checkResubmitRearrange = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->rearrange;
 
@@ -336,7 +345,7 @@ class ExamController extends Controller
                 /**
                  * Heading
                  */
-                foreach ($request->input('heading.*') as $headings) {
+                foreach ($request->input('heading.*', []) as $headings) {
                     foreach ($headings as $index => $value) {
                         $authStudent->studentHeadings()->create([
                             'exam_id' => $exam->id,
