@@ -54,32 +54,32 @@
                                         <label class="list-group-item shadow-sm mb-3">
                                             <i class="fas fa-arrows-alt mr-2 text-primary"></i>
                                             {{ $rearrange->line_6 }}
-                                            <input type="hidden" name="6" class="" value="{{ $rearrange->line_6 }}">
-                                        </label>
-                                        <label class="list-group-item shadow-sm mb-3">
-                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
-                                            {{ $rearrange->line_3 }}
-                                            <input type="hidden" name="3" class="" value="{{ $rearrange->line_3 }}">
-                                        </label>
-                                        <label class="list-group-item shadow-sm mb-3">
-                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
-                                            {{ $rearrange->line_5 }}
-                                            <input type="hidden" name="5" class="" value="{{ $rearrange->line_5 }}">
-                                        </label>
-                                        <label class="list-group-item shadow-sm mb-3">
-                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
-                                            {{ $rearrange->line_7 }}
-                                            <input type="hidden" name="7" class="" value="{{ $rearrange->line_7 }}">
+                                            <input type="hidden" name="2" class="" value="{{ $rearrange->line_6 }}">
                                         </label>
                                         <label class="list-group-item shadow-sm mb-3">
                                             <i class="fas fa-arrows-alt mr-2 text-primary"></i>
                                             {{ $rearrange->line_4 }}
-                                            <input type="hidden" name="4" class="" value="{{ $rearrange->line_4 }}">
+                                            <input type="hidden" name="3" class="" value="{{ $rearrange->line_4 }}">
+                                        </label>
+                                        <label class="list-group-item shadow-sm mb-3">
+                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
+                                            {{ $rearrange->line_5 }}
+                                            <input type="hidden" name="4" class="" value="{{ $rearrange->line_5 }}">
+                                        </label>
+                                        <label class="list-group-item shadow-sm mb-3">
+                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
+                                            {{ $rearrange->line_7 }}
+                                            <input type="hidden" name="5" class="" value="{{ $rearrange->line_7 }}">
+                                        </label>
+                                        <label class="list-group-item shadow-sm mb-3">
+                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
+                                            {{ $rearrange->line_3 }}
+                                            <input type="hidden" name="6" class="" value="{{ $rearrange->line_4 }}">
                                         </label>
                                         <label class="list-group-item shadow-sm mb-3">
                                             <i class="fas fa-arrows-alt mr-2 text-primary"></i>
                                             {{ $rearrange->line_2 }}
-                                            <input type="hidden" name="2" class="" value="{{ $rearrange->line_2 }}">
+                                            <input type="hidden" name="7" class="" value="{{ $rearrange->line_2 }}">
                                         </label>
                                     </ul>
                                 @endforeach

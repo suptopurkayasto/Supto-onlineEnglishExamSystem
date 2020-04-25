@@ -139,45 +139,6 @@ class ExamController extends Controller
     }
 
     /**
-     * @param Exam $exam
-     * @return Application|Factory|RedirectResponse|View
-     */
-    public function showReadingQuestion(Exam $exam)
-    {
-        if ($this->validExamRequest($exam)) {
-            $authStudent = Auth::guard('student')->user();
-            return view('student.exam.question.show-reading-question', compact('exam'))
-                ->with('headings', $exam->headings()->where('set_id', $authStudent->set->id)->get())
-                ->with('headingOptions', $exam->headingOptions()->where('set_id', $authStudent->set->id)->orderBy('headings')->get())
-                ->with('rearranges', $exam->rearranges()->where('set_id', $authStudent->set->id)->get());
-
-        } else {
-            alert()->error('😒', 'You can\'t do this.');
-            return redirect()->route('student.dashboard');
-        }
-    }
-
-
-    /**
-     * @param Exam $exam
-     * @return Application|Factory|RedirectResponse|View
-     */
-    public function showWritingQuestion(Exam $exam)
-    {
-        if ($this->validExamRequest($exam)) {
-            $authStudent = Auth::guard('student')->user();
-            return view('student.exam.question.show-writing-question', compact('exam'))
-                ->with('dialog', $exam->dialogs()->where('set_id', $authStudent->set->id)->get()->first())
-                ->with('informalEmail', $exam->informalEmails()->where('set_id', $authStudent->set->id)->get()->first())
-                ->with('formalEmail', $exam->formalEmails()->where('set_id', $authStudent->set->id)->get()->first())
-                ->with('sortQuestions', $exam->sortQuestions()->where('set_id', $authStudent->set->id)->get());
-        } else {
-            alert()->error('😒', 'You can\'t do this.');
-            return redirect()->route('student.dashboard');
-        }
-    }
-
-    /**
      * @param Request $request
      * @param Exam $exam
      * @return RedirectResponse
@@ -328,7 +289,30 @@ class ExamController extends Controller
 
     }
 
+    /**
+     * @param Exam $exam
+     * @return Application|Factory|RedirectResponse|View
+     */
+    public function showReadingQuestion(Exam $exam)
+    {
+        if ($this->validExamRequest($exam)) {
+            $authStudent = Auth::guard('student')->user();
+            return view('student.exam.question.show-reading-question', compact('exam'))
+                ->with('headings', $exam->headings()->where('set_id', $authStudent->set->id)->get())
+                ->with('headingOptions', $exam->headingOptions()->where('set_id', $authStudent->set->id)->orderBy('headings')->get())
+                ->with('rearranges', $exam->rearranges()->where('set_id', $authStudent->set->id)->get());
 
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->route('student.dashboard');
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param Exam $exam
+     * @return RedirectResponse
+     */
     public function submitReadingQuestion(Request $request, Exam $exam)
     {
         if ($this->validExamRequest($exam)) {
@@ -371,6 +355,7 @@ class ExamController extends Controller
                 ]);
 
 
+
                 /**
                  * Rearrange
                  */
@@ -391,14 +376,14 @@ class ExamController extends Controller
                 $authStudentSubmittedRearrange = $authStudent->studentRearranges()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->get()->first();
                 $rearrangeForAuthStudent = $exam->rearranges()->where('set_id', $authStudent->set->id)->get()->first();
 
-                $marks = 0;
+                $rearrangeMarks = 0;
                 for ($number = 1; $number <= 7; $number++) {
                     if ($authStudentSubmittedRearrange["line_$number"] === $rearrangeForAuthStudent["line_$number"]) {
-                        $marks += 1;
+                        $rearrangeMarks += 1;
                     }
                 }
                 $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
-                    'rearrange' => $marks
+                    'rearrange' => $rearrangeMarks
                 ]);
 
 
@@ -416,6 +401,28 @@ class ExamController extends Controller
             return redirect()->route('student.dashboard');
         }
     }
+
+
+
+    /**
+     * @param Exam $exam
+     * @return Application|Factory|RedirectResponse|View
+     */
+    public function showWritingQuestion(Exam $exam)
+    {
+        if ($this->validExamRequest($exam)) {
+            $authStudent = Auth::guard('student')->user();
+            return view('student.exam.question.show-writing-question', compact('exam'))
+                ->with('dialog', $exam->dialogs()->where('set_id', $authStudent->set->id)->get()->first())
+                ->with('informalEmail', $exam->informalEmails()->where('set_id', $authStudent->set->id)->get()->first())
+                ->with('formalEmail', $exam->formalEmails()->where('set_id', $authStudent->set->id)->get()->first())
+                ->with('sortQuestions', $exam->sortQuestions()->where('set_id', $authStudent->set->id)->get());
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->route('student.dashboard');
+        }
+    }
+
 
 
     public function submitWritingQuestion(Request $request, Exam $exam)

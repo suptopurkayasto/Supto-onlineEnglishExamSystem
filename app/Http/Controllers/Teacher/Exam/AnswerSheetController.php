@@ -69,22 +69,34 @@ class AnswerSheetController extends Controller
             $student = Student::all()->find($studentId);
             $marks = $student->marks()->where('exam_id', $examId)->first();
 
+            // Grammar
             $grammars = $exam->grammars()->where('set_id', $student->set->id)->get();
+
+            // Vocabulary
             $synonyms = $exam->synonyms()->where('set_id', $student->set->id)->get();
             $definitions = $exam->definitions()->where('set_id', $student->set->id)->get();
             $combinations = $exam->combinations()->where('set_id', $student->set->id)->get();
             $fillInTheGaps = $exam->fillInTheGaps()->where('set_id', $student->set->id)->get();
+
+            // Reading
+            $headings = $exam->headings()->where('set_id', $student->set->id)->get();
+            $rearrange = $exam->studentRearranges()->where(['set_id' => $student->set->id, 'student_id' => $studentId])->get();
 
             return view('teacher.exams.answer-sheet.show')
                 ->with('authTeacher', $authTeacher)
                 ->with('exam', $exam)
                 ->with('student', $student)
                 ->with('marks', $marks)
+
                 ->with('grammars', $grammars)
+
                 ->with('synonyms', $synonyms)
                 ->with('definitions', $definitions)
                 ->with('combinations', $combinations)
-                ->with('fillInTheGaps', $fillInTheGaps);
+                ->with('fillInTheGaps', $fillInTheGaps)
+
+                ->with('headings', $headings)
+                ->with('rearrange', $rearrange);
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
