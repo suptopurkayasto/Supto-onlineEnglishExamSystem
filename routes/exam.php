@@ -13,7 +13,7 @@ Route::get('questions/reading', 'Student\ExamController@showReadingQuestion')->n
 
 
 // Vocabulary
-Route::post('questions/vocabulary', 'Student\ExamController@submitVocabularyQuestion')->name('student.exam.vocabulary.questions.submit');
+Route::post('questions/vocabulary/', 'Student\ExamController@submitVocabularyQuestion')->name('student.exam.vocabulary.questions.submit');
 Route::get('questions/vocabulary', 'Student\ExamController@showVocabularyQuestion')->name('student.exam.vocabulary.questions');
 
 // Grammar

@@ -158,7 +158,7 @@
                                 $studentDefinition = $exam->studentDefinitions()->where(['student_id' => $student->id, 'definition_id' => $definition->id])->get()->first();
                                 ?>
                                 <tr class="{{ isset($studentDefinition->answer) ? $studentDefinition->answer == $definition->answer->options ? 'text-success success-row' : 'text-danger danger-row' : 'text-secondary secondary-row' }}">
-                                    <td title="{{ $definition->sentence }}">{{ Str::limit($definition->sentence, 45) }}</td>
+                                    <td title="{{ $definition->sentence }}">{{ Str::limit($definition->sentence, 40) }}</td>
                                     <td class="text-center">
                                         @if($marks->definition !== NULL)
                                             @if(isset($studentDefinition->answer))
@@ -197,7 +197,7 @@
                                 $studentFillInTheGap = $exam->studentFillInTheGaps()->where(['student_id' => $student->id, 'fillInTheGap_id' => $fillInTheGap->id])->get()->first();
                                 ?>
                                 <tr class="{{ isset($studentFillInTheGap->answer) ? $studentFillInTheGap->answer == $fillInTheGap->answer->options ? 'text-success success-row' : 'text-danger danger-row' : 'text-secondary secondary-row' }}">
-                                    <td title="{{ $fillInTheGap->sentence }}">{{ Str::limit($fillInTheGap->sentence, 45) }}</td>
+                                    <td title="{{ $fillInTheGap->sentence }}">{{ Str::limit($fillInTheGap->sentence, 40) }}</td>
                                     <td class="text-center">
                                         @if($marks->fillInTheGap !== NULL)
                                             @if(isset($studentFillInTheGap->answer))

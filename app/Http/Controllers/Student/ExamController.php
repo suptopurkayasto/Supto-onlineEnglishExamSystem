@@ -119,16 +119,12 @@ class ExamController extends Controller
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-vocabulary-question', compact('exam'))
-
                 ->with('synonyms', $exam->synonyms()->where('set_id', $authStudent->set->id)->get())
                 ->with('synonymOptions', $exam->synonymOptions()->where('set_id', $authStudent->set->id)->orderBy('options')->get())
-
                 ->with('definitions', $exam->definitions()->where('set_id', $authStudent->set->id)->get())
                 ->with('definitionOptions', $exam->definitionOptions()->where('set_id', $authStudent->set->id)->orderBy('options')->get())
-
                 ->with('combinations', $exam->combinations()->where('set_id', $authStudent->set->id)->get())
                 ->with('combinationOptions', $exam->combinationOptions()->where('set_id', $authStudent->set->id)->orderBy('options')->get())
-
                 ->with('fillInTheGaps', $exam->fillInTheGaps()->where('set_id', $authStudent->set->id)->get())
                 ->with('fillInTheGapOptions', $exam->fillInTheGapOptions()->where('set_id', $authStudent->set->id)->orderBy('options')->get());
 
@@ -158,31 +154,25 @@ class ExamController extends Controller
                 /**
                  * Synonym
                  */
-                $authStudentSubmittedSynonymData = $request->input('synonym.*', []);
-                foreach ($authStudentSubmittedSynonymData as $data) {
-                    foreach ($data as $key => $value) {
-                        $authStudent->studentSynonyms()->create([
-                            'exam_id' => $exam->id,
-                            'set_id' => $authStudent->set->id,
-                            'synonym_id' => $key,
-                            'answer' => $value
-                        ]);
-                    }
+
+                foreach ($request->input('synonym', []) as $key => $value) {
+                    $authStudent->studentSynonyms()->create([
+                        'exam_id' => $exam->id,
+                        'set_id' => $authStudent->set->id,
+                        'synonym_id' => $key,
+                        'answer' => $value
+                    ]);
                 }
 
                 // Generate Synonym marks
-                $marks = 0;
-                foreach ($request->input('synonym.*', []) as $data) {
-                    foreach ($data as $key => $value) {
-                        $synonym = Synonym::find($key);
-                        if ($synonym->answer->options == $value) {
-                            $marks += 1;
-                        }
+
+                $synonymMarks = 0;
+                foreach ($request->input('synonym', []) as $key => $value) {
+                    $synonym = Synonym::find($key);
+                    if ($synonym->answer->options == $value) {
+                        $synonymMarks += 1;
                     }
                 }
-                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
-                    'synonym' => $marks
-                ]);
 
 
                 /**
@@ -201,18 +191,15 @@ class ExamController extends Controller
                 }
 
                 // Generate definition marks
-                $marks = 0;
+                $definitionMarks = 0;
                 foreach ($request->input('definition.*', []) as $data) {
                     foreach ($data as $key => $value) {
                         $synonym = Definition::find($key);
                         if ($synonym->answer->options == $value) {
-                            $marks += 1;
+                            $definitionMarks += 1;
                         }
                     }
                 }
-                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
-                    'definition' => $marks
-                ]);
 
 
                 /**
@@ -231,18 +218,15 @@ class ExamController extends Controller
                 }
 
                 // Generate combination marks
-                $marks = 0;
+                $combinationMarks = 0;
                 foreach ($request->input('combination.*', []) as $data) {
                     foreach ($data as $key => $value) {
                         $combination = Combination::find($key);
                         if ($combination->answer->options == $value) {
-                            $marks += 1;
+                            $combinationMarks += 1;
                         }
                     }
                 }
-                $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
-                    'combination' => $marks
-                ]);
 
 
                 /**
@@ -261,17 +245,20 @@ class ExamController extends Controller
                 }
 
                 // Generate fillInTheGap marks
-                $marks = 0;
+                $FillInTheGapMarks = 0;
                 foreach ($request->input('fillInTheGap.*', []) as $data) {
                     foreach ($data as $key => $value) {
                         $fillInTheGap = FillInTheGap::find($key);
                         if ($fillInTheGap->answer->options == $value) {
-                            $marks += 1;
+                            $FillInTheGapMarks += 1;
                         }
                     }
                 }
                 $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
-                    'fillInTheGap' => $marks
+                    'synonym' => $synonymMarks,
+                    'definition' => $definitionMarks,
+                    'combination' => $combinationMarks,
+                    'fillInTheGap' => $FillInTheGapMarks
                 ]);
                 toast('Vocabulary part has been successfully submitted', 'success');
                 session()->flash('success_audio');
@@ -319,7 +306,6 @@ class ExamController extends Controller
             $authStudent = Auth::guard('student')->user();
 
 
-
             $checkResubmitHeading = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->heading;
             $checkResubmitRearrange = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->rearrange;
 
@@ -353,7 +339,6 @@ class ExamController extends Controller
                 $authStudent->marks()->where(['exam_id' => $exam->id, 'set_id' => $authStudent->set->id])->first()->update([
                     'heading' => $marks
                 ]);
-
 
 
                 /**
@@ -403,7 +388,6 @@ class ExamController extends Controller
     }
 
 
-
     /**
      * @param Exam $exam
      * @return Application|Factory|RedirectResponse|View
@@ -422,7 +406,6 @@ class ExamController extends Controller
             return redirect()->route('student.dashboard');
         }
     }
-
 
 
     public function submitWritingQuestion(Request $request, Exam $exam)

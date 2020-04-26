@@ -24,7 +24,7 @@
                                             </label>
                                         </div><!-- /.col-12 col-md-6 -->
                                         <div class="col-12 col-md-6">
-                                            <select name="synonym[][{{ $synonym->id }}]" id="synonym_{{ $synonym->id }}"
+                                            <select name="synonym[{{ $synonym->id }}]" id="synonym_{{ $synonym->id }}"
                                                     class="form-control">
                                                 <option disabled selected class="h5">Choose word</option>
                                                 @foreach($synonymOptions as $option)
