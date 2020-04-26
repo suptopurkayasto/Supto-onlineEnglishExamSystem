@@ -14,19 +14,22 @@
         </div><!-- /.card-header -->
         <div class="card-body p-0">
 
+            <!-- Start:: Grammar -->
             <div class="grammar">
                 <h4 class="h4 p-3 font-weight-bolder">
                     <span class="">Grammar</span>
-                    <span class="float-right">{!! $marks->grammar === NULL ? '<span class="badge badge-warning mr-1">Pending</span>' : $marks->grammar !!}/25</span>
+                    <span class="float-right">{!! $marks->grammar === NULL ? '<span class="badge badge-warning mr-1">Pending</span>' : $marks->grammar !!} / 25</span>
                 </h4>
-                <div class="answer-sheet-title-border {{ $marks->grammar === NULL ? 'bg-warning' : 'bg-success' }}"></div>
+                <div
+                    class="answer-sheet-title-border {{ $marks->grammar === NULL ? 'bg-warning' : 'bg-success' }}"></div>
                 <div class="row p-3">
                     @foreach($grammars as $index => $grammar)
                         <?php
                         $studentGrammar = $exam->studentGrammars()->where(['student_id' => $student->id, 'grammar_id' => $grammar->id])->get()->first();
                         ?>
-                        <div class="col-12 col-md-6 col-lg-4 {{ isset($studentGrammar->answer) ? $studentGrammar->answer == $grammar->answer ? 'correct-grammar-answer': 'wrong-grammar-answer' : 'not-answer' }}"
-                             title="{{ $grammar->question }}">
+                        <div
+                            class="col-12 col-md-6 col-lg-4 {{ isset($studentGrammar->answer) ? $studentGrammar->answer == $grammar->answer ? 'correct-grammar-answer': 'wrong-grammar-answer' : 'not-answer' }}"
+                            title="{{ $grammar->question }}">
 
                             <h6 class="h6 grammar-questions-title">{{ $index + 1 }}
                                 . {{ $grammar->question }}</h6>
@@ -41,10 +44,10 @@
                                             class="custom-control-input"
                                             disabled>
                                         <label class="custom-control-label"
-                                        for="{{ $id }}">{{ $grammar->option_1 }}
-                                        @if($grammar->option_1 == $grammar->answer)
-                                            <i class="far fa-check-circle text-success correct-radio-icon"></i>
-                                        @endif
+                                               for="{{ $id }}">{{ $grammar->option_1 }}
+                                            @if($grammar->option_1 == $grammar->answer)
+                                                <i class="far fa-check-circle text-success correct-radio-icon"></i>
+                                            @endif
                                         </label>
                                     </div>
                                 </li>
@@ -56,10 +59,10 @@
                                             type="radio"
                                             name="{{ $grammar->id }}" class="custom-control-input" disabled>
                                         <label class="custom-control-label"
-                                        for="{{ $id }}">{{ $grammar->option_2 }}
-                                        @if($grammar->option_2 == $grammar->answer)
-                                            <i class="far fa-check-circle text-success correct-radio-icon"></i>
-                                        @endif
+                                               for="{{ $id }}">{{ $grammar->option_2 }}
+                                            @if($grammar->option_2 == $grammar->answer)
+                                                <i class="far fa-check-circle text-success correct-radio-icon"></i>
+                                            @endif
                                         </label>
                                     </div>
                                 </li>
@@ -72,10 +75,10 @@
                                             id="{{ $id }}" name="{{ $grammar->id }}" class="custom-control-input"
                                             disabled>
                                         <label class="custom-control-label"
-                                        for="{{ $id }}">{{ $grammar->option_3 }}
-                                        @if($grammar->option_3 == $grammar->answer)
-                                            <i class="far fa-check-circle text-success correct-radio-icon"></i>
-                                        @endif
+                                               for="{{ $id }}">{{ $grammar->option_3 }}
+                                            @if($grammar->option_3 == $grammar->answer)
+                                                <i class="far fa-check-circle text-success correct-radio-icon"></i>
+                                            @endif
                                         </label>
                                     </div>
                                 </li>
@@ -84,36 +87,50 @@
                     @endforeach
                 </div><!-- /.row -->
             </div><!-- /.grammar -->
+            <!-- End:: Grammar -->
 
 
+            <!-- Start:: vocabulary -->
             <div class="vocabulary">
-                <h4 class="h4 bg-primary shadow-sm p-3 font-weight-bolder">
+                <h4 class="h4 p-3 font-weight-bolder">
                     <span class="">Vocabulary</span>
-                    <span class="float-right">{!! $marks->synonym === NULL ? '<span class="badge badge-warning mr-1">Pending</span>' : $marks->synonym + $marks->definition + $marks->combination + $marks->fillInTheGap !!} /</span>
+                    <span class="float-right">{!! $marks->synonym === NULL ? '<span class="badge badge-warning mr-1">Pending</span>' : $marks->synonym + $marks->definition + $marks->combination + $marks->fillInTheGap !!} / 20</span>
                 </h4>
+                <div
+                    class="answer-sheet-title-border {{ $marks->synonym === NULL ? 'bg-warning' : 'bg-success' }}"></div>
                 <div class="row p-3">
                     <!-- Start: Synonym -->
                     <div class="col-12 col-md-6">
-                        <h5 class="h5 p-3 font-weight-bold mb-0">
+                        <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                             Synonym {{ $marks->synonym !== NULL ? '('.$marks->synonym.')' : '' }}</h5>
-                        <table class="table table-striped table-hover table-borderless shadow-sm">
-                            <thead>
-                            <tr class="">
-                                <th>Word</th>
-                                <th class="text-right">Answer</th>
+                        <table
+                            class="table mini-answer-sheet-table table-hover table-borderless">
+                            <thead class="border-bottom {{ $marks->synonym === NULL ? 'border-warning' : 'border-success' }}">
+                            <tr>
+                                <th style="width: 56%;">Word</th>
+                                <th style="width: 22%;" class="text-center">Student Answer</th>
+                                <th style="width: 22%;" class="text-right">Correct Answer</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($synonyms as $index => $synonym)
                                 <?php
-                                $studentQuestion = $exam->studentSynonyms()->where(['student_id' => $student->id, 'synonym_id' => $synonym->id])->get()->first();
-                                if (!empty($studentQuestion)) {
-                                    $studentAnswer = $studentQuestion->answer;
-                                }
+                                $studentSynonym = $exam->studentSynonyms()->where(['student_id' => $student->id, 'synonym_id' => $synonym->id])->get()->first();
                                 ?>
-                                <tr>
+                                <tr class="{{ isset($studentSynonym->answer) ? $studentSynonym->answer == $synonym->answer->options ? 'text-success success-row' : 'text-danger danger-row' : 'text-secondary secondary-row' }}">
                                     <td>{{ $synonym->word }}</td>
-                                    <td class="text-right">{!! isset($studentAnswer) ? $studentAnswer : $marks->synonym === NULL ? '<span class="badge badge-warning">Pending</span>' : 'No Answered' !!}</td>
+                                    <td class="text-center">
+                                        @if($marks->synonym !== NULL)
+                                            @if(isset($studentSynonym->answer))
+                                                {{ $studentSynonym->answer }}
+                                            @else
+                                                <span class="badge badge-secondary">Not touched</span>
+                                            @endif
+                                        @else
+                                            <span class="badge badge-warning">Pending</span>
+                                    @endif
+                                    </td>
+                                    <td class="text-right"><span class="text-success font-weight-bold">{{ $synonym->answer->options }}</span></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -121,28 +138,39 @@
                     </div><!-- /.col-12 col-md-6 -->
                     <!-- End: Synonym -->
 
+
                     <!-- Start: definition -->
                     <div class="col-12 col-md-6">
-                        <h5 class="h5 p-3 font-weight-bold mb-0">
+                        <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                             Definition {{ $marks->definition !== NULL ? '('.$marks->definition.')' : '' }}</h5>
-                        <table class="table table-striped table-hover table-borderless shadow-sm">
-                            <thead>
-                            <tr class="">
-                                <th>Sentence</th>
-                                <th class="text-right">Answer</th>
+                        <table
+                            class="table mini-answer-sheet-table table-hover table-borderless">
+                            <thead class="border-bottom {{ $marks->definition === NULL ? 'border-warning' : 'border-success' }}">
+                            <tr>
+                                <th style="width: 56%;">Sentence</th>
+                                <th style="width: 22%;" class="text-center">Student Answer</th>
+                                <th style="width: 22%;" class="text-right">Correct Answer</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($definitions as $index => $definition)
                                 <?php
-                                $studentQuestion = $exam->studentDefinitions()->where(['student_id' => $student->id, 'definition_id' => $definition->id])->get()->first();
-                                if (!empty($studentQuestion)) {
-                                    $studentAnswer = $studentQuestion->answer;
-                                }
+                                $studentDefinition = $exam->studentDefinitions()->where(['student_id' => $student->id, 'definition_id' => $definition->id])->get()->first();
                                 ?>
-                                <tr>
-                                    <td>{{ $definition->sentence }}</td>
-                                    <td class="text-right">{!! isset($studentAnswer) ? $studentAnswer : $marks->definition === NULL ? '<span class="badge badge-warning">Pending</span>' : 'No Answered' !!}
+                                <tr class="{{ isset($studentDefinition->answer) ? $studentDefinition->answer == $definition->answer->options ? 'text-success success-row' : 'text-danger danger-row' : 'text-secondary secondary-row' }}">
+                                    <td title="{{ $definition->sentence }}">{{ Str::limit($definition->sentence, 45) }}</td>
+                                    <td class="text-center">
+                                        @if($marks->definition !== NULL)
+                                            @if(isset($studentDefinition->answer))
+                                                {{ $studentDefinition->answer }}
+                                            @else
+                                                <span class="badge badge-secondary">Not touched</span>
+                                            @endif
+                                        @else
+                                            <span class="badge badge-warning">Pending</span>
+                                    @endif
+                                    </td>
+                                    <td class="text-right"><span class="text-success font-weight-bold">{{ $definition->answer->options }}</span></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -150,57 +178,77 @@
                     </div><!-- /.col-12 col-md-6 -->
                     <!-- End: definition -->
 
-                    <!-- Start: Fill in the gap -->
+                    <!-- Start: fill in the gap -->
                     <div class="col-12 col-md-6">
-                        <h5 class="h5 p-3 font-weight-bold mb-0">Fill in the
-                            gap {{ $marks->fillInTheGap !== NULL ? '('.$marks->fillInTheGap.')' : '' }}</h5>
-                        <table class="table table-striped table-hover table-borderless shadow-sm">
-                            <thead>
-                            <tr class="">
-                                <th>Word</th>
-                                <th class="text-right">Answer</th>
+                        <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
+                            Fill in the gap {{ $marks->fillInTheGap !== NULL ? '('.$marks->fillInTheGap.')' : '' }}</h5>
+                        <table
+                            class="table mini-answer-sheet-table table-hover table-borderless">
+                            <thead class="border-bottom {{ $marks->fillInTheGap === NULL ? 'border-warning' : 'border-success' }}">
+                            <tr>
+                                <th style="width: 56%;">Sentence</th>
+                                <th style="width: 22%;" class="text-center">Student Answer</th>
+                                <th style="width: 22%;" class="text-right">Correct Answer</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($fillInTheGaps as $index => $fillInTheGap)
                                 <?php
-                                $studentQuestion = $exam->studentFillInTheGaps()->where(['student_id' => $student->id, 'fillInTheGap_id' => $fillInTheGap->id])->get()->first();
-                                if (!empty($studentQuestion)) {
-                                    $studentAnswer = $studentQuestion->answer;
-                                }
+                                $studentFillInTheGap = $exam->studentFillInTheGaps()->where(['student_id' => $student->id, 'fillInTheGap_id' => $fillInTheGap->id])->get()->first();
                                 ?>
-                                <tr>
-                                    <td>{{ $fillInTheGap->sentence }}</td>
-                                    <td class="text-right">{!! isset($studentAnswer) ? $studentAnswer : $marks->fillInTheGap === NULL ? '<span class="badge badge-warning">Pending</span>' : 'No Answered' !!}
+                                <tr class="{{ isset($studentFillInTheGap->answer) ? $studentFillInTheGap->answer == $fillInTheGap->answer->options ? 'text-success success-row' : 'text-danger danger-row' : 'text-secondary secondary-row' }}">
+                                    <td title="{{ $fillInTheGap->sentence }}">{{ Str::limit($fillInTheGap->sentence, 45) }}</td>
+                                    <td class="text-center">
+                                        @if($marks->fillInTheGap !== NULL)
+                                            @if(isset($studentFillInTheGap->answer))
+                                                {{ $studentFillInTheGap->answer }}
+                                            @else
+                                                <span class="badge badge-secondary">Not touched</span>
+                                            @endif
+                                        @else
+                                            <span class="badge badge-warning">Pending</span>
+                                    @endif
+                                    </td>
+                                    <td class="text-right"><span class="text-success font-weight-bold">{{ $fillInTheGap->answer->options }}</span></td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div><!-- /.col-12 col-md-6 -->
-                    <!-- End: Fill in the gap -->
+                    <!-- End: fill in the gap -->
 
                     <!-- Start: combination -->
                     <div class="col-12 col-md-6">
-                        <h5 class="h5 p-3 font-weight-bold mb-0">
+                        <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                             Combination {{ $marks->combination !== NULL ? '('.$marks->combination.')' : '' }}</h5>
-                        <table class="table table-striped table-hover table-borderless shadow-sm">
-                            <thead>
-                            <tr class="">
-                                <th>Word</th>
-                                <th class="text-right">Answer</th>
+                        <table
+                            class="table mini-answer-sheet-table table-hover table-borderless">
+                            <thead class="border-bottom {{ $marks->combination === NULL ? 'border-warning' : 'border-success' }}">
+                            <tr>
+                                <th style="width: 56%;">Word</th>
+                                <th style="width: 22%;" class="text-center">Student Answer</th>
+                                <th style="width: 22%;" class="text-right">Correct Answer</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($combinations as $index => $combination)
                                 <?php
-                                $studentQuestion = $exam->studentCombinations()->where(['student_id' => $student->id, 'combination_id' => $combination->id])->get()->first();
-                                if (!empty($studentQuestion)) {
-                                    $studentAnswer = $studentQuestion->answer;
-                                }
+                                $studentCombination = $exam->studentCombinations()->where(['student_id' => $student->id, 'combination_id' => $combination->id])->get()->first();
                                 ?>
-                                <tr>
+                                <tr class="{{ isset($studentCombination->answer) ? $studentCombination->answer == $combination->answer->options ? 'text-success success-row' : 'text-danger danger-row' : 'text-secondary secondary-row' }}">
                                     <td>{{ $combination->word }}</td>
-                                    <td class="text-right">{!! isset($studentAnswer) ? $studentAnswer : $marks->combination === NULL ? '<span class="badge badge-warning">Pending</span>' : 'No Answered' !!}
+                                    <td class="text-center">
+                                        @if($marks->combination !== NULL)
+                                            @if(isset($studentCombination->answer))
+                                                {{ $studentCombination->answer }}
+                                            @else
+                                                <span class="badge badge-secondary">Not touched</span>
+                                            @endif
+                                        @else
+                                            <span class="badge badge-warning">Pending</span>
+                                    @endif
+                                    </td>
+                                    <td class="text-right"><span class="text-success font-weight-bold">{{ $combination->answer->options }}</span></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -209,8 +257,9 @@
                     <!-- End: combination -->
                 </div><!-- /.row -->
             </div><!-- /.vocabulary -->
+            <!-- End:: vocabulary -->
 
-
+            <!-- Start:: reading -->
             <div class="reading">
                 <h4 class="h4 bg-primary shadow-sm p-3 font-weight-bolder">
                     <span class="">Reading</span>
@@ -219,9 +268,10 @@
                 <div class="row p-3">
                     <!-- Start: heading -->
                     <div class="col-12 col-md-8">
-                        <h5 class="h5 p-3 font-weight-bold mb-0">Heading
+                        <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">Heading
                             Matching {{ $marks->heading !== NULL ? '('.$marks->heading.')' : '' }}</h5>
-                        <table class="table table-striped table-hover table-borderless shadow-sm">
+                        <table
+                            class="table mini-answer-sheet-table table-striped table-hover table-borderless shadow-sm">
                             <thead>
                             <tr class="">
                                 <th>Paragraph</th>
@@ -249,9 +299,10 @@
 
                     <!-- Start: rearrange -->
                     <div class="col-12 col-md-4">
-                        <h5 class="h5 p-3 font-weight-bold mb-0">
+                        <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                             Rearrange {{ $marks->rearrange !== NULL ? '('.$marks->rearrange.')' : '' }}</h5>
-                        <table class="table table-striped table-hover table-borderless shadow-sm">
+                        <table
+                            class="table mini-answer-sheet-table table-striped table-hover table-borderless shadow-sm">
                             <thead>
                             <tr class="text-right">
                                 <th>Line</th>
@@ -306,7 +357,7 @@
                     <!-- End: rearrange -->
                 </div><!-- /.row -->
             </div><!-- /.reading -->
-
+            <!-- End:: reading -->
 
         </div><!-- /.card-body -->
     </div><!-- /.card -->

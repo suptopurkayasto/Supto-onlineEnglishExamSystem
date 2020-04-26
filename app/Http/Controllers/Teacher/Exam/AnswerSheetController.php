@@ -58,6 +58,7 @@ class AnswerSheetController extends Controller
      */
     public function show($exam, $student)
     {
+
         if ($this->validAnswerSheetRequest($exam, $student)) {
             $examId = Crypt::decrypt($exam);
             $studentId = Crypt::decrypt($student);

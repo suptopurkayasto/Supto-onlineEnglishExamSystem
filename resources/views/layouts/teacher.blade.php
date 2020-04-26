@@ -115,7 +115,7 @@
         $( document ).tooltip({
             track: true,
             classes: {
-                "ui-tooltip": "shadow-sm border-0 rounded"
+                "ui-tooltip": "shadow border-0 rounded"
             },
             // open: function( event, ui ) {
             //     ui.tooltip.animate({ top: ui.tooltip.position().top + 10 }, "fast" );

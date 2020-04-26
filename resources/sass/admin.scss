@@ -145,6 +145,7 @@ li.sidebar-item {
 
 
 
+// Answer Sheet Style
 .correct-grammar-answer {
     .grammar-questions-title {
         color: $success;
@@ -213,9 +214,33 @@ li.sidebar-item {
     }
 }
 
-
-
 .answer-sheet-title-border {
     @include size(100%, 3px);
+}
+
+
+
+
+.mini-answer-sheet-table {
+    thead {
+        border-bottom-width: 2px !important;
+    }
+    tbody {
+        tr {
+            transition: all 100ms $ease-in-cubic;
+        }
+        tr.success-row {
+            font-weight: bold;
+        }
+        tr.success-row:hover {
+            background-color: transparentize($success, .8);
+        }
+        tr.danger-row:hover {
+            background-color: transparentize($danger, .8);
+        }
+        tr.secondary-row:hover {
+            background-color: transparentize($secondary, .8);
+        }
+    }
 }
 
