@@ -4,62 +4,79 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-primary border-0">
             <h3 class="h3 float-left">{{ $exam->name }}</h3>
-            <h3 class="h3 float-right"><a target="_blank"
-                                          href="{{ route('teacher.students.show', $student->id) }}">{{ $student->name }}</a>
+            <h3 class="h3 float-right">
+                <a target="_blank"
+                   class="text-white"
+                   href="{{ route('teacher.students.show', $student->id) }}">{{ $student->name }}</a>
             </h3>
         </div><!-- /.card-header -->
         <div class="card-body p-0">
 
-
             <div class="grammar">
-                <h4 class="bg-primary h4 shadow-sm p-3 font-weight-bolder">
+                <h4 class="h4 p-3 font-weight-bolder">
                     <span class="">Grammar</span>
                     <span class="float-right">{!! $marks->grammar === NULL ? '<span class="badge badge-warning mr-1">Pending</span>' : $marks->grammar !!}/25</span>
                 </h4>
+                <div class="answer-sheet-title-border {{ $marks->grammar === NULL ? 'bg-warning' : 'bg-success' }}"></div>
                 <div class="row p-3">
                     @foreach($grammars as $index => $grammar)
                         <?php
-                        $grammarQ = $exam->studentGrammars()->where(['student_id' => $student->id, 'grammar_id' => $grammar->id])->get()->first();
-                        if (!empty($grammarQ)) {
-                            $grammarAnswer = $grammarQ->answer;
-                        }
+                        $studentGrammar = $exam->studentGrammars()->where(['student_id' => $student->id, 'grammar_id' => $grammar->id])->get()->first();
                         ?>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <h6 class="h6" title="{{ $grammar->question }}">{{ $index + 1 }}
+                        <div class="col-12 col-md-6 col-lg-4 {{ isset($studentGrammar->answer) ? $studentGrammar->answer == $grammar->answer ? 'correct-grammar-answer': 'wrong-grammar-answer' : 'not-answer' }}"
+                             title="{{ $grammar->question }}">
+
+                            <h6 class="h6 grammar-questions-title">{{ $index + 1 }}
                                 . {{ $grammar->question }}</h6>
                             <ul class="list-unstyled">
                                 <li>
-                                    <div class="custom-control custom-radio  grammar-answer-sheet-radio">
+                                    <div class="custom-control custom-radio grammar-answer-sheet-radio">
                                         @php($id = Str::random())
                                         <input
-                                            {{ isset($grammarAnswer) ? $grammarAnswer == $grammar->option_1 ? 'checked' : '': '' }} type="radio"
-                                            id="{{ $id }}" name="{{ $grammar->id }}" class="custom-control-input"
+                                            {{ isset($studentGrammar->answer) ? $studentGrammar->answer == $grammar->option_1 ? 'checked' : '': '' }}
+                                            type="radio"
+                                            id="{{ $id }}" name="{{ $grammar->id }}"
+                                            class="custom-control-input"
                                             disabled>
                                         <label class="custom-control-label"
-                                               for="{{ $id }}">{{ $grammar->option_1 }}</label>
+                                        for="{{ $id }}">{{ $grammar->option_1 }}
+                                        @if($grammar->option_1 == $grammar->answer)
+                                            <i class="far fa-check-circle text-success correct-radio-icon"></i>
+                                        @endif
+                                        </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="custom-control custom-radio grammar-answer-sheet-radio">
                                         @php($id = Str::random())
                                         <input
-                                            {{ isset($grammarAnswer) ? $grammarAnswer == $grammar->option_2 ? 'checked' : '': '' }} type="radio"
+                                            {{ isset($studentGrammar->answer) ? $studentGrammar->answer == $grammar->option_2 ? 'checked' : '': '' }}
+                                            type="radio"
                                             name="{{ $grammar->id }}" class="custom-control-input" disabled>
                                         <label class="custom-control-label"
-                                               for="{{ $id }}">{{ $grammar->option_2 }}</label>
+                                        for="{{ $id }}">{{ $grammar->option_2 }}
+                                        @if($grammar->option_2 == $grammar->answer)
+                                            <i class="far fa-check-circle text-success correct-radio-icon"></i>
+                                        @endif
+                                        </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="custom-control custom-radio grammar-answer-sheet-radio">
                                         @php($id = Str::random())
                                         <input
-                                            {{ isset($grammarAnswer) ? $grammarAnswer == $grammar->option_3 ? 'checked' : '': '' }} type="radio"
+                                            {{ isset($studentGrammar->answer) ? $studentGrammar->answer == $grammar->option_3 ? 'checked' : '': '' }}
+                                            type="radio"
                                             id="{{ $id }}" name="{{ $grammar->id }}" class="custom-control-input"
                                             disabled>
                                         <label class="custom-control-label"
-                                               for="{{ $id }}">{{ $grammar->option_3 }}</label>
+                                        for="{{ $id }}">{{ $grammar->option_3 }}
+                                        @if($grammar->option_3 == $grammar->answer)
+                                            <i class="far fa-check-circle text-success correct-radio-icon"></i>
+                                        @endif
+                                        </label>
                                     </div>
                                 </li>
                             </ul>
@@ -236,31 +253,52 @@
                             Rearrange {{ $marks->rearrange !== NULL ? '('.$marks->rearrange.')' : '' }}</h5>
                         <table class="table table-striped table-hover table-borderless shadow-sm">
                             <thead>
-                            <tr class="">
+                            <tr class="text-right">
                                 <th>Line</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>{!! $marks->rearrange !== NULL ? $rearrange->line_1 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}</td>
+                                <td>
+                                    <span>1.</span>
+                                    {!! $marks->rearrange !== NULL ? $rearrange->line_1 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}
+                                </td>
                             </tr>
                             <tr>
-                                <td>{!! $marks->rearrange !== NULL ? $rearrange->line_2 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}</td>
+                                <td>
+                                    <span>2.</span>
+                                    {!! $marks->rearrange !== NULL ? $rearrange->line_2 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}
+                                </td>
                             </tr>
                             <tr>
-                                <td>{!! $marks->rearrange !== NULL ? $rearrange->line_3 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}</td>
+                                <td>
+                                    <span>3.</span>
+                                    {!! $marks->rearrange !== NULL ? $rearrange->line_3 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}
+                                </td>
                             </tr>
                             <tr>
-                                <td>{!! $marks->rearrange !== NULL ? $rearrange->line_4 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}</td>
+                                <td>
+                                    <span>4.</span>
+                                    {!! $marks->rearrange !== NULL ? $rearrange->line_4 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}
+                                </td>
                             </tr>
                             <tr>
-                                <td>{!! $marks->rearrange !== NULL ? $rearrange->line_5 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}</td>
+                                <td>
+                                    <span>5.</span>
+                                    {!! $marks->rearrange !== NULL ? $rearrange->line_5 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}
+                                </td>
                             </tr>
                             <tr>
-                                <td>{!! $marks->rearrange !== NULL ? $rearrange->line_6 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}</td>
+                                <td>
+                                    <span>6.</span>
+                                    {!! $marks->rearrange !== NULL ? $rearrange->line_6 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}
+                                </td>
                             </tr>
                             <tr>
-                                <td>{!! $marks->rearrange !== NULL ? $rearrange->line_7 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}</td>
+                                <td>
+                                    <span>7.</span>
+                                    {!! $marks->rearrange !== NULL ? $rearrange->line_7 : '<span class="badge badge-warning" style="margin: 9.80px 0;">Pending</span>' !!}
+                                </td>
                             </tr>
                             </tbody>
                         </table>

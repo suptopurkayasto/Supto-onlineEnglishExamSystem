@@ -80,7 +80,7 @@ class AnswerSheetController extends Controller
 
             // Reading
             $headings = $exam->headings()->where('set_id', $student->set->id)->get();
-            $rearrange = $exam->studentRearranges()->where(['set_id' => $student->set->id, 'student_id' => $studentId])->get();
+            $rearrange = $exam->studentRearranges()->where(['set_id' => $student->set->id, 'student_id' => $studentId])->get()->first();
 
             return view('teacher.exams.answer-sheet.show')
                 ->with('authTeacher', $authTeacher)

@@ -1,3 +1,9 @@
+// Required
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+
 @import "~bourbon/core/bourbon";
 @import "~animate.css";
 @import "variables";
@@ -134,9 +140,82 @@ li.sidebar-item {
     }
 }
 
-.grammar-answer-sheet-radio {
-    .custom-control-input:disabled~.custom-control-label{
-        color: black;
+
+
+
+
+
+.correct-grammar-answer {
+    .grammar-questions-title {
+        color: $success;
+        font-weight: bolder;
     }
+    .custom-control-input:disabled~.custom-control-label::before {
+        background-color: white;
+        //border-color: $primary-admin;
+    }
+    .custom-control-input:disabled:checked~.custom-control-label::before {
+        background-color: $success !important;
+    }
+    .custom-control-input:checked~.custom-control-label::before {
+        border-color: $success !important;
+    }
+    .custom-control-input:disabled~.custom-control-label{
+        color: transparentize(black, .1);
+    }
+    .custom-control-input:checked~.custom-control-label{
+        color: $success;
+    }
+    .correct-radio-icon {
+        display: none;
+    }
+}
+.wrong-grammar-answer {
+    .grammar-questions-title {
+        color: $danger;
+        font-weight: bolder;
+    }
+    .grammar-answer-sheet-radio {
+        .custom-control-input:disabled~.custom-control-label::before {
+            background-color: white;
+            //border-color: $primary-admin;
+        }
+        .custom-control-input:disabled:checked~.custom-control-label::before {
+            background-color: $danger !important;
+        }
+        .custom-control-input:checked~.custom-control-label::before {
+            border-color: $danger !important;
+        }
+        .custom-control-input:checked~.custom-control-label{
+            color: $danger;
+        }
+    }
+}
+.not-answer {
+    .grammar-questions-title {
+        color: $secondary;
+        font-weight: bolder;
+    }
+    .grammar-answer-sheet-radio {
+        .custom-control-input:disabled~.custom-control-label::before {
+            background-color: white;
+            //border-color: $primary-admin;
+        }
+        .custom-control-input:disabled:checked~.custom-control-label::before {
+            background-color: red !important;
+        }
+        .custom-control-input:checked~.custom-control-label::before {
+            border-color: red !important;
+        }
+        .custom-control-input:disabled~.custom-control-label{
+            color: $secondary;
+        }
+    }
+}
+
+
+
+.answer-sheet-title-border {
+    @include size(100%, 3px);
 }
 

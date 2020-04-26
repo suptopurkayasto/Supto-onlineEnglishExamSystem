@@ -3256,7 +3256,79 @@ li.sidebar-item ul li p {
   color: red;
 }
 
-.grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label {
-  color: black;
+.correct-grammar-answer .grammar-questions-title {
+  color: #28a745;
+  font-weight: bolder;
+}
+
+.correct-grammar-answer .custom-control-input:disabled ~ .custom-control-label::before {
+  background-color: white;
+}
+
+.correct-grammar-answer .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color: #28a745 !important;
+}
+
+.correct-grammar-answer .custom-control-input:checked ~ .custom-control-label::before {
+  border-color: #28a745 !important;
+}
+
+.correct-grammar-answer .custom-control-input:disabled ~ .custom-control-label {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.correct-grammar-answer .custom-control-input:checked ~ .custom-control-label {
+  color: #28a745;
+}
+
+.correct-grammar-answer .correct-radio-icon {
+  display: none;
+}
+
+.wrong-grammar-answer .grammar-questions-title {
+  color: #dc3545;
+  font-weight: bolder;
+}
+
+.wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label::before {
+  background-color: white;
+}
+
+.wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color: #dc3545 !important;
+}
+
+.wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:checked ~ .custom-control-label::before {
+  border-color: #dc3545 !important;
+}
+
+.wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:checked ~ .custom-control-label {
+  color: #dc3545;
+}
+
+.not-answer .grammar-questions-title {
+  color: #6c757d;
+  font-weight: bolder;
+}
+
+.not-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label::before {
+  background-color: white;
+}
+
+.not-answer .grammar-answer-sheet-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color: red !important;
+}
+
+.not-answer .grammar-answer-sheet-radio .custom-control-input:checked ~ .custom-control-label::before {
+  border-color: red !important;
+}
+
+.not-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label {
+  color: #6c757d;
+}
+
+.answer-sheet-title-border {
+  height: 3px;
+  width: 100%;
 }
 
