@@ -348,13 +348,13 @@ class ExamController extends Controller
                 $authStudent->studentRearranges()->create([
                     'exam_id' => $exam->id,
                     'set_id' => $authStudent->set->id,
-                    'line_1' => $request->input('1'),
-                    'line_2' => $request->input('2'),
-                    'line_3' => $request->input('3'),
-                    'line_4' => $request->input('4'),
-                    'line_5' => $request->input('5'),
-                    'line_6' => $request->input('6'),
-                    'line_7' => $request->input('7'),
+                    'line_1' => $request->input('rearrange.1'),
+                    'line_2' => $request->input('rearrange.2'),
+                    'line_3' => $request->input('rearrange.3'),
+                    'line_4' => $request->input('rearrange.4'),
+                    'line_5' => $request->input('rearrange.5'),
+                    'line_6' => $request->input('rearrange.6'),
+                    'line_7' => $request->input('rearrange.7'),
                 ]);
 
                 // Generate rearrange marks

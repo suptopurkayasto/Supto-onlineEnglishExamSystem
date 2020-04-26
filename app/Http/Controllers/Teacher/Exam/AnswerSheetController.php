@@ -81,7 +81,8 @@ class AnswerSheetController extends Controller
 
             // Reading
             $headings = $exam->headings()->where('set_id', $student->set->id)->get();
-            $rearrange = $exam->studentRearranges()->where(['set_id' => $student->set->id, 'student_id' => $studentId])->get()->first();
+            $rearrange = $exam->rearranges()->where(['set_id' => $student->set->id])->get()->first();
+            $studentRearrange = $exam->studentRearranges()->where(['set_id' => $student->set->id, 'student_id' => $studentId])->get()->first();
 
             return view('teacher.exams.answer-sheet.show')
                 ->with('authTeacher', $authTeacher)
@@ -97,7 +98,8 @@ class AnswerSheetController extends Controller
                 ->with('fillInTheGaps', $fillInTheGaps)
 
                 ->with('headings', $headings)
-                ->with('rearrange', $rearrange);
+                ->with('rearrange', $rearrange)
+                ->with('studentRearrange', $studentRearrange);
 
         } else {
             alert()->error('😒', 'You can\'t do this.');

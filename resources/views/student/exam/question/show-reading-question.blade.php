@@ -49,37 +49,37 @@
                                             class="list-group-item shadow-sm mb-3 first-rearrange-item">
                                             <i class="fas fa-arrows-alt mr-2 text-primary"></i>
                                             {{ $rearrange->line_1 }}
-                                            <input type="hidden" name="1" class="" value="{{ $rearrange->line_1 }}">
+                                            <input type="hidden" name="rearrange[1]" class="" value="{{ $rearrange->line_1 }}">
                                         </label>
                                         <label class="list-group-item shadow-sm mb-3">
                                             <i class="fas fa-arrows-alt mr-2 text-primary"></i>
                                             {{ $rearrange->line_6 }}
-                                            <input type="hidden" name="2" class="" value="{{ $rearrange->line_6 }}">
+                                            <input type="hidden" name="rearrange[2]" class="" value="{{ $rearrange->line_6 }}">
                                         </label>
                                         <label class="list-group-item shadow-sm mb-3">
                                             <i class="fas fa-arrows-alt mr-2 text-primary"></i>
                                             {{ $rearrange->line_4 }}
-                                            <input type="hidden" name="3" class="" value="{{ $rearrange->line_4 }}">
+                                            <input type="hidden" name="rearrange[3]" class="" value="{{ $rearrange->line_4 }}">
                                         </label>
                                         <label class="list-group-item shadow-sm mb-3">
                                             <i class="fas fa-arrows-alt mr-2 text-primary"></i>
                                             {{ $rearrange->line_5 }}
-                                            <input type="hidden" name="4" class="" value="{{ $rearrange->line_5 }}">
+                                            <input type="hidden" name="rearrange[4]" class="" value="{{ $rearrange->line_5 }}">
                                         </label>
                                         <label class="list-group-item shadow-sm mb-3">
                                             <i class="fas fa-arrows-alt mr-2 text-primary"></i>
                                             {{ $rearrange->line_7 }}
-                                            <input type="hidden" name="5" class="" value="{{ $rearrange->line_7 }}">
+                                            <input type="hidden" name="rearrange[5]" class="" value="{{ $rearrange->line_7 }}">
                                         </label>
                                         <label class="list-group-item shadow-sm mb-3">
                                             <i class="fas fa-arrows-alt mr-2 text-primary"></i>
                                             {{ $rearrange->line_3 }}
-                                            <input type="hidden" name="6" class="" value="{{ $rearrange->line_4 }}">
+                                            <input type="hidden" name="rearrange[6]" class="" value="{{ $rearrange->line_4 }}">
                                         </label>
                                         <label class="list-group-item shadow-sm mb-3">
                                             <i class="fas fa-arrows-alt mr-2 text-primary"></i>
                                             {{ $rearrange->line_2 }}
-                                            <input type="hidden" name="7" class="" value="{{ $rearrange->line_2 }}">
+                                            <input type="hidden" name="rearrange[7]" class="" value="{{ $rearrange->line_2 }}">
                                         </label>
                                     </ul>
                                 @endforeach
@@ -121,7 +121,7 @@
             distance: 5,
             update: function (event, ui) {
                 $(this).children().each(function (index) {
-                    $(this).children('input').attr('name', (index + 1));
+                    $(this).children('input').attr("name", "rearrange["+ (index + 1) +"]");
                 })
             }
         });
