@@ -174,7 +174,7 @@ li.sidebar-item {
 .wrong-grammar-answer {
     .grammar-questions-title {
         color: $danger;
-        font-weight: bolder;
+        font-weight: bold;
     }
     .grammar-answer-sheet-radio {
         .custom-control-input:disabled~.custom-control-label::before {
@@ -187,15 +187,15 @@ li.sidebar-item {
         .custom-control-input:checked~.custom-control-label::before {
             border-color: $danger !important;
         }
-        .custom-control-input:checked~.custom-control-label{
-            color: $danger;
+        .custom-control-input:disabled~.custom-control-label.ccl-correct{
+            color: $success;
         }
     }
 }
 .not-answer {
     .grammar-questions-title {
         color: $secondary;
-        font-weight: bolder;
+        font-weight: bold;
     }
     .grammar-answer-sheet-radio {
         .custom-control-input:disabled~.custom-control-label::before {
@@ -216,13 +216,13 @@ li.sidebar-item {
         }
     }
 }
-
-.answer-sheet-title-border {
-    @include size(100%, 3px);
+label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct){
+    font-weight: normal;
 }
 
-
-
+.answer-sheet-title-border {
+    @include size(100%, 2.5px);
+}
 
 .mini-answer-sheet-table {
     thead {
@@ -250,3 +250,7 @@ li.sidebar-item {
     }
 }
 
+
+.modal textarea:disabled, input:disabled {
+    background-color: white !important;
+}

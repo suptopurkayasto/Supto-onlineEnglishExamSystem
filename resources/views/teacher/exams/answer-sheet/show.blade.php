@@ -3,31 +3,40 @@
 @section('title', 'Show - '.$student->name.' Answer Sheet')
 
 @section('content')
+
+    <?php
+    $grammarMarksBoolean = $marks->grammar !== NULL;
+    $vocabularyMarksBoolean = $marks->synonym !== NULL && $marks->definition !== NULL && $marks->combination !== NULL && $marks->fillInTheGap !== NULL;
+    $readingMarksBoolean = $marks->heading !== NULL && $marks->rearrange !== NULL;
+    $writingMarksBoolean = $marks->dialog !== NULL && $marks->informalEmail !== NULL && $marks->formalEmail !== NULL && $marks->sortQuestion !== NULL;
+
+    $examDone = $grammarMarksBoolean && $vocabularyMarksBoolean && $readingMarksBoolean && $writingMarksBoolean;
+    ?>
+
     <div class="card">
-        <div class="card-header bg-primary border-0">
-            <h3 class="h3 float-left">{{ $exam->name }} <?= "supto" ?></h3>
+        <div class="card-header shadow {{ $examDone ? 'border-success' : 'border-secondary' }}">
+            <h3 class="h3 float-left {{ $examDone ? 'text-success' : 'text-secondary' }}">{{ $exam->name }}</h3>
             <h3 class="h3 float-right">
                 <a target="_blank"
-                   class="text-white"
-                   href="{{ route('teacher.students.show', $student->id) }}">{{ $student->name }}</a>
+                   @if($examDone)
+                   href="{{ route('teacher.students.show', $student->id) }}"
+                   @endif
+                   class="{{ $examDone ? 'text-success' : 'text-secondary' }}">{{ $student->name }}</a>
             </h3>
         </div><!-- /.card-header -->
         <div class="card-body p-0">
 
             <!-- Start:: Grammar -->
             <div class="grammar">
-                <?php
-                $grammarMarksStatus = $marks->grammar !== NULL;
-                ?>
                 <h4 class="h4 p-3 font-weight-bolder">
-                    <span class="{{ $grammarMarksStatus ? 'text-success' : 'text-secondary' }}">Grammar</span>
-                    @if($grammarMarksStatus)
+                    <span class="{{ $grammarMarksBoolean ? 'text-success' : 'text-secondary' }}">Grammar</span>
+                    @if($grammarMarksBoolean)
                         <span class="float-right">{{ $marks->grammar }} / 25</span>
                     @endif
                 </h4>
-                <div class="answer-sheet-title-border {{ $grammarMarksStatus ? 'bg-success' : 'bg-secondary' }}"></div>
+                <div class="answer-sheet-title-border {{ $grammarMarksBoolean ? 'bg-success' : 'bg-secondary' }}"></div>
 
-                @if($grammarMarksStatus)
+                @if($grammarMarksBoolean)
                     <div class="row p-3">
                         @foreach($grammars as $index => $grammar)
                             <?php
@@ -49,8 +58,9 @@
                                                 id="{{ $id }}" name="{{ $grammar->id }}"
                                                 class="custom-control-input"
                                                 disabled>
-                                            <label class="custom-control-label"
-                                                   for="{{ $id }}">{{ $grammar->option_1 }}
+                                            <label
+                                                class="custom-control-label {{ $grammar->option_1 == $grammar->answer ? 'ccl-correct' : '' }}"
+                                                for="{{ $id }}">{{ $grammar->option_1 }}
                                                 @if($grammar->option_1 == $grammar->answer)
                                                     <i class="fa fa-check text-success correct-radio-icon"></i>
                                                 @endif
@@ -64,8 +74,9 @@
                                                 {{ isset($studentGrammar->answer) ? $studentGrammar->answer == $grammar->option_2 ? 'checked' : '': '' }}
                                                 type="radio"
                                                 name="{{ $grammar->id }}" class="custom-control-input" disabled>
-                                            <label class="custom-control-label"
-                                                   for="{{ $id }}">{{ $grammar->option_2 }}
+                                            <label
+                                                class="custom-control-label {{ $grammar->option_2 == $grammar->answer ? 'ccl-correct' : '' }}"
+                                                for="{{ $id }}">{{ $grammar->option_2 }}
                                                 @if($grammar->option_2 == $grammar->answer)
                                                     <i class="fa fa-check text-success correct-radio-icon"></i>
                                                 @endif
@@ -80,8 +91,9 @@
                                                 type="radio"
                                                 id="{{ $id }}" name="{{ $grammar->id }}" class="custom-control-input"
                                                 disabled>
-                                            <label class="custom-control-label"
-                                                   for="{{ $id }}">{{ $grammar->option_3 }}
+                                            <label
+                                                class="custom-control-label {{ $grammar->option_3 == $grammar->answer ? 'ccl-correct' : '' }}"
+                                                for="{{ $id }}">{{ $grammar->option_3 }}
                                                 @if($grammar->option_3 == $grammar->answer)
                                                     <i class="fa fa-check text-success correct-radio-icon"></i>
                                                 @endif
@@ -105,19 +117,16 @@
 
             <!-- Start:: vocabulary -->
             <div class="vocabulary">
-                <?php
-                $vocabularyMarksStatus = $marks->synonym !== NULL && $marks->definition !== NULL && $marks->combination !== NULL && $marks->fillInTheGap !== NULL;
-                ?>
                 <h4 class="h4 p-3 font-weight-bolder">
-                    <span class="{{ $vocabularyMarksStatus ? 'text-success' : 'text-secondary' }}">Vocabulary</span>
+                    <span class="{{ $vocabularyMarksBoolean ? 'text-success' : 'text-secondary' }}">Vocabulary</span>
                     <span class="float-right">
-                        @if($vocabularyMarksStatus)
+                        @if($vocabularyMarksBoolean)
                             {{ $marks->synonym + $marks->definition + $marks->combination + $marks->fillInTheGap }} / 20
                         @endif
                     </span>
                 </h4>
                 <div
-                    class="answer-sheet-title-border {{ $vocabularyMarksStatus ? 'bg-success' : 'bg-secondary' }}"></div>
+                    class="answer-sheet-title-border {{ $vocabularyMarksBoolean ? 'bg-success' : 'bg-secondary' }}"></div>
                 <div class="row p-3">
                     <!-- Start: Synonym -->
                     @if($marks->synonym !== NULL)
@@ -311,19 +320,16 @@
 
             <!-- Start:: reading -->
             <div class="reading">
-                <?php
-                $readingMarksStatus = $marks->heading !== NULL && $marks->rearrange !== NULL;
-                ?>
                 <h4 class="h4 p-3 font-weight-bolder">
-                    <span class="{{ $readingMarksStatus ? 'text-success' : 'text-secondary' }}">Reading</span>
+                    <span class="{{ $readingMarksBoolean ? 'text-success' : 'text-secondary' }}">Reading</span>
                     <span class="float-right">
-                        @if($readingMarksStatus)
+                        @if($readingMarksBoolean)
                             {{ $marks->heading + $marks->rearrange }} / 00
                         @endif
                     </span>
                 </h4>
                 <div
-                    class="answer-sheet-title-border {{ $readingMarksStatus ? 'bg-success' : 'bg-secondary' }}"></div>
+                    class="answer-sheet-title-border {{ $readingMarksBoolean ? 'bg-success' : 'bg-secondary' }}"></div>
                 <div class="row p-3">
                     <!-- Start: heading -->
                     @if($marks->heading !== NULL)
@@ -490,20 +496,17 @@
 
             <!-- Start:: writing -->
             <div class="writing">
-                <?php
-                $writingMarksStatus = $marks->dialog !== NULL && $marks->informalEmail !== NULL && $marks->formalEmail !== NULL && $marks->sortQuestion !== NULL;
-                ?>
                 <h4 class="h4 p-3 font-weight-bolder">
-                    <span class="{{ $writingMarksStatus ? 'text-success' : 'text-secondary' }}">Writing</span>
+                    <span class="{{ $writingMarksBoolean ? 'text-success' : 'text-secondary' }}">Writing</span>
                     <span class="float-right">
-                        @if($writingMarksStatus)
+                        @if($writingMarksBoolean)
                             {{ $marks->dialog + $marks->informalEmail + $marks->formalEmail + $marks->sortQuestion }} /
                             00
                         @endif
                     </span>
                 </h4>
                 <div
-                    class="answer-sheet-title-border {{ $writingMarksStatus ? 'bg-success' : 'bg-secondary' }}"></div>
+                    class="answer-sheet-title-border {{ $writingMarksBoolean ? 'bg-success' : 'bg-secondary' }}"></div>
                 <div class="row p-3">
 
                     <!-- Start: dialog -->
@@ -573,77 +576,77 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header border-success" style="border-width: 3px">
-                                        <h3 class="modal-title">Dialog ( {{ $student->name }} )</h3>
+                                        <h3 class="modal-title">Dialog</h3>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h6 class="h6 text-center">{{ $studentDialog->dialog->topic }}</h6>
-                                        <div class="card-body body-max-width">
-                                            <div id="dialog-question-1"
-                                                 class="form-group mt-2">
-                                                <label for="question_1"><h5 class="h5">
-                                                        1. {{ $studentDialog->dialog->question_1 }}</h5>
-                                                </label>
-                                                <textarea name="dialog[answer][1]" id="question_1" rows="5"
-                                                          class="form-control"
-                                                          spellcheck="false" word-limit="true" max-words="50"
-                                                          min-words="40"
-                                                          disabled>{{ $studentDialog->answer_1 }}</textarea>
-                                                <span class="mt-2"></span>
-                                                <div class="writing_error mt-2"></div>
+                                        <p>
+                                            <span class="d-block font-weight-bold">Topic: </span>
+                                            {{ $studentDialog->dialog->topic }}
+                                        </p>
+                                        <div id="dialog-question-1"
+                                             class="form-group mt-2">
+                                            <label for="question_1"><h5 class="h5">
+                                                    1. {{ $studentDialog->dialog->question_1 }}</h5>
+                                            </label>
+                                            <textarea name="dialog[answer][1]" id="question_1" rows="5"
+                                                      class="form-control"
+                                                      spellcheck="false" word-limit="true" max-words="50"
+                                                      min-words="40"
+                                                      disabled>{{ $studentDialog->answer_1 }}</textarea>
+                                            <span class="mt-2"></span>
+                                            <div class="writing_error mt-2"></div>
 
-                                            </div><!-- /.form-group -->
+                                        </div><!-- /.form-group -->
 
-                                            <div id="dialog-question-2"
-                                                 class="form-group mt-5">
-                                                <label for="question_2"><h5 class="h5">
-                                                        2. {{ $studentDialog->dialog->question_2 }}</h5>
-                                                </label>
-                                                <textarea name="dialog[answer][2]" id="question_2" rows="5"
-                                                          class="form-control" spellcheck="false" word-limit="true"
-                                                          max-words="50"
-                                                          min-words="40"
-                                                          disabled>{{ $studentDialog->answer_2 }}</textarea>
-                                                <span class="mt-2"></span>
-                                                <div class="writing_error mt-2"></div>
-                                            </div><!-- /.form-group -->
+                                        <div id="dialog-question-2"
+                                             class="form-group mt-5">
+                                            <label for="question_2"><h5 class="h5">
+                                                    2. {{ $studentDialog->dialog->question_2 }}</h5>
+                                            </label>
+                                            <textarea name="dialog[answer][2]" id="question_2" rows="5"
+                                                      class="form-control" spellcheck="false" word-limit="true"
+                                                      max-words="50"
+                                                      min-words="40"
+                                                      disabled>{{ $studentDialog->answer_2 }}</textarea>
+                                            <span class="mt-2"></span>
+                                            <div class="writing_error mt-2"></div>
+                                        </div><!-- /.form-group -->
 
-                                            <div id="dialog-question-1"
-                                                 class="form-group mt-5">
-                                                <label for="question_3"><h5 class="h5">
-                                                        3. {{ $studentDialog->dialog->question_3 }}</h5>
-                                                </label>
-                                                <textarea name="dialog[answer][3]" id="question_3" rows="5"
-                                                          class="form-control" spellcheck="false" word-limit="true"
-                                                          max-words="50"
-                                                          min-words="40"
-                                                          disabled>{{ $studentDialog->answer_3 }}</textarea>
-                                                <span class="mt-2"></span>
-                                                <div class="writing_error mt-2"></div>
-                                            </div><!-- /.form-group -->
+                                        <div id="dialog-question-1"
+                                             class="form-group mt-5">
+                                            <label for="question_3"><h5 class="h5">
+                                                    3. {{ $studentDialog->dialog->question_3 }}</h5>
+                                            </label>
+                                            <textarea name="dialog[answer][3]" id="question_3" rows="5"
+                                                      class="form-control" spellcheck="false" word-limit="true"
+                                                      max-words="50"
+                                                      min-words="40"
+                                                      disabled>{{ $studentDialog->answer_3 }}</textarea>
+                                            <span class="mt-2"></span>
+                                            <div class="writing_error mt-2"></div>
+                                        </div><!-- /.form-group -->
 
-                                            <form
-                                                action="{{ route('teacher.students.exams.answer-sheets.dialog.marks.submit', [encrypt($exam->id), encrypt($student->id)]) }}"
-                                                method="post" class="w-25 mx-auto" id="dialogForm">
-                                                @csrf
-                                                @method('PATCH')
-                                                <div class="form-group mb-0 mt-3">
-                                                    <input name="dialogMarks"
-                                                           type="number" placeholder="Give marks"
-                                                           class="form-control text-center font-weight-bolder border-success @error('dialogMarks') is-invalid @enderror"
-                                                           style="border-width: 2px"
-                                                           value="{{ $marks->dialog }}">
-                                                    @error('dialogMarks')
-                                                    <span class="invalid-feedback" role="alert">
+                                        <form
+                                            action="{{ route('teacher.students.exams.answer-sheets.dialog.marks.submit', [encrypt($exam->id), encrypt($student->id)]) }}"
+                                            method="post" class="w-25 mx-auto" id="dialogForm">
+                                            @csrf
+                                            @method('PATCH')
+                                            <div class="form-group mb-0 mt-3">
+                                                <input name="dialogMarks"
+                                                       type="number" placeholder="Give marks"
+                                                       class="form-control text-center font-weight-bolder border-success @error('dialogMarks') is-invalid @enderror"
+                                                       style="border-width: 2px"
+                                                       value="{{ $marks->dialog }}">
+                                                @error('dialogMarks')
+                                                <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
-                                                    @enderror
-                                                </div><!-- /.form-group -->
-                                            </form>
-
-                                        </div><!-- /.card-body -->
+                                                @enderror
+                                            </div><!-- /.form-group -->
+                                        </form>
                                     </div>
                                     <div class="modal-footer d-block border-success" style="border-width: 2px">
                                         <div class="row justify-content-center">
@@ -731,26 +734,29 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header border-success" style="border-width: 3px">
-                                        <h3 class="modal-title">Informal Email ( {{ $student->name }} )</h3>
+                                        <h3 class="modal-title">Informal Email</h3>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h6 class="h6 text-center">{{ $studentInformalEmail->informalEmail->topic }}</h6>
+                                        <p>
+                                            <span class="d-block font-weight-bold">Topic: </span>
+                                            {{ $studentInformalEmail->informalEmail->topic }}
+                                        </p>
                                         <div id="informalEmail"
                                              class="form-group mt-2">
                                             <input type="hidden" name="informal_email_id"
                                                    value="{{ $studentInformalEmail->id }}">
                                             <div class="form-group">
-                                                <label for="informalEmail-subject">Subject</label>
+                                                <label for="informalEmail-subject"><h5 class="h5">Subject</h5></label>
                                                 <input type="text" id="informalEmail-subject"
                                                        name="informalEmail[subject]"
                                                        placeholder="Subject" class="form-control"
                                                        value="{{ $studentInformalEmail->subject }}" disabled>
                                             </div><!-- /.form-group -->
                                             <div class="form-group">
-                                                <label for="informalEmail-body">Body</label>
+                                                <label for="informalEmail-body"><h5 class="h5">Body</h5></label>
                                                 <textarea name="informalEmail[body]" id="informalEmail-body" rows="6"
                                                           class="form-control"
                                                           spellcheck="false" word-limit="true" max-words="100"
@@ -878,28 +884,33 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header border-success" style="border-width: 3px">
-                                        <h3 class="modal-title">Formal Email ( {{ $student->name }} )</h3>
+                                        <h3 class="modal-title">Formal Email</h3>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h6 class="h6 text-center">{{ $studentFormalEmail->formalEmail->topic }}</h6>
-                                        <span class="font-weight-bold">Received Email:</span>
-                                        <p class="mb-4">{{ $studentFormalEmail->formalEmail->received_email }}</p>
+                                        <p>
+                                            <span class="d-block font-weight-bold">Topic: </span>
+                                            {{ $studentFormalEmail->formalEmail->topic }}
+                                        </p>
+                                        <p>
+                                            <span class="d-block font-weight-bold">Received Email: </span>
+                                            {{ $studentFormalEmail->formalEmail->received_email }}
+                                        </p>
                                         <div id="informalEmail"
                                              class="form-group mt-2">
                                             <input type="hidden" name="informal_email_id"
                                                    value="{{ $studentFormalEmail->id }}">
                                             <div class="form-group">
-                                                <label for="informalEmail-subject">Subject</label>
+                                                <label for="informalEmail-subject"><h5 class="h5">Subject</h5></label>
                                                 <input type="text" id="informalEmail-subject"
                                                        name="informalEmail[subject]"
                                                        placeholder="Subject" class="form-control"
                                                        value="{{ $studentFormalEmail->subject }}" disabled>
                                             </div><!-- /.form-group -->
                                             <div class="form-group">
-                                                <label for="informalEmail-body">Body</label>
+                                                <label for="informalEmail-body"><h5 class="h5">Body</h5></label>
                                                 <textarea name="informalEmail[body]" id="informalEmail-body" rows="6"
                                                           class="form-control"
                                                           spellcheck="false" word-limit="true" max-words="100"
@@ -959,7 +970,7 @@
                     @if($marks->sortQuestion !== NULL)
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
-                                Formal Email <span class="badge badge-success">{{ $marks->sortQuestion }}</span>
+                                Sort questions <span class="badge badge-success">{{ $marks->sortQuestion }}</span>
                                 <button data-toggle="modal" data-target="#sortQuestionModal"
                                         class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
                             </h5>
@@ -995,37 +1006,39 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header border-success" style="border-width: 3px">
-                                        <h3 class="modal-title">Formal Email ( {{ $student->name }} )</h3>
+                                        <h3 class="modal-title">Sort questions</h3>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         @foreach($studentSortQuestions as $index => $studentSortQuestion)
-                                            <div class="form-group mb-5">
-                                                <label for="">{{ $index + 1 }}. {{ $studentSortQuestion->sortQuestion->question }}</label>
-                                                <textarea type="text" class="form-control" disabled>{{ $studentSortQuestion->answer }}</textarea>
+                                            <div class="form-group mb-3">
+                                                <label for=""><h5 class="h5">{{ $index + 1 }}
+                                                        . {{ $studentSortQuestion->sortQuestion->question }}</h5></label>
+                                                <textarea type="text" class="form-control" rows="4"
+                                                          disabled>{{ $studentSortQuestion->answer }}</textarea>
                                             </div><!-- /.form-group -->
                                         @endforeach
 
-                                            <form
-                                                action="{{ route('teacher.students.exams.answer-sheets.sortQuestion.marks.submit', [encrypt($exam->id), encrypt($student->id)]) }}"
-                                                method="post" class="w-25 mx-auto" id="sortQuestionForm">
-                                                @csrf
-                                                @method('PATCH')
-                                                <div class="form-group mb-0 mt-3">
-                                                    <input name="sortQuestion"
-                                                           type="number" placeholder="Give marks"
-                                                           class="form-control text-center font-weight-bolder border-success @error('sortQuestion') is-invalid @enderror"
-                                                           style="border-width: 2px"
-                                                           value="{{ $marks->sortQuestion }}">
-                                                    @error('sortQuestion')
-                                                    <span class="invalid-feedback" role="alert">
+                                        <form
+                                            action="{{ route('teacher.students.exams.answer-sheets.sortQuestion.marks.submit', [encrypt($exam->id), encrypt($student->id)]) }}"
+                                            method="post" class="w-25 mx-auto" id="sortQuestionForm">
+                                            @csrf
+                                            @method('PATCH')
+                                            <div class="form-group mb-0 mt-3">
+                                                <input name="sortQuestion"
+                                                       type="number" placeholder="Give marks"
+                                                       class="form-control text-center font-weight-bolder border-success @error('sortQuestion') is-invalid @enderror"
+                                                       style="border-width: 2px"
+                                                       value="{{ $marks->sortQuestion }}">
+                                                @error('sortQuestion')
+                                                <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
-                                                    @enderror
-                                                </div><!-- /.form-group -->
-                                            </form>
+                                                @enderror
+                                            </div><!-- /.form-group -->
+                                        </form>
 
                                     </div>
                                     <div class="modal-footer d-block border-success" style="border-width: 2px">

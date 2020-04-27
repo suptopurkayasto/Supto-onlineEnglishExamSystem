@@ -12,12 +12,12 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id=""
-                           class="example table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
+                           class="example text-center table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
                            style="width: 100%">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
+                            <th class="text-left">Name</th>
                             <th>Section</th>
                             <th>Group</th>
                             <th>Grammar</th>
@@ -31,39 +31,69 @@
                         @foreach($authTeacher->students()->orderBy('name')->get() as $index => $student)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td title="{{ $student->name }}">{{ Str::limit($student->name, 20) }}</td>
+                                <td class="text-left"
+                                    title="{{ $student->name }}">{{ Str::limit($student->name, 20) }}</td>
                                 <td>{{ $student->section->name }}</td>
                                 <td>{{ $student->group->name }}</td>
                                 <td>
-                                    @if($student->marks->grammar === null)
-                                        <span class="badge badge-warning">Pending</span>
+                                    <?php
+                                    $grammarMarksBoolean = $student->marks->grammar !== NULL;
+                                    $grammarMarksTotal = $student->marks->grammar;
+                                    ?>
+                                    @if($grammarMarksBoolean)
+                                        <span class="d-block"
+                                              title="{{ 'Grammar: '.$student->marks->grammar }}">
+                                           {{ $grammarMarksTotal }}
+                                        </span>
                                     @else
-                                        {{ $student->marks->grammar }}
+                                        <span class="badge badge-secondary">Pending</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($student->marks->grammar === null)
-                                        <span class="badge badge-warning">Pending</span>
+                                    <?php
+                                    $vocabularyMarksBoolean = $student->marks->synonym !== NULL && $student->marks->definition !== NULL && $student->marks->combination !== NULL && $student->marks->fillInTheGap !== NULL;
+                                    $vocabularyMarksTotal = $student->marks->synonym + $student->marks->definition + $student->marks->combination + $student->marks->fillInTheGap;
+                                    ?>
+                                    @if($vocabularyMarksBoolean)
+                                        <span class="d-block"
+                                              title="{{ 'Synonym: '.$student->marks->synonym.', Definition: '.$student->marks->definition.', Combination: '.$student->marks->combination.', Fill in the gap: '.$student->marks->fillInTheGap }}">
+                                           {{ $vocabularyMarksTotal }}
+                                        </span>
                                     @else
-                                        {{ $student->marks->grammar }}
+                                        <span class="badge badge-secondary">Pending</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($student->marks->grammar === null)
-                                        <span class="badge badge-warning">Pending</span>
+                                    <?php
+                                    $readingMarksBoolean = $student->marks->heading !== NULL && $student->marks->rearrange;
+                                    $readingMarksTotal = $student->marks->heading + $student->marks->rearrange;
+                                    ?>
+                                    @if($readingMarksBoolean)
+                                        <span class="d-block"
+                                              title="{{ 'Heading matching: '.$student->marks->heading.', Rearrange: '.$student->marks->rearrange }}">
+                                           {{ $readingMarksTotal }}
+                                        </span>
                                     @else
-                                        {{ $student->marks->grammar }}
+                                        <span class="badge badge-secondary">Pending</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($student->marks->grammar === null)
-                                        <span class="badge badge-warning">Pending</span>
+                                    <?php
+                                    $writingMarksBoolean = $student->marks->dialog !== NULL && $student->marks->informalEmail !== NULL && $student->marks->formalEmail !== NULL && $student->marks->sortQuestion !== NULL;
+                                    $writingMarksTotal = $student->marks->dialog + $student->marks->informalEmail + $student->marks->formalEmail + $student->marks->sortQuestion;
+                                    ?>
+                                    @if($writingMarksBoolean)
+                                        <span class="d-block"
+                                              title="{{ 'Dialog: '.$student->marks->dialog.', Informal email: '.$student->marks->informalEmail.', Formal email: '.$student->marks->formalEmail.', Sort question: '.$student->marks->sortQuestion }}">
+                                           {{ $writingMarksTotal }}
+                                        </span>
                                     @else
-                                        {{ $student->marks->grammar }}
+                                        <span class="badge badge-secondary">Pending</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('teacher.students.exams.answer-sheets.show', [encrypt($exam->id), encrypt($student->id)]) }}" class="btn btn-primary btn-hover-effect btn-block">View</a>
+                                    <a href="{{ route('teacher.students.exams.answer-sheets.show', [encrypt($exam->id), encrypt($student->id)]) }}"
+                                       class="btn btn-primary btn-hover-effect btn-block">View</a>
                                 </td>
                             </tr>
                         @endforeach

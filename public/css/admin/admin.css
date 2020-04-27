@@ -3287,7 +3287,7 @@ li.sidebar-item ul li p {
 
 .wrong-grammar-answer .grammar-questions-title {
   color: #dc3545;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
 .wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label::before {
@@ -3302,13 +3302,13 @@ li.sidebar-item ul li p {
   border-color: #dc3545 !important;
 }
 
-.wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:checked ~ .custom-control-label {
-  color: #dc3545;
+.wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label.ccl-correct {
+  color: #28a745;
 }
 
 .not-answer .grammar-questions-title {
   color: #6c757d;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
 .not-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label::before {
@@ -3331,8 +3331,12 @@ li.sidebar-item ul li p {
   color: #6c757d !important;
 }
 
+label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct) {
+  font-weight: normal;
+}
+
 .answer-sheet-title-border {
-  height: 3px;
+  height: 2.5px;
   width: 100%;
 }
 
@@ -3362,5 +3366,10 @@ li.sidebar-item ul li p {
 
 .mini-answer-sheet-table tbody tr.received_email:hover {
   background-color: transparent;
+}
+
+.modal textarea:disabled,
+input:disabled {
+  background-color: white !important;
 }
 
