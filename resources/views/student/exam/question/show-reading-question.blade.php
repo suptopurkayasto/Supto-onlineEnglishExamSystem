@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Exam - Reading  ( '.$authStudent->name.' )')
+
 @section('content')
     <div class="container h-100 my-5">
         <div class="h-100 d-flex justify-content-center align-items-center">

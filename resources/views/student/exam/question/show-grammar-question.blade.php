@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Exam - Grammar')
+@section('title', 'Exam - Grammar  ( '.$authStudent->name.' )')
 @section('content')
     <div class="container h-100">
         <div class="row justify-content-center h-100">

@@ -227,9 +227,9 @@ li.sidebar-item {
     }
     tbody {
         tr {
-            transition: all 100ms $ease-in-cubic;
+            transition: all 200ms $ease-in-cubic;
         }
-        tr.success-row {
+        tr.success-row:not(.dialog-success-row) {
             font-weight: bold;
         }
         tr.success-row:hover {

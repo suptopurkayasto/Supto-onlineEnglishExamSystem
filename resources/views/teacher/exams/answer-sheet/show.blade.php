@@ -275,7 +275,7 @@
             <div class="reading">
                 <h4 class="h4 p-3 font-weight-bolder">
                     <span class="">Reading</span>
-                    <span class="float-right">{!! $marks->heading === NULL ? '<span class="badge badge-warning mr-1">Pending</span>' : $marks->heading + $marks->rearrage !!} /</span>
+                    <span class="float-right">{!! $marks->heading === NULL ? '<span class="badge badge-warning mr-1">Pending</span>' : $marks->heading + $marks->rearrange !!} /</span>
                 </h4>
                 <div
                     class="answer-sheet-title-border {{ $marks->heading === NULL ? 'bg-warning' : 'bg-success' }}"></div>
@@ -332,7 +332,7 @@
 
                         @if($marks->rearrange !== NULL)
                             <table
-                                class="table mini-answer-sheet-table table-hover table-borderless shadow-sm">
+                                class="table mini-answer-sheet-table table-hover table-borderless">
                                 <thead
                                     class="border-bottom {{ $marks->rearrange === NULL ? 'border-warning' : 'border-success' }}">
                                 <tr>
@@ -432,6 +432,171 @@
             </div><!-- /.reading -->
             <!-- End:: reading -->
 
+
+            <!-- Start:: writing -->
+            <div class="writing">
+                <h4 class="h4 p-3 font-weight-bolder">
+                    <span class="">Writing</span>
+                    <span class="float-right">{!! $marks->dialog === NULL && $marks->informalEmail === NULL && $marks->formalEmail === NULL && $marks->sortQuestion === NULL ? '<span class="badge badge-warning mr-1">Pending</span>' : $marks->dialog + $marks->informalEmail + $marks->formalEmail + $marks->sortQuestion !!} / </span>
+                </h4>
+                <div
+                    class="answer-sheet-title-border {{ $marks->dialog === NULL && $marks->informalEmail === NULL && $marks->formalEmail === NULL && $marks->sortQuestion === NULL ? 'bg-warning' : 'bg-success' }}"></div>
+                <div class="row p-3">
+
+
+                    <!-- Start: dialog -->
+                    <div
+                        class="col-12 col-md-6" {!! $studentDialog->answer_1 !== NULL && $studentDialog->answer_2 !== NULL && $studentDialog->answer_3 !== NULL ? 'data-toggle="modal" data-target="#dialogModel" style="cursor: pointer"' : '' !!}>
+                        <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
+                            Dialog {{ $marks->dialog !== NULL ? '('.$marks->dialog.')' : '' }}</h5>
+                        <h6 class="h6 my-3 text-center">{{ $studentDialog->dialog->topic }}</h6>
+                        <table
+                            class="table mini-answer-sheet-table table-hover table-borderless">
+                            <thead
+                                class="border-bottom {{ $marks->dialog === NULL ? 'border-warning' : 'border-success' }}">
+                            <tr>
+                                <th style="width: 3%">#</th>
+                                <th style="width: 30%;">Question</th>
+                                <th style="width: 67%;" class="text-right">Student Answer</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="{{ $studentDialog->answer_1 !== NULL ?'success-row dialog-success-row' : 'text-secondary secondary-row' }}">
+                                <td>1</td>
+                                <td title="{{ $studentDialog->dialog->question_1 }}">{{ Str::limit($studentDialog->dialog->question_1, 20) }}</td>
+                                <td class="text-right">
+                                    @if($studentDialog->answer_1 !== NULL)
+                                        <div
+                                            title="{{ $studentDialog->answer_1 }}">{{ Str::limit($studentDialog->answer_1, 50) }}</div>
+                                    @else
+                                        <span class="badge badge-secondary">Not touched</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr class="{{ $studentDialog->answer_2 !== NULL ?'success-row dialog-success-row' : 'text-secondary secondary-row' }}">
+                                <td>2</td>
+                                <td title="{{ $studentDialog->dialog->question_2 }}">{{ Str::limit($studentDialog->dialog->question_2, 20) }}</td>
+                                <td class="text-right">
+                                    @if($studentDialog->answer_2 !== NULL)
+                                        <div
+                                            title="{{ $studentDialog->answer_2 }}">{{ Str::limit($studentDialog->answer_2, 50) }}</div>
+                                    @else
+                                        <span class="badge badge-secondary">Not touched</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr class="{{ $studentDialog->answer_3 !== NULL ?'success-row dialog-success-row' : 'text-secondary secondary-row' }}">
+                                <td>3</td>
+                                <td title="{{ $studentDialog->dialog->question_3 }}">{{ Str::limit($studentDialog->dialog->question_3, 20) }}</td>
+                                <td class="text-right">
+                                    @if($studentDialog->answer_3 !== NULL)
+                                        <div
+                                            title="{{ $studentDialog->answer_3 }}">{{ Str::limit($studentDialog->answer_3, 50) }}</div>
+                                    @else
+                                        <span class="badge badge-secondary">Not touched</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- /.col-12 col-md-6 -->
+                    <!-- End: dialog -->
+
+                </div><!-- /.row -->
+            </div><!-- /.writing -->
+            <!-- End:: writing -->
+
         </div><!-- /.card-body -->
     </div><!-- /.card -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="dialogModel" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-success" style="border-width: 3px">
+                    <h3 class="modal-title">Dialog ( {{ $student->name }} )</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body body-max-width">
+                        <h6 class="h6 text-center">{{ $studentDialog->dialog->topic }}</h6>
+                        <div id="dialog-question-1"
+                             class="form-group mt-5">
+                            <label for="question_1"><h5 class="h5">1. {{ $studentDialog->dialog->question_1 }}</h5>
+                            </label>
+                            <textarea name="dialog[answer][1]" id="question_1" rows="5" class="form-control"
+                                      spellcheck="false" word-limit="true" max-words="50"
+                                      min-words="40"
+                                      disabled>{{ $studentDialog->answer_1 }}</textarea>
+                            <span class="mt-2"></span>
+                            <div class="writing_error mt-2"></div>
+
+                        </div><!-- /.form-group -->
+
+                        <div id="dialog-question-2"
+                             class="form-group mt-5">
+                            <label for="question_2"><h5 class="h5">2. {{ $studentDialog->dialog->question_2 }}</h5>
+                            </label>
+                            <textarea name="dialog[answer][2]" id="question_2" rows="5"
+                                      class="form-control" spellcheck="false" word-limit="true" max-words="50"
+                                      min-words="40"
+                                      disabled>{{ $studentDialog->answer_2 }}</textarea>
+                            <span class="mt-2"></span>
+                            <div class="writing_error mt-2"></div>
+                        </div><!-- /.form-group -->
+
+                        <div id="dialog-question-1"
+                             class="form-group mt-5">
+                            <label for="question_3"><h5 class="h5">3. {{ $studentDialog->dialog->question_3 }}</h5>
+                            </label>
+                            <textarea name="dialog[answer][3]" id="question_3" rows="5"
+                                      class="form-control" spellcheck="false" word-limit="true" max-words="50"
+                                      min-words="40"
+                                      disabled>{{ $studentDialog->answer_3 }}</textarea>
+                            <span class="mt-2"></span>
+                            <div class="writing_error mt-2"></div>
+                        </div><!-- /.form-group -->
+
+                        <form
+                            action="{{ route('teacher.students.exams.answer-sheets.dialog.marks.submit', [encrypt($exam->id), encrypt($student->id)]) }}"
+                            method="post" class="w-25 mx-auto" id="dialogForm">
+                            @csrf
+                            @method('PATCH')
+                            <div class="form-group mb-0 mt-3">
+                                <input name="dialogMarks"
+                                    type="number" placeholder="Give marks"
+                                    class="form-control text-center font-weight-bolder border-success @error('dialogMarks') is-invalid @enderror"
+                                    style="border-width: 2px"
+                                    value="{{ $marks->dialog }}">
+                                @error('dialogMarks')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div><!-- /.form-group -->
+                        </form>
+
+                    </div><!-- /.card-body -->
+                </div>
+                <div class="modal-footer d-block border-success" style="border-width: 2px">
+                    <div class="row justify-content-center">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn btn-success btn-block"
+                                            onclick="document.getElementById('dialogForm').submit()">Save
+                                    </button>
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+                        </div><!-- /.col-6 -->
+                    </div><!-- /.row -->
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Exam - Writing ( '.$authStudent->name.' )')
+
 @section('content')
     <div class="container h-100 my-5">
         <div class="h-100 d-flex justify-content-center align-items-center">
@@ -18,10 +20,9 @@
                             </div><!-- /.card-header -->
                             <div class="card-body body-max-width">
                                 <h5 class="h5">{{ $dialog->topic }}</h5>
-
+                                <input type="hidden" name="dialog_id" value="{{ $dialog->id }}">
                                 <div id="dialog-question-1"
                                      class="form-group mt-5">
-                                    <input type="hidden" name="dialog_id" value="{{ $dialog->id }}">
                                     <label for="question_1"><h6 class="h6">1. {{ $dialog->question_1 }}</h6></label>
                                     <textarea name="dialog[answer][1]" id="question_1" rows="5" class="form-control"
                                               spellcheck="false" word-limit="true" max-words="50"

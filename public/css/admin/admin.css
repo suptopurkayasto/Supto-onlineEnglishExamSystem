@@ -3337,10 +3337,10 @@ li.sidebar-item ul li p {
 }
 
 .mini-answer-sheet-table tbody tr {
-  transition: all 100ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  transition: all 200ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
 
-.mini-answer-sheet-table tbody tr.success-row {
+.mini-answer-sheet-table tbody tr.success-row:not(.dialog-success-row) {
   font-weight: bold;
 }
 

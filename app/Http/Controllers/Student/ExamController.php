@@ -49,7 +49,7 @@ class ExamController extends Controller
     {
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
-            return view('student.exam.question.show-grammar-question', compact('exam'))
+            return view('student.exam.question.show-grammar-question', compact('exam', 'authStudent'))
                 ->with('grammars', $exam->grammars()->where('set_id', $authStudent->set->id)->get());
 
         } else {
@@ -118,7 +118,7 @@ class ExamController extends Controller
     {
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
-            return view('student.exam.question.show-vocabulary-question', compact('exam'))
+            return view('student.exam.question.show-vocabulary-question', compact('exam', 'authStudent'))
                 ->with('synonyms', $exam->synonyms()->where('set_id', $authStudent->set->id)->get())
                 ->with('synonymOptions', $exam->synonymOptions()->where('set_id', $authStudent->set->id)->orderBy('options')->get())
                 ->with('definitions', $exam->definitions()->where('set_id', $authStudent->set->id)->get())
@@ -284,7 +284,7 @@ class ExamController extends Controller
     {
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
-            return view('student.exam.question.show-reading-question', compact('exam'))
+            return view('student.exam.question.show-reading-question', compact('exam', 'authStudent'))
                 ->with('headings', $exam->headings()->where('set_id', $authStudent->set->id)->get())
                 ->with('headingOptions', $exam->headingOptions()->where('set_id', $authStudent->set->id)->orderBy('headings')->get())
                 ->with('rearranges', $exam->rearranges()->where('set_id', $authStudent->set->id)->get());
@@ -396,7 +396,7 @@ class ExamController extends Controller
     {
         if ($this->validExamRequest($exam)) {
             $authStudent = Auth::guard('student')->user();
-            return view('student.exam.question.show-writing-question', compact('exam'))
+            return view('student.exam.question.show-writing-question', compact('exam', 'authStudent'))
                 ->with('dialog', $exam->dialogs()->where('set_id', $authStudent->set->id)->get()->first())
                 ->with('informalEmail', $exam->informalEmails()->where('set_id', $authStudent->set->id)->get()->first())
                 ->with('formalEmail', $exam->formalEmails()->where('set_id', $authStudent->set->id)->get()->first())

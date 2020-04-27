@@ -17,6 +17,11 @@ use Illuminate\View\View;
 
 class AnswerSheetController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:teacher');
+        $this->middleware('teacher.profile');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -84,6 +89,9 @@ class AnswerSheetController extends Controller
             $rearrange = $exam->rearranges()->where(['set_id' => $student->set->id])->get()->first();
             $studentRearrange = $exam->studentRearranges()->where(['set_id' => $student->set->id, 'student_id' => $studentId])->get()->first();
 
+            // Writing
+            $studentDialog = $exam->studentDialogs()->where(['student_id' => $studentId])->get()->first();
+
             return view('teacher.exams.answer-sheet.show')
                 ->with('authTeacher', $authTeacher)
                 ->with('exam', $exam)
@@ -99,7 +107,9 @@ class AnswerSheetController extends Controller
 
                 ->with('headings', $headings)
                 ->with('rearrange', $rearrange)
-                ->with('studentRearrange', $studentRearrange);
+                ->with('studentRearrange', $studentRearrange)
+
+                ->with('studentDialog', $studentDialog);
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -107,38 +117,28 @@ class AnswerSheetController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
+    public function dialogMarksSubmit(Request $request, $exam, $student)
     {
-        //
-    }
+        if ($this->validAnswerSheetRequest($exam, $student)) {
+            $examId = Crypt::decrypt($exam);
+            $studentId = Crypt::decrypt($student);
+            $authTeacher = Auth::guard('teacher')->user();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+            $this->validate($request, [
+               'dialogMarks' => 'required|integer'
+            ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+            $dialogMarks = Marks::where(['exam_id' => $examId, 'student_id' => $studentId])->get()->first();
+
+            $dialogMarks->update(['dialog' => $request->input('dialogMarks')]);
+            toast('Dialog marks has been successfully updated','success');
+            session()->flash('success_audio');
+            return redirect()->back();
+
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
     }
 
     private function validAnswerSheetRequest($exam, $student)
