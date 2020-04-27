@@ -511,7 +511,8 @@
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                                 Dialog <span class="badge badge-success">{{ $marks->dialog }}</span>
-                                <button data-toggle="modal" data-target="#dialogModel" class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
+                                <button data-toggle="modal" data-target="#dialogModel"
+                                        class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
 
                             </h5>
                             <h6 class="h6 my-3 text-center"
@@ -527,7 +528,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="{{ $studentDialog->answer_1 !== NULL ?'success-row dialog-success-row' : 'text-secondary secondary-row' }}">
+                                <tr class="{{ $studentDialog->answer_1 !== NULL ?'success-row writing-success-row' : 'text-secondary secondary-row' }}">
                                     <td>1</td>
                                     <td title="{{ $studentDialog->dialog->question_1 }}">{{ Str::limit($studentDialog->dialog->question_1, 20) }}</td>
                                     <td class="text-right">
@@ -539,7 +540,7 @@
                                         @endif
                                     </td>
                                 </tr>
-                                <tr class="{{ $studentDialog->answer_2 !== NULL ?'success-row dialog-success-row' : 'text-secondary secondary-row' }}">
+                                <tr class="{{ $studentDialog->answer_2 !== NULL ?'success-row writing-success-row' : 'text-secondary secondary-row' }}">
                                     <td>2</td>
                                     <td title="{{ $studentDialog->dialog->question_2 }}">{{ Str::limit($studentDialog->dialog->question_2, 20) }}</td>
                                     <td class="text-right">
@@ -551,7 +552,7 @@
                                         @endif
                                     </td>
                                 </tr>
-                                <tr class="{{ $studentDialog->answer_3 !== NULL ?'success-row dialog-success-row' : 'text-secondary secondary-row' }}">
+                                <tr class="{{ $studentDialog->answer_3 !== NULL ?'success-row writing-success-row' : 'text-secondary secondary-row' }}">
                                     <td>3</td>
                                     <td title="{{ $studentDialog->dialog->question_3 }}">{{ Str::limit($studentDialog->dialog->question_3, 20) }}</td>
                                     <td class="text-right">
@@ -677,7 +678,8 @@
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                                 Informal Email <span class="badge badge-success">{{ $marks->informalEmail }}</span>
-                                <button data-toggle="modal" data-target="#informalEmailModel" class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
+                                <button data-toggle="modal" data-target="#informalEmailModel"
+                                        class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
                             </h5>
                             <h6 class="h6 my-3 text-center"
                                 title="{{ $studentInformalEmail->informalEmail->topic }}">
@@ -691,7 +693,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="{{ $studentInformalEmail->subject !== NULL ?'success-row dialog-success-row' : 'text-secondary secondary-row' }}">
+                                <tr class="{{ $studentInformalEmail->subject !== NULL ?'success-row writing-success-row' : 'text-secondary secondary-row' }}">
                                     <td>
                                         <div title="{{ $studentInformalEmail->subject }}">
                                             <h6 class="h6 font-weight-bold d-inline">
@@ -707,7 +709,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="{{ $studentInformalEmail->body !== NULL ?'success-row dialog-success-row' : 'text-secondary secondary-row' }}">
+                                <tr class="{{ $studentInformalEmail->body !== NULL ?'success-row writing-success-row' : 'text-secondary secondary-row' }}">
                                     <td>
                                         <div title="{{ $studentInformalEmail->body }}">
                                             <h6 class="h6 font-weight-bold d-inline">
@@ -806,9 +808,161 @@
                             <h4 class="h4">Informal Email</h4>
                             <span class="badge badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6 -->
-                @endif
-                <!-- End: informal email -->
+                    @endif
 
+
+
+                <!-- Start: formal email -->
+                    @if($marks->formalEmail !== NULL)
+                        <div class="col-12 col-md-6">
+                            <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
+                                Formal Email <span class="badge badge-success">{{ $marks->formalEmail }}</span>
+                                <button data-toggle="modal" data-target="#formalEmailModel"
+                                        class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
+                            </h5>
+                            <h6 class="h6 my-3 text-center"
+                                title="{{ $studentFormalEmail->formalEmail->topic }}">
+                                {{ Str::limit($studentFormalEmail->formalEmail->topic, 150) }}
+                            </h6>
+                            <table class="table mini-answer-sheet-table table-hover table-borderless">
+                                <thead class="border-bottom border-success">
+                                <tr>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="received_email">
+                                    <td>
+                                        <div title="{{ $studentFormalEmail->formalEmail->received_email }}">
+                                            <h6 class="h6 font-weight-bold d-inline">
+                                                Received Email
+                                            </h6>
+                                            <p class="mb-0">
+                                                {{ Str::limit($studentFormalEmail->formalEmail->received_email, 60) }}
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="{{ $studentFormalEmail->subject !== NULL ?'success-row writing-success-row' : 'text-secondary secondary-row' }}">
+                                    <td>
+                                        <div title="{{ $studentFormalEmail->subject }}">
+                                            <h6 class="h6 font-weight-bold d-inline">
+                                                Subject
+                                            </h6>
+                                            @if($studentFormalEmail->subject !== NULL)
+                                                <p class="mb-0">
+                                                    {{ Str::limit($studentFormalEmail->subject, 60) }}
+                                                </p>
+                                            @else
+                                                <span class="badge badge-secondary float-right">Not touched</span>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="{{ $studentFormalEmail->body !== NULL ?'success-row writing-success-row' : 'text-secondary secondary-row' }}">
+                                    <td>
+                                        <div title="{{ $studentFormalEmail->body }}">
+                                            <h6 class="h6 font-weight-bold d-inline">
+                                                Body
+                                            </h6>
+                                            @if($studentFormalEmail->body !== NULL)
+                                                <p class="mb-0">
+                                                    {{ Str::limit($studentFormalEmail->body, 150) }}
+                                                </p>
+                                            @else
+                                                <span class="badge badge-secondary float-right">Not touched</span>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- /.col-12 col-md-6 -->
+
+                        <!-- Informal Email Model -->
+                        <div class="modal fade" id="formalEmailModel" tabindex="-1" role="dialog"
+                             aria-labelledby="modelTitleId"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header border-success" style="border-width: 3px">
+                                        <h3 class="modal-title">Formal Email ( {{ $student->name }} )</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6 class="h6 text-center">{{ $studentFormalEmail->formalEmail->topic }}</h6>
+                                        <span class="font-weight-bold">Received Email:</span>
+                                        <p class="mb-4">{{ $studentFormalEmail->formalEmail->received_email }}</p>
+                                        <div id="informalEmail"
+                                             class="form-group mt-2">
+                                            <input type="hidden" name="informal_email_id"
+                                                   value="{{ $studentFormalEmail->id }}">
+                                            <div class="form-group">
+                                                <label for="informalEmail-subject">Subject</label>
+                                                <input type="text" id="informalEmail-subject"
+                                                       name="informalEmail[subject]"
+                                                       placeholder="Subject" class="form-control"
+                                                       value="{{ $studentFormalEmail->subject }}" disabled>
+                                            </div><!-- /.form-group -->
+                                            <div class="form-group">
+                                                <label for="informalEmail-body">Body</label>
+                                                <textarea name="informalEmail[body]" id="informalEmail-body" rows="6"
+                                                          class="form-control"
+                                                          spellcheck="false" word-limit="true" max-words="100"
+                                                          min-words="40"
+                                                          disabled>{{ $studentFormalEmail->body }}</textarea>
+                                                <span class="mt-2"></span>
+                                                <div class="writing_error mt-2"></div>
+                                            </div><!-- /.form-group -->
+
+                                            <form
+                                                action="{{ route('teacher.students.exams.answer-sheets.formalEmail.marks.submit', [encrypt($exam->id), encrypt($student->id)]) }}"
+                                                method="post" class="w-25 mx-auto" id="formalEmailForm">
+                                                @csrf
+                                                @method('PATCH')
+                                                <div class="form-group mb-0 mt-3">
+                                                    <input name="formalEmailMarks"
+                                                           type="number" placeholder="Give marks"
+                                                           class="form-control text-center font-weight-bolder border-success @error('formalEmailMarks') is-invalid @enderror"
+                                                           style="border-width: 2px"
+                                                           value="{{ $marks->formalEmail }}">
+                                                    @error('informalEmailMarks')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div><!-- /.form-group -->
+                                            </form>
+
+                                        </div>
+                                        <div class="modal-footer d-block border-success" style="border-width: 2px">
+                                            <div class="row justify-content-center">
+                                                <div class="col-6">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <button type="button" class="btn btn-success btn-block"
+                                                                    onclick="document.getElementById('formalEmailForm').submit()">
+                                                                Save
+                                                            </button>
+                                                        </div><!-- /.col -->
+                                                    </div><!-- /.row -->
+                                                </div><!-- /.col-6 -->
+                                            </div><!-- /.row -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-12 col-md-6 text-center my-5">
+                            <h4 class="h4">Informal Email</h4>
+                            <span class="badge badge-secondary">Pending</span>
+                        </div><!-- /.col-12 col-md-6 -->
+                    @endif
+                <!-- End: formal email -->
+                    
                 </div><!-- /.row -->
             </div><!-- /.writing -->
             <!-- End:: writing -->

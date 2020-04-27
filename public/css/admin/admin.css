@@ -3344,7 +3344,7 @@ li.sidebar-item ul li p {
   transition: all 200ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
 
-.mini-answer-sheet-table tbody tr.success-row:not(.dialog-success-row) {
+.mini-answer-sheet-table tbody tr.success-row:not(.writing-success-row) {
   font-weight: bold;
 }
 
@@ -3358,5 +3358,9 @@ li.sidebar-item ul li p {
 
 .mini-answer-sheet-table tbody tr.secondary-row:hover {
   background-color: rgba(108, 117, 125, 0.2);
+}
+
+.mini-answer-sheet-table tbody tr.received_email:hover {
+  background-color: transparent;
 }
 

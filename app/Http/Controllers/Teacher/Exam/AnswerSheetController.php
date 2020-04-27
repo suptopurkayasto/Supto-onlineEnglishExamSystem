@@ -71,6 +71,7 @@ class AnswerSheetController extends Controller
             // Writing
             $studentDialog = $exam->studentDialogs()->where(['student_id' => $studentId])->get()->first();
             $studentInformalEmail = $exam->studentInformalEmails()->where(['student_id' => $studentId])->get()->first();
+            $studentFormalEmail = $exam->studentFormalEmails()->where(['student_id' => $studentId])->get()->first();
 
             return view('teacher.exams.answer-sheet.show')
                 ->with('authTeacher', $authTeacher)
@@ -90,7 +91,8 @@ class AnswerSheetController extends Controller
                 ->with('studentRearrange', $studentRearrange)
 
                 ->with('studentDialog', $studentDialog)
-                ->with('studentInformalEmail', $studentInformalEmail);
+                ->with('studentInformalEmail', $studentInformalEmail)
+                ->with('studentFormalEmail', $studentFormalEmail);
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -121,6 +123,8 @@ class AnswerSheetController extends Controller
             return redirect()->back();
         }
     }
+
+
     public function informalEmailMarksSubmit(Request $request, $exam, $student)
     {
         if ($this->validAnswerSheetRequest($exam, $student)) {
@@ -136,6 +140,30 @@ class AnswerSheetController extends Controller
 
             $dialogMarks->update(['informalEmail' => $request->input('informalEmailMarks')]);
             toast('Informal Email marks has been successfully updated','success');
+            session()->flash('success_audio');
+            return redirect()->back();
+
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
+    }
+
+    public function formalEmailMarksSubmit(Request $request, $exam, $student)
+    {
+        if ($this->validAnswerSheetRequest($exam, $student)) {
+            $examId = Crypt::decrypt($exam);
+            $studentId = Crypt::decrypt($student);
+            $authTeacher = Auth::guard('teacher')->user();
+
+            $this->validate($request, [
+               'formalEmailMarks' => 'required|integer'
+            ]);
+
+            $marks = Marks::where(['exam_id' => $examId, 'student_id' => $studentId])->get()->first();
+
+            $marks->update(['formalEmail' => $request->input('formalEmailMarks')]);
+            toast('Formal Email marks has been successfully updated','success');
             session()->flash('success_audio');
             return redirect()->back();
 

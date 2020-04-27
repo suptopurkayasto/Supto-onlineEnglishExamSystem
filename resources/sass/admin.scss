@@ -232,7 +232,7 @@ li.sidebar-item {
         tr {
             transition: all 200ms $ease-in-cubic;
         }
-        tr.success-row:not(.dialog-success-row) {
+        tr.success-row:not(.writing-success-row) {
             font-weight: bold;
         }
         tr.success-row:hover {
@@ -243,6 +243,9 @@ li.sidebar-item {
         }
         tr.secondary-row:hover {
             background-color: transparentize($secondary, .8);
+        }
+        tr.received_email:hover {
+            background-color: transparent;
         }
     }
 }
