@@ -34,27 +34,6 @@ class AnswerSheetController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param $exam
@@ -91,6 +70,7 @@ class AnswerSheetController extends Controller
 
             // Writing
             $studentDialog = $exam->studentDialogs()->where(['student_id' => $studentId])->get()->first();
+            $studentInformalEmail = $exam->studentInformalEmails()->where(['student_id' => $studentId])->get()->first();
 
             return view('teacher.exams.answer-sheet.show')
                 ->with('authTeacher', $authTeacher)
@@ -109,7 +89,8 @@ class AnswerSheetController extends Controller
                 ->with('rearrange', $rearrange)
                 ->with('studentRearrange', $studentRearrange)
 
-                ->with('studentDialog', $studentDialog);
+                ->with('studentDialog', $studentDialog)
+                ->with('studentInformalEmail', $studentInformalEmail);
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -132,6 +113,29 @@ class AnswerSheetController extends Controller
 
             $dialogMarks->update(['dialog' => $request->input('dialogMarks')]);
             toast('Dialog marks has been successfully updated','success');
+            session()->flash('success_audio');
+            return redirect()->back();
+
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
+    }
+    public function informalEmailMarksSubmit(Request $request, $exam, $student)
+    {
+        if ($this->validAnswerSheetRequest($exam, $student)) {
+            $examId = Crypt::decrypt($exam);
+            $studentId = Crypt::decrypt($student);
+            $authTeacher = Auth::guard('teacher')->user();
+
+            $this->validate($request, [
+               'informalEmailMarks' => 'required|integer'
+            ]);
+
+            $dialogMarks = Marks::where(['exam_id' => $examId, 'student_id' => $studentId])->get()->first();
+
+            $dialogMarks->update(['informalEmail' => $request->input('informalEmailMarks')]);
+            toast('Informal Email marks has been successfully updated','success');
             session()->flash('success_audio');
             return redirect()->back();
 

@@ -443,13 +443,13 @@
                     class="answer-sheet-title-border {{ $marks->dialog === NULL && $marks->informalEmail === NULL && $marks->formalEmail === NULL && $marks->sortQuestion === NULL ? 'bg-warning' : 'bg-success' }}"></div>
                 <div class="row p-3">
 
-
                     <!-- Start: dialog -->
                     <div
                         class="col-12 col-md-6" {!! $studentDialog->answer_1 !== NULL && $studentDialog->answer_2 !== NULL && $studentDialog->answer_3 !== NULL ? 'data-toggle="modal" data-target="#dialogModel" style="cursor: pointer"' : '' !!}>
                         <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                             Dialog {{ $marks->dialog !== NULL ? '('.$marks->dialog.')' : '' }}</h5>
-                        <h6 class="h6 my-3 text-center">{{ $studentDialog->dialog->topic }}</h6>
+                        <h6 class="h6 my-3 text-center"
+                            title="{{ $studentDialog->dialog->topic }}">{{ Str::limit($studentDialog->dialog->topic, 150) }}</h6>
                         <table
                             class="table mini-answer-sheet-table table-hover table-borderless">
                             <thead
@@ -502,6 +502,61 @@
                     </div><!-- /.col-12 col-md-6 -->
                     <!-- End: dialog -->
 
+
+                    <!-- Start: informal email -->
+                    <div
+                        class="col-12 col-md-6" {!! $studentInformalEmail->subject !== NULL && $studentInformalEmail->body ? 'data-toggle="modal" data-target="#informalEmailModel" style="cursor: pointer"' : '' !!}>
+                        <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
+                            Informal
+                            Email {{ $marks->informalEmail !== NULL ? '('.$marks->informalEmail.')' : '' }}</h5>
+                        <h6 class="h6 my-3 text-center"
+                            title="{{ $studentInformalEmail->informalEmail->topic }}">{{ Str::limit($studentInformalEmail->informalEmail->topic, 150) }}</h6>
+                        <table
+                            class="table mini-answer-sheet-table table-hover table-borderless">
+                            <thead
+                                class="border-bottom {{ $marks->informalEmail === NULL ? 'border-warning' : 'border-success' }}">
+                            <tr>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="{{ $studentInformalEmail->subject !== NULL ?'success-row dialog-success-row' : 'text-secondary secondary-row' }}">
+                                <td>
+                                    <div>
+                                        <h5 class="h5 font-weight-bold d-inline">
+                                            Subject
+                                        </h5>
+                                        @if($studentInformalEmail->subject !== NULL)
+                                            <p title="{{ $studentInformalEmail->subject }}">
+                                                {{ Str::limit($studentInformalEmail->subject, 60) }}
+                                            </p>
+                                        @else
+                                            <span class="badge badge-secondary float-right">Not touched</span>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="{{ $studentInformalEmail->body !== NULL ?'success-row dialog-success-row' : 'text-secondary secondary-row' }}">
+                                <td>
+                                    <div class="">
+                                        <h5 class="h5 font-weight-bold d-inline">
+                                            Body
+                                        </h5>
+                                        @if($studentInformalEmail->body !== NULL)
+                                            <p title="{{ $studentInformalEmail->body }}">
+                                                {{ Str::limit($studentInformalEmail->body, 100) }}
+                                            </p>
+                                        @else
+                                            <span class="badge badge-secondary float-right">Not touched</span>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- /.col-12 col-md-6 -->
+                    <!-- End: informal email -->
+
                 </div><!-- /.row -->
             </div><!-- /.writing -->
             <!-- End:: writing -->
@@ -510,7 +565,7 @@
     </div><!-- /.card -->
 
 
-    <!-- Modal -->
+    <!-- Dialog Model -->
     <div class="modal fade" id="dialogModel" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -522,10 +577,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <h6 class="h6 text-center">{{ $studentDialog->dialog->topic }}</h6>
                     <div class="card-body body-max-width">
-                        <h6 class="h6 text-center">{{ $studentDialog->dialog->topic }}</h6>
                         <div id="dialog-question-1"
-                             class="form-group mt-5">
+                             class="form-group mt-2">
                             <label for="question_1"><h5 class="h5">1. {{ $studentDialog->dialog->question_1 }}</h5>
                             </label>
                             <textarea name="dialog[answer][1]" id="question_1" rows="5" class="form-control"
@@ -568,10 +623,10 @@
                             @method('PATCH')
                             <div class="form-group mb-0 mt-3">
                                 <input name="dialogMarks"
-                                    type="number" placeholder="Give marks"
-                                    class="form-control text-center font-weight-bolder border-success @error('dialogMarks') is-invalid @enderror"
-                                    style="border-width: 2px"
-                                    value="{{ $marks->dialog }}">
+                                       type="number" placeholder="Give marks"
+                                       class="form-control text-center font-weight-bolder border-success @error('dialogMarks') is-invalid @enderror"
+                                       style="border-width: 2px"
+                                       value="{{ $marks->dialog }}">
                                 @error('dialogMarks')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -598,5 +653,74 @@
             </div>
         </div>
     </div>
+
+    <!-- Informal Email Model -->
+    <div class="modal fade" id="informalEmailModel" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-success" style="border-width: 3px">
+                    <h3 class="modal-title">Informal Email ( {{ $student->name }} )</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="h6 text-center">{{ $studentInformalEmail->informalEmail->topic }}</h6>
+                    <div id="informalEmail"
+                         class="form-group mt-2">
+                        <input type="hidden" name="informal_email_id" value="{{ $studentInformalEmail->id }}">
+                        <div class="form-group">
+                            <label for="informalEmail-subject">Subject</label>
+                            <input type="text" id="informalEmail-subject" name="informalEmail[subject]"
+                                   placeholder="Subject" class="form-control"
+                                   value="{{ $studentInformalEmail->subject }}" disabled>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                            <label for="informalEmail-body">Body</label>
+                            <textarea name="informalEmail[body]" id="informalEmail-body" rows="6"
+                                      class="form-control"
+                                      spellcheck="false" word-limit="true" max-words="100"
+                                      min-words="40" disabled>{{ $studentInformalEmail->body }}</textarea>
+                            <span class="mt-2"></span>
+                            <div class="writing_error mt-2"></div>
+                        </div><!-- /.form-group -->
+
+                        <form
+                            action="{{ route('teacher.students.exams.answer-sheets.informalEmail.marks.submit', [encrypt($exam->id), encrypt($student->id)]) }}"
+                            method="post" class="w-25 mx-auto" id="informalEmailForm">
+                            @csrf
+                            @method('PATCH')
+                            <div class="form-group mb-0 mt-3">
+                                <input name="informalEmailMarks"
+                                       type="number" placeholder="Give marks"
+                                       class="form-control text-center font-weight-bolder border-success @error('informalEmailMarks') is-invalid @enderror"
+                                       style="border-width: 2px"
+                                       value="{{ $marks->informalEmail }}">
+                                @error('informalEmailMarks')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div><!-- /.form-group -->
+                        </form>
+
+                    </div>
+                    <div class="modal-footer d-block border-success" style="border-width: 2px">
+                        <div class="row justify-content-center">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-success btn-block"
+                                                onclick="document.getElementById('informalEmailForm').submit()">Save
+                                        </button>
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                            </div><!-- /.col-6 -->
+                        </div><!-- /.row -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
 @endsection
