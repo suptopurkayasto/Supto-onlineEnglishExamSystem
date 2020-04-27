@@ -211,6 +211,9 @@ li.sidebar-item {
         .custom-control-input:disabled~.custom-control-label{
             color: $secondary;
         }
+        .custom-control-label i.text-success {
+            color: $secondary !important;
+        }
     }
 }
 

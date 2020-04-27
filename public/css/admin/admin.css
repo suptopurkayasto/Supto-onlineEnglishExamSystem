@@ -3327,6 +3327,10 @@ li.sidebar-item ul li p {
   color: #6c757d;
 }
 
+.not-answer .grammar-answer-sheet-radio .custom-control-label i.text-success {
+  color: #6c757d !important;
+}
+
 .answer-sheet-title-border {
   height: 3px;
   width: 100%;
