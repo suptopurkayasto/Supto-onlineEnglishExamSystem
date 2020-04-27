@@ -511,12 +511,10 @@
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                                 Dialog <span class="badge badge-success">{{ $marks->dialog }}</span>
-                                <button data-toggle="modal" data-target="#dialogModel"
+                                <button data-toggle="modal" data-target="#dialogModal"
                                         class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
 
                             </h5>
-                            <h6 class="h6 my-3 text-center"
-                                title="{{ $studentDialog->dialog->topic }}">{{ Str::limit($studentDialog->dialog->topic, 150) }}</h6>
                             <table
                                 class="table mini-answer-sheet-table table-hover table-borderless">
                                 <thead
@@ -568,8 +566,8 @@
                             </table>
                         </div><!-- /.col-12 col-md-6 -->
 
-                        <!-- Dialog Model -->
-                        <div class="modal fade" id="dialogModel" tabindex="-1" role="dialog"
+                        <!-- Dialog Modal -->
+                        <div class="modal fade" id="dialogModal" tabindex="-1" role="dialog"
                              aria-labelledby="modelTitleId"
                              aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
@@ -678,14 +676,11 @@
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                                 Informal Email <span class="badge badge-success">{{ $marks->informalEmail }}</span>
-                                <button data-toggle="modal" data-target="#informalEmailModel"
+                                <button data-toggle="modal" data-target="#informalEmailModal"
                                         class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
                             </h5>
-                            <h6 class="h6 my-3 text-center"
-                                title="{{ $studentInformalEmail->informalEmail->topic }}">
-                                {{ Str::limit($studentInformalEmail->informalEmail->topic, 150) }}
-                            </h6>
-                            <table class="table mini-answer-sheet-table table-hover table-borderless">
+                            <table style="margin-top: 27.5px"
+                                   class="table mini-answer-sheet-table table-hover table-borderless">
                                 <thead
                                     class="border-bottom border-success">
                                 <tr>
@@ -729,8 +724,8 @@
                             </table>
                         </div><!-- /.col-12 col-md-6 -->
 
-                        <!-- Informal Email Model -->
-                        <div class="modal fade" id="informalEmailModel" tabindex="-1" role="dialog"
+                        <!-- Informal Email Modal -->
+                        <div class="modal fade" id="informalEmailModal" tabindex="-1" role="dialog"
                              aria-labelledby="modelTitleId"
                              aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
@@ -778,8 +773,8 @@
                                                            value="{{ $marks->informalEmail }}">
                                                     @error('informalEmailMarks')
                                                     <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
                                                     @enderror
                                                 </div><!-- /.form-group -->
                                             </form>
@@ -817,14 +812,11 @@
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                                 Formal Email <span class="badge badge-success">{{ $marks->formalEmail }}</span>
-                                <button data-toggle="modal" data-target="#formalEmailModel"
+                                <button data-toggle="modal" data-target="#formalEmailModal"
                                         class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
                             </h5>
-                            <h6 class="h6 my-3 text-center"
-                                title="{{ $studentFormalEmail->formalEmail->topic }}">
-                                {{ Str::limit($studentFormalEmail->formalEmail->topic, 150) }}
-                            </h6>
-                            <table class="table mini-answer-sheet-table table-hover table-borderless">
+                            <table style="margin-top: 29px"
+                                   class="table mini-answer-sheet-table table-hover table-borderless">
                                 <thead class="border-bottom border-success">
                                 <tr>
                                     <th></th>
@@ -879,8 +871,8 @@
                             </table>
                         </div><!-- /.col-12 col-md-6 -->
 
-                        <!-- Informal Email Model -->
-                        <div class="modal fade" id="formalEmailModel" tabindex="-1" role="dialog"
+                        <!-- Informal Email Modal -->
+                        <div class="modal fade" id="formalEmailModal" tabindex="-1" role="dialog"
                              aria-labelledby="modelTitleId"
                              aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
@@ -957,12 +949,110 @@
                         </div>
                     @else
                         <div class="col-12 col-md-6 text-center my-5">
-                            <h4 class="h4">Informal Email</h4>
+                            <h4 class="h4">Formal Email</h4>
                             <span class="badge badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6 -->
                     @endif
                 <!-- End: formal email -->
-                    
+
+                    <!-- Start: sort question -->
+                    @if($marks->sortQuestion !== NULL)
+                        <div class="col-12 col-md-6">
+                            <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
+                                Formal Email <span class="badge badge-success">{{ $marks->sortQuestion }}</span>
+                                <button data-toggle="modal" data-target="#sortQuestionModal"
+                                        class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
+                            </h5>
+                            <table class="table mini-answer-sheet-table table-hover table-borderless">
+                                <thead class="border-bottom border-success">
+                                <tr>
+                                    <th style="width: 40%">Question</th>
+                                    <th class="text-right" style="width: 60%" title="Student Answer">S.Answer</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                @foreach($studentSortQuestions as $index => $studentSortQuestion)
+                                    <tr class="{{ $studentSortQuestion->answer !== NULL ?'success-row writing-success-row' : 'text-secondary secondary-row' }}">
+                                        <td title="{{ $studentSortQuestion->sortQuestion->question }}">{{ Str::limit($studentSortQuestion->sortQuestion->question, 30) }}</td>
+                                        <td class="text-right" title="{{ $studentSortQuestion->answer }}">
+                                            @if($studentSortQuestion->answer !== NULL)
+                                                {{ Str::limit($studentSortQuestion->answer, 50) }}
+                                            @else
+                                                <span class="badge badge-secondary float-right">Not touched</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div><!-- /.col-12 col-md-6 -->
+
+                        <!-- Informal Email Modal -->
+                        <div class="modal fade" id="sortQuestionModal" tabindex="-1" role="dialog"
+                             aria-labelledby="modelTitleId"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header border-success" style="border-width: 3px">
+                                        <h3 class="modal-title">Formal Email ( {{ $student->name }} )</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @foreach($studentSortQuestions as $index => $studentSortQuestion)
+                                            <div class="form-group mb-5">
+                                                <label for="">{{ $index + 1 }}. {{ $studentSortQuestion->sortQuestion->question }}</label>
+                                                <textarea type="text" class="form-control" disabled>{{ $studentSortQuestion->answer }}</textarea>
+                                            </div><!-- /.form-group -->
+                                        @endforeach
+
+                                            <form
+                                                action="{{ route('teacher.students.exams.answer-sheets.sortQuestion.marks.submit', [encrypt($exam->id), encrypt($student->id)]) }}"
+                                                method="post" class="w-25 mx-auto" id="sortQuestionForm">
+                                                @csrf
+                                                @method('PATCH')
+                                                <div class="form-group mb-0 mt-3">
+                                                    <input name="sortQuestion"
+                                                           type="number" placeholder="Give marks"
+                                                           class="form-control text-center font-weight-bolder border-success @error('sortQuestion') is-invalid @enderror"
+                                                           style="border-width: 2px"
+                                                           value="{{ $marks->sortQuestion }}">
+                                                    @error('sortQuestion')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div><!-- /.form-group -->
+                                            </form>
+
+                                    </div>
+                                    <div class="modal-footer d-block border-success" style="border-width: 2px">
+                                        <div class="row justify-content-center">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <button type="button" class="btn btn-success btn-block"
+                                                                onclick="document.getElementById('sortQuestionForm').submit()">
+                                                            Save
+                                                        </button>
+                                                    </div><!-- /.col -->
+                                                </div><!-- /.row -->
+                                            </div><!-- /.col-6 -->
+                                        </div><!-- /.row -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-12 col-md-6 text-center my-5">
+                            <h4 class="h4">Sort Question</h4>
+                            <span class="badge badge-secondary">Pending</span>
+                        </div><!-- /.col-12 col-md-6 -->
+                @endif
+                <!-- End: sort question -->
+
                 </div><!-- /.row -->
             </div><!-- /.writing -->
             <!-- End:: writing -->

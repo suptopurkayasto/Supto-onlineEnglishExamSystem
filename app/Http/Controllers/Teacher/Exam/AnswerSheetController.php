@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class AnswerSheetController extends Controller
@@ -72,6 +73,7 @@ class AnswerSheetController extends Controller
             $studentDialog = $exam->studentDialogs()->where(['student_id' => $studentId])->get()->first();
             $studentInformalEmail = $exam->studentInformalEmails()->where(['student_id' => $studentId])->get()->first();
             $studentFormalEmail = $exam->studentFormalEmails()->where(['student_id' => $studentId])->get()->first();
+            $studentSortQuestions = $exam->studentSortQuestions()->where(['student_id' => $studentId])->get();
 
             return view('teacher.exams.answer-sheet.show')
                 ->with('authTeacher', $authTeacher)
@@ -92,7 +94,8 @@ class AnswerSheetController extends Controller
 
                 ->with('studentDialog', $studentDialog)
                 ->with('studentInformalEmail', $studentInformalEmail)
-                ->with('studentFormalEmail', $studentFormalEmail);
+                ->with('studentFormalEmail', $studentFormalEmail)
+                ->with('studentSortQuestions', $studentSortQuestions);
 
         } else {
             alert()->error('😒', 'You can\'t do this.');
@@ -100,6 +103,13 @@ class AnswerSheetController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param $exam
+     * @param $student
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
     public function dialogMarksSubmit(Request $request, $exam, $student)
     {
         if ($this->validAnswerSheetRequest($exam, $student)) {
@@ -125,6 +135,13 @@ class AnswerSheetController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @param $exam
+     * @param $student
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
     public function informalEmailMarksSubmit(Request $request, $exam, $student)
     {
         if ($this->validAnswerSheetRequest($exam, $student)) {
@@ -149,6 +166,14 @@ class AnswerSheetController extends Controller
         }
     }
 
+
+    /**
+     * @param Request $request
+     * @param $exam
+     * @param $student
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
     public function formalEmailMarksSubmit(Request $request, $exam, $student)
     {
         if ($this->validAnswerSheetRequest($exam, $student)) {
@@ -173,6 +198,44 @@ class AnswerSheetController extends Controller
         }
     }
 
+
+    /**
+     * @param Request $request
+     * @param $exam
+     * @param $student
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
+    public function sortQuestionMarksSubmit(Request $request, $exam, $student)
+    {
+        if ($this->validAnswerSheetRequest($exam, $student)) {
+            $examId = Crypt::decrypt($exam);
+            $studentId = Crypt::decrypt($student);
+            $authTeacher = Auth::guard('teacher')->user();
+
+            $this->validate($request, [
+               'sortQuestion' => 'required|integer'
+            ]);
+
+            $marks = Marks::where(['exam_id' => $examId, 'student_id' => $studentId])->get()->first();
+
+            $marks->update(['sortQuestion' => $request->input('sortQuestion')]);
+            toast('Sort question marks has been successfully updated','success');
+            session()->flash('success_audio');
+            return redirect()->back();
+
+        } else {
+            alert()->error('😒', 'You can\'t do this.');
+            return redirect()->back();
+        }
+    }
+
+
+    /**
+     * @param $exam
+     * @param $student
+     * @return bool
+     */
     private function validAnswerSheetRequest($exam, $student)
     {
         $authTeacher = Auth::guard('teacher')->user();
