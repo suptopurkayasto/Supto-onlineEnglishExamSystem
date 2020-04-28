@@ -84,7 +84,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($exam->rearranges as $index => $rearrange)
+                                    @foreach($exam->rearranges()->orderByDesc('id')->get() as $index => $rearrange)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td title="{{ $rearrange->line_1 }}">{{ Str::limit($rearrange->line_1, 90) }}</td>

@@ -93,7 +93,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($exam->headings as $index => $heading)
+                                    @foreach($exam->headings()->orderByDesc('id')->get() as $index => $heading)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td title="{{ $heading->paragraph }}">{{ Str::limit($heading->paragraph, 70) }}</td>

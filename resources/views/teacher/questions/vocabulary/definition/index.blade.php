@@ -95,7 +95,7 @@
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td title="{{ $definition->sentence }}">{{ Str::limit($definition->sentence, 70) }}</td>
-                                            <td>{{ $definition->answer->options }}</td>
+                                            <td title="{{ $definition->answer->options }}">{{ Str::limit($definition->answer->options, 20) }}</td>
                                             <td>{{ $definition->set->name }}</td>
                                             <td title="{{ $definition->exam->name }}">{{ Str::limit($definition->exam->name, 40) }}</td>
                                             <td class="text-center">

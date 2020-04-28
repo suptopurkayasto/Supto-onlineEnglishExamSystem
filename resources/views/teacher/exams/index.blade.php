@@ -95,26 +95,32 @@
                                             </button>
                                         </form>
                                     @elseif($exam->status === 'running')
-                                        <form action="{{ route('teacher.exams.status', $exam->id) }}" method="post"
-                                              class="float-right">
-                                            @method('PUT')
-                                            @csrf
-                                            <input type="hidden" name="status" value="cancel">
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Are you sure you want to cancel {{ $exam->name }} exam!')">
-                                                Cancel Exam
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('teacher.exams.status', $exam->id) }}" method="post"
-                                              class="ml-3">
-                                            @method('PUT')
-                                            @csrf
-                                            <input type="hidden" name="status" value="complete">
-                                            <button type="submit" class="btn btn-success btn-sm"
-                                                    onclick="return confirm('Are you sure you want to start {{ $exam->name }} exam!')">
-                                                Complete Exam
-                                            </button>
-                                        </form>
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <form action="{{ route('teacher.exams.status', $exam->id) }}" method="post"
+                                                      class="float-right">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <input type="hidden" name="status" value="cancel">
+                                                    <button type="submit" class="btn btn-danger btn-sm"
+                                                            onclick="return confirm('Are you sure you want to cancel {{ $exam->name }} exam!')">
+                                                        Cancel
+                                                    </button>
+                                                </form>
+                                            </div><!-- /.col -->
+                                            <div class="col">
+                                                <form action="{{ route('teacher.exams.status', $exam->id) }}" method="post"
+                                                      class="ml-3">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <input type="hidden" name="status" value="complete">
+                                                    <button type="submit" class="btn btn-success btn-sm"
+                                                            onclick="return confirm('Are you sure you want to start {{ $exam->name }} exam!')">
+                                                        Complete
+                                                    </button>
+                                                </form>
+                                            </div><!-- /.col -->
+                                        </div><!-- /.row -->
                                     @elseif($exam->status === 'complete')
                                         <strong class="text-success"><i class="fas fa-check"></i> Completed</strong>
                                     @endif

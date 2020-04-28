@@ -96,7 +96,7 @@
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td title="{{ $fillInTheGap->sentence }}">{{ Str::limit($fillInTheGap->sentence, 70) }}</td>
-                                            <td>{{ $fillInTheGap->answer->options }}</td>
+                                            <td title="{{ $fillInTheGap->answer->options }}">{{ Str::limit($fillInTheGap->answer->options, 20) }}</td>
                                             <td>{{ $fillInTheGap->set->name }}</td>
                                             <td title="{{ $fillInTheGap->exam->name }}">{{ Str::limit($fillInTheGap->exam->name, 40) }}</td>
                                             <td class="text-center">

@@ -77,16 +77,18 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Question</th>
+                                        <th>Answer</th>
                                         <th>Set</th>
                                         <th>Exam</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($exam->grammars as $index => $grammarQuestion)
+                                    @foreach($exam->grammars()->orderByDesc('id')->get() as $index => $grammarQuestion)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td title="{{ $grammarQuestion->question }}">{{ Str::limit($grammarQuestion->question, 90) }}</td>
+                                            <td title="{{ $grammarQuestion->answer }}">{{ Str::limit($grammarQuestion->answer, 20) }}</td>
                                             <td>{{ $grammarQuestion->set->name }}</td>
                                             <td title="{{ $grammarQuestion->exam->name }}">{{ Str::limit($grammarQuestion->exam->name, 40)  }}</td>
                                             <td class="text-center">
