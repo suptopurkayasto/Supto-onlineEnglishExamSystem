@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Dashboard - ' . $authStudent->name)
 
 @section('content')
-    {{--    @include('partials.student.navigation')--}}
 
     <div class="student-main-section h-100">
         <div class="container h-100">
@@ -14,7 +13,7 @@
                             @if(Gravatar::exists($authStudent->email))
                                 <img title="{{ $authStudent->name }}" class="img-thumbnail"
                                      style="width: 100%; border-width: 2px !important;"
-                                     src="{{ Gravatar::get(auth()->guard('student')->user()->email, ['size' => 1024]) }}"
+                                     src="{{ Gravatar::get($authStudent->email, ['size' => 1024]) }}"
                                      alt="">
                             @else
                                 <a target="_blank" href="https://en.gravatar.com/site/signup" title="Create Gravatar account for set your profile photo">
@@ -23,47 +22,44 @@
                             @endif
                         </div><!-- /.col-12 col-md-5 mb-5 mb-md-0 -->
                         <div class="col-12 col-lg-8">
-                            <h2
-                                id=""
-                                title="{{ auth()->guard('student')->user()->name }}"
-                                class="h2 float-left font-weight-bolder">
-                                {{ Str::limit(auth()->guard('student')->user()->name, 30) }}
-                                @if(session('welcome'))
-                                    <span class="badge badge-primary font-weight-normal mr-1">
+
+                            <div class="shadow-sm px-2 d-flex justify-content-between align-items-center p-1 rounded">
+                                <h2 title="{{ $authStudent->name }}"
+                                    class="h2 font-weight-bolder">
+                                    {{ Str::limit($authStudent->name, 30) }}
+                                    @if(session('welcome'))
+                                        <span class="badge badge-primary font-weight-normal mr-1">
                                         @if (now()->format('H') < 12)
-                                            Good morning
-                                        @elseif (now()->format('H') < 17)
-                                            Good afternoon
-                                        @else
-                                            Good evening
-                                        @endif
+                                                Good morning
+                                            @elseif (now()->format('H') < 17)
+                                                Good afternoon
+                                            @else
+                                                Good evening
+                                            @endif
                                     </span>
-                                @endif
-                            </h2>
-
-                            <div class="btn-group float-right">
-                                <button type="button" class="btn btn-outline-danger btn-sm dropdown-toggle"
-                                        data-toggle="dropdown" data-display="static" aria-haspopup="true"
-                                        aria-expanded="false">
-                                    Log Out
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-lg-right">
-                                    <form action="{{ route('student.logout') }}" method="post" class=""
-                                          id="studentLogOutForm">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item">Logout</button>
-                                    </form>
+                                    @endif
+                                </h2>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-danger btn-sm dropdown-toggle"
+                                            data-toggle="dropdown" data-display="static" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        Log Out
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-lg-right">
+                                        <form action="{{ route('student.logout') }}" method="post" class=""
+                                              id="studentLogOutForm">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="clearfix"></div>
+                            </div><!-- /.shadow -->
 
-                            <table class="table table-hover table-bordered rounded">
-                                <h5 class="custom-table-heading h4 border border text-center my-0 py-2 mt-2 font-weight-bolder table-heading-bg">
-                                    Exam Marks
-                                    Table</h5>
+                            <table class="table table-hover table-borderless rounded">
+                                <h5 class="custom-table-heading h4 text-center my-0 py-2 mt-2 font-weight-bolder">Marks</h5>
                                 <thead>
-                                <tr>
-                                    <th>Exam Name</th>
+                                <tr class="text-center">
+                                    <th class="text-left">Exam Name</th>
                                     <th>Grammar</th>
                                     <th>Vocabulary</th>
                                     <th>Reading</th>
@@ -117,7 +113,7 @@
                                             <td title="{{ 'Heading Matching: '.$heading.', Rearrange: '.$rearrange }}">{{ $readingTotal }}</td>
 
                                             <td title="{{ 'Dialog: '.$dialog.', Informal Email: '.$informalEmail.', Formal Email: '.$formalEmail.', Sort Question: '.$sortQuestion }}">{{ $writingTotal }}</td>
-                                            <td class="font-weight-bolder">{{ $grammarTotal + $vocabularyTotal + $readingTotal }}</td>
+                                            <td class="font-weight-bolder">{{ $grammarTotal + $vocabularyTotal + $readingTotal + $writingTotal }}</td>
                                             <td>
                                                 @if($exam->status == 'running')
                                                     <a
@@ -125,8 +121,7 @@
                                                         class="btn btn-primary btn-sm {{ $grammar !== null && $synonym !== null && $definition !== null && $combination !== null && $fillInTheGap !== null && $heading !== null && $rearrange !== null ? 'disabled' : '' }}">Start
                                                         Quiz</a>
                                                 @elseif($exam->status == 'complete')
-                                                    <span class="text-success"><i
-                                                            class="fas fa-check"></i> Completed</span>
+                                                    <a href="{{ route('student.exam.answer-sheets.show', [encrypt($exam->id), encrypt($authStudent->id)]) }}" class="btn btn-sm btn-primary">Show</a>
                                                 @elseif($exam->status == 'cancel')
                                                     <span class="text-danger"><i
                                                             class="fas fa-times"></i> Canceled</span>

@@ -3198,18 +3198,13 @@ body {
 }
 
 .table thead tr {
-  background-color: #75811a;
-  color: white;
+  color: #75811a;
+  border-bottom: 3px solid #75811a;
 }
 
 .table thead tr th {
   padding-top: 10px !important;
   padding-bottom: 10px !important;
-}
-
-.table-heading-bg {
-  background-color: rgba(117, 129, 26, 0.3);
-  color: #75811a;
 }
 
 table td,
@@ -3237,6 +3232,118 @@ table td {
     transform: scale(1);
     background-color: white;
   }
+}
+
+.correct-grammar-answer .grammar-questions-title {
+  color: #28a745;
+  font-weight: bolder;
+}
+
+.correct-grammar-answer .custom-control-input:disabled ~ .custom-control-label::before {
+  background-color: white;
+}
+
+.correct-grammar-answer .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color: #28a745 !important;
+}
+
+.correct-grammar-answer .custom-control-input:checked ~ .custom-control-label::before {
+  border-color: #28a745 !important;
+}
+
+.correct-grammar-answer .custom-control-input:disabled ~ .custom-control-label {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.correct-grammar-answer .custom-control-input:checked ~ .custom-control-label {
+  color: #28a745;
+}
+
+.correct-grammar-answer .correct-radio-icon {
+  display: none;
+}
+
+.wrong-grammar-answer .grammar-questions-title {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label::before {
+  background-color: white;
+}
+
+.wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color: #dc3545 !important;
+}
+
+.wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:checked ~ .custom-control-label::before {
+  border-color: #dc3545 !important;
+}
+
+.wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label.ccl-correct {
+  color: #28a745;
+}
+
+.not-answer .grammar-questions-title {
+  color: #6c757d;
+  font-weight: bold;
+}
+
+.not-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label::before {
+  background-color: white;
+}
+
+.not-answer .grammar-answer-sheet-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color: red !important;
+}
+
+.not-answer .grammar-answer-sheet-radio .custom-control-input:checked ~ .custom-control-label::before {
+  border-color: red !important;
+}
+
+.not-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label {
+  color: #6c757d;
+}
+
+.not-answer .grammar-answer-sheet-radio .custom-control-label i.text-success {
+  color: #6c757d !important;
+}
+
+label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct) {
+  font-weight: normal;
+}
+
+.answer-sheet-title-border {
+  height: 2.5px;
+  width: 100%;
+}
+
+.mini-answer-sheet-table thead {
+  border-bottom-width: 2px !important;
+}
+
+.mini-answer-sheet-table tbody tr {
+  transition: all 200ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.mini-answer-sheet-table tbody tr.success-row:not(.writing-success-row) {
+  font-weight: bold;
+}
+
+.mini-answer-sheet-table tbody tr.success-row:hover {
+  background-color: rgba(40, 167, 69, 0.2);
+}
+
+.mini-answer-sheet-table tbody tr.danger-row:hover {
+  background-color: rgba(220, 53, 69, 0.2);
+}
+
+.mini-answer-sheet-table tbody tr.secondary-row:hover {
+  background-color: rgba(108, 117, 125, 0.2);
+}
+
+.mini-answer-sheet-table tbody tr.received_email:hover {
+  background-color: transparent;
 }
 
 /*Questions Card */

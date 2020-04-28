@@ -32,10 +32,5 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('test', function () {
-    $gq = \App\Exam::find(1)->studentGrammars()->where(['student_id' => 1, 'grammar_id' => 100])->get()->first();
-
-if (!empty($gq)) {
-    $grammarAnswer = $gq->answer;
-}
-return isset($grammarAnswer) ? 'set' : 'not-answer';
+    return md5(encrypt('supto'));
 });
