@@ -87,6 +87,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Paragraph</th>
+                                        <th>Heading</th>
                                         <th>Set</th>
                                         <th>Exam</th>
                                         <th>Action</th>
@@ -96,7 +97,8 @@
                                     @foreach($exam->headings()->orderByDesc('id')->get() as $index => $heading)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td title="{{ $heading->paragraph }}">{{ Str::limit($heading->paragraph, 70) }}</td>
+                                            <td title="{{ $heading->paragraph }}">{{ Str::limit($heading->paragraph, 50) }}</td>
+                                            <td title="{{ $heading->answer->headings }}">{{ Str::limit($heading->answer->headings, 30) }}</td>
                                             <td>{{ $heading->set->name }}</td>
                                             <td title="{{ $heading->exam->name }}">{{ Str::limit($heading->exam->name, 40) }}</td>
                                             <td class="text-center">
