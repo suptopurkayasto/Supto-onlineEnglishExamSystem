@@ -250,6 +250,6 @@ label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct){
     }
 }
 
-.modal textarea:disabled, input:disabled {
+.modal textarea:disabled, .modal input:disabled {
     background-color: white !important;
 }
