@@ -43489,26 +43489,12 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var aos__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! aos */ "./node_modules/aos/dist/aos.js");
-/* harmony import */ var aos__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(aos__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var aos_dist_aos_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! aos/dist/aos.css */ "./node_modules/aos/dist/aos.css");
-/* harmony import */ var aos_dist_aos_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(aos_dist_aos_css__WEBPACK_IMPORTED_MODULE_2__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 window.$ = window.jQuery = jquery__WEBPACK_IMPORTED_MODULE_0___default.a;
 
-__webpack_require__(/*! jquery-ui/ui/widgets/tooltip */ "./node_modules/jquery-ui/ui/widgets/tooltip.js");
-
-__webpack_require__(/*! jquery-ui/ui/widgets/sortable */ "./node_modules/jquery-ui/ui/widgets/sortable.js");
-
-__webpack_require__(/*! jquery-ui/ui/widgets/selectmenu */ "./node_modules/jquery-ui/ui/widgets/selectmenu.js");
-
-
- // You can also use <link> for styles
-// ..
-
-aos__WEBPACK_IMPORTED_MODULE_1___default.a.init();
+__webpack_require__(/*! ./extra/custom */ "./resources/js/extra/custom.js");
 
 /***/ }),
 
@@ -43554,6 +43540,533 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/extra/01809e8659.js":
+/*!******************************************!*\
+  !*** ./resources/js/extra/01809e8659.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.FontAwesomeKitConfig = {
+  "asyncLoading": {
+    "enabled": true
+  },
+  "autoA11y": {
+    "enabled": true
+  },
+  "baseUrl": "https://kit-pro.fontawesome.com",
+  "license": "pro",
+  "method": "js",
+  "minify": {
+    "enabled": true
+  },
+  "v4shim": {
+    "enabled": false
+  },
+  "version": "latest"
+};
+!function () {
+  !function () {
+    if (!(void 0 === window.Element || "classList" in document.documentElement)) {
+      var e,
+          t,
+          n,
+          i = Array.prototype,
+          o = i.push,
+          a = i.splice,
+          s = i.join;
+      r.prototype = {
+        add: function add(e) {
+          this.contains(e) || (o.call(this, e), this.el.className = this.toString());
+        },
+        contains: function contains(e) {
+          return -1 != this.el.className.indexOf(e);
+        },
+        item: function item(e) {
+          return this[e] || null;
+        },
+        remove: function remove(e) {
+          if (this.contains(e)) {
+            for (var t = 0; t < this.length && this[t] != e; t++) {
+              ;
+            }
+
+            a.call(this, t, 1), this.el.className = this.toString();
+          }
+        },
+        toString: function toString() {
+          return s.call(this, " ");
+        },
+        toggle: function toggle(e) {
+          return this.contains(e) ? this.remove(e) : this.add(e), this.contains(e);
+        }
+      }, window.DOMTokenList = r, e = Element.prototype, t = "classList", n = function n() {
+        return new r(this);
+      }, Object.defineProperty ? Object.defineProperty(e, t, {
+        get: n
+      }) : e.__defineGetter__(t, n);
+    }
+
+    function r(e) {
+      for (var t = (this.el = e).className.replace(/^\s+|\s+$/g, "").split(/\s+/), n = 0; n < t.length; n++) {
+        o.call(this, t[n]);
+      }
+    }
+  }();
+
+  function f(e) {
+    var t, n, i, o;
+    prefixesArray = e || ["fa"], prefixesSelectorString = "." + Array.prototype.join.call(e, ",."), t = document.querySelectorAll(prefixesSelectorString), Array.prototype.forEach.call(t, function (e) {
+      n = e.getAttribute("title"), e.setAttribute("aria-hidden", "true"), i = !e.nextElementSibling || !e.nextElementSibling.classList.contains("sr-only"), n && i && ((o = document.createElement("span")).innerHTML = n, o.classList.add("sr-only"), e.parentNode.insertBefore(o, e.nextSibling));
+    });
+  }
+
+  var e,
+      t,
+      u = function u(e) {
+    var t = document.createElement("link");
+    t.href = e, t.media = "all", t.rel = "stylesheet", document.getElementsByTagName("head")[0].appendChild(t);
+  },
+      m = function m(e) {
+    !function (e, t, n) {
+      var i,
+          o = window.document,
+          a = o.createElement("link");
+      if (t) i = t;else {
+        var s = (o.body || o.getElementsByTagName("head")[0]).childNodes;
+        i = s[s.length - 1];
+      }
+      var r = o.styleSheets;
+      a.rel = "stylesheet", a.href = e, a.media = "only x", function e(t) {
+        if (o.body) return t();
+        setTimeout(function () {
+          e(t);
+        });
+      }(function () {
+        i.parentNode.insertBefore(a, t ? i : i.nextSibling);
+      });
+
+      var l = function l(e) {
+        for (var t = a.href, n = r.length; n--;) {
+          if (r[n].href === t) return e();
+        }
+
+        setTimeout(function () {
+          l(e);
+        });
+      };
+
+      function c() {
+        a.addEventListener && a.removeEventListener("load", c), a.media = n || "all";
+      }
+
+      a.addEventListener && a.addEventListener("load", c), (a.onloadcssdefined = l)(c);
+    }(e);
+  },
+      n = function n(e, t) {
+    var n = t && void 0 !== t.autoFetchSvg ? t.autoFetchSvg : void 0,
+        i = t && void 0 !== t.async ? t.async : void 0,
+        o = t && void 0 !== t.autoA11y ? t.autoA11y : void 0,
+        a = document.createElement("script"),
+        s = document.scripts[0];
+    a.src = e, void 0 !== o && a.setAttribute("data-auto-a11y", o ? "true" : "false"), n && (a.setAttributeNode(document.createAttribute("data-auto-fetch-svg")), a.setAttribute("data-fetch-svg-from", t.fetchSvgFrom)), i && a.setAttributeNode(document.createAttribute("defer")), s.parentNode.appendChild(a);
+  };
+
+  function h(e, t) {
+    var n = t && t.shim ? e.license + "-v4-shims" : e.license,
+        i = t && t.minify ? ".min" : "";
+    return e.baseUrl + "/releases/" + ("latest" === e.version ? "latest" : "v".concat(e.version)) + "/" + e.method + "/" + n + i + "." + e.method;
+  }
+
+  try {
+    if (window.FontAwesomeKitConfig) {
+      var i = window.FontAwesomeKitConfig;
+      "js" === i.method && (t = {
+        async: (e = i).asyncLoading.enabled,
+        autoA11y: e.autoA11y.enabled
+      }, "pro" === e.license && (t.autoFetchSvg = !0, t.fetchSvgFrom = e.baseUrl + "/releases/" + ("latest" === e.version ? "latest" : "v".concat(e.version)) + "/svgs"), e.v4shim.enabled && n(h(e, {
+        shim: !0,
+        minify: e.minify.enabled
+      })), n(h(e, {
+        minify: e.minify.enabled
+      }), t)), "css" === i.method && function (e) {
+        var t,
+            n,
+            _i,
+            o,
+            a,
+            s,
+            r,
+            l,
+            c = f.bind(f, ["fa", "fab", "fas", "far", "fal"]);
+
+        e.autoA11y.enabled && (n = c, o = [], a = document, s = a.documentElement.doScroll, r = "DOMContentLoaded", (l = (s ? /^loaded|^c/ : /^loaded|^i|^c/).test(a.readyState)) || a.addEventListener(r, _i = function i() {
+          for (a.removeEventListener(r, _i), l = 1; _i = o.shift();) {
+            _i();
+          }
+        }), l ? setTimeout(n, 0) : o.push(n), t = c, "undefined" != typeof MutationObserver && new MutationObserver(t).observe(document, {
+          childList: !0,
+          subtree: !0
+        })), e.v4shim.enabled && (e.asyncLoading.enabled ? m(h(e, {
+          shim: !0,
+          minify: e.minify.enabled
+        })) : u(h(e, {
+          shim: !0,
+          minify: e.minify.enabled
+        })));
+        var d = h(e, {
+          minify: e.minify.enabled
+        });
+        e.asyncLoading.enabled ? m(d) : u(d);
+      }(i);
+    }
+  } catch (e) {}
+}();
+
+/***/ }),
+
+/***/ "./resources/js/extra/custom.js":
+/*!**************************************!*\
+  !*** ./resources/js/extra/custom.js ***!
+  \**************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var aos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! aos */ "./node_modules/aos/dist/aos.js");
+/* harmony import */ var aos__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(aos__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var aos_dist_aos_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! aos/dist/aos.css */ "./node_modules/aos/dist/aos.css");
+/* harmony import */ var aos_dist_aos_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(aos_dist_aos_css__WEBPACK_IMPORTED_MODULE_1__);
+
+
+aos__WEBPACK_IMPORTED_MODULE_0___default.a.init();
+
+__webpack_require__(/*! ./01809e8659 */ "./resources/js/extra/01809e8659.js");
+
+__webpack_require__(/*! ./word-count */ "./resources/js/extra/word-count.js");
+
+__webpack_require__(/*! jquery-ui/ui/widgets/tooltip */ "./node_modules/jquery-ui/ui/widgets/tooltip.js");
+
+__webpack_require__(/*! jquery-ui/ui/widgets/sortable */ "./node_modules/jquery-ui/ui/widgets/sortable.js");
+
+__webpack_require__(/*! jquery-ui/ui/widgets/selectmenu */ "./node_modules/jquery-ui/ui/widgets/selectmenu.js");
+
+$(document).tooltip({
+  track: true,
+  classes: {
+    "ui-tooltip": "text-primary shadow border-0 rounded"
+  }
+});
+
+__webpack_require__(/*! ./jquery.multipage */ "./resources/js/extra/jquery.multipage.js");
+
+$('#myform').multipage({
+  generateNavigation: false
+});
+
+/***/ }),
+
+/***/ "./resources/js/extra/jquery.multipage.js":
+/*!************************************************!*\
+  !*** ./resources/js/extra/jquery.multipage.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function ($) {
+  var curpage = 1;
+  var id = null;
+  var settings = null;
+
+  jQuery.fn.transitionPage = function (from, to) {
+    if (settings.transitionFunction) {
+      settings.transitionFunction(from, to);
+    } else {
+      $(from).hide();
+      $(to).show();
+    }
+
+    $(id + ' fieldset').removeClass('active');
+    $(to).addClass('active');
+  };
+
+  jQuery.fn.showState = function (page) {
+    if (settings.stateFunction) {
+      return settings.stateFunction(id + "_nav .multipage_state", page, settings.pages.length);
+    }
+
+    var state = '';
+
+    for (x = 1; x <= settings.pages.length; x++) {
+      if (x == page) {
+        state = state + settings.activeDot;
+      } else {
+        state = state + settings.inactiveDot;
+      }
+    }
+
+    $(id + "_nav .multipage_state").html(state);
+  };
+
+  jQuery.fn.gotopage = function (page) {
+    $(id + '_nav .multipage_next').html('Next');
+
+    if (isNaN(page)) {
+      q = page;
+      page = 1;
+      $(id + ' fieldset').each(function (index) {
+        if ('#' + $(this).attr('id') == q) {
+          curpage = page = index + 1;
+        }
+      });
+    }
+
+    var np = null;
+    var cp = $(id + ' fieldset.active'); // show the appropriate page.
+
+    $(id + ' fieldset').each(function (index) {
+      index++;
+
+      if (index == page) {
+        np = this;
+      }
+    });
+    $(this).transitionPage(cp, np);
+    $(this).showState(page);
+    $(id + '_nav .multipage_next').removeClass('submit'); // is there a legend tag for this fieldset?
+    // if so, pull it out.
+
+    page_title = settings.pages[page - 1].title;
+
+    if (settings.stayLinkable) {
+      hashtag = '#' + settings.pages[page - 1].id;
+      document.location.hash = hashtag;
+    }
+
+    if (page == 1) {
+      // set up for first page
+      $(id + '_nav .multipage_back').hide();
+      $(id + '_nav .multipage_next').show();
+
+      if (settings.pages[page].title) {
+        $(id + '_nav .multipage_next').html('Next: ' + settings.pages[page].title);
+      } else {
+        $(id + '_nav .multipage_next').html('Next');
+      }
+    } else if (page == settings.pages.length) {
+      // set up for last page
+      $(id + '_nav .multipage_back').show();
+      $(id + '_nav .multipage_next').show();
+
+      if (settings.pages[page - 2].title) {
+        $(id + '_nav .multipage_back').html('Back: ' + settings.pages[page - 2].title);
+      } else {
+        $(id + '_nav .multipage_back').html('Back');
+      }
+
+      $(id + '_nav .multipage_next').addClass('submit');
+      $(id + '_nav .multipage_next').html(settings.submitLabel);
+    } else {
+      if (settings.pages[page - 2].title) {
+        $(id + '_nav .multipage_back').html('Back: ' + settings.pages[page - 2].title);
+      } else {
+        $(id + '_nav .multipage_back').html('Back');
+      }
+
+      if (settings.pages[page].title) {
+        $(id + '_nav .multipage_next').html('Next: ' + settings.pages[page].title);
+      } else {
+        $(id + '_nav .multipage_next').html('Next');
+      }
+
+      $(id + '_nav .multipage_back').show();
+      $(id + '_nav .multipage_next').show();
+    }
+
+    $(id + ' fieldset.active input:first').focus();
+    curpage = page;
+    return false;
+  };
+
+  jQuery.fn.validatePage = function (page) {
+    return true;
+  };
+
+  jQuery.fn.validateAll = function () {
+    for (x = 1; x <= settings.pages.length; x++) {
+      if (!$(this).validatePage(x)) {
+        $(this).gotopage(x);
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  jQuery.fn.gotofirst = function () {
+    curpage = 1;
+    $(this).gotopage(curpage);
+    return false;
+  };
+
+  jQuery.fn.gotolast = function () {
+    curpage = settings.pages.length;
+    $(this).gotopage(curpage);
+    return false;
+  };
+
+  jQuery.fn.nextpage = function () {
+    // validate the current page
+    if ($(this).validatePage(curpage)) {
+      curpage++;
+
+      if (curpage > settings.pages.length) {
+        // submit!
+        $(this).submit();
+        curpage = settings.pages.length;
+        return false;
+      }
+
+      $(this).gotopage(curpage);
+    }
+
+    return false;
+  };
+
+  jQuery.fn.getPages = function () {
+    return settings.pages;
+  };
+
+  jQuery.fn.prevpage = function () {
+    curpage--;
+
+    if (curpage < 1) {
+      curpage = 1;
+    }
+
+    $(this).gotopage(curpage);
+    return false;
+  };
+
+  jQuery.fn.multipage = function (options) {
+    settings = jQuery.extend({
+      stayLinkable: false,
+      submitLabel: 'Submit',
+      hideLegend: false,
+      hideSubmit: true,
+      generateNavigation: true,
+      activeDot: '&nbsp;&#x25CF;',
+      inactiveDot: '&nbsp;&middot;'
+    }, options);
+    id = '#' + $(this).attr('id');
+    var form = $(this);
+    form.addClass('multipage');
+    form.submit(function (e) {
+      if (!$(this).validateAll()) {
+        e.preventDefault();
+      }
+
+      ;
+    }); // hide all the pages 
+
+    $(id + ' fieldset').hide();
+
+    if (settings.hideSubmit) {
+      $(id + ' input[type="submit"]').hide();
+    }
+
+    if ($(id + ' input[type="submit"]').val() != '') {
+      settings.submitLabel = $(id + ' input[type="submit"]').val();
+    }
+
+    settings.pages = new Array();
+    $(this).children('fieldset').each(function (index) {
+      label = $(this).children('legend').html();
+      settings.pages[index] = {
+        number: index + 1,
+        title: label,
+        id: $(this).attr('id')
+      };
+    });
+
+    if (settings.hideLegend) {
+      // hide legend tags
+      $(id + ' fieldset legend').hide();
+    } // show the first page.
+
+
+    $(id + ' fieldset:first').addClass('active');
+    $(id + ' fieldset:first').show();
+
+    if (settings.generateNavigation) {
+      if (settings.navigationFunction) {
+        settings.navigationFunction($(this).getPages());
+      } else {
+        // insert navigation
+        var id_name = $(this).attr('id');
+        $('<div class="multipage_nav" id="' + id_name + '_nav"><a href="#" class="multipage_back" onclick="return  $(\'' + id + '\').prevpage();">Back</a><a href="#"  class="multipage_next" onclick="return $(\'' + id + '\').nextpage();">Next</a><span class="multipage_state"></span><div class="clearer"></div></div>').insertAfter(this);
+      }
+    }
+
+    if (document.location.hash) {
+      $(this).gotopage('#' + document.location.hash.substring(1, document.location.hash.length));
+    } else {
+      $(this).gotopage(1);
+    }
+
+    return false;
+  };
+})(jQuery);
+
+/***/ }),
+
+/***/ "./resources/js/extra/word-count.js":
+/*!******************************************!*\
+  !*** ./resources/js/extra/word-count.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Cycle through each textarea and add placeholder with individual word limits
+$("textarea[word-limit=true]").each(function () {
+  $(this).attr("placeholder", "Writing answer: " + $(this).attr("min-words") + " words min, " + $(this).attr("max-words") + " words max");
+}); // Add event trigger for change to textareas with limit
+
+$(document).on("input", "textarea[word-limit=true]", function () {
+  // Get individual limits
+  thisMin = parseInt($(this).attr("min-words"));
+  thisMax = parseInt($(this).attr("max-words")); // Create array of words, skipping the blanks
+
+  var removedBlanks = [];
+  removedBlanks = $(this).val().split(/\s+/).filter(Boolean); // Get word count
+
+  var wordCount = removedBlanks.length; // Remove extra words from string if over word limit
+
+  if (wordCount > thisMax) {
+    // Trim string, use slice to get the first 'n' values
+    var trimmed = removedBlanks.slice(0, thisMax).join(" "); // Add space to ensure further typing attempts to add a new word (rather than adding to penultimate word)
+
+    $(this).val(trimmed + " ");
+  } // Compare word count to limits and print message as appropriate
+
+
+  if (wordCount < thisMin) {
+    $(this).parent().children(".writing_error").text("Word count under " + thisMin + ".");
+    $(this).removeClass('text-danger');
+  } else if (wordCount > thisMax) {
+    $(this).parent().children(".writing_error").text("Word count over " + thisMax + "."); //
+
+    $(this).addClass('text-danger');
+  } else {
+    // No issues, remove warning message
+    $(this).parent().children(".writing_error").text("");
+    $(this).removeClass('text-danger');
+  }
+});
 
 /***/ }),
 

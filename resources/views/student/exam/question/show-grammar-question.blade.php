@@ -2,6 +2,10 @@
 
 @section('title', 'Exam - Grammar  ( '.$authStudent->name.' )')
 @section('content')
+    <div class="timerContainer shadow rounded-left bg-primary text-white px-4 py-2"
+         style=" animation-iteration-count: 3;">
+        <span class="timer" data-seconds-left="5"></span>
+    </div>
     <div class="container h-100">
         <div class="row justify-content-center h-100">
             <div class="col-12 col-md-8 h-100">
@@ -28,7 +32,8 @@
                                                     <li class="mb-2">
                                                         <div class="custom-control custom-radio">
                                                             <?php $id = Str::random() ?>
-                                                            <input type="radio" id="{{ $id }}" name="grammar[{{ $grammar->id }}]"
+                                                            <input type="radio" id="{{ $id }}"
+                                                                   name="grammar[{{ $grammar->id }}]"
                                                                    class="custom-control-input"
                                                                    value="{{ $grammar->option_1 }}">
                                                             <label class="custom-control-label"
@@ -38,7 +43,8 @@
                                                     <li class="mb-2">
                                                         <div class="custom-control custom-radio">
                                                             <?php $id = Str::random() ?>
-                                                            <input type="radio" id="{{ $id }}" name="grammar[{{ $grammar->id }}]"
+                                                            <input type="radio" id="{{ $id }}"
+                                                                   name="grammar[{{ $grammar->id }}]"
                                                                    class="custom-control-input"
                                                                    value="{{ $grammar->option_2 }}">
                                                             <label class="custom-control-label"
@@ -48,7 +54,8 @@
                                                     <li>
                                                         <div class="custom-control custom-radio">
                                                             <?php $id = Str::random() ?>
-                                                            <input type="radio" id="{{ $id }}" name="grammar[{{ $grammar->id }}]"
+                                                            <input type="radio" id="{{ $id }}"
+                                                                   name="grammar[{{ $grammar->id }}]"
                                                                    class="custom-control-input"
                                                                    value="{{ $grammar->option_3 }}">
                                                             <label class="custom-control-label"
@@ -88,6 +95,26 @@
     <script>
         var height = $(window).innerHeight();
         $('body').css({'height': height});
+
+        // Start Simple timer
+        $(function () {
+            $('.timer').startTimer({
+                onComplete: function () {
+                 $('#myform').submit();
+                }
+            });
+
+            var value = 0;
+            setInterval(function () {
+                value = parseInt($('.jst-minutes').html().split(':')[0]);
+                if (value < 5) {
+                    $('.timerContainer').removeClass('bg-primary').addClass('bg-danger animated bounce');
+                }
+            }, 1000);
+        })
+
+        // End Simple timer
+
 
         // alert('Check the correct answer');
         // function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); }

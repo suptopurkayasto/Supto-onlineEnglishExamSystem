@@ -55,13 +55,13 @@
         opts = opts || {};
 
         // Element that will be created for hours, minutes, and seconds.
-        timer._options.elementContainer = opts.elementContainer || 'span';
+        timer._options.elementContainer = opts.elementContainer || 'div';
 
         var classNames = opts.classNames || {};
 
         timer._options.classNameSeconds       = classNames.seconds  || 'jst-seconds'
             , timer._options.classNameMinutes   = classNames.minutes  || 'jst-minutes'
-            , timer._options.classNameHours     = classNames.hours    || 'jst-hours d-none'
+            , timer._options.classNameHours     = classNames.hours    || 'jst-hours'
             , timer._options.classNameClearDiv  = classNames.clearDiv || 'jst-clearDiv'
             , timer._options.classNameTimeout   = classNames.timeout || 'jst-timeout';
     }

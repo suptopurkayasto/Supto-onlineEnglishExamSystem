@@ -21,30 +21,14 @@
 </head>
 <body>
 @include('components.audio-alert')
-
 @yield('content')
 
 <!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/extra/jquery.simple.timer.js') }}"></script>
 
 @include('sweetalert::alert')
 
-<script>
-    $(document).tooltip({
-        track: true,
-        classes: {
-            "ui-tooltip": "text-primary shadow border-0 rounded"
-        }
-    });
-</script>
-<script src="{{ asset('js/extra/jquery.multipage.js') }}"></script>
-<script>
-    $('#myform').multipage({
-        generateNavigation: false,
-    });
-</script>
-
 @yield('extra-script')
-<script src="https://kit.fontawesome.com/01809e8659.js" crossorigin="anonymous"></script>
 </body>
 </html>
