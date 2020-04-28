@@ -1,11 +1,28 @@
 
 .timerContainer {
     background-color: white;
+    color: $primary;
     position: fixed;
     top: 50px;
     right: 0;
+    z-index: 1111111111 !important;
+    &:hover {
+        animation-play-state: paused;
+    }
     .timer {
         font-weight: 900;
         font-size: 40px;
     }
 }
+.timerContainer.timerAnimation {
+    animation: timerAnimation 1s infinite;
+}
+@keyframes timerAnimation {
+    from {
+        color: green !important;
+    }
+    to {
+        color: red !important;
+    }
+}
+

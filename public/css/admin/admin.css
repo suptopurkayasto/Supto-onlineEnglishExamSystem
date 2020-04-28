@@ -3286,7 +3286,7 @@ li.sidebar-item ul li p {
 }
 
 .wrong-grammar-answer .grammar-questions-title {
-  color: #dc3545;
+  color: red;
   font-weight: bold;
 }
 
@@ -3295,11 +3295,11 @@ li.sidebar-item ul li p {
 }
 
 .wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: #dc3545 !important;
+  background-color: red !important;
 }
 
 .wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:checked ~ .custom-control-label::before {
-  border-color: #dc3545 !important;
+  border-color: red !important;
 }
 
 .wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label.ccl-correct {
@@ -3357,7 +3357,7 @@ label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct) {
 }
 
 .mini-answer-sheet-table tbody tr.danger-row:hover {
-  background-color: rgba(220, 53, 69, 0.2);
+  background-color: rgba(255, 0, 0, 0.2);
 }
 
 .mini-answer-sheet-table tbody tr.secondary-row:hover {

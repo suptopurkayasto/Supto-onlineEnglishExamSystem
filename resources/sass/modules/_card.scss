@@ -30,13 +30,22 @@
     }
 
     .card-body {
-        .custom-select-label {
+        .custom-select-label:not(.long-text) {
             font-size: $h4-font-size;
+            line-height: 2;
+        }
+        .custom-select-label.long-text {
+            font-size: $h5-font-size;
             line-height: 2;
         }
         .custom-select-dropdown {
             option {
                 font-size: $h4-font-size;
+                padding: 20px;
+                display: block;
+                &:hover {
+                    background-color: $primary !important;
+                }
             }
             option:not(:disabled) {
                 color: black !important;

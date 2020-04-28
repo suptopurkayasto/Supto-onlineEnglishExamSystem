@@ -2,9 +2,9 @@
 
 @section('title', 'Exam - Grammar  ( '.$authStudent->name.' )')
 @section('content')
-    <div class="timerContainer shadow rounded-left bg-primary text-white px-4 py-2"
+    <div class="timerContainer shadow rounded-left px-4 py-2"
          style=" animation-iteration-count: 3;">
-        <span class="timer" data-seconds-left="5"></span>
+        <span class="timer" data-minutes-left="20"></span>
     </div>
     <div class="container h-100">
         <div class="row justify-content-center h-100">
@@ -108,7 +108,7 @@
             setInterval(function () {
                 value = parseInt($('.jst-minutes').html().split(':')[0]);
                 if (value < 5) {
-                    $('.timerContainer').removeClass('bg-primary').addClass('bg-danger animated bounce');
+                    $('.timerContainer').removeClass('bg-primary').addClass('timerAnimation text-danger');
                 }
             }, 1000);
         })

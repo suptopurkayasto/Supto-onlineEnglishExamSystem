@@ -3174,14 +3174,46 @@ body {
 
 .timerContainer {
   background-color: white;
+  color: #75811a;
   position: fixed;
   top: 50px;
   right: 0;
+  z-index: 1111111111 !important;
+}
+
+.timerContainer:hover {
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
 }
 
 .timerContainer .timer {
   font-weight: 900;
   font-size: 40px;
+}
+
+.timerContainer.timerAnimation {
+  -webkit-animation: timerAnimation 1s infinite;
+          animation: timerAnimation 1s infinite;
+}
+
+@-webkit-keyframes timerAnimation {
+  from {
+    color: green !important;
+  }
+
+  to {
+    color: red !important;
+  }
+}
+
+@keyframes timerAnimation {
+  from {
+    color: green !important;
+  }
+
+  to {
+    color: red !important;
+  }
 }
 
 .student-list-group-container div.list-group a.list-group-item {
@@ -3264,7 +3296,7 @@ table td {
 }
 
 .wrong-grammar-answer .grammar-questions-title {
-  color: #dc3545;
+  color: red;
   font-weight: bold;
 }
 
@@ -3273,11 +3305,11 @@ table td {
 }
 
 .wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: #dc3545 !important;
+  background-color: red !important;
 }
 
 .wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:checked ~ .custom-control-label::before {
-  border-color: #dc3545 !important;
+  border-color: red !important;
 }
 
 .wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label.ccl-correct {
@@ -3335,7 +3367,7 @@ label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct) {
 }
 
 .mini-answer-sheet-table tbody tr.danger-row:hover {
-  background-color: rgba(220, 53, 69, 0.2);
+  background-color: rgba(255, 0, 0, 0.2);
 }
 
 .mini-answer-sheet-table tbody tr.secondary-row:hover {
@@ -3389,11 +3421,19 @@ label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct) {
   color: rgba(117, 129, 26, 0.5);
 }
 
-.grammar-questions-card .card-body .custom-select-label,
-.vocabulary-questions-card .card-body .custom-select-label,
-.reading-questions-card .card-body .custom-select-label,
-.writing-questions-card .card-body .custom-select-label {
+.grammar-questions-card .card-body .custom-select-label:not(.long-text),
+.vocabulary-questions-card .card-body .custom-select-label:not(.long-text),
+.reading-questions-card .card-body .custom-select-label:not(.long-text),
+.writing-questions-card .card-body .custom-select-label:not(.long-text) {
   font-size: 1.5rem;
+  line-height: 2;
+}
+
+.grammar-questions-card .card-body .custom-select-label.long-text,
+.vocabulary-questions-card .card-body .custom-select-label.long-text,
+.reading-questions-card .card-body .custom-select-label.long-text,
+.writing-questions-card .card-body .custom-select-label.long-text {
+  font-size: 1.25rem;
   line-height: 2;
 }
 
@@ -3402,6 +3442,15 @@ label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct) {
 .reading-questions-card .card-body .custom-select-dropdown option,
 .writing-questions-card .card-body .custom-select-dropdown option {
   font-size: 1.5rem;
+  padding: 20px;
+  display: block;
+}
+
+.grammar-questions-card .card-body .custom-select-dropdown option:hover,
+.vocabulary-questions-card .card-body .custom-select-dropdown option:hover,
+.reading-questions-card .card-body .custom-select-dropdown option:hover,
+.writing-questions-card .card-body .custom-select-dropdown option:hover {
+  background-color: #75811a !important;
 }
 
 .grammar-questions-card .card-body .custom-select-dropdown option:not(:disabled),

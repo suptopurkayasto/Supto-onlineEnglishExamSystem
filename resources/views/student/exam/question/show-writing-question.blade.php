@@ -3,6 +3,9 @@
 @section('title', 'Exam - Writing ( '.$authStudent->name.' )')
 
 @section('content')
+    <div class="timerContainer shadow rounded-left px-4 py-2">
+        <span class="timer" data-minutes-left="20"></span>
+    </div>
     <div class="container h-100 my-5">
         <div class="h-100 d-flex justify-content-center align-items-center">
             <div class="rounded shadow bg-white">
@@ -172,9 +175,26 @@
 @endsection
 
 @section('extra-script')
-    <script src="{{ asset('js/extra/custom.js') }}"></script>
     <script>
 
+        // Start Simple timer
+        $(function () {
+            $('.timer').startTimer({
+                onComplete: function () {
+                    $('#myform').submit();
+                }
+            });
+
+            var value = 0;
+            setInterval(function () {
+                value = parseInt($('.jst-minutes').html().split(':')[0]);
+                if (value < 5) {
+                    $('.timerContainer').addClass('text-danger timerAnimation');
+                }
+            }, 1000);
+        })
+
+        // End Simple timer
 
         //
         // function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); }
