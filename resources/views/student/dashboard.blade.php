@@ -11,10 +11,12 @@
                     <div class="form-row">
                         <div class="col-12 col-lg-4 mb-5 mb-lg-0">
                             @if(Gravatar::exists($authStudent->email))
-                                <img title="{{ $authStudent->name }}" class="img-thumbnail"
-                                     style="width: 100%; border-width: 2px !important;"
-                                     src="{{ Gravatar::get($authStudent->email, ['size' => 1024]) }}"
-                                     alt="">
+                                <div class="bg-primary rounded w-100 h-100">
+                                    <img title="{{ $authStudent->name }}" class="img-thumbnail"
+                                         style="width: 100%; border-width: 2px !important;"
+                                         src="{{ Gravatar::get($authStudent->email, ['size' => 1024]) }}"
+                                         alt="">
+                                </div><!-- /. -->
                             @else
                                 <a target="_blank" href="https://en.gravatar.com/site/signup" title="Create Gravatar account for set your profile photo">
                                     <img src="https://www.gravatar.com/avatar/42875a70a57aed53585c58e7b60ed26e.jpg?s=400&d=mm&r=g" class="img-thumbnail" alt="">
