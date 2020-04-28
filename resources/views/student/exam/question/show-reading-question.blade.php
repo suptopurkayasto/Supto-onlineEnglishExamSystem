@@ -7,7 +7,7 @@
         <div class="h-100 d-flex justify-content-center align-items-center">
             <div class="rounded shadow bg-white">
                 <div class="card border-0 reading-questions-card">
-                    <form action="{{ route('student.exam.reading.questions.submit', $exam->id) }}"
+                    <form action="{{ route('student.exam.reading.questions.submit', encrypt($exam->id)) }}"
                           id="myform"
                           class="" method="post">
                     @csrf
@@ -15,13 +15,13 @@
                         <fieldset>
                             <div class="card-header">
                                 <h4 class="h4 title">Heading Matching</h4>
-                                <span class="subtitle">Select the correct heading from the dropdown on the top</span>
+{{--                                <span class="subtitle">Select the correct heading from the dropdown on the top</span>--}}
                             </div><!-- /.card-header -->
                             <div class="card-body body-max-width">
                                 @foreach($headings as $index => $heading)
                                     <div class="form-group p-2 mb-5 rounded">
                                         <select name="heading[][{{ $heading->id }}]" id="heading_{{ $index+1 }}"
-                                                class="select-menu mb-2 form-control">
+                                                class="mb-2 form-control form-control-lg custom-select-dropdown">
                                             <option disabled selected>Select correct heading</option>
                                             @foreach($headingOptions as $headingOption)
                                                 <option
@@ -42,49 +42,51 @@
                         <fieldset>
                             <div class="card-header">
                                 <h4 class="h4 title">Rearrange</h4>
-                                <span class="subtitle">Arrange the rearrange</span>
+{{--                                <span class="subtitle">Arrange the rearrange</span>--}}
                             </div><!-- /.card-header -->
                             <div class="card-body">
-                                @foreach($rearranges as $index => $rearrange)
-                                    <ul class="list-group" id="sortable">
-                                        <label
-                                            class="list-group-item shadow-sm mb-3 first-rearrange-item">
-                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
-                                            {{ $rearrange->line_1 }}
-                                            <input type="hidden" name="rearrange[1]" class="" value="{{ $rearrange->line_1 }}">
-                                        </label>
-                                        <label class="list-group-item shadow-sm mb-3">
-                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
-                                            {{ $rearrange->line_6 }}
-                                            <input type="hidden" name="rearrange[2]" class="" value="{{ $rearrange->line_6 }}">
-                                        </label>
-                                        <label class="list-group-item shadow-sm mb-3">
-                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
-                                            {{ $rearrange->line_4 }}
-                                            <input type="hidden" name="rearrange[3]" class="" value="{{ $rearrange->line_4 }}">
-                                        </label>
-                                        <label class="list-group-item shadow-sm mb-3">
-                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
-                                            {{ $rearrange->line_5 }}
-                                            <input type="hidden" name="rearrange[4]" class="" value="{{ $rearrange->line_5 }}">
-                                        </label>
-                                        <label class="list-group-item shadow-sm mb-3">
-                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
-                                            {{ $rearrange->line_7 }}
-                                            <input type="hidden" name="rearrange[5]" class="" value="{{ $rearrange->line_7 }}">
-                                        </label>
-                                        <label class="list-group-item shadow-sm mb-3">
-                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
-                                            {{ $rearrange->line_3 }}
-                                            <input type="hidden" name="rearrange[6]" class="" value="{{ $rearrange->line_4 }}">
-                                        </label>
-                                        <label class="list-group-item shadow-sm mb-3">
-                                            <i class="fas fa-arrows-alt mr-2 text-primary"></i>
-                                            {{ $rearrange->line_2 }}
-                                            <input type="hidden" name="rearrange[7]" class="" value="{{ $rearrange->line_2 }}">
-                                        </label>
-                                    </ul>
-                                @endforeach
+                                <div class="">
+                                    @foreach($rearranges as $index => $rearrange)
+                                        <ul class="list-group" id="sortable">
+                                            <label
+                                                class="list-group-item shadow-sm mb-3 first-rearrange-item">
+                                                <i class="fas fa-arrows-alt mr-2 text-primary"></i>
+                                                {{ $rearrange->line_1 }}
+                                                <input type="hidden" name="rearrange[1]" class="" value="{{ $rearrange->line_1 }}">
+                                            </label>
+                                            <label class="list-group-item shadow-sm mb-3">
+                                                <i class="fas fa-arrows-alt mr-2 text-primary"></i>
+                                                {{ $rearrange->line_6 }}
+                                                <input type="hidden" name="rearrange[2]" class="" value="{{ $rearrange->line_6 }}">
+                                            </label>
+                                            <label class="list-group-item shadow-sm mb-3">
+                                                <i class="fas fa-arrows-alt mr-2 text-primary"></i>
+                                                {{ $rearrange->line_4 }}
+                                                <input type="hidden" name="rearrange[3]" class="" value="{{ $rearrange->line_4 }}">
+                                            </label>
+                                            <label class="list-group-item shadow-sm mb-3">
+                                                <i class="fas fa-arrows-alt mr-2 text-primary"></i>
+                                                {{ $rearrange->line_5 }}
+                                                <input type="hidden" name="rearrange[4]" class="" value="{{ $rearrange->line_5 }}">
+                                            </label>
+                                            <label class="list-group-item shadow-sm mb-3">
+                                                <i class="fas fa-arrows-alt mr-2 text-primary"></i>
+                                                {{ $rearrange->line_7 }}
+                                                <input type="hidden" name="rearrange[5]" class="" value="{{ $rearrange->line_7 }}">
+                                            </label>
+                                            <label class="list-group-item shadow-sm mb-3">
+                                                <i class="fas fa-arrows-alt mr-2 text-primary"></i>
+                                                {{ $rearrange->line_3 }}
+                                                <input type="hidden" name="rearrange[6]" class="" value="{{ $rearrange->line_4 }}">
+                                            </label>
+                                            <label class="list-group-item shadow-sm mb-3">
+                                                <i class="fas fa-arrows-alt mr-2 text-primary"></i>
+                                                {{ $rearrange->line_2 }}
+                                                <input type="hidden" name="rearrange[7]" class="" value="{{ $rearrange->line_2 }}">
+                                            </label>
+                                        </ul>
+                                    @endforeach
+                                </div>
                             </div><!-- /.card-body -->
                         </fieldset>
 

@@ -11,8 +11,10 @@
     },
     "devDependencies": {
         "animate.css": "^3.7.2",
+        "aos": "^3.0.0-beta.6",
         "axios": "^0.19",
         "bootstrap": "^4.4.1",
+        "bourbon": "^7.0.0",
         "cross-env": "^7.0",
         "easytimer.js": "^4.1.1",
         "jquery": "^3.5.0",
@@ -27,7 +29,6 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
-        "bourbon": "^7.0.0",
         "save-dev": "0.0.1-security"
     }
 }

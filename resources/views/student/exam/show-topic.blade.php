@@ -10,19 +10,19 @@
                 $marks = $authStudent->marks()->where('exam_id', $exam->id)->get()->first();
                 ?>
                 @if($marks->grammar === null)
-                    <a href="{{ route('student.exam.grammar.questions', $exam->id) }}"
+                    <a href="{{ route('student.exam.grammar.questions', encrypt($exam->id)) }}"
                        class="list-group-item border-primary list-group-item-action">Grammar</a>
                 @endif
                 @if($marks->synonym === null)
-                    <a href="{{ route('student.exam.vocabulary.questions', $exam->id) }}"
+                    <a href="{{ route('student.exam.vocabulary.questions', encrypt($exam->id)) }}"
                        class="list-group-item border-primary list-group-item-action">Vocabulary</a>
                 @endif
                 @if($marks->heading === null)
-                    <a href="{{ route('student.exam.reading.questions', $exam->id) }}"
+                    <a href="{{ route('student.exam.reading.questions', encrypt($exam->id)) }}"
                        class="list-group-item border-primary list-group-item-action">Reading</a>
                 @endif
                 @if($marks->dialog === null)
-                    <a href="{{ route('student.exam.writing.questions', $exam->id) }}"
+                    <a href="{{ route('student.exam.writing.questions', encrypt($exam->id)) }}"
                        class="list-group-item border-primary list-group-item-action">Writing</a>
                 @endif
             </div>

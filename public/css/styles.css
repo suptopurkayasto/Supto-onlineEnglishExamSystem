@@ -3350,10 +3350,13 @@ label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct) {
 
 @media (min-width: 576px) {
   .grammar-questions-card,
-  .vocabulary-questions-card,
+  .vocabulary-questions-card {
+    min-width: 600px;
+  }
+
   .reading-questions-card,
   .writing-questions-card {
-    min-width: 600px;
+    min-width: 800px;
   }
 }
 
@@ -3374,6 +3377,7 @@ label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct) {
   font-weight: bold;
   margin-top: 10px;
   color: #75811a;
+  font-size: 1.75rem !important;
 }
 
 .grammar-questions-card .card-header .subtitle,
@@ -3383,6 +3387,28 @@ label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct) {
   text-align: center;
   display: block;
   color: rgba(117, 129, 26, 0.5);
+}
+
+.grammar-questions-card .card-body .custom-select-label,
+.vocabulary-questions-card .card-body .custom-select-label,
+.reading-questions-card .card-body .custom-select-label,
+.writing-questions-card .card-body .custom-select-label {
+  font-size: 1.5rem;
+  line-height: 2;
+}
+
+.grammar-questions-card .card-body .custom-select-dropdown option,
+.vocabulary-questions-card .card-body .custom-select-dropdown option,
+.reading-questions-card .card-body .custom-select-dropdown option,
+.writing-questions-card .card-body .custom-select-dropdown option {
+  font-size: 1.5rem;
+}
+
+.grammar-questions-card .card-body .custom-select-dropdown option:not(:disabled),
+.vocabulary-questions-card .card-body .custom-select-dropdown option:not(:disabled),
+.reading-questions-card .card-body .custom-select-dropdown option:not(:disabled),
+.writing-questions-card .card-body .custom-select-dropdown option:not(:disabled) {
+  color: black !important;
 }
 
 .grammar-questions-card .card-body.body-max-width,

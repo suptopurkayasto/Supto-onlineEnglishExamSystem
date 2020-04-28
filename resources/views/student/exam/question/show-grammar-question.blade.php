@@ -10,10 +10,9 @@
                         <div class="card border-0 grammar-questions-card">
                             <div class="card-header">
                                 <h4 class="h4 title">Grammar Questions</h4>
-                                <span class="subtitle">Check the correct answer</span>
                             </div><!-- /.card-header -->
                             <div class="card-body">
-                                <form action="{{ route('student.exam.grammar.questions.submit', $exam->id) }}"
+                                <form action="{{ route('student.exam.grammar.questions.submit', encrypt($exam->id)) }}"
                                       id="myform" class="" method="post">
                                     @csrf
                                     <?php $qn = 0; ?>
@@ -90,6 +89,7 @@
         var height = $(window).innerHeight();
         $('body').css({'height': height});
 
+        // alert('Check the correct answer');
         // function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); }
         // $(document).on("keydown", disableF5);
 

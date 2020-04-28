@@ -7,7 +7,7 @@
         <div class="h-100 d-flex justify-content-center align-items-center">
             <div class="rounded shadow bg-white">
                 <div class="card border-0 writing-questions-card">
-                    <form action="{{ route('student.exam.writing.questions.submit', $exam->id) }}"
+                    <form action="{{ route('student.exam.writing.questions.submit', encrypt($exam->id)) }}"
                           id="myform"
                           class="" method="post">
                     @csrf
@@ -16,14 +16,16 @@
                         <fieldset>
                             <div class="card-header">
                                 <h4 class="h4 title">Dialog</h4>
-                                <span class="subtitle">Select the correct word from the dropdown on the right</span>
                             </div><!-- /.card-header -->
                             <div class="card-body body-max-width">
-                                <h5 class="h5">{{ $dialog->topic }}</h5>
+                                <p>
+                                    <span class="d-block font-weight-bold">Topic: </span>
+                                    {{ $dialog->topic }}
+                                </p>
                                 <input type="hidden" name="dialog_id" value="{{ $dialog->id }}">
                                 <div id="dialog-question-1"
                                      class="form-group mt-5">
-                                    <label for="question_1"><h6 class="h6">1. {{ $dialog->question_1 }}</h6></label>
+                                    <label for="question_1"><h5 class="h5">1. {{ $dialog->question_1 }}</h5></label>
                                     <textarea name="dialog[answer][1]" id="question_1" rows="5" class="form-control"
                                               spellcheck="false" word-limit="true" max-words="50"
                                               min-words="40"></textarea>
@@ -60,21 +62,23 @@
                         <fieldset>
                             <div class="card-header">
                                 <h4 class="h4 title">Informal Email</h4>
-                                {{--                                    <span class="subtitle">Select the correct word from the dropdown on the right</span>--}}
                             </div><!-- /.card-header -->
                             <div class="card-body body-max-width">
-                                <h5 class="h5">{{ $informalEmail->topic }}</h5>
+                                <p>
+                                    <span class="d-block font-weight-bold">Topic: </span>
+                                    {{ $informalEmail->topic }}
+                                </p>
 
                                 <div id="informalEmail"
                                      class="form-group mt-5">
                                     <input type="hidden" name="informal_email_id" value="{{ $informalEmail->id }}">
                                     <div class="form-group">
-                                        <label for="informalEmail-subject">Subject</label>
+                                        <label for="informalEmail-subject" class="h5">Subject</label>
                                         <input type="text" id="informalEmail-subject" name="informalEmail[subject]"
                                                placeholder="Subject" class="form-control">
                                     </div><!-- /.form-group -->
                                     <div class="form-group">
-                                        <label for="informalEmail-body">Body</label>
+                                        <label for="informalEmail-body" class="h5">Body</label>
                                         <textarea name="informalEmail[body]" id="informalEmail-body" rows="10"
                                                   class="form-control"
                                                   spellcheck="false" word-limit="true" max-words="100"
@@ -92,21 +96,26 @@
                         <fieldset>
                             <div class="card-header">
                                 <h4 class="h4 title">Formal Email</h4>
-                                {{--                                    <span class="subtitle">Select the correct word from the dropdown on the right</span>--}}
                             </div><!-- /.card-header -->
                             <div class="card-body body-max-width">
-                                <h5 class="h5 mb-3">{{ $formalEmail->topic }}</h5>
-                                <h6 class="h6">{{ $formalEmail->received_email }}</h6>
+                                <p>
+                                    <span class="d-block font-weight-bold">Topic: </span>
+                                    {{ $formalEmail->topic }}
+                                </p>
+                                <p>
+                                    <span class="d-block font-weight-bold">Received Email: </span>
+                                    {{ $formalEmail->received_email }}
+                                </p>
                                 <div id="formalEmail"
                                      class="form-group mt-5">
                                     <input type="hidden" name="formal_email_id" value="{{ $formalEmail->id }}">
                                     <div class="form-group">
-                                        <label for="formalEmail-subject">Subject</label>
+                                        <label for="formalEmail-subject" class="h5">Subject</label>
                                         <input type="text" id="informalEmail-subject" name="formalEmail[subject]"
                                                placeholder="Subject" class="form-control">
                                     </div><!-- /.form-group -->
                                     <div class="form-group">
-                                        <label for="formalEmail-body">Body</label>
+                                        <label for="formalEmail-body" class="h5">Body</label>
                                         <textarea name="formalEmail[body]" id="formalEmail-body" rows="10"
                                                   class="form-control"
                                                   spellcheck="false" word-limit="true" max-words="100"
@@ -129,10 +138,10 @@
                             <div class="card-body">
                                 @foreach($sortQuestions as $index => $sortQuestion)
                                     <div class="form-group mb-5">
-                                        <label for="">{{ $index + 1 }}. {{ $sortQuestion->question }}</label>
+                                        <label for="" class="h5">{{ $index + 1 }}. {{ $sortQuestion->question }}</label>
                                         <input type="hidden" name="sortQuestion[question][{{ $sortQuestion->id }}]"
                                                value="{{ $sortQuestion->id }}">
-                                        <textarea type="text" name="sortQuestion[answer][{{ $sortQuestion->id }}]"
+                                        <textarea rows="3" type="text" name="sortQuestion[answer][{{ $sortQuestion->id }}]"
                                                   class="form-control" id=""></textarea>
                                     </div><!-- /.form-group -->
                                 @endforeach

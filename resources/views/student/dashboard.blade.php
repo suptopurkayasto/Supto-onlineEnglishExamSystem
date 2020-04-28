@@ -117,7 +117,7 @@
                                             <td>
                                                 @if($exam->status == 'running')
                                                     <a
-                                                        href="{{ route('student.exam.show.topic', $exam->id) }}"
+                                                        href="{{ route('student.exam.show.topic', encrypt($exam->id)) }}"
                                                         class="btn btn-primary btn-sm {{ $grammar !== null && $synonym !== null && $definition !== null && $combination !== null && $fillInTheGap !== null && $heading !== null && $rearrange !== null ? 'disabled' : '' }}">Start
                                                         Quiz</a>
                                                 @elseif($exam->status == 'complete')

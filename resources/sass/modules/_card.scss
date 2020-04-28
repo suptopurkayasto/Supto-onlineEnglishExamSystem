@@ -1,31 +1,53 @@
-
 /*Questions Card */
-.grammar-questions-card, .vocabulary-questions-card, .reading-questions-card,.writing-questions-card {
-    @include media-breakpoint-up(sm) {
+@include media-breakpoint-up(sm) {
+    .grammar-questions-card, .vocabulary-questions-card {
         min-width: 600px;
     }
+    .reading-questions-card, .writing-questions-card {
+        min-width: 800px;
+    }
+}
+
+.grammar-questions-card, .vocabulary-questions-card, .reading-questions-card, .writing-questions-card {
     .card-header {
         background-color: white;
         border-bottom-color: $primary;
         border-bottom-width: 2px;
+
         .title {
             text-align: center;
             font-weight: bold;
             margin-top: 10px;
             color: $primary;
+            font-size: $h3-font-size !important;
         }
+
         .subtitle {
             text-align: center;
             display: block;
             color: transparentize($primary, .5);
         }
     }
-    .card-body {
 
+    .card-body {
+        .custom-select-label {
+            font-size: $h4-font-size;
+            line-height: 2;
+        }
+        .custom-select-dropdown {
+            option {
+                font-size: $h4-font-size;
+            }
+            option:not(:disabled) {
+                color: black !important;
+            }
+        }
     }
+
     .card-body.body-max-width {
         max-width: 800px;
     }
+
     .card-footer {
         border-top-color: $primary;
         border-top-width: 2px;
@@ -55,11 +77,13 @@
         align-items: center;
         margin: -60px auto 0 auto;
     }
+
     .card-body {
         .input-group {
             .input-group-prepend {
                 .input-group-text {
                     background-color: $primary;
+
                     i {
                         color: white;
                     }

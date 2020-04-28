@@ -29,9 +29,10 @@ class ExamController extends Controller
      * @param Exam $exam
      * @return Factory|RedirectResponse|View
      */
-    public function showTopic(Exam $exam)
+    public function showTopic($exam)
     {
         if ($this->validExamRequest($exam)) {
+            $exam = Exam::find(decrypt($exam));
             return view('student.exam.show-topic', compact('exam'))
                 ->with('authStudent', Auth::guard('student')->user());
         } else {
@@ -45,9 +46,10 @@ class ExamController extends Controller
      * @param Exam $exam
      * @return Factory|RedirectResponse|View
      */
-    public function showGrammarQuestion(Exam $exam)
+    public function showGrammarQuestion($exam)
     {
         if ($this->validExamRequest($exam)) {
+            $exam = Exam::find(decrypt($exam));
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-grammar-question', compact('exam', 'authStudent'))
                 ->with('grammars', $exam->grammars()->where('set_id', $authStudent->set->id)->get());
@@ -63,9 +65,10 @@ class ExamController extends Controller
      * @param Exam $exam
      * @return array|RedirectResponse
      */
-    public function submitGrammarQuestion(Request $request, Exam $exam)
+    public function submitGrammarQuestion(Request $request, $exam)
     {
         if ($this->validExamRequest($exam)) {
+            $exam = Exam::find(decrypt($exam));
             $authStudent = Auth::guard('student')->user();
 
             $checkResubmitGrammarQuestion = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->grammar;
@@ -96,11 +99,11 @@ class ExamController extends Controller
 
                 toast('Grammar part has been successfully submitted', 'success');
                 session()->flash('success_audio');
-                return redirect()->route('student.exam.show.topic', $exam->id);
+                return redirect()->route('student.exam.show.topic', encrypt($exam->id));
 
             } else {
                 alert()->error('😒', 'You will no longer be able to resubmit');
-                return redirect()->route('student.exam.show.topic', $exam->id);
+                return redirect()->route('student.exam.show.topic', encrypt($exam->id));
             }
 
         } else {
@@ -114,9 +117,10 @@ class ExamController extends Controller
      * @param Exam $exam
      * @return Application|Factory|RedirectResponse|View
      */
-    public function showVocabularyQuestion(Exam $exam)
+    public function showVocabularyQuestion($exam)
     {
         if ($this->validExamRequest($exam)) {
+            $exam = Exam::find(decrypt($exam));
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-vocabulary-question', compact('exam', 'authStudent'))
                 ->with('synonyms', $exam->synonyms()->where('set_id', $authStudent->set->id)->get())
@@ -139,10 +143,11 @@ class ExamController extends Controller
      * @param Exam $exam
      * @return RedirectResponse
      */
-    public function submitVocabularyQuestion(Request $request, Exam $exam)
+    public function submitVocabularyQuestion(Request $request, $exam)
     {
-
         if ($this->validExamRequest($exam)) {
+            $exam = Exam::find(decrypt($exam));
+
             $authStudent = Auth::guard('student')->user();
 
             $checkResubmitSynonym = $authStudent->marks()->where('exam_id', $exam->id)->get()->first()->synonym;
@@ -262,11 +267,11 @@ class ExamController extends Controller
                 ]);
                 toast('Vocabulary part has been successfully submitted', 'success');
                 session()->flash('success_audio');
-                return redirect()->route('student.exam.show.topic', $exam->id);
+                return redirect()->route('student.exam.show.topic', encrypt($exam->id));
 
             } else {
                 alert()->error('😒', 'You will no longer be able to resubmit');
-                return redirect()->route('student.exam.show.topic', $exam->id);
+                return redirect()->route('student.exam.show.topic', encrypt($exam->id));
             }
 
         } else {
@@ -280,9 +285,10 @@ class ExamController extends Controller
      * @param Exam $exam
      * @return Application|Factory|RedirectResponse|View
      */
-    public function showReadingQuestion(Exam $exam)
+    public function showReadingQuestion($exam)
     {
         if ($this->validExamRequest($exam)) {
+            $exam = Exam::find(decrypt($exam));
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-reading-question', compact('exam', 'authStudent'))
                 ->with('headings', $exam->headings()->where('set_id', $authStudent->set->id)->get())
@@ -300,9 +306,10 @@ class ExamController extends Controller
      * @param Exam $exam
      * @return RedirectResponse
      */
-    public function submitReadingQuestion(Request $request, Exam $exam)
+    public function submitReadingQuestion(Request $request, $exam)
     {
         if ($this->validExamRequest($exam)) {
+            $exam = Exam::find(decrypt($exam));
             $authStudent = Auth::guard('student')->user();
 
 
@@ -374,11 +381,11 @@ class ExamController extends Controller
 
                 toast('Reading part has been successfully submitted', 'success');
                 session()->flash('success_audio');
-                return redirect()->route('student.exam.show.topic', $exam->id);
+                return redirect()->route('student.exam.show.topic', encrypt($exam->id));
 
             } else {
                 alert()->error('😒', 'You will no longer be able to resubmit');
-                return redirect()->route('student.exam.show.topic', $exam->id);
+                return redirect()->route('student.exam.show.topic', encrypt($exam->id));
             }
 
         } else {
@@ -392,9 +399,10 @@ class ExamController extends Controller
      * @param Exam $exam
      * @return Application|Factory|RedirectResponse|View
      */
-    public function showWritingQuestion(Exam $exam)
+    public function showWritingQuestion($exam)
     {
         if ($this->validExamRequest($exam)) {
+            $exam = Exam::find(decrypt($exam));
             $authStudent = Auth::guard('student')->user();
             return view('student.exam.question.show-writing-question', compact('exam', 'authStudent'))
                 ->with('dialog', $exam->dialogs()->where('set_id', $authStudent->set->id)->get()->first())
@@ -408,9 +416,10 @@ class ExamController extends Controller
     }
 
 
-    public function submitWritingQuestion(Request $request, Exam $exam)
+    public function submitWritingQuestion(Request $request, $exam)
     {
         if ($this->validExamRequest($exam)) {
+            $exam = Exam::find(decrypt($exam));
 
             $authStudent = Auth::guard('student')->user();
 
@@ -467,11 +476,11 @@ class ExamController extends Controller
 
                 toast('Writing part has been successfully submitted', 'success');
                 session()->flash('success_audio');
-                return redirect()->route('student.exam.show.topic', $exam->id);
+                return redirect()->route('student.exam.show.topic', encrypt($exam->id));
 
             } else {
                 alert()->error('😒', 'You will no longer be able to resubmit');
-                return redirect()->route('student.exam.show.topic', $exam->id);
+                return redirect()->route('student.exam.show.topic', encrypt($exam->id));
             }
 
 
@@ -486,8 +495,9 @@ class ExamController extends Controller
      * @param Exam $exam
      * @return bool
      */
-    private function validExamRequest(Exam $exam)
+    private function validExamRequest($exam)
     {
+        $exam = Exam::find(decrypt($exam));
         if ($exam->status === 'running') {
             return true;
         } else {
