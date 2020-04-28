@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Model\Grammar\StudentGrammarQuestionExamGotMarks;
+use App\Model\Marks\Marks;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -17,6 +18,7 @@ class StudentController extends Controller
     {
         $this->middleware('auth:student');
     }
+
     public function index()
     {
         $authStudent = Auth::guard('student')->user();
@@ -63,18 +65,14 @@ class StudentController extends Controller
                 ->with('exam', $exam)
                 ->with('student', $student)
                 ->with('marks', $marks)
-
                 ->with('grammars', $grammars)
-
                 ->with('synonyms', $synonyms)
                 ->with('definitions', $definitions)
                 ->with('combinations', $combinations)
                 ->with('fillInTheGaps', $fillInTheGaps)
-
                 ->with('headings', $headings)
                 ->with('rearrange', $rearrange)
                 ->with('studentRearrange', $studentRearrange)
-
                 ->with('studentDialog', $studentDialog)
                 ->with('studentInformalEmail', $studentInformalEmail)
                 ->with('studentFormalEmail', $studentFormalEmail)
@@ -93,24 +91,27 @@ class StudentController extends Controller
      */
     private function validAnswerSheetRequest($exam, $student)
     {
-        $authTeacher = Auth::guard('teacher')->user();
+        $authStudent = Auth::guard('student')->user();
         $examId = Crypt::decrypt($exam);
         $studentId = Crypt::decrypt($student);
 
+        if ($authStudent->id === $studentId) {
+            $marks = Marks::where(['exam_id' => $examId, 'student_id' => $studentId])->get()->first();
 
-        $examRequestValid = false;
-        $studentRequestValid = false;
+            $grammarMarksBoolean = $marks->grammar !== NULL;
+            $vocabularyMarksBoolean = $marks->synonym !== NULL && $marks->definition !== NULL && $marks->combination !== NULL && $marks->fillInTheGap !== NULL;
+            $readingMarksBoolean = $marks->heading !== NULL && $marks->rearrange !== NULL;
+            $writingMarksBoolean = $marks->dialog !== NULL && $marks->informalEmail !== NULL && $marks->formalEmail !== NULL && $marks->sortQuestion !== NULL;
 
-        foreach ($authTeacher->exams as $exam) {
-            if ($exam->id == $examId) {
-                $examRequestValid = true;
+            $examDone = $grammarMarksBoolean && $vocabularyMarksBoolean && $readingMarksBoolean && $writingMarksBoolean;
+            if ($examDone) {
+                return true;
+            } else {
+                return false;
             }
+
+        } else {
+            return false;
         }
-        foreach ($authTeacher->students as $student) {
-            if ($student->id == $studentId) {
-                $studentRequestValid = true;
-            }
-        }
-        return $examRequestValid === true && $studentRequestValid === true;
     }
 }
