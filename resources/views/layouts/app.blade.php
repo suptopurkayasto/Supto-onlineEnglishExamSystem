@@ -18,6 +18,8 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
     @yield('extra-css')
+    <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon" />
 </head>
 <body>
 @include('components.audio-alert')
