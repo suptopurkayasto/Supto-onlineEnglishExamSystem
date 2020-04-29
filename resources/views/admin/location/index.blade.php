@@ -22,7 +22,7 @@
                     <tr>
                         <th>#</th>
                         <th style="text-align: left">Name</th>
-                        <th>Teacher</th>
+                        <th class="text-center">Teacher</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -31,7 +31,7 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td style="text-align: left" title="{{ $location->name }}">{{ $location->name }}</td>
-                            <td title="Total teacher count: {{ $location->teachers()->count() }}">{{ $location->teachers()->count() }}</td>
+                            <td class="text-center" title="Total teacher count: {{ $location->teachers()->count() }}">{{ $location->teachers()->count() }}</td>
                             <td>
                                 <a href="{{ route('admin.locations.show', $location->slug) }}"
                                    class="btn btn-primary btn-hover-effect">View</a>
