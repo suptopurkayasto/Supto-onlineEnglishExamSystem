@@ -11,7 +11,7 @@ $factory->define(Admin::class, function (Faker $faker) {
         'name' => 'Supto Purkayasto',
         'email' => 'suptopurkayasto@gmail.com',
         'email_verified_at' => now(),
-        'password' => '$2y$10$WKcMLlxMX7EP7RmU97UVQ.WhoOwJzB7.UNbw.RSSHAcJ2gSlX4QXS', // developersupto@gmail.com
+        'password' => '$2y$10$lo.SFkxHGa4054qLutWLRuzseNob/1G.3cn.1tBu1x4JZkJpMoBpm', // suptopurkayasto@gmail.com
         'remember_token' => Str::random(10),
     ];
 });

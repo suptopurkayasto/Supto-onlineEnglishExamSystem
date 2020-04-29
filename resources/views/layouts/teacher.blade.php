@@ -11,8 +11,8 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Data table -->
-    @yield('data-table-css')
-    <!-- overlayScrollbars -->
+@yield('data-table-css')
+<!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('css/admin/OverlayScrollbars.min.css') }}">
 
     <!-- jQuery UI -->
@@ -25,7 +25,8 @@
 
     <link rel="stylesheet" href="{{ asset('css/admin/admin.css') }}">
 </head>
-<body class="hold-transition sidebar-mini layout-fixed {{ request()->segment(7) === 'show' ? 'sidebar-collapse' : '' }}">
+<body
+    class="hold-transition sidebar-mini layout-fixed {{ request()->segment(7) === 'show' ? 'sidebar-collapse' : '' }}">
 <!-- Site wrapper -->
 <div class="wrapper">
     @include('components.audio-alert')
@@ -111,8 +112,8 @@
 @yield('extra-scripts')
 
 <script>
-    $( function() {
-        $( document ).tooltip({
+    $(function () {
+        $(document).tooltip({
             track: true,
             classes: {
                 "ui-tooltip": "shadow border-0 rounded"
@@ -125,7 +126,7 @@
             //     delay: 250
             // }
         });
-    } );
+    });
 </script>
 
 </body>

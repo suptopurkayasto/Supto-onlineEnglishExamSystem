@@ -4,11 +4,16 @@
 
 @section('content')
     @if($locations->count() > 0)
-        <div class="card">
+        <div class="card index-card">
             <div class="card-header">
-                <h3 class="card-title">Show All Locations</h3>
+                <h3 class="index-card-title float-left">Locations</h3>
+                <a href="{{ route('admin.locations.create') }}" class="btn btn-lg btn-primary float-right"><i class="fas fa-map-marker-alt mr-1"></i> Add Location</a>
             </div>
             <!-- /.card-header -->
+            <div class="progress">
+                <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="100"
+                     aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
             <div class="card-body">
                 <table id="example"
                        class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
@@ -17,6 +22,7 @@
                     <tr>
                         <th>#</th>
                         <th style="text-align: left">Name</th>
+                        <th>Teacher</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -25,6 +31,7 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td style="text-align: left" title="{{ $location->name }}">{{ $location->name }}</td>
+                            <td title="Total teacher count: {{ $location->teachers()->count() }}">{{ $location->teachers()->count() }}</td>
                             <td>
                                 <a href="{{ route('admin.locations.show', $location->slug) }}"
                                    class="btn btn-primary btn-hover-effect">View</a>

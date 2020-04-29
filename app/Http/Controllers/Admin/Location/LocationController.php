@@ -7,9 +7,14 @@ use App\Http\Requests\Admin\Location\LocationCreateRequest;
 use App\Location;
 use App\Student;
 use App\Teacher;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class LocationController extends Controller
 {
@@ -22,18 +27,18 @@ class LocationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
         return view('admin.location.index')
-            ->with('locations', Location::withoutTrashed()->latest()->get());
+            ->with('locations', Location::latest()->get());
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -43,8 +48,8 @@ class LocationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param LocationCreateRequest $request
+     * @return RedirectResponse
      */
     public function store(LocationCreateRequest $request)
     {
@@ -62,7 +67,7 @@ class LocationController extends Controller
      * Display the specified resource.
      *
      * @param Location $location
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(Location $location)
     {
@@ -73,7 +78,7 @@ class LocationController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Location $location
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Location $location)
     {
@@ -83,10 +88,10 @@ class LocationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param Location $location
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function update(Request $request, Location $location)
     {
@@ -101,8 +106,8 @@ class LocationController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Location $location
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy(Location $location)
     {
@@ -125,71 +130,10 @@ class LocationController extends Controller
         return redirect()->route('admin.locations.index');
     }
 
-    public function trash()
-    {
-        return view('admin.location.trash')
-            ->with('locations', Location::onlyTrashed()->get());
-    }
-    public function restore($slug)
-    {
-        $location = Location::onlyTrashed()->where('slug', $slug);
-        $location_id = Location::onlyTrashed()->where('slug', $slug)->get()->first()->id;
-
-
-        // Restore Teacher, That belongs to Location
-        $teachers = Teacher::onlyTrashed()->get()->toArray();
-        foreach ($teachers as $teacher) {
-            if ($teacher['location_id'] === $location_id) {
-                Teacher::onlyTrashed()->where('id', $teacher['id'])->restore();
-            }
-        }
-        // Restore Students, That belongs to Location
-        $students = Student::onlyTrashed()->get()->toArray();
-        foreach ($students as $student) {
-            if ($student['location_id'] === $location_id) {
-                Student::onlyTrashed()->where('id', $student['id'])->restore();
-            }
-        }
-
-        $location->restore();
-        toast('Location has been successfully restored','success');
-        session()->flash('success_audio');
-        return redirect()->route('admin.location.trash');
-    }
-    public function trashDelete($slug)
-    {
-        $location = Location::onlyTrashed()->where('slug', $slug)->get()->first();
-
-
-        // Delete Teacher, that belongs to location
-        $teachers = Teacher::onlyTrashed()->get();
-        foreach ($teachers as $teacher) {
-            if ($teacher->location_id == $location->id) {
-                $teacher->forceDelete();
-            }
-        }
-
-
-        // Delete Students, that belongs to location
-        $students = Student::onlyTrashed()->get();
-        foreach ($students as $student) {
-            if ($student->location_id === $location->id) {
-                $student->forceDelete();
-            }
-        }
-
-
-        $location->forceDelete();
-        toast('Location has been successfully deleted','success');
-        session()->flash('success_audio');
-        return redirect()->route('admin.location.trash');
-    }
-
-
     /**
      * @param $request
      * @return array
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     protected function validateUpdateLocationRequest($request) {
         $validateData =  $this->validate($request, [

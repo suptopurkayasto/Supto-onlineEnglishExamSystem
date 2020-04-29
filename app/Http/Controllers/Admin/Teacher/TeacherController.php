@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Teacher\TeacherCreateRequest;
 use App\Location;
 use App\Teacher;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class TeacherController extends Controller
 {
@@ -20,18 +24,18 @@ class TeacherController extends Controller
 /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
         return view('admin.teacher.index')
-            ->with('teachers', Teacher::withoutTrashed()->latest()->get());
+            ->with('teachers', Teacher::latest()->get());
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -42,8 +46,8 @@ class TeacherController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param TeacherCreateRequest $request
+     * @return RedirectResponse
      */
     public function store(TeacherCreateRequest $request)
     {
@@ -62,7 +66,7 @@ class TeacherController extends Controller
      * Display the specified resource.
      *
      * @param Teacher $teacher
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(Teacher $teacher)
     {
@@ -90,7 +94,7 @@ class TeacherController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Teacher $teacher
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Teacher $teacher)
     {
@@ -102,13 +106,13 @@ class TeacherController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param Teacher $teacher
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, Teacher $teacher)
     {
-        $teacher->update($this->validateUpdateTeacherRequest($request));
+        $teacher->update($this->validateUpdateTeacherRequest($request, $teacher));
         toast('Teacher has been successfully updated','success');
         session()->flash('success_audio');
         return redirect()->route('admin.teachers.show', $teacher->id);
@@ -118,8 +122,8 @@ class TeacherController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Teacher $teacher
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy(Teacher $teacher)
     {
@@ -129,11 +133,11 @@ class TeacherController extends Controller
         return redirect()->route('admin.teachers.index');
     }
 
-    protected function validateUpdateTeacherRequest($request) {
+    protected function validateUpdateTeacherRequest($request, Teacher $teacher) {
         $validateData = $this->validate($request, [
             'location' => 'required',
             'name' => 'required|max:255|string',
-            'email' => 'required|max:255|email',
+            'email' => 'required|max:255|unique:teachers,email,'. $teacher->id,
         ]);
 
         $finalData = [

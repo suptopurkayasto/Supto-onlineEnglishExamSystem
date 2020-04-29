@@ -12,8 +12,6 @@ class Teacher extends Authenticatable
 {
 
     protected $guard = 'teacher';
-
-    use SoftDeletes;
     use Notifiable;
 
     /**

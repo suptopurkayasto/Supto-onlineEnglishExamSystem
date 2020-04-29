@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Hash;
 
 class Student extends Authenticatable
 {
-    use SoftDeletes;
     use Notifiable;
 
     /**
@@ -53,10 +52,6 @@ class Student extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function admin()
-    {
-        return $this->belongsTo(Admin::class);
-    }
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);

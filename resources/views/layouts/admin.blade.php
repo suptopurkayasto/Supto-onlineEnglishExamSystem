@@ -15,6 +15,10 @@
 
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('css/admin/OverlayScrollbars.min.css') }}">
+
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/admin/adminlte.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
@@ -77,17 +81,18 @@
 <!-- ./wrapper -->
 
 
-
-
-
-
-
 <!-- jQuery -->
 <script src="{{ asset('js/admin/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('js/admin/bootstrap.bundle.min.js') }}"></script>
 
 @yield('data-table-js')
+
+
+<script
+    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+    crossorigin="anonymous"></script>
 
 <!-- overlayScrollbars -->
 <script src="{{ asset('js/admin/jquery.overlayScrollbars.min.js') }}"></script>
@@ -100,6 +105,23 @@
 @include('sweetalert::alert')
 
 <script src="{{ asset('js/admin/password.js') }}"></script>
+<script>
+    $(function () {
+        $(document).tooltip({
+            track: true,
+            classes: {
+                "ui-tooltip": "shadow border-0 rounded"
+            },
+            // open: function( event, ui ) {
+            //     ui.tooltip.animate({ top: ui.tooltip.position().top + 10 }, "fast" );
+            // }
+            // hide: {
+            //     effect: "explode",
+            //     delay: 250
+            // }
+        });
+    });
+</script>
 
 </body>
 </html>

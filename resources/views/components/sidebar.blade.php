@@ -31,90 +31,26 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
 
-
-                <li class="sidebar-item nav-item user-panel has-treeview {{ request()->segment(2) === 'locations' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->segment(2) === 'locations' ? 'active' : '' }}">
+                <li class="nav-item">
+                    <a href="{{ route('admin.locations.index') }}"
+                       class="nav-link {{ request()->segment(2) === 'locations' ? 'active' : '' }}">
                         <i class="fas fa-map-marker-alt nav-icon"></i>
-                        <p>
-                            Location
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
+                        <p>Location</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.locations.index') }}"
-                               class="nav-link {{ request()->url() === route('admin.locations.index') ? 'active' : '' }}">
-                                <i class="fas fa-map-marker-alt nav-icon"></i>
-                                <p>All Location</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.locations.create') }}"
-                               class="nav-link {{ request()->url() === route('admin.locations.create') ? 'active' : '' }}">
-                                <i class="fas fa-plus nav-icon"></i>
-                                <p>Add Location</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.location.trash') }}"
-                               class="nav-link {{ request()->url() === route('admin.location.trash') ? 'active' : '' }}">
-                                <i class="fas fa-trash nav-icon"></i>
-                                <p>Trash Location</p>
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.teachers.index') }}"
+                       class="nav-link {{ request()->segment(2) === 'teachers' ? 'active' : '' }}">
+                        <i class="fas fa-user-tie nav-icon"></i>
+                        <p>Teachers</p>
+                    </a>
                 </li>
 
-                <li class="sidebar-item nav-item user-panel has-treeview {{ request()->segment(2) === 'teachers' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->segment(2) === 'teachers' ? 'active' : '' }}">
-                        <i class="fas fa-user-graduate nav-icon"></i>
-                        <p>
-                            Teachers
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
+                <li class="nav-item">
+                    <a href="{{ route('admin.students.index') }}"
+                       class="nav-link {{ request()->segment(2) === 'students' ? 'active' : '' }}">
+                        <i class="fas fa-user-graduate nav-icon"></i>Students
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.teachers.index') }}"
-                               class="nav-link {{ request()->url() === route('admin.teachers.index') ? 'active' : '' }}">
-                                <i class="fas fa-users nav-icon"></i>
-                                <p>All teacher</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.teachers.create') }}"
-                               class="nav-link {{ request()->url() === route('admin.teachers.create') ? 'active' : '' }}">
-                                <i class="fas fa-user-plus nav-icon"></i>
-                                <p>Add teacher</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="sidebar-item nav-item user-panel has-treeview {{ request()->segment(2) === 'students' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->segment(2) === 'students' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user-tie"></i>
-                        <p>
-                            Students
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.students.index') }}"
-                               class="nav-link {{ request()->url() === route('admin.students.index') ? 'active' : '' }}">
-                                <i class="fas fa-users nav-icon"></i>
-                                <p>All Students</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.students.create') }}"
-                               class="nav-link {{ request()->url() === route('admin.students.create') ? 'active' : '' }}">
-                                <i class="fas fa-user-plus nav-icon"></i>
-                                <p>Add Student</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
             </ul>
         </nav>

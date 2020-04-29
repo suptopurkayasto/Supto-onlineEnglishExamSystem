@@ -4,22 +4,26 @@
 
 @section('content')
     @if($students->count() > 0)
-        <div class="card">
+        <div class="card index-card">
             <div class="card-header">
-                <h3 class="card-title">All Students</h3>
+                <h3 class="card-title index-card-title">All Students</h3>
             </div>
             <!-- /.card-header -->
+            <div class="progress">
+                <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="100"
+                     aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
             <div class="card-body">
-                <table id="example" class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style" style="width: 100%">
+                <table id="" class="example table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style" style="width: 100%">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>ID Number</th>
                         <th>Name</th>
-                        <th>Group</th>
-                        <th>Section</th>
                         <th>Email</th>
                         <th>Location</th>
+                        <th>Creator</th>
+                        <th class="text-center">Group</th>
+                        <th class="text-center">Section</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -27,14 +31,14 @@
                     @foreach($students as $index => $student)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td title="{{ 'ID Number: ' . $student->id_number }}">{{ $student->id_number }}</td>
                             <td title="{{ $student->name }}">{{ Str::limit($student->name, 20) }}</td>
-                            <td title="{{ 'Group: ' . $student->group->name }}">{{ $student->group->name }}</td>
-                            <td title="{{ 'Section: ' . $student->section->name }}">{{ $student->section->name }}</td>
                             <td title="{{ $student->email }}">{{ Str::limit($student->email, 30) }}</td>
                             <td title="{{ $student->location->name }}">{{ Str::limit($student->location->name, 40) }}</td>
+                            <td title="{{ $student->teacher->name }}">{{ Str::limit($student->teacher->name, 40) }}</td>
+                            <td class="text-center" title="{{ 'Group: ' . $student->group->name }}">{{ $student->group->name }}</td>
+                            <td class="text-center" title="{{ 'Section: ' . $student->section->name }}">{{ $student->section->name }}</td>
                             <td class="text-center">
-                                <a href="{{ route('admin.students.show', $student->id_number) }}"
+                                <a href="{{ route('admin.students.show', $student->id) }}"
                                    class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
                             </td>
                         </tr>
