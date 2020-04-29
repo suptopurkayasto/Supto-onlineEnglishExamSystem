@@ -15,8 +15,8 @@
                      aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div class="card-body">
-                <table id="example"
-                       class="table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
+                <table id=""
+                       class="example table table-striped table-bordered dt-responsive nowrap border-0 table-hover custom-table-style"
                        style="width: 100%">
                     <thead>
                     <tr>

@@ -151,7 +151,7 @@ class TeacherController extends Controller
                 'password' => 'required|max:255|min:6|confirmed',
             ]);
 
-            $finalData['password'] = $validatePassword['password'];
+            $finalData['password'] = Hash::make($validatePassword['password']);
         }
 
         return $finalData;
