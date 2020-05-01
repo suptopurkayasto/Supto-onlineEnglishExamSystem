@@ -51,9 +51,8 @@
     @else
         <div class="row">
             <div class="col col-md-8 offset-md-2">
-                <div class="text-center pt-5 pb-5 shadow-sm mb-5 bg-white rounded empty-data-section shadow">
+                <div class="text-center pt-5 pb-5 rounded empty-data-section">
                     <h2 class="text-center text-warning display-4">Empty.</h2>
-                    <a href="{{ route('admin.students.create') }}" class="btn btn-lg mt-4 bg-gradient-primary">Add Student</a>
                 </div><!-- /.empty-data-section -->
             </div><!-- /.col col-md-8 offset-md-2 -->
         </div><!-- /.row -->
