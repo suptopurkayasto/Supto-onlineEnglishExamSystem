@@ -36,7 +36,7 @@
                             <td title="{{ $teacher->location->name }}">{{ $teacher->location->name }}</td>
                             <td>
                                 <a href="{{ route('admin.teachers.show', $teacher->id) }}"
-                                   class="btn btn-primary btn-block btn-hover-effect">View</a>
+                                   class="btn btn-primary btn-block btn-hover-effect"><i class="fas fa-eye mr-1"></i>  View</a>
                             </td>
                         </tr>
                     @endforeach

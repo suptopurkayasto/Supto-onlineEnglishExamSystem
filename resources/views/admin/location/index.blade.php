@@ -34,7 +34,7 @@
                             <td class="text-center" title="Total teacher count: {{ $location->teachers()->count() }}">{{ $location->teachers()->count() }}</td>
                             <td>
                                 <a href="{{ route('admin.locations.show', $location->slug) }}"
-                                   class="btn btn-primary btn-hover-effect">View</a>
+                                   class="btn btn-primary btn-hover-effect btn-block"><i class="fas fa-eye mr-1"></i> View</a>
                             </td>
                         </tr>
                     @endforeach

@@ -16,6 +16,6 @@ class TeacherController extends Controller
     public function index()
     {
         return view('teacher.dashboard')
-            ->with('teacher', Auth::guard('teacher')->user());
+            ->with('authTeacher', Auth::guard('teacher')->user());
     }
 }
