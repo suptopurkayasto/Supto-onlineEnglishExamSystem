@@ -8,16 +8,16 @@
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-md-4">
 
-                <div class="card login-form shadow-lg">
+                <div class="card login-form shadow">
                     <div class="icon-wrp shadow">
-                        <i class="fas fa-house-user fa-4x text-primary"></i>
+                        <i class="fad fa-house-user fa-4x text-primary"></i>
                     </div>
                     <div class="card-body">
                         <form method="post" action="{{ route('admin.login.submit') }}" class="">
                             @csrf
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="fas fa-at"></i></div>
+                                    <div class="input-group-text"><i class="fad fa-at text-white"></i></div>
                                 </div>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                                        name="email" value="{{ old('email') }}" required autofocus placeholder="Email">
@@ -29,7 +29,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                                    <div class="input-group-text"><i class="fad fa-lock text-white"></i></div>
                                 </div>
                                 <input id="password" type="password"
                                        class="form-control @error('password') is-invalid @enderror" name="password"
@@ -50,7 +50,7 @@
                             </div><!-- /.form-group -->
                             <div class="form-group row justify-content-center">
                                 <div class="col-8">
-                                    <button type="submit" class="btn btn-block btn-primary">Login</button>
+                                    <button type="submit" class="btn btn-block btn-primary"><i class="fad fa-sign-in mr-1"></i> Login</button>
                                 </div><!-- /.col-8 -->
                             </div><!-- /.form-group -->
                         </form>
