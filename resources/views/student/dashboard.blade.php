@@ -45,7 +45,7 @@
                                     <button type="button" class="btn btn-outline-danger btn-sm dropdown-toggle"
                                             data-toggle="dropdown" data-display="static" aria-haspopup="true"
                                             aria-expanded="false">
-                                        Log Out
+                                        <i class="fad fa-sign-out mr-1"></i> Log Out
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-lg-right">
                                         <form action="{{ route('student.logout') }}" method="post" class=""
