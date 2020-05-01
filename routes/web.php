@@ -32,5 +32,5 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('test', function () {
-    return md5(encrypt('supto'));
+//    return md5(encrypt('supto'));
 });
