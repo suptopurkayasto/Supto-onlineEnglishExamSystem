@@ -7,10 +7,12 @@ use Faker\Generator as Faker;
 
 $factory->define(Teacher::class, function (Faker $faker) {
     return [
+        'location_id' => 1,
+        'profile_status' => true,
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' => \Illuminate\Support\Facades\Hash::make('password'),
+        'password' => Hash::make('password'),
         'remember_token' => Str::random(10),
     ];
 });

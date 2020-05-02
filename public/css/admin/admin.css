@@ -3257,7 +3257,7 @@ li.sidebar-item ul li p {
 }
 
 .correct-grammar-answer .grammar-questions-title {
-  color: #28a745;
+  color: green;
   font-weight: bolder;
 }
 
@@ -3266,11 +3266,11 @@ li.sidebar-item ul li p {
 }
 
 .correct-grammar-answer .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: #28a745 !important;
+  background-color: green !important;
 }
 
 .correct-grammar-answer .custom-control-input:checked ~ .custom-control-label::before {
-  border-color: #28a745 !important;
+  border-color: green !important;
 }
 
 .correct-grammar-answer .custom-control-input:disabled ~ .custom-control-label {
@@ -3278,7 +3278,7 @@ li.sidebar-item ul li p {
 }
 
 .correct-grammar-answer .custom-control-input:checked ~ .custom-control-label {
-  color: #28a745;
+  color: green;
 }
 
 .correct-grammar-answer .correct-radio-icon {
@@ -3303,7 +3303,7 @@ li.sidebar-item ul li p {
 }
 
 .wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label.ccl-correct {
-  color: #28a745;
+  color: green;
 }
 
 .not-answer .grammar-questions-title {
@@ -3353,7 +3353,7 @@ label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct) {
 }
 
 .mini-answer-sheet-table tbody tr.success-row:hover {
-  background-color: rgba(40, 167, 69, 0.2);
+  background-color: rgba(0, 128, 0, 0.2);
 }
 
 .mini-answer-sheet-table tbody tr.danger-row:hover {

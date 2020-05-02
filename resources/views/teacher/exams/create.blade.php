@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-12 col-sm-8 col-md-6">
+        <div class="col-12 col-md-8">
             <div class="card shadow">
                 <div class="card-header">
                     <h3 class="card-title" style="text-align: center !important;">Add Exam</h3>

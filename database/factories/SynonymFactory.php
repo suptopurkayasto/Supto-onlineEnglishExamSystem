@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Synonym::class, function (Faker $faker) {
     return [
-        'exam_id' => 1,
+        'exam_id' => config('app.factory.exam.id'),
         'set_id' => 1,
         'word' => $faker->word,
         'synonym_option_id' => 1

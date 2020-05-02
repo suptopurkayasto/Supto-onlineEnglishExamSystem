@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factory;
 $factory->define(Grammar::class, function (Faker $faker) {
     $words = [$faker->word, $faker->word, $faker->word];
     return [
-        'exam_id' => 1,
+        'exam_id' => config('app.factory.exam.id'),
         'set_id' => $faker->numberBetween(1, 4),
         'question' => $faker->sentence,
         'option_1' => $words[0],

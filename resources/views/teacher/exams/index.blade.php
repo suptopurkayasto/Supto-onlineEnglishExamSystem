@@ -91,32 +91,32 @@
                                             <input type="hidden" name="status" value="running">
                                             <button type="submit" class="btn btn-primary btn-block btn-sm"
                                                     onclick="return confirm('Are you sure you want to start {{ $exam->name }} exam!')">
-                                                Start Exam
+                                                <i class="fas fa-play-circle mr-1"></i> Start Exam
                                             </button>
                                         </form>
                                     @elseif($exam->status === 'running')
                                         <div class="form-row">
                                             <div class="col">
                                                 <form action="{{ route('teacher.exams.status', $exam->id) }}" method="post"
-                                                      class="float-right">
+                                                      class="">
                                                     @method('PUT')
                                                     @csrf
                                                     <input type="hidden" name="status" value="cancel">
-                                                    <button type="submit" class="btn btn-danger btn-sm"
+                                                    <button type="submit" class="btn btn-danger btn-sm btn-block"
                                                             onclick="return confirm('Are you sure you want to cancel {{ $exam->name }} exam!')">
-                                                        Cancel
+                                                        <i class="fas fa-times mr-1"></i> Cancel
                                                     </button>
                                                 </form>
                                             </div><!-- /.col -->
                                             <div class="col">
                                                 <form action="{{ route('teacher.exams.status', $exam->id) }}" method="post"
-                                                      class="ml-3">
+                                                      class="">
                                                     @method('PUT')
                                                     @csrf
                                                     <input type="hidden" name="status" value="complete">
-                                                    <button type="submit" class="btn btn-success btn-sm"
-                                                            onclick="return confirm('Are you sure you want to start {{ $exam->name }} exam!')">
-                                                        Complete
+                                                    <button type="submit" class="btn btn-success btn-sm btn-block"
+                                                            onclick="return confirm('Are you sure you want to complate {{ $exam->name }} exam!')">
+                                                        <i class="fas fa-check-circle mr-1"></i> Complete
                                                     </button>
                                                 </form>
                                             </div><!-- /.col -->
@@ -125,12 +125,12 @@
                                         <strong class="text-success"><i class="fas fa-check"></i> Completed</strong>
                                     @endif
                                 @else
-                                    <span class="text-danger font-weight-bolder">Not Ready For Exam</span>
+                                    <span class="badge badge-danger">Not Ready For Exam</span>
                                 @endif
                             </td>
                             <td class="text-center">
                                 <a href="{{ route('teacher.exams.show', $exam->id) }}"
-                                   class="btn btn-primary btn-sm btn-block btn-hover-effect">View</a>
+                                   class="btn btn-primary btn-sm btn-block btn-hover-effect"><i class="fas fa-eye mr-1"></i> View</a>
                             </td>
                         </tr>
                     @endforeach

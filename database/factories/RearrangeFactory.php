@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Rearrange::class, function (Faker $faker) {
     return [
-        'exam_id' => 1,
+        'exam_id' => config('app.factory.exam.id'),
         'set_id' => 1,
         'line_1' => $faker->sentence,
         'line_2' => $faker->sentence,

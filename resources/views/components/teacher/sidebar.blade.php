@@ -34,50 +34,66 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
-                        <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'students' ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{ request()->segment(2) === 'students' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user-tie"></i>
-                                <p>
-                                    Students
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
+                        <li class="nav-item">
+                            <a href="{{ route('teacher.students.index') }}"
+                               class="nav-link {{ request()->url() === route('teacher.students.index') ? 'active' : '' }}">
+                                <i class="fas fa-user-graduate nav-icon"></i>
+                                <p>Students</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('teacher.students.index') }}"
-                                       class="nav-link {{ request()->url() === route('teacher.students.index') ? 'active' : '' }}">
-                                        <i class="fas fa-users nav-icon"></i>
-                                        <p>All Students</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('teacher.students.exams.answer-sheets') }}"
-                                       class="nav-link {{ request()->url() === route('teacher.students.exams.answer-sheets') ? 'active' : '' }}">
-                                        <i class="fas fa-check-circle nav-icon"></i>
-                                        <p>Student Answer Sheet</p>
-                                    </a>
-                                </li>
-                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('teacher.students.exams.answer-sheets') }}"
+                               class="nav-link {{ request()->url() === route('teacher.students.exams.answer-sheets') ? 'active' : '' }}">
+                                <i class="fas fa-check-circle nav-icon"></i>
+                                <p>Student Answer Sheet</p>
+                            </a>
                         </li>
 
-                        <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'exams' ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{ request()->segment(2) === 'exams' ? 'active' : '' }}">
+                        <li class="nav-item">
+                            <a href="{{ route('teacher.exams.index') }}"
+                               class="nav-link {{ request()->url() === route('teacher.exams.index') ? 'active' : '' }}">
                                 <i class="fas fa-diagnoses nav-icon"></i>
-                                <p>
-                                    Exams
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
+                                <p>Exams</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('teacher.exams.index') }}"
-                                       class="nav-link {{ request()->url() === route('teacher.exams.index') ? 'active' : '' }}">
-                                        <i class="fas fa-desktop nav-icon"></i>
-                                        <p>All Exams</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
+
+{{--                        <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'students' ? 'menu-open' : '' }}">--}}
+{{--                            <a href="#" class="nav-link {{ request()->segment(2) === 'students' ? 'active' : '' }}">--}}
+{{--                                <i class="nav-icon fas fa-user-tie"></i>--}}
+{{--                                <p>--}}
+{{--                                    Students--}}
+{{--                                    <i class="right fas fa-angle-left"></i>--}}
+{{--                                </p>--}}
+{{--                            </a>--}}
+{{--                            <ul class="nav nav-treeview">--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a href="{{ route('teacher.students.exams.answer-sheets') }}"--}}
+{{--                                       class="nav-link {{ request()->url() === route('teacher.students.exams.answer-sheets') ? 'active' : '' }}">--}}
+{{--                                        <i class="fas fa-check-circle nav-icon"></i>--}}
+{{--                                        <p>Student Answer Sheet</p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
+
+{{--                        <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'exams' ? 'menu-open' : '' }}">--}}
+{{--                            <a href="#" class="nav-link {{ request()->segment(2) === 'exams' ? 'active' : '' }}">--}}
+{{--                                <i class="fas fa-diagnoses nav-icon"></i>--}}
+{{--                                <p>--}}
+{{--                                    Exams--}}
+{{--                                    <i class="right fas fa-angle-left"></i>--}}
+{{--                                </p>--}}
+{{--                            </a>--}}
+{{--                            <ul class="nav nav-treeview">--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a href="{{ route('teacher.exams.index') }}"--}}
+{{--                                       class="nav-link {{ request()->url() === route('teacher.exams.index') ? 'active' : '' }}">--}}
+{{--                                        <i class="fas fa-desktop nav-icon"></i>--}}
+{{--                                        <p>All Exams</p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
 
                         <li class="nav-item sidebar-item user-panel has-treeview {{ request()->segment(2) === 'questions' ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->segment(2) === 'questions' ? 'active' : '' }}">

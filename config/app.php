@@ -10,6 +10,12 @@ return [
     |
     */
 
+    'factory' => [
+      'exam' => [
+          'id' => 2
+      ],
+    ],
+
     'developer' => [
         'name' => 'Supto Purkayasto',
         'email' => 'suptopurkayasto@gmail.com',

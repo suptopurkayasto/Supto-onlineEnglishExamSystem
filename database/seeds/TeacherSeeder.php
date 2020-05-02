@@ -13,13 +13,16 @@ class TeacherSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Teacher::class)->create([
-            'name' => 'Supto Teacher',
-            'email' => 'supto@gmail.com',
-            'password' => Hash::make('supto@gmail.com'),
-            'location_id' => 1,
-            'profile_status' => 1,
-        ]);
+//        factory(\App\Teacher::class)->create([
+//            'name' => 'Supto Teacher',
+//            'email' => 'supto@gmail.com',
+//            'password' => Hash::make('supto@gmail.com'),
+//            'location_id' => 1,
+//            'profile_status' => 1,
+//        ]);
+
+        factory(\App\Teacher::class, 2)->create();
+
 
     }
 }

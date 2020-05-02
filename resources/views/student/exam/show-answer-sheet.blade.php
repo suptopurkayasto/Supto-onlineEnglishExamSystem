@@ -14,9 +14,9 @@
         ?>
 
         <div class="card">
-            <div class="card-header shadow {{ $examDone ? 'bg-primary text-white' : 'bg-secondary' }}">
+            <div class="card-header shadow {{ $examDone ? 'bg-success text-white' : 'bg-secondary' }}">
                 <h3 class="h3 float-left {{ $examDone ? 'text-white' : 'text-secondary' }}"><a class="btn-link mr-3 {{ $examDone ? 'text-white' : 'text-black' }}"
-                        href="{{ route('student.dashboard') }}"><i class="fas fa-arrow-left"></i> </a>{{ $exam->name }}</h3>
+                        href="{{ route('student.dashboard') }}"><i class="fad fa-arrow-left"></i> </a>{{ $exam->name }}</h3>
                 <h3 class="h3 float-right">
                     <span
                        class="{{ $examDone ? 'text-white' : 'text-secondary' }}">{{ $student->name }}</span>
@@ -141,8 +141,8 @@
                                         class="border-bottom border-success">
                                     <tr>
                                         <th style="width: 56%;">Word</th>
-                                        <th style="width: 22%;" class="text-center" title="Student Answer">S.Answer</th>
-                                        <th style="width: 22%;" class="text-right" title="Correct Answer">C.Answer</th>
+                                        <th style="width: 22%;" class="text-center" title="Your Answer">Your Answer</th>
+                                        <th style="width: 22%;" class="text-right" title="Correct Answer">Correct Answer</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -187,8 +187,8 @@
                                         class="border-bottom border-success">
                                     <tr>
                                         <th style="width: 56%;">Sentence</th>
-                                        <th style="width: 22%;" class="text-center" title="Student Answer">S.Answer</th>
-                                        <th style="width: 22%;" class="text-right" title="Correct Answer">C.Answer</th>
+                                        <th style="width: 22%;" class="text-center" title="Your Answer">Your Answer</th>
+                                        <th style="width: 22%;" class="text-right" title="Correct Answer">Correct Answer</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -234,8 +234,8 @@
                                         class="border-bottom border-success">
                                     <tr>
                                         <th style="width: 56%;">Sentence</th>
-                                        <th style="width: 22%;" class="text-center" title="Student Answer">S.Answer</th>
-                                        <th style="width: 22%;" class="text-right" title="Correct Answer">C.Answer</th>
+                                        <th style="width: 22%;" class="text-center" title="Your Answer">Your Answer</th>
+                                        <th style="width: 22%;" class="text-right" title="Correct Answer">Correct Answer</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -281,8 +281,8 @@
                                         class="border-bottom border-success">
                                     <tr>
                                         <th style="width: 56%;">Word</th>
-                                        <th style="width: 22%;" class="text-center" title="Student Answer">S.Answer</th>
-                                        <th style="width: 22%;" class="text-right" title="Correct Answer">C.Answer</th>
+                                        <th style="width: 22%;" class="text-center" title="Your Answer">Your Answer</th>
+                                        <th style="width: 22%;" class="text-right" title="Correct Answer">Correct Answer</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -344,8 +344,8 @@
                                         class="border-bottom border-success">
                                     <tr class="">
                                         <th style="width: 50%">Paragraph</th>
-                                        <th style="width: 25%" class="text-center" title="Student Answer">S.Answer</th>
-                                        <th style="width: 25%" class="text-right" title="Correct Answer">C.Answer</th>
+                                        <th style="width: 25%" class="text-center" title="Your Answer">Your Answer</th>
+                                        <th style="width: 25%" class="text-right" title="Correct Answer">Correct Answer</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -394,8 +394,8 @@
                                             class="border-bottom {{ $marks->rearrange === NULL ? 'border-warning' : 'border-success' }}">
                                         <tr>
                                             <th style="width: 70%">Line</th>
-                                            <th style="width: 15%" title="Student Position">S.Position</th>
-                                            <th style="width: 15%" title="Correct Position">C.Position</th>
+                                            <th style="width: 15%" title="Your Positions">Y.Positions</th>
+                                            <th style="width: 15%" title="Correct Positions">C.Positions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -518,7 +518,7 @@
                                 <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                                     Dialog <span class="badge badge-success">{{ $marks->dialog }}</span>
                                     <button data-toggle="modal" data-target="#dialogModal"
-                                            class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i>
+                                            class="btn btn-sm btn-success float-right"><i class="fad fa-eye"></i>
                                     </button>
 
                                 </h5>
@@ -529,7 +529,7 @@
                                     <tr>
                                         <th style="width: 3%">#</th>
                                         <th style="width: 30%;">Question</th>
-                                        <th style="width: 67%;" class="text-right">Student Answer</th>
+                                        <th style="width: 67%;" class="text-right" title="Your Answer">Your Answer</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -659,7 +659,7 @@
                                 <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                                     Informal Email <span class="badge badge-success">{{ $marks->informalEmail }}</span>
                                     <button data-toggle="modal" data-target="#informalEmailModal"
-                                            class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i>
+                                            class="btn btn-sm btn-success float-right"><i class="fad fa-eye"></i>
                                     </button>
                                 </h5>
                                 <table style="margin-top: 27.5px"
@@ -776,7 +776,7 @@
                                 <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                                     Formal Email <span class="badge badge-success">{{ $marks->formalEmail }}</span>
                                     <button data-toggle="modal" data-target="#formalEmailModal"
-                                            class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i>
+                                            class="btn btn-sm btn-success float-right"><i class="fad fa-eye"></i>
                                     </button>
                                 </h5>
                                 <table style="margin-top: 29px"
@@ -907,14 +907,14 @@
                                 <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
                                     Sort questions <span class="badge badge-success">{{ $marks->sortQuestion }}</span>
                                     <button data-toggle="modal" data-target="#sortQuestionModal"
-                                            class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i>
+                                            class="btn btn-sm btn-success float-right"><i class="fad fa-eye"></i>
                                     </button>
                                 </h5>
                                 <table class="table mini-answer-sheet-table table-hover table-borderless">
                                     <thead class="border-bottom border-success">
                                     <tr>
                                         <th style="width: 40%">Question</th>
-                                        <th class="text-right" style="width: 60%" title="Student Answer">S.Answer</th>
+                                        <th class="text-right" style="width: 60%" title="Your Answer">Y.Answer</th>
                                     </tr>
                                     </thead>
                                     <tbody>

@@ -3254,20 +3254,19 @@ table td {
   padding-bottom: 6px !important;
 }
 
-@media (min-width: 768px) {
-  .student-info-sec {
-    transform: scale(1.2);
-    background-color: white;
-  }
+.top-section {
+  border-bottom: 3px solid #75811a;
+}
 
-  .student-question-sec {
-    transform: scale(1);
-    background-color: white;
+@media (max-width: 991.98px) {
+  .student-count-marks-table-wrap {
+    overflow-x: scroll;
+    overflow-y: hidden;
   }
 }
 
 .correct-grammar-answer .grammar-questions-title {
-  color: #28a745;
+  color: green;
   font-weight: bolder;
 }
 
@@ -3276,11 +3275,11 @@ table td {
 }
 
 .correct-grammar-answer .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: #28a745 !important;
+  background-color: green !important;
 }
 
 .correct-grammar-answer .custom-control-input:checked ~ .custom-control-label::before {
-  border-color: #28a745 !important;
+  border-color: green !important;
 }
 
 .correct-grammar-answer .custom-control-input:disabled ~ .custom-control-label {
@@ -3288,7 +3287,7 @@ table td {
 }
 
 .correct-grammar-answer .custom-control-input:checked ~ .custom-control-label {
-  color: #28a745;
+  color: green;
 }
 
 .correct-grammar-answer .correct-radio-icon {
@@ -3313,7 +3312,7 @@ table td {
 }
 
 .wrong-grammar-answer .grammar-answer-sheet-radio .custom-control-input:disabled ~ .custom-control-label.ccl-correct {
-  color: #28a745;
+  color: green;
 }
 
 .not-answer .grammar-questions-title {
@@ -3363,7 +3362,7 @@ label:not(.form-check-label):not(.custom-file-label):not(.ccl-correct) {
 }
 
 .mini-answer-sheet-table tbody tr.success-row:hover {
-  background-color: rgba(40, 167, 69, 0.2);
+  background-color: rgba(0, 128, 0, 0.2);
 }
 
 .mini-answer-sheet-table tbody tr.danger-row:hover {

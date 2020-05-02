@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Heading::class, function (Faker $faker) {
     return [
-        'exam_id' => 1,
+        'exam_id' => config('app.factory.exam.id'),
         'set_id' => 1,
         'paragraph' => $faker->paragraph(10, false),
         'heading_option_id' => 1

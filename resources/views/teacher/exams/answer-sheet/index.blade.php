@@ -93,7 +93,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('teacher.students.exams.answer-sheets.show', [encrypt($exam->id), encrypt($student->id)]) }}"
-                                       class="btn btn-primary btn-hover-effect btn-block">View</a>
+                                       class="btn btn-primary btn-hover-effect btn-block btn-sm"><i class="fas fa-eye mr-1"></i> View</a>
                                 </td>
                             </tr>
                         @endforeach

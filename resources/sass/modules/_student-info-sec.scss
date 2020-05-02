@@ -1,10 +1,10 @@
-@include media-breakpoint-up('md') {
-    .student-info-sec {
-        transform: scale(1.2);
-        background-color: white;
-    }
-    .student-question-sec {
-        transform: scale(1);
-        background-color: white;
+.top-section {
+    border-bottom: 3px solid $primary;
+}
+@include media-breakpoint-down(md) {
+    .student-count-marks-table-wrap {
+        overflow-x: scroll;
+        overflow-y: hidden;
     }
 }
+
