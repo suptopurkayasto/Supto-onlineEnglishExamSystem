@@ -18,7 +18,7 @@
                                          alt="">
                                 </div><!-- /. -->
                             @else
-                                <a target="_blank" href="https://en.gravatar.com/site/signup" title="Create Gravatar account for set your profile photo">
+                                <a target="_blank" href="https://wordpress.com/start/wpcc/oauth2-user?ref=oauth2&oauth2_redirect=https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D84fbe028b6d17dae37160d77ebf23df57686f8b42305c8151326ccf90f872a19%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&oauth2_client_id=1854" title="Create Gravatar account for set your profile photo">
                                     <img src="https://www.gravatar.com/avatar/42875a70a57aed53585c58e7b60ed26e.jpg?s=400&d=mm&r=g" class="img-thumbnail" alt="">
                                 </a>
                             @endif
