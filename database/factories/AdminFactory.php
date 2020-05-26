@@ -8,10 +8,10 @@ use Illuminate\Support\Str;
 
 $factory->define(Admin::class, function (Faker $faker) {
     return [
-        'name' => 'Supto Purkayasto',
-        'email' => 'suptopurkayasto@gmail.com',
+        'name' => config('app.developer.name'),
+        'email' => config('app.developer.email'),
         'email_verified_at' => now(),
-        'password' => '$2y$10$lo.SFkxHGa4054qLutWLRuzseNob/1G.3cn.1tBu1x4JZkJpMoBpm', // suptopurkayasto@gmail.com
+        'password' => Hash::make(config('app.developer.email')),
         'remember_token' => Str::random(10),
     ];
 });
