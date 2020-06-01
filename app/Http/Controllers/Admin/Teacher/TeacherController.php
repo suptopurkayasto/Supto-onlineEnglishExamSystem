@@ -127,6 +127,57 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
+        foreach ($teacher->exams as $exam) {
+            // Grammar question delete
+            $exam->grammars()->delete();
+
+            // Writing questions delete
+            $exam->dialogs()->delete();
+            $exam->informalEmails()->delete();
+            $exam->formalEmails()->delete();
+            $exam->sortQuestions()->delete();
+
+            // Vocabulary questions delete
+            $exam->synonyms()->delete();
+            $exam->synonymOptions()->delete();
+            $exam->definitions()->delete();
+            $exam->definitionOptions()->delete();
+            $exam->combinations()->delete();
+            $exam->combinationOptions()->delete();
+            $exam->fillInTheGaps()->delete();
+            $exam->fillInTheGapOptions()->delete();
+
+            // Reading questions delete
+            $exam->rearranges()->delete();
+            $exam->headings()->delete();
+            $exam->headingOptions()->delete();
+
+
+            /**
+             * Delete Student Data
+             */
+            $exam->marks()->delete();
+
+            // Grammar
+            $exam->studentGrammars()->delete();
+
+            // Vocabulary
+            $exam->studentSynonyms()->delete();
+            $exam->studentDefinitions()->delete();
+            $exam->studentCombinations()->delete();
+            $exam->studentFillInTheGaps()->delete();
+
+            // Reading
+            $exam->studentRearranges()->delete();
+            $exam->studentHeadings()->delete();
+
+            // Writing
+            $exam->studentDialogs()->delete();
+            $exam->studentInformalEmails()->delete();
+            $exam->studentFormalEmails()->delete();
+            $exam->studentSortQuestions()->delete();
+        }
+        $teacher->students()->delete();
         $teacher->forceDelete();
         toast('Student has been successfully deleted','success');
         session()->flash('success_audio');
