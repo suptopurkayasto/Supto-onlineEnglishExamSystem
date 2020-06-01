@@ -11,7 +11,7 @@ class Location extends Model
 
     public function teachers()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Teacher::class);
     }
 
     public function students()

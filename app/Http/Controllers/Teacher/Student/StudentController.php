@@ -137,8 +137,29 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        // Delete marks
+        /**
+         * Delete Student Data
+         */
         $student->marks()->delete();
+
+        // Grammar
+        $student->studentGrammars()->delete();
+
+        // Vocabulary
+        $student->studentSynonyms()->delete();
+        $student->studentDefinitions()->delete();
+        $student->studentCombinations()->delete();
+        $student->studentFillInTheGaps()->delete();
+
+        // Reading
+        $student->studentRearranges()->delete();
+        $student->studentHeadings()->delete();
+
+        // Writing
+        $student->studentDialogs()->delete();
+        $student->studentInformalEmails()->delete();
+        $student->studentFormalEmails()->delete();
+        $student->studentSortQuestions()->delete();
 
         $student->forceDelete();
         toast('Student has been successfully deleted','success');

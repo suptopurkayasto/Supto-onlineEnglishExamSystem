@@ -151,36 +151,55 @@ class ExamController extends Controller
      */
     public function destroy(Exam $exam)
     {
-        // Delete grammar question by exam
-        $exam->grammars()->forceDelete();
+        // Grammar question delete
+        $exam->grammars()->delete();
 
-        // Delete writing question by exam
-        $exam->dialogs()->forceDelete();
-        $exam->informalEmails()->forceDelete();
-        $exam->formalEmails()->forceDelete();
-        $exam->sortQuestions()->forceDelete();
+        // Writing questions delete
+        $exam->dialogs()->delete();
+        $exam->informalEmails()->delete();
+        $exam->formalEmails()->delete();
+        $exam->sortQuestions()->delete();
 
-        // Delete Vocabulary question by exam
-        $exam->synonyms()->forceDelete();
-        $exam->synonymOptions()->forceDelete();
+        // Vocabulary questions delete
+        $exam->synonyms()->delete();
+        $exam->synonymOptions()->delete();
+        $exam->definitions()->delete();
+        $exam->definitionOptions()->delete();
+        $exam->combinations()->delete();
+        $exam->combinationOptions()->delete();
+        $exam->fillInTheGaps()->delete();
+        $exam->fillInTheGapOptions()->delete();
 
-        $exam->definitions()->forceDelete();
-        $exam->definitionOptions()->forceDelete();
+        // Reading questions delete
+        $exam->rearranges()->delete();
+        $exam->headings()->delete();
+        $exam->headingOptions()->delete();
 
-        $exam->combinations()->forceDelete();
-        $exam->combinationOptions()->forceDelete();
 
-        $exam->fillInTheGaps()->forceDelete();
-        $exam->fillInTheGapOptions()->forceDelete();
 
-        // Delete reading question by exam
-        $exam->headings()->forceDelete();
-        $exam->headingOptions()->forceDelete();
+        /**
+         * Delete Student Data
+         */
+        $exam->marks()->delete();
 
-        $exam->rearranges()->forceDelete();
+        // Grammar
+        $exam->studentGrammars()->delete();
 
-        // Delete marks by exam
-        $exam->marks()->forceDelete();
+        // Vocabulary
+        $exam->studentSynonyms()->delete();
+        $exam->studentDefinitions()->delete();
+        $exam->studentCombinations()->delete();
+        $exam->studentFillInTheGaps()->delete();
+
+        // Reading
+        $exam->studentRearranges()->delete();
+        $exam->studentHeadings()->delete();
+
+        // Writing
+        $exam->studentDialogs()->delete();
+        $exam->studentInformalEmails()->delete();
+        $exam->studentFormalEmails()->delete();
+        $exam->studentSortQuestions()->delete();
 
         $exam->forceDelete();
         toast('Exam has been successfully deleted','success');

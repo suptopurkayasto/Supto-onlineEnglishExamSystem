@@ -111,21 +111,68 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
-        // Trash Teacher, That belongs to location
-        foreach (Teacher::all() as $teacher) {
-            if ($location->id === $teacher->location->id) {
-                $teacher->delete();
+        // Delete Teacher, That belongs to location
+
+
+        foreach ($location->teachers as $teacher) {
+            foreach ($teacher->exams as $exam) {
+                // Grammar question delete
+                $exam->grammars()->delete();
+
+                // Writing questions delete
+                $exam->dialogs()->delete();
+                $exam->informalEmails()->delete();
+                $exam->formalEmails()->delete();
+                $exam->sortQuestions()->delete();
+
+                // Vocabulary questions delete
+                $exam->synonyms()->delete();
+                $exam->synonymOptions()->delete();
+                $exam->definitions()->delete();
+                $exam->definitionOptions()->delete();
+                $exam->combinations()->delete();
+                $exam->combinationOptions()->delete();
+                $exam->fillInTheGaps()->delete();
+                $exam->fillInTheGapOptions()->delete();
+
+                // Reading questions delete
+                $exam->rearranges()->delete();
+                $exam->headings()->delete();
+                $exam->headingOptions()->delete();
+
+
+                /**
+                 * Delete Student Data
+                 */
+                $exam->marks()->delete();
+
+                // Grammar
+                $exam->studentGrammars()->delete();
+
+                // Vocabulary
+                $exam->studentSynonyms()->delete();
+                $exam->studentDefinitions()->delete();
+                $exam->studentCombinations()->delete();
+                $exam->studentFillInTheGaps()->delete();
+
+                // Reading
+                $exam->studentRearranges()->delete();
+                $exam->studentHeadings()->delete();
+
+                // Writing
+                $exam->studentDialogs()->delete();
+                $exam->studentInformalEmails()->delete();
+                $exam->studentFormalEmails()->delete();
+                $exam->studentSortQuestions()->delete();
             }
-        }
-        // Trash Students, That belongs to location
-        foreach (Student::all() as $student) {
-            if ($location->id === $student->location->id) {
-                $student->delete();
-            }
+            $teacher->exams()->delete();
+            $teacher->students()->delete();
         }
 
+        $location->teachers()->delete();
+
         $location->delete();
-        toast('Location has been successfully trashed','success');
+        toast('Location has been successfully deleted','success');
         session()->flash('success_audio');
         return redirect()->route('admin.locations.index');
     }
