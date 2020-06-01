@@ -46,7 +46,7 @@
                                            {{ $grammarMarksTotal }}
                                         </span>
                                     @else
-                                        <span class="badge badge-secondary">Pending</span>
+                                        <span class="badge badge-pill badge-secondary">Pending</span>
                                     @endif
                                 </td>
                                 <td>
@@ -60,7 +60,7 @@
                                            {{ $vocabularyMarksTotal }}
                                         </span>
                                     @else
-                                        <span class="badge badge-secondary">Pending</span>
+                                        <span class="badge badge-pill badge-secondary">Pending</span>
                                     @endif
                                 </td>
                                 <td>
@@ -74,7 +74,7 @@
                                            {{ $readingMarksTotal }}
                                         </span>
                                     @else
-                                        <span class="badge badge-secondary">Pending</span>
+                                        <span class="badge badge-pill badge-secondary">Pending</span>
                                     @endif
                                 </td>
                                 <td>
@@ -88,7 +88,7 @@
                                            {{ $writingMarksTotal }}
                                         </span>
                                     @else
-                                        <span class="badge badge-secondary">Pending</span>
+                                        <span class="badge badge-pill badge-secondary">Pending</span>
                                     @endif
                                 </td>
                                 <td>

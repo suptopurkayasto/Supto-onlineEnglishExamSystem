@@ -107,7 +107,7 @@
                 @else
                     <div class="text-center my-5">
                         <h4 class="h4">Grammar</h4>
-                        <span class="badge badge-secondary">Pending</span>
+                        <span class="badge badge-pill badge-secondary">Pending</span>
                     </div><!-- /. -->
                 @endif
 
@@ -132,7 +132,7 @@
                     @if($marks->synonym !== NULL)
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
-                                Synonym <span class="badge badge-success">{{ $marks->synonym }}</span></h5>
+                                Synonym <span class="badge badge-pill badge-success">{{ $marks->synonym }}</span></h5>
                             <table
                                 class="table mini-answer-sheet-table table-hover table-borderless">
                                 <thead
@@ -154,7 +154,7 @@
                                             @if(isset($studentSynonym->answer))
                                                 {{ $studentSynonym->answer }}
                                             @else
-                                                <span class="badge badge-secondary">Not touched</span>
+                                                <span class="badge badge-pill badge-secondary">Not touched</span>
                                             @endif
                                         </td>
                                         <td class="text-right"><span
@@ -168,7 +168,7 @@
                     @else
                         <div class="col-12 col-md-6 text-center my-5">
                             <h4 class="h4">Synonym</h4>
-                            <span class="badge badge-secondary">Pending</span>
+                            <span class="badge badge-pill badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6  -->
                     @endif
                 <!-- End: Synonym -->
@@ -178,7 +178,7 @@
                     @if($marks->definition !== NULL)
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
-                                Definition <span class="badge badge-success">{{ $marks->definition }}</span></h5>
+                                Definition <span class="badge badge-pill badge-success">{{ $marks->definition }}</span></h5>
                             <table
                                 class="table mini-answer-sheet-table table-hover table-borderless">
                                 <thead
@@ -200,7 +200,7 @@
                                             @if(isset($studentDefinition->answer))
                                                 {{ $studentDefinition->answer }}
                                             @else
-                                                <span class="badge badge-secondary">Not touched</span>
+                                                <span class="badge badge-pill badge-secondary">Not touched</span>
                                             @endif
                                         </td>
                                         <td class="text-right">
@@ -215,7 +215,7 @@
                     @else
                         <div class="col-12 col-md-6 text-center my-5">
                             <h4 class="h4">Definition</h4>
-                            <span class="badge badge-secondary">Pending</span>
+                            <span class="badge badge-pill badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6  -->
                     @endif
                 <!-- End: definition -->
@@ -224,7 +224,7 @@
                     @if($marks->fillInTheGap !== NULL)
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
-                                Fill in the gap <span class="badge badge-success">{{ $marks->fillInTheGap }}</span>
+                                Fill in the gap <span class="badge badge-pill badge-success">{{ $marks->fillInTheGap }}</span>
                             </h5>
                             <table
                                 class="table mini-answer-sheet-table table-hover table-borderless">
@@ -247,7 +247,7 @@
                                             @if(isset($studentFillInTheGap->answer))
                                                 {{ $studentFillInTheGap->answer }}
                                             @else
-                                                <span class="badge badge-secondary">Not touched</span>
+                                                <span class="badge badge-pill badge-secondary">Not touched</span>
                                             @endif
                                         </td>
                                         <td class="text-right">
@@ -262,7 +262,7 @@
                     @else
                         <div class="col-12 col-md-6 text-center my-5">
                             <h4 class="h4">Fill in the gap</h4>
-                            <span class="badge badge-secondary">Pending</span>
+                            <span class="badge badge-pill badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6  -->
                     @endif
                 <!-- End: fill in the gap -->
@@ -272,7 +272,7 @@
                     @if($marks->combination !== NULL)
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
-                                Combination <span class="badge badge-success">{{ $marks->combination }}</span></h5>
+                                Combination <span class="badge badge-pill badge-success">{{ $marks->combination }}</span></h5>
                             <table
                                 class="table mini-answer-sheet-table table-hover table-borderless">
                                 <thead
@@ -294,7 +294,7 @@
                                             @if(isset($studentCombination->answer))
                                                 {{ $studentCombination->answer }}
                                             @else
-                                                <span class="badge badge-secondary">Not touched</span>
+                                                <span class="badge badge-pill badge-secondary">Not touched</span>
                                             @endif
                                         </td>
                                         <td class="text-right">
@@ -309,7 +309,7 @@
                     @else
                         <div class="col-12 col-md-6 text-center my-5">
                             <h4 class="h4">Combination</h4>
-                            <span class="badge badge-secondary">Pending</span>
+                            <span class="badge badge-pill badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6  -->
                 @endif
                 <!-- End: combination -->
@@ -335,7 +335,7 @@
                     @if($marks->heading !== NULL)
                         <div class="col-12 col-md-7">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">Heading
-                                Matching <span class="badge badge-success">{{ $marks->heading }}</span></h5>
+                                Matching <span class="badge badge-pill badge-success">{{ $marks->heading }}</span></h5>
                             <table
                                 class="table mini-answer-sheet-table table-hover table-borderless">
                                 <thead
@@ -358,7 +358,7 @@
                                                 <div
                                                     title="{{ $studentHeading->headingOption->headings }}">{{ Str::limit($studentHeading->headingOption->headings, 40) }}</div>
                                             @else
-                                                <span class="badge badge-secondary">Not touched</span>
+                                                <span class="badge badge-pill badge-secondary">Not touched</span>
                                             @endif
                                         </td>
                                         <td class="text-right" title="{{ $heading->answer->headings }}">
@@ -373,7 +373,7 @@
                     @else
                         <div class="col-12 col-md-6 text-center my-5">
                             <h4 class="h4">Heading Matching</h4>
-                            <span class="badge badge-secondary">Pending</span>
+                            <span class="badge badge-pill badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6  -->
                     @endif
                 <!-- End: heading -->
@@ -383,7 +383,7 @@
                     @if($marks->rearrange !== NULL)
                         <div class="col-12 col-md-5">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
-                                Rearrange <span class="badge badge-success">{{ $marks->rearrange }}</span></h5>
+                                Rearrange <span class="badge badge-pill badge-success">{{ $marks->rearrange }}</span></h5>
 
                             @if($marks->rearrange !== NULL)
                                 <table
@@ -478,14 +478,14 @@
                                 </table>
                             @else
                                 <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                                    <span class="badge badge-warning">Pending</span>
+                                    <span class="badge badge-pill badge-warning">Pending</span>
                                 </div>
                             @endif
                         </div><!-- /.col-12 col-md-5 -->
                     @else
                         <div class="col-12 col-md-6 text-center my-5">
                             <h4 class="h4">Rearrange</h4>
-                            <span class="badge badge-secondary">Pending</span>
+                            <span class="badge badge-pill badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6  -->
                 @endif
                 <!-- End: rearrange -->
@@ -513,7 +513,7 @@
                     @if($marks->dialog !== NULL)
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
-                                Dialog <span class="badge badge-success">{{ $marks->dialog }}</span>
+                                Dialog <span class="badge badge-pill badge-success">{{ $marks->dialog }}</span>
                                 <button data-toggle="modal" data-target="#dialogModal"
                                         class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
 
@@ -537,7 +537,7 @@
                                             <div
                                                 title="{{ $studentDialog->answer_1 }}">{{ Str::limit($studentDialog->answer_1, 50) }}</div>
                                         @else
-                                            <span class="badge badge-secondary">Not touched</span>
+                                            <span class="badge badge-pill badge-secondary">Not touched</span>
                                         @endif
                                     </td>
                                 </tr>
@@ -549,7 +549,7 @@
                                             <div
                                                 title="{{ $studentDialog->answer_2 }}">{{ Str::limit($studentDialog->answer_2, 50) }}</div>
                                         @else
-                                            <span class="badge badge-secondary">Not touched</span>
+                                            <span class="badge badge-pill badge-secondary">Not touched</span>
                                         @endif
                                     </td>
                                 </tr>
@@ -561,7 +561,7 @@
                                             <div
                                                 title="{{ $studentDialog->answer_3 }}">{{ Str::limit($studentDialog->answer_3, 50) }}</div>
                                         @else
-                                            <span class="badge badge-secondary">Not touched</span>
+                                            <span class="badge badge-pill badge-secondary">Not touched</span>
                                         @endif
                                     </td>
                                 </tr>
@@ -668,7 +668,7 @@
                     @else
                         <div class="col-12 col-md-6 text-center my-5">
                             <h4 class="h4">Dialog</h4>
-                            <span class="badge badge-secondary">Pending</span>
+                            <span class="badge badge-pill badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6 -->
                     @endif
                 <!-- End: dialog -->
@@ -678,7 +678,7 @@
                     @if($marks->informalEmail !== NULL)
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
-                                Informal Email <span class="badge badge-success">{{ $marks->informalEmail }}</span>
+                                Informal Email <span class="badge badge-pill badge-success">{{ $marks->informalEmail }}</span>
                                 <button data-toggle="modal" data-target="#informalEmailModal"
                                         class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
                             </h5>
@@ -702,7 +702,7 @@
                                                     {{ Str::limit($studentInformalEmail->subject, 60) }}
                                                 </p>
                                             @else
-                                                <span class="badge badge-secondary float-right">Not touched</span>
+                                                <span class="badge badge-pill badge-secondary float-right">Not touched</span>
                                             @endif
                                         </div>
                                     </td>
@@ -718,7 +718,7 @@
                                                     {{ Str::limit($studentInformalEmail->body, 150) }}
                                                 </p>
                                             @else
-                                                <span class="badge badge-secondary float-right">Not touched</span>
+                                                <span class="badge badge-pill badge-secondary float-right">Not touched</span>
                                             @endif
                                         </div>
                                     </td>
@@ -807,7 +807,7 @@
                     @else
                         <div class="col-12 col-md-6 text-center my-5">
                             <h4 class="h4">Informal Email</h4>
-                            <span class="badge badge-secondary">Pending</span>
+                            <span class="badge badge-pill badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6 -->
                     @endif
 
@@ -817,7 +817,7 @@
                     @if($marks->formalEmail !== NULL)
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
-                                Formal Email <span class="badge badge-success">{{ $marks->formalEmail }}</span>
+                                Formal Email <span class="badge badge-pill badge-success">{{ $marks->formalEmail }}</span>
                                 <button data-toggle="modal" data-target="#formalEmailModal"
                                         class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
                             </h5>
@@ -852,7 +852,7 @@
                                                     {{ Str::limit($studentFormalEmail->subject, 60) }}
                                                 </p>
                                             @else
-                                                <span class="badge badge-secondary float-right">Not touched</span>
+                                                <span class="badge badge-pill badge-secondary float-right">Not touched</span>
                                             @endif
                                         </div>
                                     </td>
@@ -868,7 +868,7 @@
                                                     {{ Str::limit($studentFormalEmail->body, 150) }}
                                                 </p>
                                             @else
-                                                <span class="badge badge-secondary float-right">Not touched</span>
+                                                <span class="badge badge-pill badge-secondary float-right">Not touched</span>
                                             @endif
                                         </div>
                                     </td>
@@ -961,7 +961,7 @@
                     @else
                         <div class="col-12 col-md-6 text-center my-5">
                             <h4 class="h4">Formal Email</h4>
-                            <span class="badge badge-secondary">Pending</span>
+                            <span class="badge badge-pill badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6 -->
                     @endif
                 <!-- End: formal email -->
@@ -970,7 +970,7 @@
                     @if($marks->sortQuestion !== NULL)
                         <div class="col-12 col-md-6">
                             <h5 class="h5 p-3 font-weight-bold mb-0 text-center shadow-sm mb-1">
-                                Sort questions <span class="badge badge-success">{{ $marks->sortQuestion }}</span>
+                                Sort questions <span class="badge badge-pill badge-success">{{ $marks->sortQuestion }}</span>
                                 <button data-toggle="modal" data-target="#sortQuestionModal"
                                         class="btn btn-sm btn-success float-right"><i class="fas fa-eye"></i></button>
                             </h5>
@@ -990,7 +990,7 @@
                                             @if($studentSortQuestion->answer !== NULL)
                                                 {{ Str::limit($studentSortQuestion->answer, 50) }}
                                             @else
-                                                <span class="badge badge-secondary float-right">Not touched</span>
+                                                <span class="badge badge-pill badge-secondary float-right">Not touched</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -1061,7 +1061,7 @@
                     @else
                         <div class="col-12 col-md-6 text-center my-5">
                             <h4 class="h4">Sort Question</h4>
-                            <span class="badge badge-secondary">Pending</span>
+                            <span class="badge badge-pill badge-secondary">Pending</span>
                         </div><!-- /.col-12 col-md-6 -->
                 @endif
                 <!-- End: sort question -->
