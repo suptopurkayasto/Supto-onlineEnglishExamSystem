@@ -7,14 +7,15 @@
     <div class="row justify-content-center">
         <div class="col-12 col-sm-8 col-md-6">
             <div class="card shadow">
-                <div class="card-header">
-                    <h3 class="card-title">Show teacher</h3>
+                <img class="card-img-top img-thumbnail border-0" src="{{ Gravatar::get($teacher->email, ['size' => 1080]) }}" alt="{{ $teacher->name }}" title="{{ $teacher->name }}">
+                <div class="card-header text-center">
+                    <h3 class="h3 font-weight-bolder mb-0">{{ $teacher->name }}</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-12 col-md-2">
-                            <label for="group">Location</label>
+                            <label for="location">Location</label>
                         </div><!-- /.col-12 col-md-2 -->
                         <div class="col-12 col-md-10">
                             <select name="location" id="location"
